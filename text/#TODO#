@@ -1,0 +1,60 @@
+
+
+Add a "Output On/Off" so that generation can be toggled inside a
+   script. Gotta be careful in doing this so that key info is skipped,
+   voice/control info is sent and the proper offsets are maintained.
+
+Add ORNAMENT options to solo/melody riffs. Most likely this would be
+   an option in <>s to add things like grace notes. We could,
+   probably, use the existing ornament code for this and send it one
+   event at a time.
+
+Would be nice to have a keyword thing which would let the user switch
+ between patterns based on timing. Eg. if we have grooves  for
+   1-to-the-bar, 2-to-the-bar and 4-to-the-bar "feels" we should be
+   able to signal a "feel" switch. So, pehaps something like this
+   might work:
+
+   1. Set a key, say "4 to the bar feel".
+   2. Create some grooves (Foo, FooSus, FooPlus). These all now are
+      internally named Foo4-to-the-bar, FooSus4-to-the-bar, etc.
+   3. Set key to "2 to the bar feel".
+   4. Create more gooves ... no idea how naming conflicts work here
+
+ Now, in the song, we set our groove to FooSus. Toggling the "feel
+   key" will toggle between the gooves FooSus4, FooSus2, etc.
+
+ Biggest problem with all this is coming up with a naming scheme which
+   doesn't bugger existing stuff.
+
+Add a multi-line allgroove command ... using begin/end is slow.
+
+Add FF 02 copyright message option
+
+Enhance the html groove docs to <play> a sample for a clicked groove.
+
+It might be useful to have a "if file exists" test. Useful for
+   conditional includes and things like that. Deciding what path to
+   use might be a problem (current path, groove library, include)???
+
+The -b/-B options do NOT work if the section includes any BEATADJUST
+   commands.
+
+Add a midi channel volume tracker and setter. This would permit
+   midi-(de)cresc from a known (by mma) value. It's be nice, as well,
+   to have an option to switch between MMA volumes and MIDI volumes.
+
+To add to the MIDI volume, we would need a "do at the start of a
+   track" command. This could be useful by doing something (like
+   setting a MIDI volume) when a track is created. That's be needed to
+   properly track volume changes.
+
+Add Nashville chord notation in addition to roman.
+
+There is a bug in the Optimal Voicing code which makes the Centering
+   option useless.
+
+To my ear it appears that that when using the -b command line option
+   the last bar is truncated. I need to examine the result and the
+   code. Might be a one-off problem.
+

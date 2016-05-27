@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Harmony</TITLE>
+<META NAME="description" CONTENT="Harmony">
+<META NAME="keywords" CONTENT="mma">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node16.html">
+<LINK REL="previous" HREF="node14.html">
+<LINK REL="up" HREF="mma.html">
+<LINK REL="next" HREF="node16.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html689"
+  HREF="node16.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html687"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html681"
+  HREF="node14.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html690"
+  HREF="node16.html">Ornament</A>
+<B> Up:</B> <A NAME="tex2html688"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html682"
+  HREF="node14.html">Chord Voicing</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html691"
+  HREF="node15.html#SECTION001510000000000000000">Harmony</A>
+<LI><A NAME="tex2html692"
+  HREF="node15.html#SECTION001520000000000000000">HarmonyOnly</A>
+<LI><A NAME="tex2html693"
+  HREF="node15.html#SECTION001530000000000000000">HarmonyVolume</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION001500000000000000000"></A>
+<A NAME="sec-harmony"></A>
+<BR>
+Harmony
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  can generate harmony notes for you ... just like hitting two
+or more keys on the piano! And you don't have to take lessons.
+
+<P>
+Automatic harmonies are available for the following track types: Bass,
+Walk, Arpeggio, Scale, Solo and Melody.
+
+<P>
+Just in case you are thinking that 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is a wonderful musical
+creator when it comes to harmonies, don't be fooled. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's ideas of
+harmony are quite facile. It determines harmony notes by finding a
+note lower or higher than the current note being sounded within the
+current chord. And its notion of ``open'' is certainly not that of
+traditional music theory. But, the sound isn't too bad.
+
+<P>
+
+<H1><A NAME="SECTION001510000000000000000"></A> <A NAME="harmony"></A>
+<BR>
+Harmony
+</H1> 
+
+<P>
+To enable harmony notes, use a command like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Solo Harmony 2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can set a different harmony method for each bar in your sequence.
+
+<P>
+The following are valid harmony methods:
+
+<P>
+<DL COMPACT>
+<DT></DT>
+<DD><DL>
+<DT><STRONG>2 or 2Below</STRONG></DT>
+<DD>Two part harmony. The harmony note
+    selected is lower (on the scale).
+
+<P>
+</DD>
+<DT><STRONG>28Below</STRONG></DT>
+<DD>Two part harmony, the harmony note is lowered by an
+    additional octave.
+
+<P>
+</DD>
+<DT><STRONG>2Above</STRONG></DT>
+<DD>The same as ``2'', but the harmony note is raised an
+    octave.
+
+<P>
+</DD>
+<DT><STRONG>28Above</STRONG></DT>
+<DD>The same as ``2Above'', but the harmony note is raised by
+    two octaves.
+
+<P>
+</DD>
+<DT><STRONG>3 or 3Below</STRONG></DT>
+<DD>Three part harmony. The harmony notes
+    selected are lower.
+
+<P>
+</DD>
+<DT><STRONG>3Above</STRONG></DT>
+<DD>The same as ``3'', but both notes are raised an
+    octave.
+
+<P>
+</DD>
+<DT><STRONG>38Above</STRONG></DT>
+<DD>Same as ``3'', but the two harmony notes are raised
+    by two octaves.
+
+<P>
+</DD>
+<DT><STRONG>38Below</STRONG></DT>
+<DD>Same as ``3'', but the two harmomy notes are lowered
+    by two octaves.
+
+<P>
+</DD>
+<DT><STRONG>Open or OpenBelow</STRONG></DT>
+<DD>Two part harmony, however the gap
+    between the two notes is larger than in ``2''.
+
+<P>
+</DD>
+<DT><STRONG>Open8Below</STRONG></DT>
+<DD>Same as ``OpenBelow'', but the harmony note is lowered by
+    an additional octave.
+
+<P>
+</DD>
+<DT><STRONG>OpenAbove</STRONG></DT>
+<DD>Same as ``Open'', but the added note is above the
+    original.
+
+<P>
+</DD>
+<DT><STRONG>Open8Above</STRONG></DT>
+<DD>Same as ``OpenAbove'', but the added note is
+    raised by an additional octave.
+
+<P>
+</DD>
+<DT><STRONG>8 or 8Below</STRONG></DT>
+<DD>A note 1 octave lower is added.
+
+<P>
+</DD>
+<DT><STRONG>8Above</STRONG></DT>
+<DD>A note 2 octave higher is added.
+
+<P>
+</DD>
+<DT><STRONG>16 or 16Below</STRONG></DT>
+<DD>A single note two octaves below is
+    added.
+
+<P>
+</DD>
+<DT><STRONG>16Above</STRONG></DT>
+<DD>A single note two octaves above are added.
+
+<P>
+</DD>
+<DT><STRONG>24 or 24Below</STRONG></DT>
+<DD>A single note three octaves below is
+    added.
+
+<P>
+</DD>
+<DT><STRONG>24Above</STRONG></DT>
+<DD>A single note three octaves above is added.
+
+<P>
+</DD>
+</DL>
+</DD>
+</DL>
+
+<P>
+You can combine any of the above harmony modes by using a ``+''. For
+example:
+
+<P>
+<DL COMPACT>
+<DT></DT>
+<DD><DL>
+<DT><STRONG>OPEN+8Below</STRONG></DT>
+<DD>will produce harmony notes with an ``Open''
+    harmony and a note an octave below the current note.
+
+<P>
+</DD>
+<DT><STRONG>3Above+16</STRONG></DT>
+<DD>will generate 2 harmony notes above the current
+    note plus a note 2 octaves below.
+
+<P>
+</DD>
+<DT><STRONG>8Below+8Above+16Below</STRONG></DT>
+<DD>will generate 3 notes: one 2 octaves
+    below the current, one an octave below, and one an octave above.
+
+<P>
+</DD>
+</DL>
+</DD>
+</DL>
+
+<P>
+There is no limit to the number of modes you can concatenate. Any
+duplicate notes generated will be ignored.
+
+<P>
+All harmonies are created using the current chord.
+
+<P>
+To disable harmony use a ``0'', ``-'' or ``None''.
+
+<P>
+Be careful in using harmonies. They can make your song sound heavy,
+especially with B<SMALL>ASS</SMALL> notes (applying a different volume may
+help).
+
+<P>
+The command has no effect in D<SMALL>RUM</SMALL> or C<SMALL>HORD</SMALL> tracks.
+
+<P>
+
+<H1><A NAME="SECTION001520000000000000000"></A> <A NAME="harmonyonly"></A>
+<BR>
+HarmonyOnly
+</H1> 
+
+<P>
+As a added feature to the automatic harmony generation discussed in
+the previous section, it is possible to set a track so that it
+<SPAN  CLASS="textit">only</SPAN> plays the harmony notes. For example, you might want to
+set up two arpeggio tracks with one playing quarter notes on a piano
+and a harmony track playing half notes on a violin. The following
+snippet is extracted from the song file ``Cry Me A River'' and sets up
+2 different choir voices:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Arpeggio 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence A4 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice ChoirAahs  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Invert 0 1  2 3 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;SeqRnd 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Octave 5 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;RSkip 40 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Volume p 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Articulate 99 
+<BR>
+End 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<BR>
+Begin Arpeggio-2 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence A4 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice VoiceOohs 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Octave 5 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;RSkip 40 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Volume p 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Articulate 99 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;HarmonyOnly Open 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Just like the H<SMALL>ARMONY</SMALL> command, above, you can have different
+settings for each bar in your sequence. Setting a bar (or the entire
+sequence) to ``-'', ``None'' or ``0'' disables the H<SMALL>ARMONY</SMALL>O<SMALL>NLY</SMALL> settings.
+
+<P>
+The command has no effect in D<SMALL>RUM</SMALL> or C<SMALL>HORD</SMALL> tracks.
+
+<P>
+If you want to use this feature with S<SMALL>OLO</SMALL> or M<SMALL>ELODY</SMALL>
+tracks you can duplicate the notes in your R<SMALL>IFF</SMALL> or in-line
+notation <SPAN  CLASS="textit">or</SPAN> with the <A HREF="node10.html#autosolotracks">A<SMALL>UTO</SMALL>H<SMALL>ARMONY</SMALL>T<SMALL>RACKS
+    COMMAND</SMALL></A>.
+
+<P>
+
+<H1><A NAME="SECTION001530000000000000000"></A> <A NAME="harmonyvolume"></A>
+<BR>
+HarmonyVolume
+</H1> 
+
+<P>
+By default, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will use a volume (velocity) of 80% of that used by
+the original note for all harmony notes it generates. You can change
+this with the the H<SMALL>ARMONY</SMALL>V<SMALL>OLUME</SMALL> command. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Solo 
+<BR>&nbsp;&nbsp;Voice JazzGuitar 
+<BR>&nbsp;&nbsp;Harmony Open 
+<BR>&nbsp;&nbsp;HarmonyVolume 80 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can specify different values for each bar in the sequence. The
+values are percentages and must be greater than 0 (large values work
+just fine if you want the harmony louder than the original).  The
+command has no effect in D<SMALL>RUM</SMALL> or P<SMALL>LECTRUM</SMALL> tracks.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html689"
+  HREF="node16.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html687"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html681"
+  HREF="node14.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html690"
+  HREF="node16.html">Ornament</A>
+<B> Up:</B> <A NAME="tex2html688"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html682"
+  HREF="node14.html">Chord Voicing</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2015-12-15
+</ADDRESS>
+</BODY>
+</HTML>

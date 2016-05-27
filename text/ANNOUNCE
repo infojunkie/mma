@@ -1,0 +1,27 @@
+
+A stable release, version 15.12, of MMA--Musical MIDI Accompaniment
+is available for downloading. In addition to a number of bug fixes
+and optimizations, MMA now features:
+
+ - Works with Python 2.7 or 3.x
+ - Lots of minor bug fixes
+ - Added RPITCH for random "mistakes"
+ - Added SUBROUTINES
+ - Added FretNoise option for Plectrum tracks
+ - Much better keysignature handling
+ - A "whole wack" of library files which were missing are now in the distro
+ - Other minor enhancements
+
+Please read the file text/CHANGES-15 for a complete list of changes.
+  
+MMA is a accompaniment generator -- it creates midi tracks
+for a soloist to perform with. User supplied files contain
+pattern selections, chords, and MMA directives. For full details
+please visit:
+
+   http://www.mellowood.ca/mma/
+
+If you have any questions or comments, please send
+them to: bob@mellowood.ca
+
+

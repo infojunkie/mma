@@ -1,0 +1,1158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Grooves</TITLE>
+<META NAME="description" CONTENT="Grooves">
+<META NAME="keywords" CONTENT="mma">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="mma.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html537"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html535"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html529"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html538"
+  HREF="node7.html">Riffs</A>
+<B> Up:</B> <A NAME="tex2html536"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html530"
+  HREF="node5.html">Sequences</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html539"
+  HREF="node6.html#SECTION00610000000000000000">Creating A Groove</A>
+<LI><A NAME="tex2html540"
+  HREF="node6.html#SECTION00620000000000000000">Using A Groove</A>
+<UL>
+<LI><A NAME="tex2html541"
+  HREF="node6.html#SECTION00621000000000000000">Extended Groove Notation</A>
+<LI><A NAME="tex2html542"
+  HREF="node6.html#SECTION00622000000000000000">Overlay Grooves</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html543"
+  HREF="node6.html#SECTION00630000000000000000">Groove Aliases</A>
+<LI><A NAME="tex2html544"
+  HREF="node6.html#SECTION00640000000000000000">AllGrooves</A>
+<LI><A NAME="tex2html545"
+  HREF="node6.html#SECTION00650000000000000000">Deleting Grooves</A>
+<LI><A NAME="tex2html546"
+  HREF="node6.html#SECTION00660000000000000000">Sticky</A>
+<LI><A NAME="tex2html547"
+  HREF="node6.html#SECTION00670000000000000000">Library Issues</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00600000000000000000"></A>
+<A NAME="sec-grooves"></A>
+<BR>
+Grooves
+</H1>
+
+<P>
+Grooves, in some ways, are 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's answer to macros ... but they
+are cooler, easier to use, and have a more musical name.
+
+<P>
+Really, though, a groove is just a simple mechanism for saving and
+restoring a set of patterns and sequences. Using grooves it is easy to
+create sequence libraries which can be incorporated into your songs
+with a single command.
+
+<P>
+
+<H1><A NAME="SECTION00610000000000000000">
+Creating A Groove</A>
+</H1>
+
+<P>
+A groove can be created at anytime in an input file with the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefGroove SlowRhumba  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Optionally, you can include a documentation string to the end of this
+command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefGroove SlowRumba A descriptive comment!  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A groove name can include any character, including digits and
+punctuation. However, it cannot include a space character (used as a
+delimiter), a colon ``:'' or a '/'<A NAME="tex2html35"
+  HREF="#foot2918"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>.
+
+<P>
+In normal operation the documentation strings are ignored. However,
+when 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is run with the -Dx command line option these strings are
+printed to the terminal screen in <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> format. The standard library
+document is generated from this data. The comments <SPAN  CLASS="textit">must</SPAN> be
+suitable for <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN>: this means that special symbols like ``#'',
+``&amp;'', etc. must be ``quoted'' with a preceding `` \''.
+
+<P>
+At this point the following information is saved:
+
+<P>
+
+<UL>
+<LI>Current Sequence size,
+</LI>
+<LI>The current sequence for each track,
+</LI>
+<LI>Time setting (quarter notes per bar),
+</LI>
+<LI>``Accent'',
+</LI>
+<LI>``Articulation'' settings for each track,
+</LI>
+<LI>``Compress'',
+</LI>
+<LI>``Direction'',
+</LI>
+<LI>``DupRoot'',
+</LI>
+<LI>``Harmony'',
+</LI>
+<LI>``HarmonyOnly'',
+</LI>
+<LI>``HarmonyVolume'',
+</LI>
+<LI>``Invert'',
+</LI>
+<LI>``Limit'',
+</LI>
+<LI>``Mallet'' (rate and decay),
+</LI>
+<LI>``MidiSeq'',
+</LI>
+<LI>``MidiVoice'',
+</LI>
+<LI>``MidiClear''
+</LI>
+<LI>``NoteSpan'',
+</LI>
+<LI>``Octave'',
+</LI>
+<LI>``Range'',
+</LI>
+<LI>``RSkip'',
+</LI>
+<LI>``Rtime'',
+</LI>
+<LI>``RDuration'',
+</LI>
+<LI>``Rvolume'',
+</LI>
+<LI>``Scale'',
+</LI>
+<LI>``SeqRnd'', globally and for each track,
+</LI>
+<LI>``SeqRndWeight'', globally and for each track,
+</LI>
+<LI>``Strum'',
+</LI>
+<LI>``SwingMode'' Status and Skew,
+</LI>
+<LI>``Time Signature'',
+</LI>
+<LI>``Tone'' for drum tracks,
+</LI>
+<LI>``Unify'',
+</LI>
+<LI>``Voice'',
+</LI>
+<LI>``VoicingCenter'',
+</LI>
+<LI>``VoicingMode'',
+</LI>
+<LI>``VoicingMove'',
+</LI>
+<LI>``VoicingRange'',
+</LI>
+<LI>``Volume'' for tracks and master,
+</LI>
+<LI>``VolumeRatio''.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION00620000000000000000">
+Using A Groove</A>
+</H1>
+
+<P>
+You can restore a previously defined groove at anytime in your song
+with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Name  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+At this point all of the previously saved information is restored.
+
+<P>
+A few cautions:
+
+<P>
+
+<UL>
+<LI>Pattern definitions are <SPAN  CLASS="textit">not</SPAN> saved in grooves. Redefining
+  a pattern results in a new pattern definition. Sequences use the
+  pattern definition in effect when the sequence is declared. In
+  short, if you do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define MyPat 1 2.2 90  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and use the pattern ``MyPat'' in a chord sequence <SPAN  CLASS="textit">and</SPAN> save that
+pattern into a groove you should be careful <SPAN  CLASS="textit">not to</SPAN> refine
+``MyPat''. 
+
+<P>
+On the other hand, if you dynamically define patterns for your
+sequences:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Sequence {1 2.2 90}   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+you'll be safe since you can't change these kind of settings (other
+than by issuing a new S<SMALL>EQUENCE</SMALL> command.
+
+<P>
+</LI>
+<LI>The ``SeqSize'' setting is restored with a groove. The sequence
+  point is also reset to bar 1. If you have multi-bar sequences,
+  restoring a groove may upset your idea of the sequence pattern.
+
+<P>
+</LI>
+</UL>
+
+<P>
+To make life (infinitely) more interesting, you can specify more than
+one previously defined groove. In this case the next groove is
+selected after each bar. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Tango LightTango LightTangoSus LightTango  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+would create the following bars:
+
+<P>
+
+<OL>
+<LI>Tango
+</LI>
+<LI>LightTango
+</LI>
+<LI>LightTangoSus
+</LI>
+<LI>LightTango
+</LI>
+<LI>Tango
+</LI>
+</OL>
+
+<P>
+Note how the groove pattern wraps around to the first one when the
+list is exhausted. There is no way to select an item from the list,
+except by going though it.
+
+<P>
+You might find this handy if you have a piece with an alternating time
+signature. For example, you might have a <SPAN  CLASS="textbf">3/4</SPAN> <SPAN  CLASS="textbf">4/4</SPAN>
+song. Rather than creating a 2 bar groove, you could do something
+like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Groove34 Groove44  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+For long lists you can use the ``/'' to repeat the last groove in the
+list. The example above could be written:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Tango LightTango LightTangoSus /   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+When you use the ``list'' feature of G<SMALL>ROOVE</SMALL>s you should be
+aware of what happens with the bar sequence number. Normally the
+sequence number is incremented after each bar is processed; and, when
+a new groove is selected the sequence number is reset (see S<SMALL>EQ</SMALL>,
+<A HREF="node27.html#seqnumber">discussed here)</A>. When you use a
+list which changes the G<SMALL>ROOVE</SMALL> after each bar the sequence
+number is reset after each bar ... with one exception: if the same
+G<SMALL>ROOVE</SMALL> is being used for two or more bars the sequence will not
+be reset.<A NAME="tex2html36"
+  HREF="#foot3120"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+<P>
+Another way to select G<SMALL>ROOVE</SMALL>s is to use a list of grooves with
+a leading value. This lets you select the G<SMALL>ROOVE</SMALL> to use based
+on the value of a variable ... handy if you want different sounds
+for repeated sections. Again, an example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set loop 1  // create counter with value of 1 
+<BR>
+Repeat
+<BR>&nbsp;&nbsp;Groove $loop BossaNovaSus BossaNova1Sus BossaNovaFill
+<BR>&nbsp;&nbsp;print This is loop $Loop ...Groove is $_Groove
+<BR>&nbsp;&nbsp;1 A / Am
+<BR>&nbsp;&nbsp;Inc Loop  // Bump the counter value
+<BR>
+RepeatEnd 4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you use this option, make sure the value of the counter is greater
+than 0. Also, note that the values larger than the list count are
+``looped'' to be valid. The use of ``/''s for repeated names is also
+permitted. For an example have a look at the file <TT><SPAN  CLASS="textbf">grooves.mma</SPAN></TT>,
+included in this distribution. You could get the same results with
+various ``if'' statements, but this is easier.
+
+<P>
+
+<H2><A NAME="SECTION00621000000000000000"></A>
+<A NAME="extended-groove"></A>
+<BR>
+Extended Groove Notation
+</H2>
+
+<P>
+In addition to only loading a new groove by using the <SPAN  CLASS="textit">name</SPAN> of a
+G<SMALL>ROOVE</SMALL> you can also set the specific file that the
+G<SMALL>ROOVE</SMALL> exists in by using a filename prefix:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove stdlib/rhumba:rhumbaend  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+would load the ``RhumbaEnd'' groove from the file <TT><SPAN  CLASS="textbf">rhumba.mma</SPAN></TT>
+file located in the <TT><SPAN  CLASS="textbf">stdlib</SPAN></TT> directory. In most cases the use of
+an extended groove name is only required once (if at all) since the
+command forces the file containing the named groove to be completely
+read and all grooves defined in that file will now be in memory and
+available with simple G<SMALL>ROOVE</SMALL> commands.
+
+<P>
+Extended groove names, in just about all cases, eliminate the need for
+the U<SMALL>SE</SMALL> command. For a complete understanding you should also
+read the PATHS section, <A HREF="node30.html#lib-files">here</A>,
+of this manual.
+
+<P>
+<SPAN  CLASS="textit">Important</SPAN>: The filename to the left of the ``:'' is a system
+pathname, not a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variable. As such it <SPAN  CLASS="textit">must match the case</SPAN>
+for the filename/path on your system. If, for example, you have a file
+<TT><SPAN  CLASS="textbf">casio/poprock1.mma</SPAN></TT> and attempt to access it with G<SMALL>ROOVE</SMALL>
+<TT><SPAN  CLASS="textbf">Casio/Poprock1:PopRock1End</SPAN></TT> it will not work. You must use the
+form G<SMALL>ROOVE</SMALL> <TT><SPAN  CLASS="textbf">casio/poprock1:PopRock1End</SPAN></TT>. The case of the
+data to the right of the ``:'' is not important.
+
+<P>
+When using an extended name, you (probably) only need to use the full
+name once ... the entire file is read into memory making all of its
+content available. For a, contrived, example:
+
+<P>
+
+<OL>
+<LI>Assume you have two files, both called <TT><SPAN  CLASS="textbf">swing.mma</SPAN></TT>. One
+  file is in <TT><SPAN  CLASS="textbf">stdlib</SPAN></TT>; the other in <TT><SPAN  CLASS="textbf">mylib</SPAN></TT>. Both directories can be found in
+  P<SMALL>ATH</SMALL>L<SMALL>IB</SMALL>.
+
+<P>
+</LI>
+<LI><TT><SPAN  CLASS="textbf">stdlib/swing.mma</SPAN></TT> defines grooves ``g1'', ``g2'', ``g3'' and ``gspecial''.
+
+<P>
+</LI>
+<LI><TT><SPAN  CLASS="textbf">mylib/swing.mma</SPAN></TT> defines grooves ``g1'', ``g2'' and
+  ``g3''. It <SPAN  CLASS="textit">does not</SPAN> define ``gspecial''.
+
+<P>
+</LI>
+<LI>Near the top of your song file you issue:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove mylib/swing:g1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The file <TT><SPAN  CLASS="textbf">mylib/swing.mma</SPAN></TT> is read and the groove ``g1'' is enabled.
+
+<P>
+</LI>
+<LI>Later in the file you issue the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove g2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Since this groove is already in memory, it is enabled.
+
+<P>
+</LI>
+<LI>Next:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>groove Gspecial  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Since this groove is <SPAN  CLASS="textit">not</SPAN> in memory (it wasn't in the file
+<TT><SPAN  CLASS="textbf">mylib/swing.mma</SPAN></TT>) 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  now searches its database files and finds
+the requested groove in <TT><SPAN  CLASS="textbf">stdlib/swing.mma</SPAN></TT>. The file is read and
+``Gspecial'' is enabled.
+
+<P>
+</LI>
+<LI>Now you want to use groove ``g1'' again:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove g1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Since the file <TT><SPAN  CLASS="textbf">stdlib/swing.mma</SPAN></TT> has been read the ``g1'' groove
+from <TT><SPAN  CLASS="textbf">mylib/swing.mma</SPAN></TT> has been replaced. You, probably, have the
+wrong groove in memory.
+
+<P>
+</LI>
+</OL>
+
+<P>
+To help find problems you may encounter managing multiple libraries,
+you can enable the special warning flag (see <A HREF="node27.html#debugging">here</A>):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Debug Groove=On  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which will issue a warning each time a G<SMALL>ROOVE</SMALL> name is
+redefined. You must enable this option from within a file; it is not
+available on the command line.
+
+<P>
+
+<H2><A NAME="SECTION00622000000000000000"></A>
+<A NAME="track-groove"></A>
+<BR>
+Overlay Grooves
+</H2>
+
+<P>
+To make the creation of variations easier, you can use G<SMALL>ROOVE</SMALL>
+in a track setting:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale Groove Funny  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case only the information saved in the corresponding
+D<SMALL>EF</SMALL>G<SMALL>ROOVE </SMALL>F<SMALL>UNNY</SMALL> for the S<SMALL>CALE</SMALL> track will be restored.
+You might think of this as a ``groove overlay''. Have a look at the
+sample song ``Yellow Bird'' for an example.
+
+<P>
+When restoring track grooves, as in the above example, the
+S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL> is not reset. The sequence size of the restored track
+is adjusted to fit the current sequence size setting.
+
+<P>
+One caution with these ``overlays'' is that no check is done to see if
+the track you're using exists. Yes, the G<SMALL>ROOVE</SMALL> must have been
+defined, but not the track. Huh? Well, you need to know a bit about
+how 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  parses files and how it handles new tracks. When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  reads
+a line in a file it first checks to see if the first word on the line
+is a simple command like P<SMALL>RINT</SMALL>, MIDI or any other
+command which doesn't require a leading trackname. If it is, the
+appropriate function is called and file parsing continues. If it is
+not a simple command 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tests to see if it is a track specific
+command. But to do that, it first has to test the first word to see if
+it is a valid track name like <SPAN  CLASS="textit">Bass</SPAN> or <SPAN  CLASS="textit">Chord-Major</SPAN>. And,
+if it is a valid track name and that track doesn't exist, the track is
+created ... this is done <SPAN  CLASS="textit">before</SPAN> the rest of the command is
+processed. So, if you have a command like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass-Foo Groove Something  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and you really meant to type:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass-Foe Groove Something  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+you'll have a number of things happening:
+
+<P>
+
+<OL>
+<LI>The track <SPAN  CLASS="textit">Bass-Foo</SPAN> will be created. This is not an issue
+  to be concerned over since no data will be created for this new
+  track unless you set a S<SMALL>EQUENCE</SMALL> for it.
+
+<P>
+</LI>
+<LI>As part of the creation, all the existing G<SMALL>ROOVE</SMALL>s will
+  have the <SPAN  CLASS="textit">Bass-Foo</SPAN> track (with its default/empty settings)
+  added to them.
+
+<P>
+</LI>
+<LI>And the current setting you think you're modifying with the
+  <SPAN  CLASS="textit">Bass-Foe</SPAN> settings will be created with the <SPAN  CLASS="textit">Bass-Foo</SPAN>
+  settings (which are nothing).
+
+<P>
+</LI>
+<LI>Eventually you'll wonder why 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  isn't working.
+
+<P>
+</LI>
+</OL>
+
+<P>
+So, be very careful using this command option. Check your spelling.
+And use the P<SMALL>RINT</SMALL>A<SMALL>CTIVE</SMALL> command to verify your G<SMALL>ROOVE</SMALL>
+creations. A basic test is done by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  when you use a G<SMALL>ROOVE</SMALL>
+in this manner and if the sequence for the named track is not defined
+you will get a warning.
+
+<P>
+In most cases you will find the C<SMALL>OPY</SMALL> command detailed
+<A HREF="node27.html#copy">here</A> to be more robust.
+
+<P>
+
+<H1><A NAME="SECTION00630000000000000000">
+Groove Aliases</A>
+</H1>
+
+<P>
+In an attempt to make the entire groove naming issue simpler, an
+additional command has been added. More complication to make life
+simpler.
+
+<P>
+You can create an alias for any defined G<SMALL>ROOVE</SMALL> name with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefAlias NewAlias SomeGroove  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now you can refer to the groove ``SomeGroove'' with the name
+``NewAlias''.
+
+<P>
+A few rules:
+
+<P>
+
+<UL>
+<LI>the alias name must not be the name of a currently defined
+  groove,
+</LI>
+<LI>when defining a new groove you cannot use the name of an alias.
+</LI>
+</UL>
+
+<P>
+Groove aliases are a tool designed to make it possible to have a
+standard set of groove names in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  usable at the same time as the
+standard library.
+
+<P>
+There is a major difference between a groove alias and the simple act
+of assigning two names to the same groove. Consider this snippet:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>...define some things ...
+<BR>
+Defgroove Good 
+<BR>
+Defgroove Good2   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You now have both ``good'' and ``good2'' assigned to the same set of
+sequences, etc. Now, lets change something:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Good 
+<BR>
+Chord Voice Accordion 
+<BR>  ...
+<BR>  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, the groove ``good'' has an accordion voicing; ``good2'' still has
+whatever the old ``good'' had. Compare this with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>...define some things ...
+<BR>
+DefGroove Good 
+<BR>
+DefAlias Good2 Good   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, make the same change:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Good 
+<BR>
+Chord Voice Accordion   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+By using an alias ``good2'' now points to the changed ``good''.
+
+<P>
+
+<H1><A NAME="SECTION00640000000000000000">
+AllGrooves</A>
+</H1>
+
+<P>
+There are times when you wish to change a setting in a set of library
+files. For example, you like the <SPAN  CLASS="textit">Rhumba</SPAN> library sounds, but,
+for a particular song you'd like a punchier bass sound. Now, it is
+fairly easy to create a new library file for this; or you can set the
+new bass settings each time you select a different G<SMALL>ROOVE</SMALL>.
+
+<P>
+Much easier is to apply your changes to all the G<SMALL>ROOVE</SMALL>s in the
+file. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Use Rhumba 
+<BR>
+Begin AllGrooves 
+<BR>
+Bass Articulate 50 
+<BR>
+Bass Volume +20 
+<BR>
+Walk Articulate 50 
+<BR>
+Walk Volume +10 
+<BR>
+End 
+<BR>   ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The A<SMALL>LL</SMALL>G<SMALL>ROOVES</SMALL> command operates by applying its arguments to
+each G<SMALL>ROOVE</SMALL> currently defined. This includes the environment
+you are currently in, even if this is not a defined G<SMALL>ROOVE</SMALL>.
+
+<P>
+You can use the command with or without a track modifier:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AllGrooves Volume p  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AllGrooves Chord Octave 5  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Everything after the directive is interpreted as a legitimate 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+command. A warning message will be displayed if the command had no
+effect. The warning ``No tracks affected with ...'' will be
+displayed if nothing was done. This could be due to a misspelled
+command or track name, or the fact that the specified track does not
+exist.
+
+<P>
+If you want to ``undo'' the effect of the A<SMALL>LL</SMALL>G<SMALL>ROOVES</SMALL> just
+import the library file again with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Use stdlib/rhumba
+<BR>
+Groove Rhumba  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or remove all the current G<SMALL>ROOVE</SMALL>s from memory with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>GrooveClear
+<BR>
+Groove Rhumba  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In both cases you'll end up with the original G<SMALL>ROOVE</SMALL> settings.
+
+<P>
+A few notes:
+
+<P>
+
+<UL>
+<LI>This command only effects G<SMALL>ROOVE</SMALL>s which have been loaded
+  into memory either by loading a library file or otherwise creating a
+  G<SMALL>ROOVE</SMALL>.
+
+<P>
+</LI>
+<LI>The in memory grooves can all have different sequence sizes.
+  Special code inhibits the printing of warning messages when you use
+  a too long list of commands. For example, ``AllGrooves Chord Octave 3 4 5
+  6'' will not generate a warning with a groove with a sequence size
+  of 2, it will just be truncated.
+
+<P>
+</LI>
+<LI>Be careful what commands you use since they are applied rather
+  blindly. For example, the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AllTracks BeatAdjust 2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will insert 2 additional beats for each G<SMALL>ROOVE</SMALL> you have. So,
+  if you have 10 G<SMALL>ROOVE</SMALL>s you would insert 20 beats. Not what
+  you intended. T<SMALL>EMPO</SMALL> and other commands will cause similar
+  problems. Actually, B<SMALL>EAT</SMALL>A<SMALL>DJUST</SMALL> is not permitted in
+  A<SMALL>LL</SMALL>G<SMALL>ROOVES</SMALL>, but it's a cool example.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION00650000000000000000">
+Deleting Grooves</A>
+</H1>
+
+<P>
+There are times when you might want 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to forget about all the
+G<SMALL>ROOVE</SMALL>s in its memory. Just do a:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>GrooveClear  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+at any point in your input file and that is exactly what happens. But,
+``why'', you may ask, ``would one want to do this?'' One case would be
+to force the re-reading of a library file. For example, a library file
+might have a user setting like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If Ndef ChordVoice
+<BR>
+Set ChordVoice Piano1
+<BR>
+Endif  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case you could set the variable ``ChordVoice'' before loading
+any of the G<SMALL>ROOVE</SMALL>s in the file. All works! Now, assume that you
+have a repeated section and want to change the voice. Simply changing
+the variable <SPAN  CLASS="textit">does not work</SPAN>. The library file isn't re-read
+since the existing G<SMALL>ROOVE</SMALL> data is already in memory. Using
+G<SMALL>ROOVE</SMALL>C<SMALL>LEAR</SMALL> erases the existing data and forces a re-reading of
+the library file.
+
+<P>
+Please note that low-level settings like MIDI track assignments are
+<SPAN  CLASS="textit">not</SPAN> changed by this command.
+
+<P>
+Groove aliases are also deleted with this command.
+
+<P>
+
+<H1><A NAME="SECTION00660000000000000000"></A>
+<A NAME="sect-sticky"></A>
+<BR>
+Sticky
+</H1>
+In most cases the method used to save and restore grooves works just
+fine. However, you may want a certain track be invisible to the groove
+mechanism. You may find this option convenient if you creating a
+``click track'' or if you are using triggers (see
+<A HREF="node25.html#sec-triggers">here</A>) across different
+grooves.
+
+<P>
+Setting a track as S<SMALL>TICKY</SMALL>
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-Testing Sticky True  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+solves the problem. 
+
+<P>
+The command takes a single value of ``True'' or ``False''. ``On'',
+``1'', ``Off'' and ``0'' may also be used. The only way a sticky track can
+become un-sticky is with a command like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-Testing  Sticky False  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can set the sticky bit from a T<SMALL>RIGGER</SMALL> command as well. The
+results are the same.
+
+<P>
+
+<H1><A NAME="SECTION00670000000000000000">
+Library Issues</A>
+</H1>
+
+<P>
+If you are using a groove from a library file, you just need to do
+something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Rhumba2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+at the appropriate position in your input file.
+
+<P>
+One minor problem which <SPAN  CLASS="textit">may</SPAN> arise is that more than one library
+file has defined the same groove name. This might happen if you have a
+third-party library file. For the proposes of this example, lets
+assume that the standard library file ``rhumba.mma'' and a second file
+``xyz-rhumba.mma'' both define the groove ``Rhumba2''. The
+<A HREF="node30.html#lib-use">auto-load</A> routines
+which search the library database will load the first ``Rhumba2'' it
+finds, and the search order cannot be determined. To overcome this
+possible problem, do a explicit loading of the correct file. In this
+case, simply do:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Use xyz-rhumba  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+near the top of your file. And if you wish to switch to the groove
+defined in the standard file, you can always do:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Use rhumba  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+just before the groove call. The U<SMALL>SE</SMALL> will read the specified
+file and overwrite the old definition of ``Rhumba2'' with its own.
+
+<P>
+This issue in covered in more detail <A HREF="node30.html#library-maint">here in</A> this manual.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot2918">... '/'</A><A
+ HREF="node6.html#tex2html35"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The '/' and ':' are used
+  in extended names.
+
+</DD>
+<DT><A NAME="foot3120">... reset.</A><A
+ HREF="node6.html#tex2html36"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Actually, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  checks to see the next
+  G<SMALL>ROOVE</SMALL> in the list is the same as the current one, and if it
+  is then no change is done.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html537"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html535"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html529"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html538"
+  HREF="node7.html">Riffs</A>
+<B> Up:</B> <A NAME="tex2html536"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html530"
+  HREF="node5.html">Sequences</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2015-12-15
+</ADDRESS>
+</BODY>
+</HTML>

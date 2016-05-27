@@ -1,0 +1,537 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Tracks and Channels</TITLE>
+<META NAME="description" CONTENT="Tracks and Channels">
+<META NAME="keywords" CONTENT="mma">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="mma.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html477"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html475"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html469"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html478"
+  HREF="node4.html">Patterns</A>
+<B> Up:</B> <A NAME="tex2html476"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html470"
+  HREF="node2.html">Running</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html479"
+  HREF="node3.html#SECTION00310000000000000000">
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Tracks</A>
+<LI><A NAME="tex2html480"
+  HREF="node3.html#SECTION00320000000000000000">Track Channels</A>
+<LI><A NAME="tex2html481"
+  HREF="node3.html#SECTION00330000000000000000">Track Descriptions</A>
+<UL>
+<LI><A NAME="tex2html482"
+  HREF="node3.html#SECTION00331000000000000000">Drum</A>
+<LI><A NAME="tex2html483"
+  HREF="node3.html#SECTION00332000000000000000">Chord</A>
+<LI><A NAME="tex2html484"
+  HREF="node3.html#SECTION00333000000000000000">Arpeggio</A>
+<LI><A NAME="tex2html485"
+  HREF="node3.html#SECTION00334000000000000000">Scale</A>
+<LI><A NAME="tex2html486"
+  HREF="node3.html#SECTION00335000000000000000">Bass</A>
+<LI><A NAME="tex2html487"
+  HREF="node3.html#SECTION00336000000000000000">Walk</A>
+<LI><A NAME="tex2html488"
+  HREF="node3.html#SECTION00337000000000000000">Plectrum</A>
+<LI><A NAME="tex2html489"
+  HREF="node3.html#SECTION00338000000000000000">Solo and Melody</A>
+<LI><A NAME="tex2html490"
+  HREF="node3.html#SECTION00339000000000000000">Automatic Melodies</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html491"
+  HREF="node3.html#SECTION00340000000000000000">Silencing a Track</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00300000000000000000"></A>
+<A NAME="sec-tracks"></A>
+<BR>
+Tracks and Channels
+</H1>
+
+<P>
+This chapter discusses 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tracks and MIDI channels. If you are
+reading this manual for the first time you might find some parts
+confusing. If you do just skip ahead--you can run 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  without
+knowing many of these details.
+
+<P>
+
+<H1><A NAME="SECTION00310000000000000000">
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Tracks</A>
+</H1>
+
+<P>
+To create your accompaniment tracks, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  divides output into several
+internal tracks. There are a total of 10 basic track types. Each
+track type has its own algrorithms for managing patterns. An unlimited
+number of sub-tracks can be created.
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is initialized there are no tracks assigned; however, as
+your library and song files are processed various tracks will be
+created. Each track is created a unique name. The basic track types
+are: A<SMALL>RIA</SMALL>, A<SMALL>RPEGGIO</SMALL>, B<SMALL>ASS</SMALL>, C<SMALL>HORD</SMALL>,
+D<SMALL>RUM</SMALL>, M<SMALL>ELODY</SMALL>, S<SMALL>CALE</SMALL>, S<SMALL>OLO</SMALL>, and
+P<SMALL>LECTRUM</SMALL>. Each is discussed later in this chapter.
+
+<P>
+Tracks are named by appending a ``-'' and ``name'' to the
+type-name. This makes it very easy to remember the names, without any
+complicated rules. So, drum tracks can have names ``Drum-1'',
+``Drum-Loud'' or even ``Drum-a-long-name''. The other tracks follow
+the same rule.
+
+<P>
+In addition to the hyphenated names described above, you can also name
+a track using the type-name. So, ``DRUM'' is a valid drum track name.
+In the supplied library files you'll see that the hyphenated form is
+usually used to describe patterns.
+
+<P>
+All track names are case insensitive. This means that the names
+``Chord-Sus'', ``CHORD-SUS'' and ``CHORD-sus'' all refer to the same
+track.
+
+<P>
+If you want to see the names defined in a song, just run 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  on the
+file with the ``-c'' command line option.
+
+<P>
+
+<H1><A NAME="SECTION00320000000000000000">
+Track Channels</A>
+</H1>
+
+<P>
+MIDI defines 16 distinct channels numbered 1 to 16.<A NAME="tex2html18"
+  HREF="#foot1161"><SUP><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> There is nothing which says that ``chording''
+should be sent to a specific channel, but the drum channel should
+always be channel 10.<A NAME="tex2html19"
+  HREF="#foot1162"><SUP><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+<P>
+For 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to produce any output, a MIDI channel must be assigned to a
+track.  During initialization all of the DRUM tracks are assigned to
+special MIDI channel 10. As musical data is created other MIDI
+channels are assigned to various tracks as needed.
+
+<P>
+Channels are assigned from 16 down to 1. This means that the lower
+numbered channels will most likely not be used, and will be available
+for other programs or as a ``keyboard track'' on your synth.
+
+<P>
+In most cases this will work out just fine. However, there are a
+number of methods you can use to set the channels ``manually''. You
+might want to read the sections on C<SMALL>HANNEL</SMALL>
+(<A HREF="node23.html#set-channel">here</A>), C<SMALL>H</SMALL>S<SMALL>HARE</SMALL>
+(<A HREF="node23.html#set-chshare">here</A>), O<SMALL>N</SMALL>
+(<A HREF="node27.html#set-on">here</A>), and O<SMALL>FF</SMALL>
+(<A HREF="node27.html#set-off">here</A>).
+
+<P>
+Why bother with all these channels? It would be much easier to put all
+the information onto one channel, but this would not permit you to set
+special effects (like MIDIG<SMALL>LIS</SMALL> or MIDIP<SMALL>AN</SMALL>) for a specific
+track. It would also mean that all your tracks would need to use the
+same instrumentation.
+
+<P>
+
+<H1><A NAME="SECTION00330000000000000000">
+Track Descriptions</A>
+</H1>
+
+<P>
+You might want to come back to this section after reading more of the
+manual. But, somewhere, the different track types,
+and why they exist needs to be detailed.
+
+<P>
+Musical accompaniment comes in a combination of the following:
+
+<P>
+
+<UL>
+<LI>Chords played in a rhythmic or sustained manner,
+
+<P>
+</LI>
+<LI>Single notes from chords played in a sustained manner,
+
+<P>
+</LI>
+<LI>Bass notes. Usually played one at a time in a rhythmic manner,
+
+<P>
+</LI>
+<LI>Scales, or parts of scales. Usually as an embellishment,
+
+<P>
+</LI>
+<LI>Single notes from chords played one at time: arpeggios.
+
+<P>
+</LI>
+<LI>Drums and other percussive instruments played rhythmically.
+
+<P>
+</LI>
+</UL>
+
+<P>
+Of course, this leaves the melody ... but that is up to you, not
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> ... but, if you suspect that some power is missing here, read
+the brief description of S<SMALL>OLO</SMALL> and M<SMALL>ELODY</SMALL> tracks
+(<A HREF="#sec-solo">here</A>) and the complete ``Solo and
+Melody Tracks'' chapter (<A HREF="node10.html#chap-solo">here</A>).
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  comes with several types of tracks, each designed to fill
+different accompaniment roles. However, it's quite possible to use a
+track for different roles than originally envisioned. For example, the
+bass track can be used to generate a single, sustained treble
+note--or, by enabling H<SMALL>ARMONY</SMALL>, multiple notes.
+
+<P>
+The following sections give an overview of the basic track types, and give a few suggestions
+on their uses.
+
+<P>
+
+<H2><A NAME="SECTION00331000000000000000">
+Drum</A>
+</H2>
+
+<P>
+Drums are the first thing one usually thinks about when we hear the word
+``accompaniment''. All 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  drum tracks share MIDI channel 10, which
+is a GM MIDI convention. Drum tracks play single notes determined by
+the T<SMALL>ONE</SMALL> setting for a particular sequence.
+
+<P>
+
+<H2><A NAME="SECTION00332000000000000000">
+Chord</A>
+</H2>
+
+<P>
+If you are familiar with the sound of guitar strumming, then you're
+familiar with the sound of a chord. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  chord tracks play a number
+of notes, all at the same time. The volume of the notes (and the
+number of notes) and the rhythm is determined by pattern definitions.
+The instrument used for the chord is determined by the V<SMALL>OICE</SMALL>
+setting for a sequence.
+
+<P>
+
+<H2><A NAME="SECTION00333000000000000000">
+Arpeggio</A>
+</H2>
+
+<P>
+In musical terms an <SPAN  CLASS="textit">arpeggio</SPAN><A NAME="tex2html20"
+  HREF="#foot1211"><SUP><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> is the notes of a chord played
+one at a time. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  arpeggio tracks take the current chord and, in
+accordance to the current pattern, play single notes from the chord.
+The choice of which note to play is mostly decided by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . You can
+help it along with the D<SMALL>IRECTION</SMALL> modifier.
+
+<P>
+A<SMALL>RPEGGIO</SMALL> tracks are used quite often to highlight rhythms. Using
+the RS<SMALL>KIP</SMALL> directive produces broken arpeggios.
+
+<P>
+Using different note length values in patterns helps to make
+interesting accompaniments.
+
+<P>
+
+<H2><A NAME="SECTION00334000000000000000">
+Scale</A>
+</H2>
+
+<P>
+The playing of scales is a common musical embellishment which adds
+depth and character to a piece.
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  plays a scale, it first determines
+the current chord. There is an associated scale for each chord which
+attempts to match the flavor of that chord. The following table
+sums up the logic used to create the scales:
+
+<P>
+<DL>
+<DT><STRONG>Major</STRONG></DT>
+<DD>A major scale,
+
+<P>
+</DD>
+<DT><STRONG>Minor</STRONG></DT>
+<DD>A melodic minor scale,<A NAME="tex2html21"
+  HREF="#foot1219"><SUP><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+<P>
+</DD>
+<DT><STRONG>Diminished</STRONG></DT>
+<DD>A melodic minor scale with a minor fifth and minor
+  dominant seventh.
+
+<P>
+</DD>
+<DT><STRONG>Etc</STRONG></DT>
+<DD>Other scales are developed in a similar manner. If you need
+  to know, look at the source file <TT><SPAN  CLASS="textbf">chordtable.py</SPAN></TT>.
+</DD>
+</DL>
+
+<P>
+All scales start on the tonic of the current chord.
+
+<P>
+If the S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL> is set to C<SMALL>HROMATIC</SMALL>, then a chromatic
+scale is used. The default for S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL> is A<SMALL>UTO</SMALL>.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  plays successive notes of a scale. The timing and length of the
+notes is determined by the current pattern. Depending on the
+D<SMALL>IRECTION</SMALL> setting, the notes are played up, down or up and down
+the scale.
+
+<P>
+
+<H2><A NAME="SECTION00335000000000000000">
+Bass</A>
+</H2>
+
+<P>
+B<SMALL>ASS</SMALL> tracks are designed to play single notes for a chord for
+standard bass patterns. The note to be played, as well as its timing,
+is determined by the pattern definition. The pattern defines which
+note from the current chord or scale to play. For example, a standard bass
+pattern might alternate the playing of the root and fifth notes of a
+scale. You can also use B<SMALL>ASS</SMALL> tracks to play single,
+sustained treble notes.
+
+<P>
+
+<H2><A NAME="SECTION00336000000000000000">
+Walk</A>
+</H2>
+
+<P>
+The W<SMALL>ALK</SMALL> tracks are designed to imitate ``walking bass'' lines.
+Traditionally, they are played on bass instruments like the upright
+bass, bass guitar or tuba.
+
+<P>
+A W<SMALL>ALK</SMALL> track uses a pattern to define the note timing and
+volume. Which note is played is determined from the current chord and
+a simplistic direction algorithm. There is no user control over the note
+selection.
+
+<P>
+
+<H2><A NAME="SECTION00337000000000000000"></A>
+<A NAME="sec-plectrum"></A>
+<BR>
+Plectrum
+</H2>
+
+<P>
+P<SMALL>LECTRUM</SMALL> tracks emulate the sound of a plucked instrument like
+a guitar or banjo. All other 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tracks take a note length or
+duration option in their sequence definitions -- P<SMALL>LECTRUM</SMALL>
+tracks are different: the sounds in these tracks continue to sound
+until a new chord or pattern is encountered. They can also sound
+``fuller'' than other tracks since more notes tend to be played.
+
+<P>
+
+<H2><A NAME="SECTION00338000000000000000"></A>
+<A NAME="sec-solo"></A>
+<BR>
+Solo and Melody
+</H2>
+
+<P>
+S<SMALL>OLO</SMALL> and M<SMALL>ELODY</SMALL> tracks are used for arbitrary note data.
+Most likely, this is a melody or counter-melody ... but these
+tracks can also be used to create interesting endings, introductions or
+transitions.
+
+<P>
+
+<H2><A NAME="SECTION00339000000000000000"></A>
+<A NAME="sec-aria"></A>
+<BR>
+Automatic Melodies
+</H2>
+
+<P>
+Real composers don't need to fear much from this feature ... but it
+can create some interesting effects. A<SMALL>RIA</SMALL> tracks use a
+predefined pattern to generate melodies over a chord progression. They
+can be used to <SPAN  CLASS="textit">actually</SPAN> compose a bit of music or simply to
+augment a section of an existing piece.
+
+<P>
+
+<H1><A NAME="SECTION00340000000000000000">
+Silencing a Track</A>
+</H1>
+
+<P>
+There are a number of ways to silence a track:
+
+<P>
+
+<UL>
+<LI>Use the O<SMALL>FF</SMALL> command to stop the generation of MIDI data
+  <A HREF="node27.html#set-off">here</A>.
+
+<P>
+</LI>
+<LI>Disable the sequence for the bar with an empty sequence
+  <A HREF="node5.html#sequence-clear">here</A>.
+
+<P>
+</LI>
+<LI>Delete the entire sequence with S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL>
+  <A HREF="node5.html#sec-seqclear">here</A>.
+
+<P>
+</LI>
+<LI>Disable the MIDI channel with a ``Channel 0''
+  <A HREF="node23.html#channel0">here</A>.
+
+<P>
+</LI>
+<LI>Force only the generation of specific tracks with the -T command
+  line option <A HREF="node2.html#t-option">here</A>.
+
+<P>
+</LI>
+</UL>
+
+<P>
+Please refer to the appropriate sections on this manual for further
+details.
+
+<P>
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot1161">... 16.</A><A
+ HREF="node3.html#tex2html18"><SUP><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The
+  values 1 to 16 are used in this document. Internally they are stored
+  as values 0 to 15.
+
+</DD>
+<DT><A NAME="foot1162">... 10.</A><A
+ HREF="node3.html#tex2html19"><SUP><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>This is not a MIDI rule, but a
+  convention established in the GM (General MIDI) standard. If you
+  want to find out more about this, there are lots of books on MIDI
+  available.
+
+</DD>
+<DT><A NAME="foot1211">...arpeggio</A><A
+ HREF="node3.html#tex2html20"><SUP><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>The term is derived from
+  the Italian ``to play like a harp''.
+
+</DD>
+<DT><A NAME="foot1219">... scale,</A><A
+ HREF="node3.html#tex2html21"><SUP><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>If
+  you think that support for Melodic and Harmonic minor scales is
+  important, please contact us.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html477"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html475"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html469"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html478"
+  HREF="node4.html">Patterns</A>
+<B> Up:</B> <A NAME="tex2html476"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html470"
+  HREF="node2.html">Running</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2015-12-15
+</ADDRESS>
+</BODY>
+</HTML>

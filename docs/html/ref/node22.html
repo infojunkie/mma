@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Subroutines</TITLE>
+<META NAME="description" CONTENT="Subroutines">
+<META NAME="keywords" CONTENT="mma">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node23.html">
+<LINK REL="previous" HREF="node21.html">
+<LINK REL="up" HREF="mma.html">
+<LINK REL="next" HREF="node23.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html798"
+  HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html796"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html790"
+  HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html799"
+  HREF="node23.html">Low Level MIDI Commands</A>
+<B> Up:</B> <A NAME="tex2html797"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html791"
+  HREF="node21.html">Variables, Conditionals and Jumps</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html800"
+  HREF="node22.html#SECTION002210000000000000000">DefCall</A>
+<LI><A NAME="tex2html801"
+  HREF="node22.html#SECTION002220000000000000000">Call</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION002200000000000000000"></A>
+<A NAME="sec-subroutines"></A>
+<BR>
+Subroutines
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  supports primitive subroutines as part of its language. The format
+and usage is deliberately simple and limited ...we're really not
+trying to make 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  into a functional programming
+language.<A NAME="tex2html86"
+  HREF="#foot12411"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+<P>
+
+<H1><A NAME="SECTION002210000000000000000"></A>  <A NAME="defcall"></A>
+<BR>
+DefCall
+</H1> 
+
+<P>
+Before you can use a subroutine you need to create it. Pretty simple to
+do. First, here is a subroutine which does not have any parameters:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>defCall MyCopyright 
+<BR>&nbsp;&nbsp;&nbsp;print Adding copyright to song 
+<BR>&nbsp;&nbsp;&nbsp;MidiCopyright (C) Bob van der Poel 2014 
+<BR>
+endDefCall   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that the subroutine definition starts with D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> and is
+terminated by E<SMALL>ND</SMALL>D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> or D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL>E<SMALL>ND</SMALL>. The name of the
+subroutine and any parameters must be on the same line as D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL>
+and E<SMALL>ND</SMALL>D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> must be on a line by itself. The body of the
+subroutine can contain any valid 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command or chord data
+(including other D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> and C<SMALL>ALL</SMALL> commands).
+
+<P>
+Subroutines must be defined before they can be used. This can be done in
+the main song file, or in a different file you have included
+(including library files).
+
+<P>
+So, now you can insert a copyright message into your midi file just by
+calling the subroutine:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call MyCopyright  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Of course, you'll be using the same message every time ... so,
+let's make it a bit more useful be including a parameter:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>defCall Copyright Name 
+<BR>&nbsp;&nbsp;&nbsp;print Adding copyright to song: $Name 
+<BR>&nbsp;&nbsp;&nbsp;MidiCopyright $Name 
+<BR>
+endDefCall   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that we have a parameter to the subroutine with the name ``Name''.
+In the body of the subroutine we reference this using the name $Name.
+In this case, to assign copyright to ``Treble Music'' we'd use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Copyright (c) 2020 Treble Music  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you need to pass more than one parameter, separate each one using a
+single comma. Let's assume that you find that you have a large number
+of 2 measure chord repetitions in your song and you are tired of
+typing:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Am / Gm 
+<BR>
+Edim / Gm 
+<BR>
+Am / Gm 
+<BR>
+Edim / Gm 
+<BR>...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You could define a subroutine for this:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall 2Bars C1 , C2 , Count 
+<BR>&nbsp;&nbsp;&nbsp;Repeat 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$C1 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$C2 
+<BR>&nbsp;&nbsp;&nbsp;RepeatEnd $Count   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+And call it with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call 2bars Am / Gm , Edim / Gm , 7   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+to generate a total of 14 bars of music.<A NAME="tex2html87"
+  HREF="#foot12457"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> If you doubt that this is
+working, call 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the -r option (see
+<A HREF="node2.html#running-r">here</A>).
+
+<P>
+Some points to remember:
+
+<UL>
+<LI>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  subroutines do <SPAN  CLASS="textit">not</SPAN> have local variables. Everything is
+global.
+
+<P>
+</LI>
+<LI>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  subroutines do not return values to the caller. However, it is
+possible to use the built-in S<SMALL>TACKVALUE</SMALL> macros (see
+<A HREF="node21.html#stackvalue">here</A>).
+
+<P>
+</LI>
+<LI>You can use macros in a subroutine. Macros will <SPAN  CLASS="textit">not</SPAN>
+  be expanded until the subroutine is executed.
+
+<P>
+</LI>
+<LI>Both the subroutine name and the parameters are case
+  insensitive.
+
+<P>
+</LI>
+<LI>When a subroutine is executed parameters are expanded. Assuming
+  that you have used the parameter ``P1'' in the definition of the
+  subroutine and passed the value ``Am'' when calling, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  changes
+  any occurrences of ``$P1'' in the body of the subroutine to ``Am''.
+  One limitation of this scheme is that if you have a macro of the
+  same name it will be changed to the contents of the parameter
+  <SPAN  CLASS="textit">before</SPAN> the line is parsed for execution: your macro will
+  be ignored.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION002220000000000000000">
+Call</A>
+</H1>  
+
+<P>
+As discussed above, you execute a defined S<SMALL>UBROUTINE</SMALL> via the
+C<SMALL>ALL</SMALL> command. There are three parts to this command:
+
+<P>
+
+<OL>
+<LI>The keyword C<SMALL>ALL</SMALL>,
+</LI>
+<LI>The subroutine name,
+</LI>
+<LI>A list of parameters to be passed. If there is more than one
+  parameter you must use commas to separate them.
+</LI>
+</OL>
+
+<P>
+If you wish to have a literal comma in a parameter you must escape it
+by prefacing it with a single backslash. So, 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call Prt  My, what a nice song  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will pass two parameters (``My'' and ``what a nice song'') to the
+subroutine ``Prt''.
+
+<P>
+On the other hand:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call Prt My what a nice song  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+passes only one parameter (``My, what a nice song'').
+
+<P>
+Notes:
+
+<UL>
+<LI>There is no check to check for excessive nesting or recursion.
+  You're on your own.
+
+<P>
+</LI>
+</UL>
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot12411">...
+language.</A><A
+ HREF="node22.html#tex2html86"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>If you do solve the Towers of Hanoi using 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>    subroutines, please let us know.
+
+</DD>
+<DT><A NAME="foot12457">... music.</A><A
+ HREF="node22.html#tex2html87"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>In this case we are using the
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  primitive R<SMALL>EPEAT/</SMALL>E<SMALL>ND</SMALL>R<SMALL>EPEAT</SMALL>, but it could also be
+accomplished with a counter, <SMALL>LABEL</SMALL> and G<SMALL>OTO</SMALL> ... we'll
+leave that as an exercise for the reader.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html798"
+  HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html796"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html790"
+  HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html799"
+  HREF="node23.html">Low Level MIDI Commands</A>
+<B> Up:</B> <A NAME="tex2html797"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html791"
+  HREF="node21.html">Variables, Conditionals and Jumps</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2015-12-15
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+/// afro-cuban.mma
+
+Begin Doc
+ 
+   Afro-cuban rhythm in 6/8 time. Pretty much completely from Victor Lopez (Latin Rhythms).
+
+   Currently we only have one groove defined and need to complete the set. If you understand this
+   stuff, please help!!
+
+   This is implemented as a 3/4 time, which means that your 6/8 melody notes will fit in perfectly.
+
+End
+
+
+Author Bob van der Poel 
+
+SeqClear
+Time 3
+Timesig 6 8
+Include stdpats34
+
+///////////////////////////////
+// Basic pattern
+
+Seqsize 4
+
+Begin Drum-Clave
+    Tone Claves
+    Sequence { 1 0 90; 2 0 90; 3.5 0 90 }
+    Volume m
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Drum-Maraca
+    Tone Maracas
+    Sequence D6
+    Volume mp
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Drum-Cow
+    Tone Cowbell
+    Sequence { 1 0 90; 2 0 90; 3 0 90; 3.5 0 90 } \
+             { 1.5 0 90; 2.5 0 90; 3.5 0 90 }
+    Volume mf
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Drum-Conga
+    Tone OpenHighConga
+    Sequence D6
+    Volume mp
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Sequence { 1 0 70; 2 0 70;2.5 0 60;3.5 0 60 } \
+             { 1 0 70; 1.5 0 70;2.5 0 70; 3 0 70; 3.5 0 70 }
+    Volume m
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Bass
+    Voice AcousticBass
+    Volume m
+    Octave 3
+    Articulate 90
+    Rtime 5
+    Rvolume 5   
+    Sequence { 1 4 1 90; 2 8. 5 90; 3 8 1+ 80; 3.5 8 5 80 } \
+             { 1 4 1 90; 2 4 3 90; 3 4 5 90 } \
+             { 1 4 1 90; 2 4 5 90; 3 8 1+ 80; 3.5 8 5 80 } \
+             { 1 4 1 90; 2 8 5 90; 2.5 8 3 80; 3 4 1 90 }
+End
+
+Begin Chord
+    Voice Piano1
+    Articulate 90
+    Voicing Mode=Key
+    Octave 5
+    Volume m
+    Sequence { 1 4 90; 2 2 90 } \
+             { 1 8 90; 1.5 8 90; 2.5 4. 90 } \
+             { 1 4 90; 2 4. 90; 3.5 8 90 } \
+             { 1.5 8 90; 2.5 4. 90 }
+    Rskip 20
+End
+
+
+
+
+DefGroove Afro-Cuban   Basic 6/8 Afro-Cuban style.
+
+
+	

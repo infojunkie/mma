@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Creating Effects</TITLE>
+<META NAME="description" CONTENT="Creating Effects">
+<META NAME="keywords" CONTENT="mma">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node32.html">
+<LINK REL="previous" HREF="node30.html">
+<LINK REL="up" HREF="mma.html">
+<LINK REL="next" HREF="node32.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html983"
+  HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html981"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html975"
+  HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html984"
+  HREF="node32.html">Frequency Asked Questions</A>
+<B> Up:</B> <A NAME="tex2html982"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html976"
+  HREF="node30.html">Paths, Files and Libraries</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html985"
+  HREF="node31.html#SECTION003110000000000000000">Overlapping Notes</A>
+<LI><A NAME="tex2html986"
+  HREF="node31.html#SECTION003120000000000000000">Jungle Birds</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION003100000000000000000"></A>
+<A NAME="sec-effects"></A>
+<BR>
+Creating Effects
+</H1>
+
+<P>
+It's really quite amazing how easy and effective it is to create
+different patterns, sequences and special effects. As 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  was
+developed lots of silly things were tried ... this chapter is an
+attempt to display and preserve some of them.
+
+<P>
+The examples don't show any music to apply the patterns or sequences
+to. The manual assumes that if you've read this far you'll know
+that you should have something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1  C 
+<BR>
+2  G 
+<BR>
+3  G 
+<BR>
+4 C   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+as a simple test piece to apply tests to.
+
+<P>
+
+<H1><A NAME="SECTION003110000000000000000">
+Overlapping Notes</A>
+</H1>
+
+<P>
+As a general rule, you should not create patterns in which notes
+overlap. However, here's an interesting effect which relies on
+ignoring that rule:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Scale 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S1 1 1+1+1+1 90  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S32 S1 * 32 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence S32 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;ScaleType  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Direction Both 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice Accordion 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Octave 5 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+``S1'' is defined with a note length of 4 whole notes (1+1+1+1) so that
+when it is multiplied for S32 a pattern of 32 8th notes is created.
+Of course, the notes overlap. Running this up and down a chromatic
+scale is ``interesting''.  You might want to play with this a bit and
+try changing ``S1'' to:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>define S1 1 1 90   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+to see what the effect is of the notes overlapping.
+
+<P>
+
+<H1><A NAME="SECTION003120000000000000000">
+Jungle Birds</A>
+</H1>
+
+<P>
+Here's another use for S<SMALL>CALE</SMALL>s. Someone (certainly not the
+author) decided that some jungle sounds would be perfect as an
+introduction to ``Yellow Bird''.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>groove Rhumba 
+<BR>
+Begin Scale 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S1 1 1 90  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S32 S1 * 32 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence S32 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;ScaleType Chromatic 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Direction  Random 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice BirdTweet 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Octave 5 6 4 5 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;RVolume 30 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Rtime 2 3 4 5 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Volume pp pp ppp ppp 
+<BR>
+End 
+<BR>
+DefGroove BirdRhumba   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The above is an extract from the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  score. The entire song is
+included in the ``songs'' directory of this distribution.
+
+<P>
+A neat trick is to create the bird sound track and then add it to the
+existing Rhumba groove. Then define a new groove. Now one can select
+either the library ``rhumba'' or the enhanced ``BirdRhumba'' with a
+simple G<SMALL>ROOVE</SMALL> directive.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html983"
+  HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html981"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html975"
+  HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html984"
+  HREF="node32.html">Frequency Asked Questions</A>
+<B> Up:</B> <A NAME="tex2html982"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html976"
+  HREF="node30.html">Paths, Files and Libraries</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2015-12-15
+</ADDRESS>
+</BODY>
+</HTML>

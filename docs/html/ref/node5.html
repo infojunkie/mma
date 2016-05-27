@@ -1,0 +1,934 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Sequences</TITLE>
+<META NAME="description" CONTENT="Sequences">
+<META NAME="keywords" CONTENT="mma">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="mma.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html522"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html520"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html514"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html523"
+  HREF="node6.html">Grooves</A>
+<B> Up:</B> <A NAME="tex2html521"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html515"
+  HREF="node4.html">Patterns</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html524"
+  HREF="node5.html#SECTION00510000000000000000">Defining Sequences</A>
+<LI><A NAME="tex2html525"
+  HREF="node5.html#SECTION00520000000000000000">SeqClear</A>
+<LI><A NAME="tex2html526"
+  HREF="node5.html#SECTION00530000000000000000">SeqRnd</A>
+<LI><A NAME="tex2html527"
+  HREF="node5.html#SECTION00540000000000000000">SeqRndWeight</A>
+<LI><A NAME="tex2html528"
+  HREF="node5.html#SECTION00550000000000000000">SeqSize</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00500000000000000000"></A> <A NAME="sec-seqs"></A>
+<BR>
+Sequences
+</H1>
+
+<P>
+Patterns by themselves don't do much good. They have to be combined into
+sequences to be of any use to you or to 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+
+<H1><A NAME="SECTION00510000000000000000">
+Defining Sequences</A>
+</H1>
+
+<P>
+A S<SMALL>EQUENCE</SMALL> command sets the pattern(s) used in creating
+each track in your song:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Track Sequence Pattern1 Pattern2 ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+``Track'' can be any valid track name: ``Chord'', ``Walk'',
+``Walk-Sus'', ``Arpeggio-88'', etc.
+
+<P>
+All pattern names used when setting a sequence need to be defined when
+this command is issued; or you can use what appears to be a pattern
+definition right in the sequence command by enclosing the pattern
+definition in a set of curly brackets ``{ }''.
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Simple Sequence</BIG></SPAN>  <A NAME="eg:seq1"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqClear 
+<BR>
+SeqSize 2 
+<BR>
+Begin Drum 
+<BR>&nbsp;&nbsp;&nbsp; Sequence Snare4 
+<BR>&nbsp;&nbsp;&nbsp; Tone Snaredrum1 
+<BR>
+End 
+<BR>
+Begin Drum-1 
+<BR>&nbsp;&nbsp;&nbsp; Sequence Bass1 Bass2 
+<BR>&nbsp;&nbsp;&nbsp; Tone KickDrum2 
+<BR>
+End 
+<BR>
+Chord Sequence Broken8  
+<BR>
+Bass Sequence Broken8 
+<BR>
+Arpeggio Sequence { 1 1 100 * 8 } { 1 1 80 * 4 }   </B> 
+   
+	    </td></tr>
+      </Table>
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+<A HREF="#eg:seq1">This example</A> creates a 2 bar
+pattern. The Drum, Chord and Bass patterns repeat on every bar; the
+Drum-1 sequence repeats after 2 bars. Note how the Arpeggio pattern is
+defined at run-time.<A NAME="tex2html32"
+  HREF="#foot2571"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+<P>
+If there are fewer patterns than S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL>, the sequence will be
+filled out to correct size. If the number of patterns used is greater
+than S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL> (see
+<A HREF="node27.html#sec-directives">directives</A>) a warning
+message will be printed and the pattern list will be truncated.
+
+<P>
+When defining longer sequences, you can use the ``repeat'' symbol, a
+single ``/'', to save typing. For example, the following two lines are
+equivalent:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Sequence Bass1 Bass1 Bass2 Bass2 
+<BR>
+Bass Sequence Bass1 / Bass2 /   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<A NAME="sequence-clear"></A>
+<P>
+The special pattern name ``-'' (no quotes, just a single hyphen), or a
+single ``z'' can be used to turn a track off. For example, if you have
+set the sequences in <A HREF="#eg:seq1">this example</A>
+and decide to delete the Bass halfway though the song you could:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Sequence -   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The special sequences, ``-'' or ``z'', are also the equivalent of a
+rest or ``tacet'' sequence. For example, in defining a 4 bar sequence
+with a bass pattern on the first 3 bars and a walking bass on bar
+4 you might do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Sequence Bass4-13 / / z 
+<BR>
+Walk Sequence z / / Walk4-4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you already have a sequence defined<A NAME="tex2html33"
+  HREF="#foot2478"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> you can repeat or copy the existing pattern by
+using a single ``*'' as the pattern name. This is useful when you are
+modifying an existing sequence.
+
+<P>
+For example, assume that we have created a four bar G<SMALL>ROOVE</SMALL>
+called ``Neato''. Now, we want to change the C<SMALL>HORD</SMALL> pattern to
+use for an introduction ... but, we really only want to change the
+fourth bar in the pattern:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Neato 
+<BR>
+Chord Sequence * * * {1 2 90} 
+<BR>
+Defgroove NeatoIntro   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+When a sequence is created a series of pointers to the existing
+patterns are created. If you change the definition of a particular
+pattern later in your file the new definition will have <SPAN  CLASS="textit">no</SPAN>
+effect on your existing sequences.
+
+<P>
+Sequences are the workhorse of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . With them you can set up many
+interesting patterns and variations. This chapter should certainly
+give more detail and many more examples.
+
+<P>
+Seqeuence definitions can get quite long and may need multiple
+lines. You can do this by using `` \'' marked continuation lines. Or, to
+make it possible to have comments at the end of lines, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will
+parse S<SMALL>EQUENCE</SMALL> lines and attempt to join lines together until a
+matching number of ``{''s and ``}''s are found. One caution: in
+order for this feature to work with multi-bar sequences you must have
+non-matching braces on a line. For example, this will work:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Sequence {1 4 90; 
+<BR>
+3 4 90} { 1 1 90}   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This will <SPAN  CLASS="textit">not work</SPAN>:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Sequence {1 4 90 }&nbsp; <IMG
+ WIDTH="21" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\includegraphics[height=2.5ex]{/home/bob/src/bv/mma/docs/images/stop.eps}">
+<BR>      {1 1 90}   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In the second example 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  reads the first ``{1 4 90}'' and figures
+that's the end of the sequence. When if finds the next line, it's
+totally confused.
+
+<P>
+The following commands help manipulate sequences in your creations:
+
+<P>
+
+<H1><A NAME="SECTION00520000000000000000"></A>  <A NAME="sec-seqclear"></A>
+<BR>
+SeqClear
+</H1>
+
+<P>
+This command clears all existing sequences from memory. It is useful
+when defining a new sequence and you want to be sure that no
+``leftover'' sequences are active. The command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqClear  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+deletes all sequence information, with the important exception that
+S<SMALL>OLO</SMALL> tracks are ignored.
+
+<P>
+Alternately, the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum SeqClear  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+deletes <SPAN  CLASS="textit">all</SPAN> drum sequences. This includes the track ``Drum'',
+``Drum1'', etc.
+
+<P>
+If you use a sub-track:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Piano SeqClear  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+only the sequence for that track is cleared.<A NAME="tex2html34"
+  HREF="#foot2572"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+<P>
+In addition to clearing the sequence pattern, the following other
+settings are restored to a default condition:
+
+<P>
+
+<UL>
+<LI>Track Invert setting,
+
+<P>
+</LI>
+<LI>Track Sequence Rnd setting,
+
+<P>
+</LI>
+<LI>Track MidiSeq setting,
+
+<P>
+</LI>
+<LI>Track octave,
+
+<P>
+</LI>
+<LI>Track voice,
+
+<P>
+</LI>
+<LI>Track Rvolume,
+
+<P>
+</LI>
+<LI>Track Volume,
+
+<P>
+</LI>
+<LI>Track RTime,
+
+<P>
+</LI>
+<LI>Track RDuration, 
+
+<P>
+</LI>
+<LI>Track Strum.
+
+<P>
+</LI>
+</UL>
+
+<P>
+CAUTION: It is not possible to clear only  a track like D<SMALL>RUM</SMALL> or
+C<SMALL>HORD</SMALL> using this command. The command
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord SeqClear  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+resets <SPAN  CLASS="textit">all</SPAN> C<SMALL>HORD</SMALL> tracks, whereas the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Foo SeqClear  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+resets the C<SMALL>HORD-</SMALL>F<SMALL>OO</SMALL> track. If you need to clear <SPAN  CLASS="textit">only</SPAN>
+the C<SMALL>HORD</SMALL> track use the ``-'' option.
+
+<P>
+
+<H1><A NAME="SECTION00530000000000000000"></A>
+  
+   <A NAME="seqrnd"></A>
+<BR>
+SeqRnd
+</H1>
+
+<P>
+Normally, the patterns used for each bar are selected in order. For
+example, if you had a sequence:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-2 Sequence P1 P2 P3 z  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+bar 1 would use ``P1'', bar 2 ``P2'', etc. However, it is quite
+possible (and fun and useful) to insert a randomness to the order of
+sequences. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  can achieve this in three different ways:
+
+<P>
+
+<OL>
+<LI>Separately for each track:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-Snare SeqRnd On  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
+<LI>Globally for all tracks:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqRnd On  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
+<LI>For a selected set of tracks (keeping the tracks synchronized):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqRnd Drum-Snare Chord-2 Chord-3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
+</OL>
+
+<P>
+To disable random sequencing:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqRnd Off
+<BR>
+Drum SeqRnd Off  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+To illustrate the different effects you can generate, assume that you
+have a total of four tracks defined: Drum-Snare, Drum-Low, Chord and
+Bass; your sequence size is 4 bars; and you have created some type of
+sequence for each track with a commands similar to:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-Snare Sequence D1 D2 D3 D4 
+<BR>
+Drum-Low Sequence D11 D22 D33 D44 
+<BR>
+Chord Sequence C1 C2 C3 C4 
+<BR>
+Bass Sequence B1 B2 B3 B4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+With no sequence randomization at all, the tracks will be be processed
+as:
+
+<P>
+<BLOCKQUOTE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">Track  \ Bar</TD>
+<TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">2</TD>
+<TD ALIGN="LEFT">3</TD>
+<TD ALIGN="LEFT">4</TD>
+<TD ALIGN="LEFT">5</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Drum-Snare</TD>
+<TD ALIGN="LEFT">D1</TD>
+<TD ALIGN="LEFT">D2</TD>
+<TD ALIGN="LEFT">D3</TD>
+<TD ALIGN="LEFT">D4</TD>
+<TD ALIGN="LEFT">D1</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Drum-Low</TD>
+<TD ALIGN="LEFT">D11</TD>
+<TD ALIGN="LEFT">D22</TD>
+<TD ALIGN="LEFT">D33</TD>
+<TD ALIGN="LEFT">D44</TD>
+<TD ALIGN="LEFT">D11</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Chord</TD>
+<TD ALIGN="LEFT">C1</TD>
+<TD ALIGN="LEFT">C2</TD>
+<TD ALIGN="LEFT">C3</TD>
+<TD ALIGN="LEFT">C4</TD>
+<TD ALIGN="LEFT">C1</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Bass</TD>
+<TD ALIGN="LEFT">B1</TD>
+<TD ALIGN="LEFT">B2</TD>
+<TD ALIGN="LEFT">B3</TD>
+<TD ALIGN="LEFT">B4</TD>
+<TD ALIGN="LEFT">B1</TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+
+<P>
+Next, assume we have set sequence randomization with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqRnd On  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, the sequence may look like:
+
+<P>
+<BLOCKQUOTE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">Track  \ Bar</TD>
+<TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">2</TD>
+<TD ALIGN="LEFT">3</TD>
+<TD ALIGN="LEFT">4</TD>
+<TD ALIGN="LEFT">5</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Drum-Snare</TD>
+<TD ALIGN="LEFT">D3</TD>
+<TD ALIGN="LEFT">D1</TD>
+<TD ALIGN="LEFT">D1</TD>
+<TD ALIGN="LEFT">D2</TD>
+<TD ALIGN="LEFT">D4</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Drum-Low</TD>
+<TD ALIGN="LEFT">D33</TD>
+<TD ALIGN="LEFT">D11</TD>
+<TD ALIGN="LEFT">D11</TD>
+<TD ALIGN="LEFT">D22</TD>
+<TD ALIGN="LEFT">D44</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Chord</TD>
+<TD ALIGN="LEFT">C3</TD>
+<TD ALIGN="LEFT">C1</TD>
+<TD ALIGN="LEFT">C1</TD>
+<TD ALIGN="LEFT">C2</TD>
+<TD ALIGN="LEFT">C4</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Bass</TD>
+<TD ALIGN="LEFT">B3</TD>
+<TD ALIGN="LEFT">B1</TD>
+<TD ALIGN="LEFT">B1</TD>
+<TD ALIGN="LEFT">B2</TD>
+<TD ALIGN="LEFT">B4</TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+
+<P>
+Note that the randomization keeps the different sequences together:
+Drum sequences D3 and D33 are always played with Chord sequence C3,
+etc.
+
+<P>
+Next, we will set randomization for a Drum and Chord track only:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-Low SeqRnd On 
+<BR>
+Chord SeqRnd On   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<BLOCKQUOTE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">Track  \ Bar</TD>
+<TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">2</TD>
+<TD ALIGN="LEFT">3</TD>
+<TD ALIGN="LEFT">4</TD>
+<TD ALIGN="LEFT">5</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Drum-Snare</TD>
+<TD ALIGN="LEFT">D1</TD>
+<TD ALIGN="LEFT">D2</TD>
+<TD ALIGN="LEFT">D3</TD>
+<TD ALIGN="LEFT">D4</TD>
+<TD ALIGN="LEFT">D1</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Drum-Low</TD>
+<TD ALIGN="LEFT">D22</TD>
+<TD ALIGN="LEFT">D11</TD>
+<TD ALIGN="LEFT">D44</TD>
+<TD ALIGN="LEFT">D44</TD>
+<TD ALIGN="LEFT">D33</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Chord</TD>
+<TD ALIGN="LEFT">C3</TD>
+<TD ALIGN="LEFT">C4</TD>
+<TD ALIGN="LEFT">C2</TD>
+<TD ALIGN="LEFT">C1</TD>
+<TD ALIGN="LEFT">C1</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Bass</TD>
+<TD ALIGN="LEFT">B1</TD>
+<TD ALIGN="LEFT">B2</TD>
+<TD ALIGN="LEFT">B3</TD>
+<TD ALIGN="LEFT">B4</TD>
+<TD ALIGN="LEFT">B1</TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+
+<P>
+In this case there is no relationship between any of the randomized
+tracks.
+
+<P>
+Finally, it is possible to set a ``global'' randomization for a
+selected set of tracks. In this case we will set the Drum tracks only:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqRnd Drum-Snare Drum-Low  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<BLOCKQUOTE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">Track  \ Bar</TD>
+<TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">2</TD>
+<TD ALIGN="LEFT">3</TD>
+<TD ALIGN="LEFT">4</TD>
+<TD ALIGN="LEFT">5</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Drum-Snare</TD>
+<TD ALIGN="LEFT">D3</TD>
+<TD ALIGN="LEFT">D1</TD>
+<TD ALIGN="LEFT">D4</TD>
+<TD ALIGN="LEFT">D4</TD>
+<TD ALIGN="LEFT">D2</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Drum-Low</TD>
+<TD ALIGN="LEFT">D33</TD>
+<TD ALIGN="LEFT">D11</TD>
+<TD ALIGN="LEFT">D44</TD>
+<TD ALIGN="LEFT">D44</TD>
+<TD ALIGN="LEFT">D22</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Chord</TD>
+<TD ALIGN="LEFT">C1</TD>
+<TD ALIGN="LEFT">C2</TD>
+<TD ALIGN="LEFT">C3</TD>
+<TD ALIGN="LEFT">C4</TD>
+<TD ALIGN="LEFT">C1</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Bass</TD>
+<TD ALIGN="LEFT">B1</TD>
+<TD ALIGN="LEFT">B2</TD>
+<TD ALIGN="LEFT">B3</TD>
+<TD ALIGN="LEFT">B4</TD>
+<TD ALIGN="LEFT">B1</TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+
+<P>
+Note that the drum sequences always ``line up'' with each other and
+the Chord and Bass sequences follow in the normal order.
+
+<P>
+The S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL> command will disable all sequence
+randomization. The S<SMALL>EQ</SMALL> command will disable ``global'' (for all
+tracks) randomization.
+
+<P>
+
+<H1><A NAME="SECTION00540000000000000000"></A>
+ 
+ <A NAME="seqrndweight"></A>
+<BR>
+SeqRndWeight
+</H1>
+
+<P>
+When S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL> is enabled each sequence for the track (or globally) has an equal chance
+of being selected. There are times when you may want to change this behavior. For example,
+you might have a sequence like this:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Sequence C1  C2  C3  C4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and you feel that the patterns C1 and C2 need to be used twice as often as C3 and C4.
+Simple:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord SeqRndWeight 2 2 1 1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Think of the random selection occurring like selecting balls out of bag. The S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL>W<SMALL>EIGHT</SMALL>
+command ``fills up the bag''. In the above case, there will be two C1 and C2 balls, one C3 and C4 ball--
+for a total of six balls.
+
+<P>
+This command can be used in both a track and global context.
+
+<P>
+The effects are saved in G<SMALL>ROOVES</SMALL>.
+
+<P>
+S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL> will reset both global and track contexts to the default (equal) condition.
+
+<P>
+
+<H1><A NAME="SECTION00550000000000000000">
+SeqSize</A>
+</H1>
+
+<P>
+The number of bars in a sequence are set with the ``SeqSize'' command.
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqSize 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+sets it to 4 bars. The SeqSize applies to all tracks.
+
+<P>
+This command resets the <SPAN  CLASS="textit">sequence counter</SPAN> to 1.
+
+<P>
+If some sequences have already been defined, they will be truncated or
+expanded to the new size. Truncation is done by removing patterns from
+the end of the sequence; expansion is done by duplicating the sequence
+until it is long enough.
+
+<P>
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot2571">... run-time.</A><A
+ HREF="node5.html#tex2html32"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>If you run 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the ``-s'' option
+  you'll see pattern names in the format ``_1''. The leading
+  underscore indicates that the pattern was dynamically created in the
+  sequence.
+
+</DD>
+<DT><A NAME="foot2478">... defined</A><A
+ HREF="node5.html#tex2html33"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>In reality there is
+  always a sequence defined for every track, but it might be a series
+  of ``rest'' bars.
+
+</DD>
+<DT><A NAME="foot2572">... cleared.</A><A
+ HREF="node5.html#tex2html34"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>It is probably
+  easier to use the command: 
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+   <B>Chord-Piano Sequence -  </B> 
+   
+	    </td></tr>
+      </Table>
+ if that is
+  what you want to do. In this case <SPAN  CLASS="textit">only</SPAN> sequence pattern is
+  cleared.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html522"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html520"
+  HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html514"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html523"
+  HREF="node6.html">Grooves</A>
+<B> Up:</B> <A NAME="tex2html521"
+  HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A NAME="tex2html515"
+  HREF="node4.html">Patterns</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2015-12-15
+</ADDRESS>
+</BODY>
+</HTML>
