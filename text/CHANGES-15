@@ -161,3 +161,47 @@ Cleaned up docs for ornament. Hopefully this is more readable now.
 December 15, 2015
 Release 15-12
 
+
+------------------------------------------------------------------------
+
+When setting a chord name you can have multiple '+'s or '-'s to
+ change its octave.
+
+String compares were mostly returning TRUE. Not what we want! I think this
+ crept in when I added '<', '!=', etc. Fixed now.
+
+Fixed timing issue with offsets in plectrum tracks. Thanks Iganzio!
+
+Changed the error/warning routine to pretty print (wrap) messages.
+
+Plugins. Please read the manual section and the additional PLUGIN API.
+ Added macros $_Plugins and $_TrackName_Plugins.
+
+Added chords 7b5(add13) and 7(add13).
+
+The ChordAdjust code has been fixed up and has a RESET option. You
+ can also concat a series of chords names: A,F,G=-1. Added a macro,
+ $_ChordAdjust, to list current settings.
+
+Version numbering: a minor change. We're still using YY.MM for
+ the major releases. For minor (developer) releases we now
+ use YY.MM.[a-z]. 
+
+February 21, 2016
+Release 15.2.a
+
+-------------------------------------------------------------
+
+DUPRIFF: Addition of the FROM keyword to reverse direction of copy.
+
+Added the pluginUtils module for your plugins to access. Added
+ Ignazio's documentation and updated his strumPattern plugin.
+
+April 14, 2016
+Release 15.2.b
+
+
+Added AFTER command
+
+May 22, 2016
+Release 15.2.c

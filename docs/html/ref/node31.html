@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Creating Effects</TITLE>
-<META NAME="description" CONTENT="Creating Effects">
+<TITLE>Documentation Strings</TITLE>
+<META NAME="description" CONTENT="Documentation Strings">
 <META NAME="keywords" CONTENT="mma">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,22 +28,22 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html983"
+<A NAME="tex2html984"
   HREF="node32.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html981"
+<A NAME="tex2html982"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html975"
+<A NAME="tex2html976"
   HREF="node30.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html984"
-  HREF="node32.html">Frequency Asked Questions</A>
-<B> Up:</B> <A NAME="tex2html982"
+<B> Next:</B> <A NAME="tex2html985"
+  HREF="node32.html">Paths, Files and Libraries</A>
+<B> Up:</B> <A NAME="tex2html983"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html976"
-  HREF="node30.html">Paths, Files and Libraries</A>
+<B> Previous:</B> <A NAME="tex2html977"
+  HREF="node30.html">Begin/End Blocks</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
@@ -51,169 +51,187 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html985"
-  HREF="node31.html#SECTION003110000000000000000">Overlapping Notes</A>
 <LI><A NAME="tex2html986"
-  HREF="node31.html#SECTION003120000000000000000">Jungle Birds</A>
+  HREF="node31.html#SECTION003110000000000000000">Doc</A>
+<LI><A NAME="tex2html987"
+  HREF="node31.html#SECTION003120000000000000000">Author</A>
+<LI><A NAME="tex2html988"
+  HREF="node31.html#SECTION003130000000000000000">DocVar</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
 
-<H1><A NAME="SECTION003100000000000000000"></A>
-<A NAME="sec-effects"></A>
-<BR>
-Creating Effects
+<H1><A NAME="SECTION003100000000000000000">
+Documentation Strings</A>
 </H1>
 
 <P>
-It's really quite amazing how easy and effective it is to create
-different patterns, sequences and special effects. As 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  was
-developed lots of silly things were tried ... this chapter is an
-attempt to display and preserve some of them.
+It has been mentioned a few times already the importance of clearly
+documenting your files and library files. For the most part, you can
+use comments in your files; but in library files you use the
+D<SMALL>OC</SMALL> directive.
 
 <P>
-The examples don't show any music to apply the patterns or sequences
-to. The manual assumes that if you've read this far you'll know
-that you should have something like:
+In addition to the commands listed in this chapter, you should also
+note <A HREF="node6.html#sec-grooves">D<SMALL>EF</SMALL>G<SMALL>ROOVES</SMALL></A>).
+
+<P>
+For some real-life examples of how to document your library files,
+look at any of the library files supplied with this distribution.
 
 <P>
 
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>1  C 
+<H1><A NAME="SECTION003110000000000000000"></A> <A NAME="sec-docs"></A>
 <BR>
-2  G 
-<BR>
-3  G 
-<BR>
-4 C   </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-as a simple test piece to apply tests to.
-
-<P>
-
-<H1><A NAME="SECTION003110000000000000000">
-Overlapping Notes</A>
+Doc
 </H1>
 
 <P>
-As a general rule, you should not create patterns in which notes
-overlap. However, here's an interesting effect which relies on
-ignoring that rule:
+A D<SMALL>OC</SMALL> command is pretty simple: 
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Begin Scale 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S1 1 1+1+1+1 90  
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S32 S1 * 32 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence S32 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;ScaleType  
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Direction Both 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice Accordion 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Octave 5 
-<BR>
-End   </B> 
+    <B>Doc This is a documentation string!   </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-``S1'' is defined with a note length of 4 whole notes (1+1+1+1) so that
-when it is multiplied for S32 a pattern of 32 8th notes is created.
-Of course, the notes overlap. Running this up and down a chromatic
-scale is ``interesting''.  You might want to play with this a bit and
-try changing ``S1'' to:
+In most cases, D<SMALL>OC</SMALL>s are treated as C<SMALL>OMMENT</SMALL>s.  However,
+if the <SPAN  CLASS="textit">-Dx</SPAN><A NAME="tex2html125"
+  HREF="#foot18685"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> option is given
+on the command line, D<SMALL>OC</SMALL>s are processed and printed to standard
+output.
+
+<P>
+For producing the <SPAN  CLASS="textit">
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Standard Library Reference</SPAN> a trivial
+Python program is used to collate the output generated with a command
+like:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>define S1 1 1 90   </B> 
+    <B>$ mma -Dxl -w /usr/local/lib/mma/swing  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-to see what the effect is of the notes overlapping.
+Note,  the '-w' option has been used to suppress the printing of warning
+messages.
+
+<P>
+All D<SMALL>OC</SMALL> lines/strings are concatenated into one long
+paragraph. If you want any line breaks they should be indicated with a
+``&lt;P&gt;''. In latex this is converted to a new
+line; in html it is left as is (forcing a new line as well).
 
 <P>
 
 <H1><A NAME="SECTION003120000000000000000">
-Jungle Birds</A>
+Author</A>
 </H1>
 
 <P>
-Here's another use for S<SMALL>CALE</SMALL>s. Someone (certainly not the
-author) decided that some jungle sounds would be perfect as an
-introduction to ``Yellow Bird''.
+As part of the documentation package, there is a A<SMALL>UTHOR</SMALL>
+command:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>groove Rhumba 
-<BR>
-Begin Scale 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S1 1 1 90  
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S32 S1 * 32 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence S32 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;ScaleType Chromatic 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Direction  Random 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice BirdTweet 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Octave 5 6 4 5 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;RVolume 30 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Rtime 2 3 4 5 
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;Volume pp pp ppp ppp 
-<BR>
-End 
-<BR>
-DefGroove BirdRhumba   </B> 
+    <B>Author Bob van der Poel  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-The above is an extract from the 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  score. The entire song is
-included in the ``songs'' directory of this distribution.
-
-<P>
-A neat trick is to create the bird sound track and then add it to the
-existing Rhumba groove. Then define a new groove. Now one can select
-either the library ``rhumba'' or the enhanced ``BirdRhumba'' with a
-simple G<SMALL>ROOVE</SMALL> directive.
+Currently A<SMALL>UTHOR</SMALL> lines are processed and the data is saved, but
+never used. It may be used in a future library documentation
+procedures, so you should use it in any library files you write.
 
 <P>
 
+<H1><A NAME="SECTION003130000000000000000">
+DocVar</A>
+</H1>
+
+<P>
+If any variables are used to change the behavior of a library file
+they should be documented with a D<SMALL>OC</SMALL>V<SMALL>AR</SMALL> command. Normally these
+lines are treated as comments, but when processing with the -Dxl or
+-Dxh command line options the data is parsed and written to the output
+documentation files.
+
+<P>
+Assuming that you are using the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variable $C<SMALL>HORD</SMALL>V<SMALL>OICE</SMALL> as
+an optional voice setting in your file, you might have the following
+in a library file:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin DocVar
+<BR>
+ChordVoice  Voice used in Chord tracks (defaults to Piano2).
+<BR>
+End
+<BR> 
+<BR>
+If NDef ChordVoice 
+<BR>
+Set ChordVoice Piano2 
+<BR>
+Endif  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+All variables used in the library file should be documented. You
+should list the user variables first, and then any variables internal
+to the library file. To double check to see what variables are used
+you can add a S<SMALL>HOW</SMALL>V<SMALL>ARS</SMALL> to the end of the library file and
+compile. Then document the variables and remove the S<SMALL>HOW</SMALL>V<SMALL>ARS</SMALL>.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot18685">...-Dx</A><A
+ HREF="node31.html#tex2html125"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>See the <A HREF="node2.html#cmd-summary">command
+    summary</A>.
+
+</DD>
+</DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html983"
+<A NAME="tex2html984"
   HREF="node32.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html981"
+<A NAME="tex2html982"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html975"
+<A NAME="tex2html976"
   HREF="node30.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html984"
-  HREF="node32.html">Frequency Asked Questions</A>
-<B> Up:</B> <A NAME="tex2html982"
+<B> Next:</B> <A NAME="tex2html985"
+  HREF="node32.html">Paths, Files and Libraries</A>
+<B> Up:</B> <A NAME="tex2html983"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html976"
-  HREF="node30.html">Paths, Files and Libraries</A></DIV>
+<B> Previous:</B> <A NAME="tex2html977"
+  HREF="node30.html">Begin/End Blocks</A></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Bob van der Poel
-2015-12-15
+2016-05-22
 </ADDRESS>
 </BODY>
 </HTML>

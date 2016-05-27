@@ -32,6 +32,7 @@ import MMA.chords
 import MMA.alloc
 import MMA.volume
 import MMA.exits
+import MMA.regplug
 
 from . import gbl
 from MMA.common import *
@@ -62,7 +63,7 @@ def opts(l=None):
 
     try:
         opts, args = getopt.gnu_getopt(l,
-                                       "b:B:dpsS:ri:wneom:f:M:cLgGvVD:01PT:", [])
+                                       "b:B:dpsS:ri:wneom:f:M:cLgGvVD:01PT:I:", [])
     except getopt.GetoptError:
         usage()
 
@@ -173,7 +174,7 @@ def opts(l=None):
                 # important! Needs a space before the trailing LF for mma.el
                 print("Base track names: %s \n" % 
                       ' '.join([a for a in sorted(MMA.alloc.trkClasses)]))
-                print("Commands: %s BEGIN END \n" % 
+                print("Commands: %s BEGIN END DEFAULT\n" % 
                       ' '.join([a for a in sorted(MMA.parse.simpleFuncs)]))
                 print("TrackCommands: %s \n" %
                       ' '.join([a for a in sorted(MMA.parse.trackFuncs)]))
@@ -192,6 +193,22 @@ def opts(l=None):
 
         elif o == '-P':
             gbl.playFile = 1
+
+        elif o == '-I':
+            # We use -I for plugin help and overload it to discard 
+            # the plugin security. Use -II for security override.
+            # It does mean you can't have plugin called "I", but
+            # you could use "i" and it'll work.
+            if a == 'I':
+                MMA.regplug.secOverRide = True
+
+            # Plugin help. Note we have not loaded any plugins at this
+            # point. pluginHelp() will find the plugin, register it and
+            # call its help function.
+            else: 
+                MMA.regplug.pluginHelp(a)
+                sys.exit(0)
+                
 
         elif o == '-V':
             if internal:
@@ -294,6 +311,8 @@ def usage(msg=''):
         " -g    update Groove dependency database",
         " -G    create Groove dependency database",
         " -i <file> specify init (mmarc) file",
+        " -I <plugin> print docs for plugin if available",
+        " -II   skip premissions test for plugins (Dangerous!)",
         " -L    show order of bars processed",
         " -m <x> set Maxbars (default == 500)",
         " -M <x> set SMF to 0 or 1",

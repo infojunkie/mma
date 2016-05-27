@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Triggers</TITLE>
-<META NAME="description" CONTENT="Triggers">
+<TITLE>Patch Management</TITLE>
+<META NAME="description" CONTENT="Patch Management">
 <META NAME="keywords" CONTENT="mma">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,535 +28,638 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html867"
+<A NAME="tex2html883"
   HREF="node26.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html865"
+<A NAME="tex2html881"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html859"
+<A NAME="tex2html875"
   HREF="node24.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html868"
-  HREF="node26.html">Fine Tuning (Translations)</A>
-<B> Up:</B> <A NAME="tex2html866"
+<B> Next:</B> <A NAME="tex2html884"
+  HREF="node26.html">Triggers</A>
+<B> Up:</B> <A NAME="tex2html882"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html860"
-  HREF="node24.html">Patch Management</A>
+<B> Previous:</B> <A NAME="tex2html876"
+  HREF="node24.html">Low Level MIDI Commands</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html885"
+  HREF="node25.html#SECTION002510000000000000000">Voice</A>
+<LI><A NAME="tex2html886"
+  HREF="node25.html#SECTION002520000000000000000">Patch</A>
+<UL>
+<LI><A NAME="tex2html887"
+  HREF="node25.html#SECTION002521000000000000000">Patch Set</A>
+<LI><A NAME="tex2html888"
+  HREF="node25.html#SECTION002522000000000000000">Patch Rename</A>
+<LI><A NAME="tex2html889"
+  HREF="node25.html#SECTION002523000000000000000">Patch List</A>
+<LI><A NAME="tex2html890"
+  HREF="node25.html#SECTION002524000000000000000">Ensuring It All Works</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
 
 <H1><A NAME="SECTION002500000000000000000"></A>
-<A NAME="sec-triggers"></A>
+<A NAME="patch"></A>
 <BR>
-Triggers
+Patch Management
 </H1>
 
 <P>
-It is possible to have 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  sequences to be automatically played
-only when certain conditions apply. This is controlled by a
-T<SMALL>RIGGER</SMALL>.
-
-<P>
-T<SMALL>RIGGER</SMALL>s are available for all tracks with the exception of
-M<SMALL>ELODY</SMALL> and S<SMALL>OLO</SMALL>. T<SMALL>RIGGER</SMALL>s are <SPAN  CLASS="textit">not</SPAN> saved in
-G<SMALL>ROOVES</SMALL>.<A NAME="tex2html107"
-  HREF="#foot15376"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
-<P>
-Once you understand the concept of a T<SMALL>RIGGER</SMALL>, we think you'll
-find them very useful. Suppose, for example, that you only want a
-chord to be played on a track when the chord changes. First of all you
-need to create a chord track:
-
+Modern music keyboards and synthesizers are capable of producing a
+bewildering variety of sounds. Many consumer units priced well under
+$1000.00 contain several hundred or more unique voices. But, ``out of
+the box'' 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  supports the 128 ``General MIDI''<A NAME="tex2html108"
+  HREF="#foot15566"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> preset voices as well as ``extended'' voices (see
+below). These voices are assigned the values 0 to 127. We refer to the
+various voices as ``tones'', ``instruments'', or
+``patches''.<A NAME="tex2html109"
+  HREF="#foot15567"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>Begin Chord-1 
-<BR>&nbsp;&nbsp;&nbsp;Voice Piano1 
-<BR>&nbsp;&nbsp;&nbsp;Octave 5 
-<BR>&nbsp;&nbsp;&nbsp;Sequence {1 1 90 * 4} // chords on 1,2,3 and 4 
+<H1><A NAME="SECTION002510000000000000000"></A>  <A NAME="set-voice"></A>
 <BR>
-End   </B> 
-   
-	    </td></tr>
-      </Table>
+Voice
+</H1>
 
 <P>
-If you used this with the following data:
+The MIDI instrument or voice used for a track is set with:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>1 C / D 
+    <B>Chord-2 Voice Piano1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Voices apply only to the specified track. The actual instrument can be
+specified via the MIDI instrument number, an ``extended'' value, or
+with the symbolic name.  See the tables in the MIDI
+<A HREF="node35.html#sec-voicenames">voicing section</A> for lists of the standard, recognized
+names.
+
+<P>
+You can create interesting effects by varying the voice used with drum
+tracks. By default ``Voice 0'' is used. However, you can change the
+drum voices. The supplied library files do not change the voices since
+this is highly dependent on the MIDI synth you are using.
+
+<P>
+You can specify a different V<SMALL>OICE</SMALL> for each bar in a sequence.
+Repeated values can be represented with a ``/'':
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Voice Piano1 / / Piano2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+It is possible to set up translations for the selected voice: see
+<A HREF="node28.html#set-voicetr">V<SMALL>OICE</SMALL>TR</A>.
+
+<P>
+To complicate matters a little bit more, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  also adds a pseudo
+voice N<SMALL>ONE</SMALL> which disables the generation of MIDI code to
+select a default voice. This is useful when you set a given track to
+a specific MIDI channel and you have preset an external synth. For
+example, suppose you want a S<SMALL>OLO</SMALL> track on MIDI channel 1 with
+no voice settings:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Solo 
+<BR>&nbsp;&nbsp; channel 1 
+<BR>&nbsp;&nbsp; Voice None 
+<BR>&nbsp;&nbsp; ... 
 <BR>
-2 C Gm  </B> 
+End 
+<BR></B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-you will get chords sounding on each beat in the bar.
+
+<H1><A NAME="SECTION002520000000000000000"></A> 
+<A NAME="extended-patch"></A>
+<BR>
+Patch
+</H1>
 
 <P>
-To enable a trigger to only sound when the chord changes:
+In addition to the 128 standard voices mandated by the MIDI standards
+(referred to as the GM voices) 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  also supports extended voice
+banks.
+
+<P>
+<DIV ALIGN="CENTER">
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <BR>
+<BR><SPAN  CLASS="textit">The rest of this
+        chapter presents features which are highly dependent your hardware.
+        It is quite possible to create midi files which sound very
+        different (or even awful, or perhaps not at all) on other
+        hardware. We recommend that you <SPAN  CLASS="textit">do not</SPAN> use these
+        features to create files you want to share!</SPAN>
+	
+           </td></tr>
+        </Table>
+
+</DIV>
+
+<P>
+A typical keyboard will assign instruments to different voice
+banks. The first, default, bank will contain the standard set of 128
+GM instruments. However, you can select different banks, each with a
+variety of voices, by changing the current voice bank. This switching
+is done by changing the value of MIDI Controller 0, 32 or both. You'll
+need to read the manual for your hardware to figure this out.
+
+<P>
+In order to use voices outside of the normal GM range 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses an
+extended addressing mode which includes values for the patch and
+controllers 0 and 32. Each value is separated from the others with a
+single ``.''. Two examples would include 22.33.44 and 22.33. The first
+value is the Patch Number, the second is a value for Controller 0. The
+third value, if present, is the setting for Controller 32.
+
+<P>
+My Casio Wk-3000 lists Bank-53, Program-27 as "Rotary Guitar". It's easy to use
+this voice directly in a V<SMALL>OICE</SMALL> command:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Chord-1 Trigger Auto  </B> 
+    <B>Chord Voice 27.53  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-Now, the chord will sound on beats 1 and 3 of the first bar and 1 and
-2 of the second.
+Yes, but who wants all those ``funny'' numbers in their 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  files?
+Well, no one that I know. For this reason the P<SMALL>ATCH</SMALL> command has
+been developed. This command lets you modify existing patch names,
+list names and create new ones.
 
 <P>
-With that under our belts, let's have a look at all options available:
+P<SMALL>ATCH</SMALL> takes a variety of options. We suggest you read this
+section and examine some of the included example files before
+venturing out on your own. But, really, it's not that complicated.
 
 <P>
-First, commands which do not require an additional option:
+Unless otherwise noted, you can stack a number of different options
+onto the same P<SMALL>ATCH</SMALL> line.
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><DL>
-<DT><STRONG>Auto</STRONG></DT>
-<DD>This keyword signals that a trigger should occur
-    <SPAN  CLASS="textit">at any point</SPAN> when a chord is changed. In this case you do
-    not need (nor should you have) a B<SMALL>EATS</SMALL> option. Note: For
-    this command and R<SMALL>EST</SMALL> the actual point for the trigger is
-    the exact point of the chord/rest change (this could be at an
-    offset like 1.1415).
+
+<H2><A NAME="SECTION002521000000000000000"></A>
+<A NAME="patch-set"></A>
+<BR>
+Patch Set
+</H2>
 
 <P>
+The S<SMALL>ET</SMALL> option is used to assign one or more patch values to
+symbolic names. Going back to my Casio example, above, I could use the
+following line to register the voice with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Patch Set 27.53=RotaryGuitar  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The assignment consists of two parts or keys joined by a ``=''
+sign. No spaces are permitted. The left part of the assignment is a
+value. It can be a single number in the range 0 to 127; or 2 or 3 numbers
+joined by ``.''s. The right right part is a symbolic name. Any characters
+are permitted (but no spaces!).
+
+<P>
+After the assignment you can use ``RotaryGuitar'' just like any other
+instrument name:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Voice rotaryguitar  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that once the voice has been registered you don't need to worry
+about the case of individual letters.
+
+<P>
+It's even possible to register a number of voices in this manner:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Patch set 27.53=RotaryGuitar 61.65=BASS+TROMBONE   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Just make sure that the S<SMALL>ET</SMALL> assignments are the last thing on
+the P<SMALL>ATCH</SMALL> line.
+
+<P>
+It is relatively easy to load entire sets of extended patch names by
+creating special 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  include files. For example, for a Casio
+WK-3000 keyboard you might have the file <TT><SPAN  CLASS="textbf">includes/casio-wk3.mma</SPAN></TT>
+with a large number of settings. Here's a snippet:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Patch Set 
+<BR>
+0.48=GrandPiano 
+<BR>
+1.48=BrightPiano 
+<BR>
+2.48=ElecGrandPiano 
+<BR>
+3.48=Honky-Tonk1 
+<BR>  ...
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, at the top of your song file or in a <SMALL>MMARC</SMALL> file insert the
+command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>include casio-wk300<A NAME="tex2html110"
+  HREF="#foot15715"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A file like this can be created by hand or you can convert existing an
+existing file to a format  understands. A number of ``patch''
+files exist for the popular ``Band in a Box'' program from
+PGMusic. There files may be subject to copyright, so use them with
+respect. No patch files are included in this distribution, but many
+are freely available on the internet. For a start you might want to
+look at <TT><A NAME="tex2html111"
+  HREF="http://www.pgmusic.com/support_miscellaneous.htm">http://www.pgmusic.com/support_miscellaneous.htm</A></TT>. These
+files cannot be read my 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , so we have included a
+little conversion utility <TT><SPAN  CLASS="textbf">util/pg2mma.py</SPAN></TT>. There is a short
+file with instructions <TT><SPAN  CLASS="textbf">util/README.pg2mma</SPAN></TT>. 
+
+<P>
+The S<SMALL>ET</SMALL> option will issue warning messages if you redefine
+existing instrument names or addresses. We suggest that you edit any
+configuration files so that they have unique names and that you do not
+rename any of the standard GM names.
+
+<P>
+
+<H2><A NAME="SECTION002522000000000000000">
+Patch Rename</A>
+</H2>
+
+<P>
+The naming of patches is actually quite arbitrary. You'll find that
+different manufacturers use different names to refer to the same
+voices. Most of the time this isn't a major concern, but you have the
+freedom in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to change any patch name you want. For example, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+calls the first voice in the GM set ``Piano1''. Maybe you want to use
+the name ``AcousticGrand''. Easy:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Patch Rename Piano1=AcousticGrand  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Each R<SMALL>ENAME</SMALL> option has a left and right part joined by an ``=''
+sign. The left part is the current name; the right is the new
+name. Please note that after this command the name ``Piano1'' will not
+be available.
+
+<P>
+You can have any number of items in a list; however, they must be the
+last items on the P<SMALL>ATCH</SMALL> line.
+
+<P>
+
+<H2><A NAME="SECTION002523000000000000000">
+Patch List</A>
+</H2>
+
+<P>
+After making changes to 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's internal tables you might want to
+check to make sure that what you meant is what you got. For this
+reason there are three different versions of the L<SMALL>IST</SMALL>
+command.
+
+<P>
+<DL>
+<DT><STRONG>List=GM</STRONG></DT>
+<DD>Lists the current values of the GM voices,
 </DD>
-<DT><STRONG>Off</STRONG></DT>
-<DD>Turns the trigger for the specified track off. This is
-    the same as having a T<SMALL>RIGGER</SMALL> command with no arguments. No
-    other commands are permitted with an ``off'' setting.
-
-<P>
+<DT><STRONG>List=EXT</STRONG></DT>
+<DD>Lists the extended voices,
 </DD>
-<DT><STRONG>Rest</STRONG></DT>
-<DD>This keyword signals that a trigger should occur
-    <SPAN  CLASS="textit">at any point</SPAN> where a rest starts. In this way you can
-    handle a rest like a ``special'' chord.
-
-<P>
+<DT><STRONG>List=All</STRONG></DT>
+<DD>Lists both the GM and extended voices.
 </DD>
 </DL>
-</DD>
-</DL>
 
 <P>
-The following commands are set in the OPTION=VALUE format:
-
-<P>
-<DL COMPACT>
-<DT></DT>
-<DD><DL>
-<DT><STRONG>Beats</STRONG></DT>
-<DD>A comma separated list of beats for your trigger. Note
-    that this is ignored if you have set one of the keywords
-    A<SMALL>UTO</SMALL> or R<SMALL>EST</SMALL>. The beats can be any legal offset into
-    the bar (in <SPAN  CLASS="textbf">4/4</SPAN> this would include 1, 2.4 and even
-    3.9).
-
-<P>
-</DD>
-<DT><STRONG>Bars</STRONG></DT>
-<DD>The bars of the sequence to apply the trigger to. For
-    example (assuming a four bar sequence):
+For example, the command:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Chord-1 Trigger Auto Bars=1,3  </B> 
+    <B>Patch List=EXT  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-would limit the sequence to chord changes occurring in the first
-    and third (of four) bars of each sequence in the song.
-
-<P>
-</DD>
-<DT><STRONG>Cnames</STRONG></DT>
-<DD>A list of chord names which are checked against the
-    active chord at each point of the B<SMALL>EATS</SMALL> list. Example:
+will produce a listing something like:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Chord-Test Trigger Beats=1,2,3,4 Cnames=Cm,E7,FM7   </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-If the chord name is not in the specified list, no trigger is
-    activated.
-
-<P>
-</DD>
-<DT><STRONG>Ctonics</STRONG></DT>
-<DD>A list of base chord names which are checked against
-    the active chord at each point of the B<SMALL>EATS</SMALL> list. Example:
-
-<P>
-
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>Chord-Test Trigger Beats=1,2,3,4 Ctonics= C,E,F   </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-If the tonic of the chord is not in the specified list, no trigger
-    is activated.
-
-<P>
-</DD>
-<DT><STRONG>CTypes</STRONG></DT>
-<DD>A list of chord types (e.g., ``m'', ``7'', ``dim'')
-    which are checked against the active chord at each point of
-    theB<SMALL>EATS</SMALL> list. Example:
-
-<P>
-
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>Chord-Test Trigger Beats=1,2,3,4 Ctypes=m,m7,dim7   </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-If the chord-type is not in the specified list, no trigger is
-    activated.
-
-<P>
-</DD>
-<DT><STRONG>Count</STRONG></DT>
-<DD>The number of patterns to use from the sequence. If you
-    have a sequence of four events (like the example at the start of
-    this section) only the first event is used. However, by setting
-    the count to a value:
-
-<P>
-
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>Chord-1 Trigger Auto Count=2  </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-more of the patterns will be used. No pattern will start past the
-    end of the current bar. The above example doesn't really make a
-    lot of sense, but with a sequence like:
-
-<P>
-
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>Chord-1 Sequence {1 3 90; 1.3 3 90; 1.6 3 90}  </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-and a C<SMALL>OUNT</SMALL> of 3 you can have a triplet play for each
-    trigger point.
-
-<P>
-</DD>
-<DT><STRONG>Measures</STRONG></DT>
-<DD>You can limit the trigger events to specific
-    measures. For example:
-
-<P>
-
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>Chord-1 Trigger Auto Measures=1,5,9   </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-will cause trigger events to be played only when a chord changes
-    in bars 1, 5 or 9.<A NAME="tex2html108"
-  HREF="#foot15471"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> Please note that the bar numbers
-    are not checked against the actual bar numbers in your song (which
-    can be hard to calculate after repeats and endings), but with the
-    number label in the file. So a trigger command in the above
-    example will apply to all of the following bars, regardless of the
-    order of the numbering:
-
-<P>
-
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>5 Cm 
+    <B>0.48=GrandPiano 
 <BR>
-1 G     
+1.48=BrightPiano 
 <BR>
-1 D     
-<BR>
-5 E7    
-<BR>
-9 A  </B> 
+2.48=ELEC.GrandPiano 
+<BR> ...</B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-Please don't number your bars like this! It's just an example.
+
+<H2><A NAME="SECTION002524000000000000000">
+Ensuring It All Works</A>
+</H2>
 
 <P>
-</DD>
-<DT><STRONG>Override</STRONG></DT>
-<DD>By default, when a bar is parsed and the trigger
-    command <SPAN  CLASS="textit">does not</SPAN> create any events 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will generate an
-    empty bar for the track. However, by setting O<SMALL>VERRIDE=</SMALL>T<SMALL>RUE</SMALL>
-    the original sequence for the track will be used. Use of this
-    command (in conjunction with the S<SMALL>EQUENCE</SMALL> command) lets you
-    have different patterns for bars with and without a trigger
-    response.
+If you are going to use any of the extended patches in your MIDI files
+you may need to do some additional work.
 
 <P>
-</DD>
-<DT><STRONG>Sequence</STRONG></DT>
-<DD>By default, a T<SMALL>RIGGER</SMALL> will use the
-    S<SMALL>EQUENCE</SMALL> defined for the track. This command defines a
-    different sequence to use. This can be useful in toggling between
-    the track sequence and the trigger's by turning the trigger on and
-    off. Define the sequence in the normal manner:
+Your hardware may need to be in a ``special'' mode for any of the
+extended patches to take effect. What we suggest is that you use the
+MIDI command <A HREF="node24.html#sec-midi">(details here)</A> to do some initialization. For an example please
+look at the file <TT><SPAN  CLASS="textbf">includes/init.mma</SPAN></TT> which we include in our
+personal files. This file sets the volume, pan and controller values
+to known settings. It's easy to modify this file to match your
+hardware setup.
+
+<P>
+To use a file like <TT><SPAN  CLASS="textbf">includes/init.mma</SPAN></TT> just include a line like:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Chord-1 Trigger Auto Sequence = {1 3 90; 1.33 3 80; 1.66 3
-      70}   </B> 
+    <B>include init  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-Only one sequence is permitted in a trigger command.
+in your mmarc file. See the Path section of this manual for details
+<A HREF="node32.html#sec-paths">(here)</A>.
 
 <P>
-</DD>
-<DT><STRONG>Sticky</STRONG></DT>
-<DD>This is a convience option to set the S<SMALL>TICKY</SMALL>
-    bit for the current track. Its effect is the same as described <A HREF="node6.html#sect-sticky">here</A>. When using the option in a
-    T<SMALL>RIGGER</SMALL> line you must include the ``='' as in:
-    
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>Drum-Triangle Trigger Sticky=True   </B> 
-   
-	    </td></tr>
-      </Table>
+To help keep things sane, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  checks each track as it is closed. If
+an extended voice has been used in that track it resets the effected
+controllers to a zero state. In most cases this means that if you
+finish playing the file your keyboard will be returned to a
+``default'' state.
 
 <P>
-</DD>
-<DT><STRONG>Truncate</STRONG></DT>
-<DD>The duration of the notes in the sequence used by a
-    trigger are, normally, left as defined. If you are using short
-    notes, this works just fine. But, if the durations are longer you
-    can end up with overlapping notes. The T<SMALL>RUNCATE</SMALL> command
-    forces 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to truncate the duration of each note to the lesser
-    of what is specifed, the start of the next pattern or the end of
-    the current bar.
-
-<P>
-</DD>
-</DL>
-</DD>
-</DL>
-
-<P>
-Things to note:
-
-<UL>
-<LI>A T<SMALL>RIGGER</SMALL> will always override a S<SMALL>EQUENCE</SMALL> in a
-  track (almost: see the O<SMALL>VERRIDE</SMALL> option). So, if you have a
-  sequence set, it will never be played if a trigger is active ...
-  whether the trigger is activated or not. You should also note that
-  R<SMALL>IFF</SMALL>s override triggers ... which make riffs a convenient
-  method of disabling triggers for one or more bars.
-
-<P>
-When combining various options you should note the hierarchy of
-  
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's decision tree:
-  
-<OL>
-<LI>If the B<SMALL>ARS</SMALL> or M<SMALL>EASURES</SMALL> options have been set
-    and the current bar is not in the list, no trigger is enabled,
-
-<P>
-</LI>
-<LI>If there is no sequence (either from the track sequence or the
-    trigger sequence option), no trigger is enabled,
-
-<P>
-</LI>
-<LI>Regardless of the current mode (Chord, Rest or Beats) a new
-    sequence is created. If this is an empty sequence ... again no
-    trigger.
-
-<P>
-</LI>
-<LI>the CN<SMALL>AME</SMALL>, CT<SMALL>ONIC</SMALL> and CT<SMALL>YPE</SMALL> commands act
-    to limit the B<SMALL>EATS</SMALL>.
-
-<P>
-</LI>
-</OL>
-
-<P>
-If any of the above conditions result in ``no trigger'', no events
-  will be generated. You can force events with the use of the
-  O<SMALL>VERRIDE</SMALL> option (above).
-
-<P>
-An empty line:
+However, you might wish to generate some explicit MIDI sequences at the
+end of a generated file. Just write another file like the
+<TT><SPAN  CLASS="textbf">init.mma</SPAN></TT> file we discussed above. You can insert this file by
+placing a line like:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Drum-snare Trigger  </B> 
+    <B>include endinit  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-will reset all options to the default and disable the trigger.
+at the end of your song file. Or, use the MMAE<SMALL>ND</SMALL> command
+detailed <A HREF="node32.html#sec-mmaend">here</A>.
 
 <P>
-</LI>
-<LI>For the CN<SMALL>AMES</SMALL>, CT<SMALL>ONICS</SMALL> and CT<SMALL>YPES</SMALL>
-  limiters:
+You can get about as complicated as you want with all this. One scheme
+you might consider is to use macros to wrap your extended patch
+code. For example:
 
 <P>
 
-<UL>
-<LI>Using R<SMALL>OMAN</SMALL> notation, the chord name will be the value
-    of the roman numeral (e.g., ``I'', ``vii''); however, the tonic
-    and type will be correctly derived.
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>if def Casio 
+<BR>
+include casio-wk3000 
+<BR>
+include init.file.for.casio.mma 
+<BR>
+endif 
+<BR>   
+<BR>
+Groove somegroove 
+<BR>   
+<BR>
+if def Casio 
+<BR>
+Chord Voice ROtaryGuitar 
+<BR>
+Endif 
+<BR>   
+<BR>
+1  Cm 
+<BR>
+2  Dm 
+<BR>   ...more chords 
+<BR>
+if def Casio 
+<BR>
+include restore-file-for-casio.mma 
+<BR>
+endif   </B> 
+   
+	    </td></tr>
+      </Table>
 
 <P>
-</LI>
-<LI>The T<SMALL>RANSPOSE</SMALL> settings have no effect on the chord
-    names and tonics.
+Now, when you compile the file define the macro on the command line:
 
 <P>
-</LI>
-<LI>P<SMALL>OLYCHORDS</SMALL> will have only the root (left side) of the
-    name saved (the chords ``C'' and ``C&brvbar;D'' are identical
-    for the purposes of a trigger).
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -SCASIO filename   </B> 
+   
+	    </td></tr>
+      </Table>
 
 <P>
-</LI>
-<LI>If you have more than one of these options set, only the first
-    (in order of CN<SMALL>AMES</SMALL>, CT<SMALL>ONICS</SMALL> and CT<SMALL>YPES</SMALL>) is
-    used.
+This defines the macro so that your wrappers work. To compile for the
+GM voicing, just skip the ``-SCASIO''.
 
 <P>
-</LI>
-</UL>
+An alternate method is to use the V<SMALL>OICE</SMALL>TR command
+<A HREF="node28.html#set-voicetr">(details here)</A>. Using a similar example we'd create a song
+file like:
 
 <P>
-</LI>
-<LI>You may get better results by creating a main track and copy
-  that to a trigger track.
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>if def Casio 
+<BR>
+include casio-wk3000 
+<BR>
+include init.file.for.casio.mma 
+<BR>
+VoiceTR Piano1=RotaryGuitar ChoralAhhs=VoxHumana 
+<BR>
+endif 
+<BR>
+Groove somegroove 
+<BR>   
+<BR>
+1  Cm 
+<BR>
+2  Dm 
+<BR>   ...more chords 
+<BR>
+if def Casio 
+<BR>
+include restore-file-for-casio.mma 
+<BR>
+endif   </B> 
+   
+	    </td></tr>
+      </Table>
 
 <P>
-</LI>
-<LI>A T<SMALL>RIGGER</SMALL> command always starts with all options set to
-  default.
+Notice how, in this example, we don't need to wrap each and every
+V<SMALL>OICE</SMALL> line. We just create a translation table with the
+alternate voices we want to use. Now, when the G<SMALL>ROOVE</SMALL> is loaded
+the various voices will be changed.
 
 <P>
-</LI>
-<LI>Triggers are not saved as part of a G<SMALL>ROOVE</SMALL>. However,
-  there is no reason you can't save a trigger command in a macro (in a
-  library file) and call that from your song file.
-
-<P>
-If you want a trigger to sound across different grooves you must set
-  the track for the trigger to S<SMALL>TICKY</SMALL> (details
-  <A HREF="node6.html#sect-sticky">here</A>). If you don't, all
-  the settings for the track will be reset when a G<SMALL>ROOVE</SMALL>
-  command is issued.
-
-<P>
-</LI>
-</UL>
-
-<P>
-A number of example files are included in the distribution in the
-directory <TT><A NAME="tex2html109"
-  HREF="egs/trigger">egs/trigger</A></TT>.
 
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot15376">...G<SMALL>ROOVES</SMALL>.</A><A
- HREF="node25.html#tex2html107"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
-<DD>If triggers were part of a groove, the
-  triggers a user creates would disappear on a groove change. Probably
-  not what is expected.
+<DT><A NAME="foot15566">... MIDI''</A><A
+ HREF="node25.html#tex2html108"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The General
+  MIDI or GM standard was developed by the MIDI Manufactures
+  Association.
 
 </DD>
-<DT><A NAME="foot15471">... 9.</A><A
- HREF="node25.html#tex2html108"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
-<DD>This is a good reason to number each
-      bar in your song, as recommended <A HREF="node8.html#sect-barnumbers">here</A>.
+<DT><A NAME="foot15567">...
+``patches''.</A><A
+ HREF="node25.html#tex2html109"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>``Patch'' a bit of a historical term dating back
+  to the times when synthesizers cost a lot of money and used bits of
+  wire and cable to ``patch'' different oscillators, filters, etc.   together.
+
+</DD>
+<DT><A NAME="foot15715">... casio-wk300</A><A
+ HREF="node25.html#tex2html110"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>Refer to I<SMALL>NCLUDE</SMALL> <A HREF="node32.html#sec-include">(here)</A> for details on file placement.
 
 </DD>
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html867"
+<A NAME="tex2html883"
   HREF="node26.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html865"
+<A NAME="tex2html881"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html859"
+<A NAME="tex2html875"
   HREF="node24.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html868"
-  HREF="node26.html">Fine Tuning (Translations)</A>
-<B> Up:</B> <A NAME="tex2html866"
+<B> Next:</B> <A NAME="tex2html884"
+  HREF="node26.html">Triggers</A>
+<B> Up:</B> <A NAME="tex2html882"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html860"
-  HREF="node24.html">Patch Management</A></DIV>
+<B> Previous:</B> <A NAME="tex2html876"
+  HREF="node24.html">Low Level MIDI Commands</A></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Bob van der Poel
-2015-12-15
+2016-05-22
 </ADDRESS>
 </BODY>
 </HTML>

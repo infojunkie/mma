@@ -591,7 +591,7 @@ class Mtrk:
 
         f = self.lastOffEvent[note] 
 
-        if f != None and f >= onOffset and f <= offOffset:
+        if f is not None and f >= onOffset and f <= offOffset:
             # evlist is a delta-offset list. It should have a note off event
             # for the this note. Just in case, we do check; but it's probably
             # not necessary. The off event is deleted and the unify stuff is done

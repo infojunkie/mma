@@ -48,6 +48,7 @@ cmdSMF = None
 
 MMA.paths.init()   # initialize the lib/include paths
 
+
 # Get our command line stuff
 
 MMA.options.opts()
@@ -112,7 +113,7 @@ if gbl.createDocs:
 #########################################################
 # This cmdline option overrides the setting in RC files
 
-if MMA.options.cmdSMF != None:
+if MMA.options.cmdSMF is not None:
     gbl.lineno = -1
     MMA.midifuncs.setMidiFileType(['SMF=%s' % MMA.options.cmdSMF])
 

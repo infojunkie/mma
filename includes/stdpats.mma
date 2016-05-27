@@ -115,6 +115,7 @@ End
 
 Begin Walk Define
     W1234     1 1 90 * 4           // Walk on 1, 2, 3 and 4
+    W12       1 4 90; 2 4 90       // 1 and 2
     W13       1 4 90 ; 3 4 90      // 1 and 3
     W8        W1234 * 2            // Eights
 End

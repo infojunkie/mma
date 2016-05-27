@@ -572,7 +572,7 @@ class PC:
 
     def setTone(self, ln):
         """ Set Tone. Error trap, only drum tracks have tone. """
-
+        
         error("Tone command not supported for %s track" % self.name)
 
     def setOn(self):
@@ -961,22 +961,21 @@ class PC:
         or a single '-' to disable.
         """
 
-        """ lnExpand() works here! The midi data has been converted to
-        pseudo-macros already in the parser. """
-
+        # lnExpand() works here! The midi data has been converted to
+        # pseudo-macros already in the parser. 
         ln = lnExpand(ln, '%s MIDIVoice' % self.name)
 
         seq = []
         for a in ln:
-            if a in 'zZ':
+            if a in 'zZ':  # some bars in seq might not want midi stuff
                 seq.append(None)
             else:
                 seq.append(MMA.mdefine.mdef.get(a.upper()))
 
-        if seq.count(None) == len(seq):
-            self.midiVoice = []
+        if seq.count(None) == len(seq):  # see if all bars in seq are None
+            self.midiVoice = []          # yes, kill the whole voice thing
         else:
-            self.midiVoice = seqBump(seq)
+            self.midiVoice = seqBump(seq)  # set voice for all bars in seq
  
         if gbl.debug:
             print("%s MIDIVoice: %s" %
@@ -1460,30 +1459,66 @@ class PC:
     def dupRiff(self, ln):
         """ Duplicate an existing set of riffs from one solo track to another."""
 
-        if not self.riff:
-            error("%s DupRiff: No data to copy." % self.name)
+        # Try to copy From another track to here.
 
-        for t in ln:
-            t = t.upper()
+        if ln and ln[0].upper() == 'FROM':
+            if len(ln) != 2:
+                error("%s DupRiff: FROM option needs exactly one track to copy from." 
+                      % self.name)
 
+            t = ln[1].upper()
             if not t in gbl.tnames:
-                error("%s DupRiff: Destination track %s does not exist."
-                      % (self.name, t))
-
+                error("%s DupRiff: Source track '%s' does not exist." % (self.name, t))
+            
             tr = gbl.tnames[t]
-
+            
             if self.vtype != tr.vtype:
-                error("%s DupRiff: Can't copy to %s, incompatible types (%s != %s)."
-                      % (self.name, t, self.vtype, tr.vtype))
+                error("%s DupRiff: Can't copy from %s, incompatible types (%s != %s)."
+                          % (self.name, t, self.vtype, tr.vtype))
 
-            if tr.riff:
-                error("%s DupRiff: Destination track %s has pending data."
-                      % (self.name, tr.name))
+            if self.riff:
+                error("%s DupRiff: This track had pending data." % self.name)
 
-            tr.riff = copy.deepcopy(self.riff)
+            if not tr.riff:
+                error("%s DupRiff: Source track '%s' has no data to copy." %
+                      (self.name, t))
+
+            self.riff = copy.deepcopy(tr.riff)
 
             if gbl.debug:
-                print("%s DupRiff copied to %s." % (self.name, tr.name))
+                print("%s DupRiff copied from %s." % (self.name, t))
+
+        else:
+            if ln and ln[0].upper() == 'TO':  # Optional keyword
+                ln = ln[1:]
+
+            if not len(ln):
+                error("%s DupRiff: No destination track specified.")
+
+            if not self.riff:
+                error("%s DupRiff: No data to copy." % self.name)
+
+            for t in ln:
+                t = t.upper()
+
+                if not t in gbl.tnames:
+                    error("%s DupRiff: Destination track %s does not exist."
+                          % (self.name, t))
+
+                tr = gbl.tnames[t]
+
+                if self.vtype != tr.vtype:
+                    error("%s DupRiff: Can't copy to %s, incompatible types (%s != %s)."
+                          % (self.name, t, self.vtype, tr.vtype))
+
+                if tr.riff:
+                    error("%s DupRiff: Destination track %s has pending data."
+                          % (self.name, tr.name))
+
+                tr.riff = copy.deepcopy(self.riff)
+
+                if gbl.debug:
+                    print("%s DupRiff copied to %s." % (self.name, tr.name))
 
     def setRiff(self, ln):
         """ Define and set a Riff. """

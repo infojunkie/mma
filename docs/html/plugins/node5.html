@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Standard Interface</TITLE>
+<META NAME="description" CONTENT="Standard Interface">
+<META NAME="keywords" CONTENT="mma-plugins">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma-plugins.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="mma-plugins.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html69"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html67"
+  HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html61"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html70"
+  HREF="node6.html">Tutorial</A>
+<B> Up:</B> <A NAME="tex2html68"
+  HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A NAME="tex2html62"
+  HREF="node4.html">Returning Values</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html71"
+  HREF="node5.html#SECTION00510000000000000000">How to use pluginUtils module</A>
+<LI><A NAME="tex2html72"
+  HREF="node5.html#SECTION00520000000000000000">Function documentation</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00500000000000000000">
+Standard Interface</A>
+</H1>
+
+<P>
+To make life easier for plugin authors, a module, <TT><SPAN  CLASS="textbf">pluginUtils.py</SPAN></TT>,  has been added to
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .<A NAME="tex2html1"
+  HREF="#foot249"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+<P>
+
+<H1><A NAME="SECTION00510000000000000000">
+How to use pluginUtils module</A>
+</H1>
+
+<P>
+When you access 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  internals, you have to care about 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  changes. For example,
+the names of the members could change, and you should check the compatibility
+of your plugin with every new version of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  that comes out.
+
+<P>
+The functions defined in pluginUtils are guaranteed to not change and to be
+updated together with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> Also, they help you with documentation and argument
+parsing.
+
+<P>
+To explain how to use pluginUtils, we have commented the source of the
+StrumPattern plugin.
+
+<P>
+<DL COMPACT>
+<DT></DT>
+<DD><PRE>
+    # We import the plugin utilities
+    from MMA import pluginUtils as pu
+
+    # ###################################
+    # # Documentation and arguments     #
+    # ###################################
+
+    # We add plugin parameters and documentation here.
+    # The documentation will be printed either calling printUsage() or
+    # executing "python mma.py -I pluginname". 
+    # I suggest to see the output for this plugin to understand how code
+    # of this section will be formatted when printed.
+
+    # Minimum MMA required version.
+    pu.setMinMMAVersion(15, 12)
+
+    # A short plugin description.
+    pu.setDescription("Sets a strum pattern for Plectrum tracks.")
+
+    # A short author line.
+    pu.setAuthor("Written by Ignazio Di Napoli &lt;neclepsio@gmail.com&gt;.")
+
+    # Since this is a track plugin, we set the track types for which it can
+    # be used. You can specify more than one. To allow for all track types,
+    # call setTrackType with no arguments.
+    # For non-tracks plugin, don't call setTrackType at all.
+    # Whether the plugin is track or non-track is decided by the entry point,
+    # but help will use this information.
+    pu.setTrackType("Plectrum")
+
+    # We add the arguments for the command, each with name, default value and a
+    # small description. A default value of None requires specifying the argument.
+    pu.addArgument("Pattern",     None,  "see after")
+    pu.addArgument("Strum",       "5",   "strum value to use in sequence (see Plectrum docs)")
+    # Some arguments are omitted -- you can see the full source code if you're interested.
+    
+    # We add a small doc. %NAME% is replaced by plugin name.
+    pu.setPluginDoc("""
+    The pattern is specified as a string of comma-separed values, that are equally spaced into the bar.
+    
+   ...... Use the command ``mma -i strumpattern'' to see the complete documentation!
+        
+    Each time it's used, %NAME% creates a clone track of the provided one using the voice MutedGuitar for chucks and muted strums.
+    Its name is the name of the main track with an appended "-Muted", if you need to change it you must do so every time after using %NAME%.
+
+    This plugin has been written by Ignazio Di Napoli &lt;neclepsio@gmail.com&gt;. 
+    Version 1.0.
+    """)
+      
+        
+
+    # ###################################
+    # # Entry points                    #
+    # ###################################
+
+    # This prints help when MMA is called with -I switch.
+    # Cannot import pluginUtils directly because it wouldn't recognize which
+    # plugin is executing it.
+    def printUsage():
+        pu.printUsage()
+
+    # This is a track plugin, so we define track_run(trackname, line).
+    # For non-track plugins we use run(line).
+    # When using this library, only one of the two can be used.
+    def trackRun(trackname, line):
+        # We check if track type is correct.
+        pu.checkTrackType(trackname)
+        # We parse the arguments. Errors are thrown if something is wrong,
+        # printing the correct usage on screen. Default are used if needed.
+        # parseCommandLine also takes an optional boolean argument to allow
+        # using of arguments not declared with pu.addArgument, default is False.
+        args = pu.parseCommandLine(line)
+        
+        # This is how we access arguments.
+        pattern = args["Pattern"]
+        strum   = args["Strum"]
+        # [Omissis]
+        
+        # Here I omit plugin logic, this is not interesting for explaining 
+        # pluginUtils.
+        # Let's just pretend we have the result of the computation:
+        all_normal = "{1.0 +5 90 80 80 80 80 80;}"
+        all_muted = "z"
+        
+        # If you don't send all the commands together the result is commands 
+        # are reversed since each is pushed as the very next command to be executed.
+        # So we save all the commands (with addCommand) and send them at the end
+        # (with sendCommands).
+        
+        pu.addCommand("{} Sequence {}".format(trackname, all_normal))
+        pu.addCommand("{}-Muted SeqClear".format(trackname))
+        pu.addCommand("{}-Muted Copy {}".format(trackname, trackname))
+        pu.addCommand("{}-Muted Voice MutedGuitar".format(trackname))
+        pu.addCommand("{}-Muted Sequence {}".format(trackname, all_muted))
+        pu.sendCommands()
+</PRE>
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00520000000000000000">
+Function documentation</A>
+</H1>
+
+<P>
+Following are the available functions in the pluginUtil.py module. 
+
+<P>
+<DL>
+<DT><STRONG>addArgument(name, default, doc)</STRONG></DT>
+<DD>Adds an argument for the plugin, to be using in parseArguments and printUsage. 
+    If you do not want to provide a default, use None to trigger an error if 
+    the user not specifies the argument.
+    When the plugin is used, the arguments have to be specified as in Call.
+
+<P>
+</DD>
+<DT><STRONG>addCommand(cmd)</STRONG></DT>
+<DD>Adds a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command string to the queue. The queue must be sent using 
+    sendCommands, so they are pushed together.
+    If you don't send all the commands together the result is commands are 
+    reversed since each one is pushed as the very next command to be executed.
+
+<P>
+</DD>
+<DT><STRONG>checkTrackType(name)</STRONG></DT>
+<DD>Checks if the track type is coherent with the ones specified with 
+    setTrackTypes. If not, throws an error.
+
+<P>
+</DD>
+<DT><STRONG>error(string)</STRONG></DT>
+<DD>Prints an error and halts execution.
+
+<P>
+</DD>
+<DT><STRONG>getSysVar(name)</STRONG></DT>
+<DD>Returns a system variable. For example, getSysVar("Time") is the same as
+    
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command $_Time.
+
+<P>
+</DD>
+<DT><STRONG>getVar(name)</STRONG></DT>
+<DD>Returns a user variable. 
+
+<P>
+</DD>
+<DT><STRONG>getName()</STRONG></DT>
+<DD>Returns the name of plugin, according to the directory the user installed
+    it.
+
+<P>
+</DD>
+<DT><STRONG>parseCommandLine(line, allowUnkown=False)</STRONG></DT>
+<DD>Parses the plugin command line and returns a dictionary with arguments and
+    values according what has been defined with addArgument. If allowUnknown
+    is True, it allows to use undeclared argument names. Else, throws an error.
+    Throws an error if an argument with no default is not assigned.
+    Hhe arguments have to be specified as in Call.
+
+<P>
+</DD>
+<DT><STRONG>printUsage()</STRONG></DT>
+<DD>Prints documentation using data from addArgument, setAuthor, setDescription,
+    setTrackType.
+
+<P>
+</DD>
+<DT><STRONG>sendCommands()</STRONG></DT>
+<DD>Sends the commands added with addCommand to the queue.
+
+<P>
+</DD>
+<DT><STRONG>setAuthor(author)</STRONG></DT>
+<DD>Sets the author.
+
+<P>
+</DD>
+<DT><STRONG>setDescription(descr)</STRONG></DT>
+<DD>Sets a short description of the plugin.
+
+<P>
+</DD>
+<DT><STRONG>setMinMMAVersion(major, minor)</STRONG></DT>
+<DD>Sets the miminum 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  version required, throws an error if not met.
+
+<P>
+</DD>
+<DT><STRONG>setPluginDoc(doc)</STRONG></DT>
+<DD>Sets the documentation for the plugin. %NAME% is replaced by plugin name.
+
+<P>
+</DD>
+<DT><STRONG>setTrackType(*types)</STRONG></DT>
+<DD>Sets track types to which the plugin applies; if empty everything is 
+    accepted.
+
+<P>
+</DD>
+<DT><STRONG>warning(string)</STRONG></DT>
+<DD>Prints a warning.
+
+<P>
+</DD>
+</DL>
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot249">....</A><A
+ HREF="node5.html#tex2html1"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The module has been authored by Ignazio Di Napoli
+  &lt;neclepsio@gmail.com&gt; and all kudos should go to him.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html69"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html67"
+  HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html61"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html70"
+  HREF="node6.html">Tutorial</A>
+<B> Up:</B> <A NAME="tex2html68"
+  HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A NAME="tex2html62"
+  HREF="node4.html">Returning Values</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2016-04-14
+</ADDRESS>
+</BODY>
+</HTML>

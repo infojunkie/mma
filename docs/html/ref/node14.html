@@ -28,21 +28,21 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html667"
+<A NAME="tex2html682"
   HREF="node15.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html665"
+<A NAME="tex2html680"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html659"
+<A NAME="tex2html674"
   HREF="node13.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html668"
+<B> Next:</B> <A NAME="tex2html683"
   HREF="node15.html">Harmony</A>
-<B> Up:</B> <A NAME="tex2html666"
+<B> Up:</B> <A NAME="tex2html681"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html660"
+<B> Previous:</B> <A NAME="tex2html675"
   HREF="node13.html">Randomizing</A>
 <BR>
 <BR></DIV>
@@ -51,32 +51,32 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html669"
+<LI><A NAME="tex2html684"
   HREF="node14.html#SECTION001410000000000000000">Voicing</A>
 <UL>
-<LI><A NAME="tex2html670"
+<LI><A NAME="tex2html685"
   HREF="node14.html#SECTION001411000000000000000">Voicing Mode</A>
 </UL>
 <BR>
-<LI><A NAME="tex2html671"
+<LI><A NAME="tex2html686"
   HREF="node14.html#SECTION001420000000000000000">ChordAdjust</A>
-<LI><A NAME="tex2html672"
+<LI><A NAME="tex2html687"
   HREF="node14.html#SECTION001430000000000000000">Compress</A>
-<LI><A NAME="tex2html673"
+<LI><A NAME="tex2html688"
   HREF="node14.html#SECTION001440000000000000000">DupRoot</A>
-<LI><A NAME="tex2html674"
+<LI><A NAME="tex2html689"
   HREF="node14.html#SECTION001450000000000000000">Invert</A>
-<LI><A NAME="tex2html675"
+<LI><A NAME="tex2html690"
   HREF="node14.html#SECTION001460000000000000000">Limit</A>
-<LI><A NAME="tex2html676"
+<LI><A NAME="tex2html691"
   HREF="node14.html#SECTION001470000000000000000">NoteSpan</A>
-<LI><A NAME="tex2html677"
+<LI><A NAME="tex2html692"
   HREF="node14.html#SECTION001480000000000000000">Range</A>
-<LI><A NAME="tex2html678"
+<LI><A NAME="tex2html693"
   HREF="node14.html#SECTION001490000000000000000">DefChord</A>
-<LI><A NAME="tex2html679"
+<LI><A NAME="tex2html694"
   HREF="node14.html#SECTION0014100000000000000000">PrintChord</A>
-<LI><A NAME="tex2html680"
+<LI><A NAME="tex2html695"
   HREF="node14.html#SECTION0014110000000000000000">Notes</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -196,7 +196,7 @@ other chord tracks (e.g., sustained strings).
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has a variety of sophisticated, intelligent
 algorithms<A NAME="tex2html59"
-  HREF="#foot7589"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> to deal with voicing.
+  HREF="#foot7655"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> to deal with voicing.
 
 <P>
 As a general rule you should not use the I<SMALL>NVERT</SMALL> and
@@ -380,7 +380,7 @@ would cause a movement (randomly up or down) in 20% of the bars.
 </DD>
 <DT><STRONG>Key</STRONG></DT>
 <DD>This mode attempts to cluster the notes of a chord around
-  the root note of the key signature (<A HREF="node27.html#keysignature">see here</A>). For example, a C major chord has the
+  the root note of the key signature (<A HREF="node29.html#keysignature">see here</A>). For example, a C major chord has the
   notes ``C'', ``E'' and ``G''. If K<SMALL>EY</SMALL>S<SMALL>IG</SMALL> is set to ``C'' the
   ``G'' will be lowered by an octave. However, if the the key
   signature were to be set to ``E'' no changes would be made. The
@@ -444,7 +444,7 @@ ChordAdjust
 </H1> 
 
 <P>
-The actual notes used in a chord are derived from a table which
+<A NAME="sec-chordadjust"></A>The actual notes used in a chord are derived from a table which
 contains the notes for each variation of a ``C'' chord--this data is
 converted to the desired chord by adding or subtracting a constant
 value according to the following table:
@@ -592,7 +592,7 @@ sound lower than ``F'' chords.
 In most cases this works just fine; but, there are times when the
 ``F'' chord might sound better <SPAN  CLASS="textit">lower</SPAN> than the ``A''. You can
 force a single chord by prefacing it with a single ``-'' or ``+''
-(<A HREF="node33.html#octaveadjust">details here</A>). But, if
+(<A HREF="node35.html#octaveadjust">details here</A>). But, if
 the entire song needs adjustment you can use C<SMALL>HORD</SMALL>A<SMALL>DJUST</SMALL>
 command to raise or lower selected chord pitches:
 
@@ -611,7 +611,29 @@ Each item in the command consists of a pitch (``B<SPAN CLASS="MATH"><IMG
  SRC="img1.png"
  ALT="$ \flat$"></SPAN>'', ``C'',
 etc.) an ``='' and an octave specifier (-1, 0 or 1). The pitch values
-are case sensitive and must be in upper case.
+are case sensitive and must be in upper case. With  enharmonic notes
+(E<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$ \sharp$"></SPAN> and F, C<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \flat$"></SPAN> and B, etc.) you will need to set both pitches.
+
+<P>
+To set multiple values you can use a comma separated list like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>ChordAdjust E,E#,F,F#=-1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which will lower the listed chords by an octave.
 
 <P>
 To a large extent the need for octave adjustments depends on the chord
@@ -621,6 +643,23 @@ octave.
 
 <P>
 The value ``0'' will reset the adjustment to the original value.
+
+<P>
+You can reset all the values to their original values using the
+R<SMALL>ESET</SMALL> option:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>ChordAdjust Reset  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+To view the current values in the chord adjustment table you can use
+the $_C<SMALL>HORD</SMALL>A<SMALL>DJUST</SMALL> builtin variable.
 
 <P>
 
@@ -737,7 +776,7 @@ will add notes 1 and 2 octaves below the root of the chord and
 
 <P>
 will add notes 1 below, and 1 and 2 above.<A NAME="tex2html60"
-  HREF="#foot7464"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> <SPAN  CLASS="textit">Note:</SPAN> no
+  HREF="#foot7530"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> <SPAN  CLASS="textit">Note:</SPAN> no
 spaces are in the comma separated list (spaces indicate the next bar
 in the sequence).
 
@@ -745,7 +784,7 @@ in the sequence).
 The volume used for the generated note(s) is the average of the non-zero 
 notes in the chord adjusted by the H<SMALL>ARMONY</SMALL>V<SMALL>OLUME</SMALL> setting for
 the current track.<A NAME="tex2html61"
-  HREF="#foot7591"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+  HREF="#foot7657"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
 <P>
 Different values can be used in each bar of the sequence.
 
@@ -818,7 +857,7 @@ chord becomes E, G and C. The second inversion is G, C and E.
 to be to the left or right, and the number of shifts is not limited.
 So, you could shift a chord up several octaves by using large invert
 values.<A NAME="tex2html62"
-  HREF="#foot7593"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+  HREF="#foot7659"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
 <P>
 Inversions apply to each bar of a sequence. So, the following is a
 good example:
@@ -943,7 +982,7 @@ NoteSpan
 <P>
 Many instruments have a limited range. For example, the bass section
 of an accordion is limited to a single octave.<A NAME="tex2html63"
-  HREF="#foot7513"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>  To emulate these sounds it is a simple matter of
+  HREF="#foot7579"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>  To emulate these sounds it is a simple matter of
 limiting 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's output to match the instrument. For example, in the
 ``frenchwaltz'' file you will find the directive:
@@ -1019,7 +1058,7 @@ example:
 
 <P>
 will create a scale of 2 notes.<A NAME="tex2html64"
-  HREF="#foot7534"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> And,
+  HREF="#foot7600"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> And,
 
 <P>
 
@@ -1041,9 +1080,9 @@ Partial scales are useful in generating special effects.
 
 <P>
 A<SMALL>RPEGGIO</SMALL>: Normally, arpeggios use a single octave.<A NAME="tex2html65"
-  HREF="#foot7541"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>  The R<SMALL>ANGE</SMALL> command specifies the
+  HREF="#foot7607"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>  The R<SMALL>ANGE</SMALL> command specifies the
 number of octaves<A NAME="tex2html66"
-  HREF="#foot7594"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> to use. A fractional value can be used; the
+  HREF="#foot7660"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> to use. A fractional value can be used; the
 exact result depends on the number of notes in the current chord.
 
 <P>
@@ -1063,7 +1102,7 @@ DefChord
 <P>
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  comes with a large number of chord types already defined. In
-most cases, the supplied set (<A HREF="node33.html#sec-chordname">see this list</A>) is sufficient for all the ``modern'' or
+most cases, the supplied set (<A HREF="node35.html#sec-chordname">see this list</A>) is sufficient for all the ``modern'' or
 ``pop'' charts normally encountered. However, there are those times
 when you want to do something else, or something different.
 
@@ -1324,7 +1363,7 @@ made ``behind your back''.
 </UL>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot7589">...
+<DT><A NAME="foot7655">...
 algorithms</A><A
  HREF="node14.html#tex2html59"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>Great thanks are due to Alain Brenzikofer who not
@@ -1332,21 +1371,21 @@ algorithms</A><A
   wrote a great deal of the actual code.
 
 </DD>
-<DT><A NAME="foot7464">... above.</A><A
+<DT><A NAME="foot7530">... above.</A><A
  HREF="node14.html#tex2html60"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>Adding too
   many root tones in varying octaves can create harmonic overtone
   problems (in other words, it can sound crappy).
 
 </DD>
-<DT><A NAME="foot7591">... track.</A><A
+<DT><A NAME="foot7657">... track.</A><A
  HREF="node14.html#tex2html61"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>By default the H<SMALL>ARMONY</SMALL>V<SMALL>OLUME</SMALL> is
   80%. You probably do not want the added note(s) to be louder, but
   experiment!
 
 </DD>
-<DT><A NAME="foot7593">...
+<DT><A NAME="foot7659">...
 values.</A><A
  HREF="node14.html#tex2html62"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>The term ``shift'' is used here, but that's not quite
@@ -1358,28 +1397,28 @@ values.</A><A
   ``12, 4, 7''.
 
 </DD>
-<DT><A NAME="foot7513">... octave.</A><A
+<DT><A NAME="foot7579">... octave.</A><A
  HREF="node14.html#tex2html63"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>Some
   accordions have ``freebass'' switches which overcomes this, but that
   is the exception.
 
 </DD>
-<DT><A NAME="foot7534">... notes.</A><A
+<DT><A NAME="foot7600">... notes.</A><A
  HREF="node14.html#tex2html64"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
 <DD>Simple math here: take the
   number of notes in a scale (7) and multiply by .3. Take the integer
   result as the number of notes.
 
 </DD>
-<DT><A NAME="foot7541">... octave.</A><A
+<DT><A NAME="foot7607">... octave.</A><A
  HREF="node14.html#tex2html65"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
 <DD>Not
   quite true: they use whatever notes are in the chord, which might
   exceed an octave span.
 
 </DD>
-<DT><A NAME="foot7594">... octaves</A><A
+<DT><A NAME="foot7660">... octaves</A><A
  HREF="node14.html#tex2html66"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A></DT>
 <DD>Again, not quite true: the command just
   duplicates the arpeggio notes the number of times specified in the
@@ -1389,26 +1428,26 @@ values.</A><A
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html667"
+<A NAME="tex2html682"
   HREF="node15.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html665"
+<A NAME="tex2html680"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html659"
+<A NAME="tex2html674"
   HREF="node13.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html668"
+<B> Next:</B> <A NAME="tex2html683"
   HREF="node15.html">Harmony</A>
-<B> Up:</B> <A NAME="tex2html666"
+<B> Up:</B> <A NAME="tex2html681"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html660"
+<B> Previous:</B> <A NAME="tex2html675"
   HREF="node13.html">Randomizing</A></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Bob van der Poel
-2015-12-15
+2016-05-22
 </ADDRESS>
 </BODY>
 </HTML>

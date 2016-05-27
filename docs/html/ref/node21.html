@@ -28,21 +28,21 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html773"
+<A NAME="tex2html788"
   HREF="node22.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html771"
+<A NAME="tex2html786"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html765"
+<A NAME="tex2html780"
   HREF="node20.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html774"
+<B> Next:</B> <A NAME="tex2html789"
   HREF="node22.html">Subroutines</A>
-<B> Up:</B> <A NAME="tex2html772"
+<B> Up:</B> <A NAME="tex2html787"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html766"
+<B> Previous:</B> <A NAME="tex2html781"
   HREF="node20.html">Repeats</A>
 <BR>
 <BR></DIV>
@@ -51,38 +51,38 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html775"
+<LI><A NAME="tex2html790"
   HREF="node21.html#SECTION002110000000000000000">Variables</A>
 <UL>
-<LI><A NAME="tex2html776"
+<LI><A NAME="tex2html791"
   HREF="node21.html#SECTION002111000000000000000">Set</A>
-<LI><A NAME="tex2html777"
+<LI><A NAME="tex2html792"
   HREF="node21.html#SECTION002112000000000000000">NewSet</A>
-<LI><A NAME="tex2html778"
+<LI><A NAME="tex2html793"
   HREF="node21.html#SECTION002113000000000000000">Mset</A>
-<LI><A NAME="tex2html779"
+<LI><A NAME="tex2html794"
   HREF="node21.html#SECTION002114000000000000000">RndSet</A>
-<LI><A NAME="tex2html780"
+<LI><A NAME="tex2html795"
   HREF="node21.html#SECTION002115000000000000000">UnSet VariableName</A>
-<LI><A NAME="tex2html781"
+<LI><A NAME="tex2html796"
   HREF="node21.html#SECTION002116000000000000000">ShowVars</A>
-<LI><A NAME="tex2html782"
+<LI><A NAME="tex2html797"
   HREF="node21.html#SECTION002117000000000000000">Inc and Dec</A>
-<LI><A NAME="tex2html783"
+<LI><A NAME="tex2html798"
   HREF="node21.html#SECTION002118000000000000000">VExpand On or Off</A>
-<LI><A NAME="tex2html784"
+<LI><A NAME="tex2html799"
   HREF="node21.html#SECTION002119000000000000000">StackValue</A>
 </UL>
 <BR>
-<LI><A NAME="tex2html785"
+<LI><A NAME="tex2html800"
   HREF="node21.html#SECTION002120000000000000000">Predefined Variables</A>
-<LI><A NAME="tex2html786"
+<LI><A NAME="tex2html801"
   HREF="node21.html#SECTION002130000000000000000">Indexing and Slicing</A>
-<LI><A NAME="tex2html787"
+<LI><A NAME="tex2html802"
   HREF="node21.html#SECTION002140000000000000000">Mathematical Expressions</A>
-<LI><A NAME="tex2html788"
+<LI><A NAME="tex2html803"
   HREF="node21.html#SECTION002150000000000000000">Conditionals</A>
-<LI><A NAME="tex2html789"
+<LI><A NAME="tex2html804"
   HREF="node21.html#SECTION002160000000000000000">Goto</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -352,6 +352,12 @@ Be careful if you use an MS<SMALL>ET</SMALL> variable in a P<SMALL>RINT</SMALL>
 statement ... you'll probably get an error. The P<SMALL>RINT</SMALL>
 command will print the <SPAN  CLASS="textit">first</SPAN> line of the variable and the
 remainder will be reinserted into the input stream for interpretation.
+
+<P>
+Variables are <SPAN  CLASS="textit">not</SPAN> expanded when creating an M<SMALL>SET</SMALL>
+macro (lines are read verbatim from the input path)--this makes
+M<SMALL>SET</SMALL> subtly different from S<SMALL>ET</SMALL>. Variables <SPAN  CLASS="textit">are</SPAN>
+expanded when the macro is executed.
 
 <P>
 Special code in 
@@ -671,6 +677,10 @@ processed, after being stored in an internal queue, variables are
 expanded.
 
 <P>
+V<SMALL>EXPAND</SMALL> only has an effect when creating a macro using
+S<SMALL>ET</SMALL>. It has <SPAN  CLASS="textit">no</SPAN> effect when using M<SMALL>SET</SMALL>.
+
+<P>
 
 <H2><A NAME="SECTION002119000000000000000"></A>
 <A NAME="stackvalue"></A>
@@ -720,7 +730,7 @@ Predefined Variables
 For your convenience 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tracks a number of internal settings and
 you can access these values with special macros.<A NAME="tex2html81"
-  HREF="#foot11382"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>  All of these ``system'' variables are
+  HREF="#foot11484"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>  All of these ``system'' variables are
 prefaced with a single underscore. For example, the current tempo is
 displayed with the variable $_TEMPO.
 
@@ -737,6 +747,13 @@ values for global settings:
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_BarNum</STRONG></DT>
 <DD>Current bar number of song.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_ChordAdjust</STRONG></DT>
+<DD>The chord adjustment table values
+  <A HREF="node14.html#sec-chordadjust">(see here)</A>. Note,
+  you cannot use this value to reset the table.
 
 <P>
 </DD>
@@ -860,6 +877,11 @@ Debug $_LastDebug   </B>
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_OutPath</STRONG></DT>
 <DD>Current O<SMALL>UT</SMALL>P<SMALL>ATH</SMALL> setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Plugins</STRONG></DT>
+<DD>A list of registered simple plugins.
 
 <P>
 </DD>
@@ -1047,6 +1069,9 @@ The following are the available ``TrackName'' macros:
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Ornament</STRONG></DT>
 <DD>(all options)
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Plugins</STRONG></DT>
+<DD>(track registered plugins, the same for all tracks)
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Range</STRONG></DT>
 <DD>
@@ -1292,7 +1317,7 @@ evaluated by Python.
 <P>
 You can even use this feature to modify values stored in
 lists.<A NAME="tex2html82"
-  HREF="#foot11563"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> A bit complex, but well worthwhile! In the following
+  HREF="#foot11669"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> A bit complex, but well worthwhile! In the following
 example we add ``10'' to the current A<SMALL>RTICULATE</SMALL> setting. It's
 split into three lines to make it clearer:
 
@@ -1422,7 +1447,7 @@ the functions:
 
 <P>
 the miscellaneous functions:<A NAME="tex2html83"
-  HREF="#foot11472"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+  HREF="#foot11578"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
 <P>
 <PRE>
     for, in, str(), .join(), .split()
@@ -1474,7 +1499,7 @@ them in conditionals. In
 starting with an I<SMALL>F</SMALL> directive, a test, a series of lines to
 process (depending upon the result of the test), and a closing
 E<SMALL>ND</SMALL>I<SMALL>F</SMALL> or I<SMALL>F</SMALL>E<SMALL>ND</SMALL><A NAME="tex2html84"
-  HREF="#foot11564"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>  directive. An optional E<SMALL>LSE</SMALL> statement may be included.
+  HREF="#foot11670"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>  directive. An optional E<SMALL>LSE</SMALL> statement may be included.
 
 <P>
 The first set of tests are unary (they take no arguments):
@@ -1651,7 +1676,7 @@ values then 3 is less than 22. The rule in
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is quite simple: If
 both strings can be converted to a value, a numeric comparison is done;
 otherwise they are compared as strings.<A NAME="tex2html85"
-  HREF="#foot11535"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+  HREF="#foot11641"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
 <P>
 This lets you do consistent comparisons in situations like:
 
@@ -1866,7 +1891,7 @@ directory.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot11382">... macros.</A><A
+<DT><A NAME="foot11484">... macros.</A><A
  HREF="node21.html#tex2html81"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>The values
   are dynamically created and reflect the current settings, and may
@@ -1874,7 +1899,7 @@ directory.
   internal roundings, etc.
 
 </DD>
-<DT><A NAME="foot11563">...
+<DT><A NAME="foot11669">...
 lists.</A><A
  HREF="node21.html#tex2html82"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>this was written before the introduction of slices,
@@ -1883,7 +1908,7 @@ lists.</A><A
   be done.
 
 </DD>
-<DT><A NAME="foot11472">... functions:</A><A
+<DT><A NAME="foot11578">... functions:</A><A
  HREF="node21.html#tex2html83"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>It is possible that the
     following functions could be used to do ``bad'' things. If you see
@@ -1891,7 +1916,7 @@ lists.</A><A
     careful.
 
 </DD>
-<DT><A NAME="foot11564">...I<SMALL>F</SMALL>E<SMALL>ND</SMALL></A><A
+<DT><A NAME="foot11670">...I<SMALL>F</SMALL>E<SMALL>ND</SMALL></A><A
  HREF="node21.html#tex2html84"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's author probably suffers
@@ -1900,7 +1925,7 @@ lists.</A><A
   you.
 
 </DD>
-<DT><A NAME="foot11535">... strings.</A><A
+<DT><A NAME="foot11641">... strings.</A><A
  HREF="node21.html#tex2html85"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>For this comparison
   float values are used. Rounding errors can cause equality
@@ -1910,26 +1935,26 @@ lists.</A><A
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html773"
+<A NAME="tex2html788"
   HREF="node22.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html771"
+<A NAME="tex2html786"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html765"
+<A NAME="tex2html780"
   HREF="node20.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html774"
+<B> Next:</B> <A NAME="tex2html789"
   HREF="node22.html">Subroutines</A>
-<B> Up:</B> <A NAME="tex2html772"
+<B> Up:</B> <A NAME="tex2html787"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html766"
+<B> Previous:</B> <A NAME="tex2html781"
   HREF="node20.html">Repeats</A></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Bob van der Poel
-2015-12-15
+2016-05-22
 </ADDRESS>
 </BODY>
 </HTML>

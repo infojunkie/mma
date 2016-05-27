@@ -234,14 +234,16 @@ def seq(ln):
 
 
 def seqClear(ln):
-    """ Clear all sequences (except SOLO/ARIA tracks). """
+    """ Clear all sequences (except SOLO/ARIA and STICKY tracks). """
 
     if ln:
         error("Use: 'SeqClear' with no args")
 
     for n in gbl.tnames.values():
-        if n.vtype != 'SOLO' and n.vtype != 'ARIA':
-            n.clearSequence()
+        if n.vtype in ('SOLO', 'ARIA') or n.sticky:
+            continue
+        n.clearSequence()
+
     MMA.volume.futureVol = []
 
     MMA.seqrnd.setSeqRndWeight(['1'])

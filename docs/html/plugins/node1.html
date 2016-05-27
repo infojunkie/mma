@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Easy Guide</TITLE>
+<META NAME="description" CONTENT="Easy Guide">
+<META NAME="keywords" CONTENT="mma-plugins">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma-plugins.css">
+
+<LINK REL="next" HREF="node2.html">
+<LINK REL="previous" HREF="mma-plugins.html">
+<LINK REL="up" HREF="mma-plugins.html">
+<LINK REL="next" HREF="node2.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html26"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html24"
+  HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html18"
+  HREF="mma-plugins.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html27"
+  HREF="node2.html">Entry Points</A>
+<B> Up:</B> <A NAME="tex2html25"
+  HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A NAME="tex2html19"
+  HREF="mma-plugins.html">Plugins</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00100000000000000000">
+Easy Guide</A>
+</H1>
+
+<P>
+<DIV ALIGN="CENTER">
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       
+<DIV ALIGN="CENTER">
+
+</DIV><BIG CLASS="XLARGE">This is a DRAFT document. 
+	
+           </td></tr>
+        </Table>
+
+</BIG></DIV>
+
+<P>
+This document is provided as a reference to advanced 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  users
+writing plugins. It does not pretend to be definitive or complete. It
+is a supplement to the main reference manual.
+
+<P>
+As mentioned in the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Reference Guide, a plugin must have its own
+directory. The name of this directory must be the same as the name you
+with to assign to the plugin (without the ``@'' prefix). So, the
+plugin @H<SMALL>ELLO</SMALL> will have a directory <TT><SPAN  CLASS="textbf">hello</SPAN></TT>.
+
+<P>
+In this directory you must have the following files:
+
+<P>
+
+<OL>
+<LI><TT><SPAN  CLASS="textbf">__init__.py</SPAN></TT> -- this must be an empty file. Note that the name
+  ``init'' has two leading and trailing underscores,
+</LI>
+<LI><TT><SPAN  CLASS="textbf">plugin.py</SPAN></TT> -- this contains your plugin code.
+</LI>
+</OL>
+
+<P>
+In the Reference Manual in the Plugins section, we discuss the fact
+that characters in filenames are, mostly, not case
+sensitive. However, we recommend that you use lower case characters
+for all file and directory names.
+
+<P>
+When the P<SMALL>LUGIN</SMALL> command finds the file <TT><SPAN  CLASS="textbf">plugin.py</SPAN></TT> it is
+loaded into the running 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  program. The plugin loader will 
+attempt to register three functions or methods from <TT><SPAN  CLASS="textbf">plugin.py</SPAN></TT>:
+
+<P>
+
+<OL>
+<LI><code>run(param-list)</code> -- this is the code executed when your new command
+  is encountered in a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  script.
+
+<P>
+</LI>
+<LI><code>trackRun(TrackName, param-list)</code> -- this is the code executed when your new
+  command is encountered as part of a track command.
+
+<P>
+</LI>
+<LI><code>printUsage()</code> -- this code is used when you request a
+  usage message from the command line using the ``-I'' option.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html26"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html24"
+  HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html18"
+  HREF="mma-plugins.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html27"
+  HREF="node2.html">Entry Points</A>
+<B> Up:</B> <A NAME="tex2html25"
+  HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A NAME="tex2html19"
+  HREF="mma-plugins.html">Plugins</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2016-04-14
+</ADDRESS>
+</BODY>
+</HTML>

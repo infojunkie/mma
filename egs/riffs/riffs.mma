@@ -21,7 +21,7 @@ Begin Arpeggio
 	Volume f 
 	Voice Strings
 	Articulate 75
-	MidiVoice {1 ReleaseTime 80 }
+	MidiVoice {1 ReleaseTime 80 } z
 	MidiClear 1 ReleaseTime 0 
 
 	Begin Riff

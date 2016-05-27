@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 Bob van der Poel <bob@mellowood.ca>
 
+Code for Defaults and recursion stack Ignazio Di Napoli.
+
    Define and execute simple function / subroutine calls.
 
 """
@@ -27,13 +29,17 @@ Bob van der Poel <bob@mellowood.ca>
 import copy
 from . import gbl
 import MMA.file
+from MMA.macro import macros
 from MMA.common import *
 
 # Storage for our functions 
 class Funcs:
-    def __init__(self, params, body):
+    def __init__(self, params, body, defaults, fname, lineN):
         self.params = params
         self.body = body
+        self.defaults = defaults
+        self.lineN = lineN
+        self.fname = fname
         
 funcList = {}
 
@@ -45,26 +51,44 @@ def defCall(l):
     if len(l) < 1:
         error("DefCall: At least one argument (name) is needed.")
         
+    lineN = gbl.lineno
+        
     # Grab 1st arg. This is the function name
     fname = l[0].strip().upper()
-    
+    if '$' in fname:
+        error("DefCall: '$' is not permitted in function name.")
+
     # The params are split into words. Join together just so we can
     # take it apart again. Needed to use ',' delimiters
-    p = ' '.join(l[1:]).split(',')
-    
+    # read from the inside out: replace '\,' with chr(255)
+    #                           join together with space delims (skip func name)
+    #                           split up at ','
+
+    p = ' '.join(l[1:]).replace('\,', chr(255)).split(',')
+
     # Convert the param names so they have a leading '$'. The '$'
     # is not permitted in a param name.
+
     params = []
+    defaults = []
     for a in p:
-        a = a.strip()
+        a = a.strip().replace(chr(255), ",")
         if not a:
             continue
+        if '=' in a:
+            a,d = a.split('=')
+            a = a.strip()
+            d = d.strip()
+        else:
+            d = None
         if '$' in a:
             error("DefCall: '$' is not permitted in paramater name.")
-        a = '$'+a.upper()
+        a = '$'+a
         if a in params:
             error("DefCall: '%s' is a duplicate paramater name." % a)
-        params.append(a)
+
+        params.append(a.upper())
+        defaults.append(d)
     
     body = []
     while 1:
@@ -72,16 +96,38 @@ def defCall(l):
         if not ln:
             error("DefCall: Reached EOF while looking for EndDefCall.")
         cmd = ln[0].upper()
-        if cmd in ("DEFCALLEND", 'ENDDEFCALL'):
+        if cmd in ("DEFCALLEND", "ENDDEFCALL"):
             if len(ln) > 1:
                 error("DefCall: No arguments permitted for DefCallEnd/EndDefCall.")
             else:
                 break
+        if cmd == "DEFAULT":
+            if len(ln) < 3:
+                error("Default: Requires two arguments.")
+            a = '$'+ln[1].strip().upper()
+            d = ' '.join(ln[2:])
+            try:
+                i = params.index(a)
+            except:
+                #print params
+                error("DefCall Default: param '%s' does not exist in '%s'." % (a, fname))
+            if defaults[i]:
+                warning("DefCall Default: param '%s' default value '%s' was set in param list."
+                        " Overriding with '%s'." % (a, defaults[i], d))
+            defaults[i] = d
+            continue
+            
         body.append(ln)
 
-    funcList[fname] = Funcs(params, body)
+    #print "=" * 80
+    #print "Def", fname
+    #print zip(params, defaults)
+    #print body
+    #print "=" * 80
     
-    if gbl.debug:
+    funcList[fname] = Funcs(params, body, defaults, gbl.inpath.fname, lineN)
+    
+    if gbl.debug: 
         t = [ a[1:] for a in params]
         print("DefCall: Created function '%s': %s" % (fname, ', '.join(t)))
 
@@ -97,39 +143,82 @@ def callFunction(l):
     if fname not in funcList:
         error("Call: '%s' has not been defined." % fname)
 
-    # Convert any escaped '\,' into $ff
-    p = ' '.join(l[1:])
-    p = p.replace('\,', chr(255))
-                 
-    # The params are split into words. Join together just so we can
-    # take it apart again. Needed to use ',' delimiters for multi word args
-    p = p.split(',')
+    # Convert any escaped '\,' into $ff ... see explanation in defCall() 
+    p = ' '.join(l[1:]).replace('\,', chr(255)).split(',')
 
     # Validate calling params
-    callParams = []
-    for a in p:
-        a = a.strip()
-        if a:  # new list of params, commas restored
-            callParams.append(a.replace(chr(255), ','))
-        
     params = funcList[fname].params
+
+    callParams = []
+    usingDefaults = False
+    namedParams = {}
+    for a in p:
+        a = a.strip().replace(chr(255), ',')   # commas restored
+        if a:   # new list of params
+            if '=' in a: 
+                usingDefaults = True
+                a,d = a.split('=')
+                a = '$'+a.strip().upper()
+                d = d.strip()
+                if a not in params:
+                    error("Call: '%s' is not a param of '%s'." % (a, fname))
+                namedParams[a] = d
+            elif usingDefaults:
+                error("Call: cannot use a non-named param after a named one.")
+            else:
+                callParams.append(a)
+                
+    if usingDefaults or len(params) != len(callParams):
+        s = len(callParams)
+        for i, p in enumerate(params[s:]):
+            if p in namedParams:
+                callParams.append(namedParams[p])
+            else:
+                d = funcList[fname].defaults[i+s]
+                if d is None:
+                    error("Call: '%s' has no default for '%s'." % (fname, p))
+                callParams.append(d)
 
     if len(params) != len(callParams):
            error("Call: Function '%s' needs %s params, '%s' given." % \
                  (fname, len(params), len(callParams)))
 
-    # Insert passed params into the function body.
-    body = copy.deepcopy(funcList[fname].body)
-    for l in body:
-        for i,a in enumerate(l):
-            try:
-                t = params.index(a.upper())
-                l[i] = callParams[t]
-            except:
-                pass
+    # First, push the current values on the stack.
+    # To avoid pushing not existant values, NewSet is called before pushing.
+    # Then, set parameters as global values.
+    # At the end of the function, stack values are restored.
+    # 
+    # This way, the parameters become local.  
+
+
+    existingParams = [name for name in params if name[1:] in macros.vars]
+    pushStack = [["StackValue", name] for name in existingParams]
+    sets = [["Set", name[1:], value] for name, value in zip(params, callParams)]
+    body = funcList[fname].body
+    popStack = [["Set", name[1:], "$_StackValue"] for name in existingParams[::-1]]
+    unset = [["UnSet", name[1:]] for name in params if name[1:] not in macros.vars]
+
+    fullbody = pushStack + sets + body + popStack + unset
+  
+    # we use the source line for each, but:
+    # - there is no stack for error displaying; error just display current line in input
+    # - there is no saving of original file name 
+     
+    #lineNs = [funcList[fname].lineN] * (len(newSets) + len(pushStack) + len(sets))
+    #lineNs += range(funcList[fname].lineN+1, funcList[fname].lineN+1+len(funcList[fname].body))
+    #lineNs += [lineNs[-1]+1] * len(popStack)
+    ##print zip(lineNs, fullbody)
+    #lineNsS = ["{} ({}:{})".format(gbl.lineno, funcList[fname].fname, l) for l in lineNs]
+    #gbl.inpath.push(fullbody, lineNsS) 
 
     # push the converted body lines into the input stream
-    gbl.inpath.push(body, [gbl.lineno] * len(body)) 
+    gbl.inpath.push(fullbody, [gbl.lineno] * len(fullbody)) 
+
+    #print "=" * 80
+    #print fname
+    #print zip(params, callParams)
+    #print body
+    #print "=" * 80
 
     if gbl.debug:
         print ("Call: function '%s' expanded." % fname)

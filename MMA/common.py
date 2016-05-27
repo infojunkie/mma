@@ -33,6 +33,17 @@ without side effects (yeah, right).
 from random import randrange
 import sys
 from . import gbl
+from textwrap import wrap
+
+# having the term width is nice for pretty print error/warning
+from MMA.termsize import getTerminalSize
+termwidth = getTerminalSize()[0]-1
+ 
+def prettyPrint(msg):
+    """ Simple formatter for error/warning messages."""
+
+    for a in wrap(msg, termwidth, initial_indent='', subsequent_indent='    '):
+        print(a)
 
 def error(msg):
     """ Print an error message and exit.
@@ -41,17 +52,17 @@ def error(msg):
         as well.
     """
 
-    ln = ""
     if gbl.lineno >= 0:
-        ln += "<Line %d>" % gbl.lineno
+        linno = "<Line %d>" % gbl.lineno
+    else:
+        linno = ''
 
     if gbl.inpath:
-        ln += "<File:%s>" % gbl.inpath.fname
+        file = "<File:%s>" % gbl.inpath.fname
+    else:
+        file = ''
 
-    if ln:
-        ln += '\n'
-
-    print("ERROR:%s     %s" % (ln, msg))
+    prettyPrint("Error: %s %s %s" % (linno, file, msg))
 
     # Parse though the error message and check for illegal characters.
     # Report (first only) if any found.
@@ -68,18 +79,17 @@ def warning(msg):
     """ Print warning message and return. """
 
     if not gbl.noWarn:
-        ln = ""
-
         if gbl.lineno >= 0:
-            ln = "<Line %d>" % gbl.lineno
+            linno = "<Line %d>" % gbl.lineno
+        else:
+            linno = ''
 
         if gbl.inpath:
-            ln += "<File:%s>" % gbl.inpath.fname
+            file = "<File:%s>" % gbl.inpath.fname
+        else:
+            file = ''
 
-        print("Warning:%s" % ln)
-        msg = msg.split('\n')
-        for a in msg:
-            print("       %s" % a)
+        prettyPrint("Warning: %s %s %s" % (linno, file, msg))
 
    
 def getOffset(ticks, ranLow=None, ranHigh=None):

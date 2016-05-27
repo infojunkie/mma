@@ -266,7 +266,7 @@ class Plectrum(PC):
 
         self._capoFretNo = stoi(capoFretNo, "%s Capo: expecting integer, not '%s'."
                                 % (self.name, capoFretNo))
-
+     
     def decodePlectrumPatterns(self, a, patterns):
         """ Decode plectrum patterns for a guitar here are examples """
 
@@ -590,6 +590,9 @@ class Plectrum(PC):
                         # start strum at end of beat
                         strumOffset = p.offset + p.strum * \
                             (pluckStringCount - pluckStringIndex - 1)
+
+                    if p.strum < 0:
+                        strumOffset += -p.strum * pluckStringCount
                 else:
                     strumOffset = p.offset
 

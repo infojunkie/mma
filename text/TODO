@@ -1,4 +1,6 @@
+Add $$ to delay expansion of macros.
 
+Add "After" to set something to do after # bars.
 
 Add a "Output On/Off" so that generation can be toggled inside a
    script. Gotta be careful in doing this so that key info is skipped,

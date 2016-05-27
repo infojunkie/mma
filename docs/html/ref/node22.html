@@ -28,21 +28,21 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html798"
+<A NAME="tex2html813"
   HREF="node23.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html796"
+<A NAME="tex2html811"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html790"
+<A NAME="tex2html805"
   HREF="node21.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html799"
-  HREF="node23.html">Low Level MIDI Commands</A>
-<B> Up:</B> <A NAME="tex2html797"
+<B> Next:</B> <A NAME="tex2html814"
+  HREF="node23.html">Plugins</A>
+<B> Up:</B> <A NAME="tex2html812"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html791"
+<B> Previous:</B> <A NAME="tex2html806"
   HREF="node21.html">Variables, Conditionals and Jumps</A>
 <BR>
 <BR></DIV>
@@ -51,11 +51,16 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html800"
+<LI><A NAME="tex2html815"
   HREF="node22.html#SECTION002210000000000000000">DefCall</A>
-<LI><A NAME="tex2html801"
+<LI><A NAME="tex2html816"
   HREF="node22.html#SECTION002220000000000000000">Call</A>
-</UL>
+<UL>
+<LI><A NAME="tex2html817"
+  HREF="node22.html#SECTION002221000000000000000">Defaults</A>
+<LI><A NAME="tex2html818"
+  HREF="node22.html#SECTION002222000000000000000">Local Values</A>
+</UL></UL>
 <!--End of Table of Child-Links-->
 <HR>
 
@@ -72,7 +77,7 @@ and usage is deliberately simple and limited ...we're really not
 trying to make 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  into a functional programming
 language.<A NAME="tex2html86"
-  HREF="#foot12411"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+  HREF="#foot12537"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 
 <H1><A NAME="SECTION002210000000000000000"></A>  <A NAME="defcall"></A>
@@ -207,21 +212,99 @@ And call it with:
 
 <P>
 to generate a total of 14 bars of music.<A NAME="tex2html87"
-  HREF="#foot12457"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> If you doubt that this is
+  HREF="#foot12618"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> If you doubt that this is
 working, call 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the -r option (see
 <A HREF="node2.html#running-r">here</A>).
 
 <P>
-Some points to remember:
+The parameters in a subroutine can have default values. You can set a
+parameter default in two ways:
 
-<UL>
-<LI>
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  subroutines do <SPAN  CLASS="textit">not</SPAN> have local variables. Everything is
-global.
+<P>
+
+<OL>
+<LI>By adding the default value in the header using the
+  parameter=value format. For example, to set the copyright example
+  above, you might use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall Copyright Name=Bob van der Poel 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MidiCopyright $Name 
+<BR>
+EndDefCall   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+in which case you can now use C<SMALL>ALL </SMALL>C<SMALL>OPYRIGHT</SMALL> to set the value
+to the default ``Bob van der Poel'' or you can pass your own value.
+So, 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call Copyright  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set the Midi Copyright to ``Bob van der Poel'' but
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call Copyright Susan Jones  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set it to ``Susan Jones''.
 
 <P>
 </LI>
+<LI>You can also set default values by placing a series of
+  D<SMALL>EFAULT</SMALL> messages anywhere in the D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL>.
+ For example, the above example could be done with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall Copyright Name 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default Name Bob van der Poel
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MidiCopyright $Name 
+<BR>
+EndDefCall   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This produces the same result. Note: <SPAN  CLASS="textit">any default settings made in the
+body of the definition will override the parameter settings. It's
+probably best to adopt one method and stick with that in your code.</SPAN>
+
+<P>
+</LI>
+</OL>
+
+<P>
+The concept of default values for parameters is discussed in detail
+below in the Defaults section (<A HREF="#subroutine-defaults">here</A>).
+
+<P>
+Some points to remember:
+
+<UL>
 <LI>
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  subroutines do not return values to the caller. However, it is
 possible to use the built-in S<SMALL>TACKVALUE</SMALL> macros (see
@@ -299,13 +382,17 @@ On the other hand:
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Call Prt My what a nice song  </B> 
+    <B>Call Prt My\, what a nice song  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
 passes only one parameter (``My, what a nice song'').
+
+<P>
+If you have used default values in D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> things get a tad
+more complicated. 
 
 <P>
 Notes:
@@ -319,16 +406,211 @@ Notes:
 </UL>
 
 <P>
+
+<H2><A NAME="SECTION002221000000000000000"></A>
+<A NAME="subroutine-defaults"></A>
+<BR>
+Defaults
+</H2>
+
+<P>
+As noted, above, you can have default arguments for the subroutine
+parameters. If you have set defaults (using the D<SMALL>EFAULT</SMALL> keyword
+or a Param=value pair) these will be used for ``missing'' parameters
+in a subroutine call.
+However, if any parameters at all are supplied, they must be in the same
+order as in the definition. So, if you have created a subroutine like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall MySub  P1 , P2 , P3=somevalue , P4=another value  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall MySub  P1 , P2 , P3 , P4 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Default P3 somevalue 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Default P4 another value  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and call it with 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call MySub  P1Value, P2Value , This is for p3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+the the following settings apply:
+
+<P>
+<BLOCKQUOTE>
+$P1 - P1Value 
+<BR> $P2 - P2value 
+<BR> $P3 - This is for p3 
+<BR> $P4 - another value 
+<BR>
+</BLOCKQUOTE>
+
+<P>
+We can assign a value to a variable by using a ``variable=value'' pair.
+This assigns a value to a parameter ... nicely, the order of variables
+is not important as long as you don't try to use non ``='' pairs after
+one. For clarity, some examples follow (in all cases we use the
+definition):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall fun a, b=1, c=2 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Print $A $B $C 
+<BR>
+EndDefCall  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, with different calling orders:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun 0, b=1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Result: 0 1 2. The ``0'' is from the first argument, ``1'' from
+``b=1'' and ``2'' from the default for $C.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun 0, c=2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Result: 0 1 2. The ``0' if from the first argument, ``1'' is the
+default setting for $B and ``2'' is from ``c=2''.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun 0, b=1, 2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Result: A 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  runtime error since a  non-named argument is used
+after a named.
+
+<P>
+Arguments without a default setting can be set with the ``='' syntax:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun a=0, c=2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+Result: 0 1 2. Here we have set $a from the call, ``1'' is the
+default for the second parameter and ``2'' was set with ``c=2''.
+
+<P>
+When using the ``parameter=value'' syntax the order of named parameters does not matter:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun c=2, a=0, b=1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+Result: 0 1 2. Just as expected.
+
+<P>
+Any arguments without a default value must be specified:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun b=1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+Result: A 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  runtime error since there is no value for $a.
+
+<P>
+
+<H2><A NAME="SECTION002222000000000000000">
+Local Values</A>
+</H2>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tries very hard not to change any variables (macros) you have
+already set when a subroutine is called. To do this any variables set
+on the subroutine call line are saved. Their original values are
+restored at the end of the subroutine call.
+
+<P>
+Variables you create inside a subroutine can manipulated 
+by saving and restoring them using S<SMALL>TACK</SMALL>V<SMALL>ALUE</SMALL> (see
+<A HREF="node21.html#stackvalue">here</A>). You can return values to
+the caller (your main 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  code or another subroutine) by pushing a
+value onto the stack and pulling it off later. However, it is up to
+the the caller (you) to ensue that the order and number of stack
+pushes and pulls is correct.
+
+<P>
+This makes complex (as well as recursive) programming possible. 
+
+<P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot12411">...
+<DT><A NAME="foot12537">...
 language.</A><A
  HREF="node22.html#tex2html86"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>If you do solve the Towers of Hanoi using 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>    subroutines, please let us know.
 
 </DD>
-<DT><A NAME="foot12457">... music.</A><A
+<DT><A NAME="foot12618">... music.</A><A
  HREF="node22.html#tex2html87"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>In this case we are using the
 
@@ -340,26 +622,26 @@ leave that as an exercise for the reader.
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html798"
+<A NAME="tex2html813"
   HREF="node23.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html796"
+<A NAME="tex2html811"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html790"
+<A NAME="tex2html805"
   HREF="node21.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html799"
-  HREF="node23.html">Low Level MIDI Commands</A>
-<B> Up:</B> <A NAME="tex2html797"
+<B> Next:</B> <A NAME="tex2html814"
+  HREF="node23.html">Plugins</A>
+<B> Up:</B> <A NAME="tex2html812"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html791"
+<B> Previous:</B> <A NAME="tex2html806"
   HREF="node21.html">Variables, Conditionals and Jumps</A></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Bob van der Poel
-2015-12-15
+2016-05-22
 </ADDRESS>
 </BODY>
 </HTML>

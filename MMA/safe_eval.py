@@ -24,6 +24,7 @@ Bob van der Poel <bob@mellowood.ca>
 
 import re
 from math import *
+from os import environ
 
 from MMA.common import error
 
@@ -34,6 +35,10 @@ safeCmds = ['ceil', 'fabs', 'floor', 'exp', 'log', 'log10', 'pow',
 
 
 def safe_eval(expr):
+    
+    #if expr.startswith( '_UNSAFE_'):
+    #    if environ.has_key('MMA_SAFE'):
+    #        return eval(expr[8:])
 
     toks = re.split(r'([a-zA-Z_\.]+|.)', expr)
 

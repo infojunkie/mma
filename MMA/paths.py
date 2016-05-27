@@ -38,6 +38,8 @@ libPath = []
 libDirs = []
 incPath = []
 
+plugPath = os.path.join(gbl.MMAdir, "plugins")
+
 mmaStart = []
 mmaEnd   = []
 mmaRC    = None
@@ -47,7 +49,7 @@ def init():
         inserted the first found 'mma' directory into the sys.path list and
         set MMAdir. Now, set the lib/inc lists.
     """
-
+    
     setLibPath([os.path.join(gbl.MMAdir, 'lib')], user=0)
     if not libPath or not os.path.isdir(libPath[0]):
         print("Warning: Library directory not found (check mma.py).")

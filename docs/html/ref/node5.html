@@ -28,21 +28,21 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html522"
+<A NAME="tex2html537"
   HREF="node6.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html520"
+<A NAME="tex2html535"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html514"
+<A NAME="tex2html529"
   HREF="node4.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html523"
+<B> Next:</B> <A NAME="tex2html538"
   HREF="node6.html">Grooves</A>
-<B> Up:</B> <A NAME="tex2html521"
+<B> Up:</B> <A NAME="tex2html536"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html515"
+<B> Previous:</B> <A NAME="tex2html530"
   HREF="node4.html">Patterns</A>
 <BR>
 <BR></DIV>
@@ -51,15 +51,15 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html524"
+<LI><A NAME="tex2html539"
   HREF="node5.html#SECTION00510000000000000000">Defining Sequences</A>
-<LI><A NAME="tex2html525"
+<LI><A NAME="tex2html540"
   HREF="node5.html#SECTION00520000000000000000">SeqClear</A>
-<LI><A NAME="tex2html526"
+<LI><A NAME="tex2html541"
   HREF="node5.html#SECTION00530000000000000000">SeqRnd</A>
-<LI><A NAME="tex2html527"
+<LI><A NAME="tex2html542"
   HREF="node5.html#SECTION00540000000000000000">SeqRndWeight</A>
-<LI><A NAME="tex2html528"
+<LI><A NAME="tex2html543"
   HREF="node5.html#SECTION00550000000000000000">SeqSize</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -151,12 +151,12 @@ Arpeggio Sequence { 1 1 100 * 8 } { 1 1 80 * 4 }   </B>
 pattern. The Drum, Chord and Bass patterns repeat on every bar; the
 Drum-1 sequence repeats after 2 bars. Note how the Arpeggio pattern is
 defined at run-time.<A NAME="tex2html32"
-  HREF="#foot2571"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+  HREF="#foot2590"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 If there are fewer patterns than S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL>, the sequence will be
 filled out to correct size. If the number of patterns used is greater
 than S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL> (see
-<A HREF="node27.html#sec-directives">directives</A>) a warning
+<A HREF="node29.html#sec-directives">directives</A>) a warning
 message will be printed and the pattern list will be truncated.
 
 <P>
@@ -211,7 +211,7 @@ Walk Sequence z / / Walk4-4   </B>
 
 <P>
 If you already have a sequence defined<A NAME="tex2html33"
-  HREF="#foot2478"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> you can repeat or copy the existing pattern by
+  HREF="#foot2492"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> you can repeat or copy the existing pattern by
 using a single ``*'' as the pattern name. This is useful when you are
 modifying an existing sequence.
 
@@ -315,7 +315,7 @@ when defining a new sequence and you want to be sure that no
 
 <P>
 deletes all sequence information, with the important exception that
-S<SMALL>OLO</SMALL> tracks are ignored.
+S<SMALL>OLO</SMALL> and S<SMALL>TICKY</SMALL> (<A HREF="node6.html#sect-sticky">here</A>) tracks are ignored.
 
 <P>
 Alternately, the command:
@@ -347,7 +347,7 @@ If you use a sub-track:
 
 <P>
 only the sequence for that track is cleared.<A NAME="tex2html34"
-  HREF="#foot2572"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+  HREF="#foot2591"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
 <P>
 In addition to clearing the sequence pattern, the following other
 settings are restored to a default condition:
@@ -875,7 +875,7 @@ until it is long enough.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot2571">... run-time.</A><A
+<DT><A NAME="foot2590">... run-time.</A><A
  HREF="node5.html#tex2html32"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>If you run 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the ``-s'' option
@@ -884,14 +884,14 @@ until it is long enough.
   sequence.
 
 </DD>
-<DT><A NAME="foot2478">... defined</A><A
+<DT><A NAME="foot2492">... defined</A><A
  HREF="node5.html#tex2html33"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>In reality there is
   always a sequence defined for every track, but it might be a series
   of ``rest'' bars.
 
 </DD>
-<DT><A NAME="foot2572">... cleared.</A><A
+<DT><A NAME="foot2591">... cleared.</A><A
  HREF="node5.html#tex2html34"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>It is probably
   easier to use the command: 
@@ -909,26 +909,26 @@ until it is long enough.
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html522"
+<A NAME="tex2html537"
   HREF="node6.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html520"
+<A NAME="tex2html535"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html514"
+<A NAME="tex2html529"
   HREF="node4.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html523"
+<B> Next:</B> <A NAME="tex2html538"
   HREF="node6.html">Grooves</A>
-<B> Up:</B> <A NAME="tex2html521"
+<B> Up:</B> <A NAME="tex2html536"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html515"
+<B> Previous:</B> <A NAME="tex2html530"
   HREF="node4.html">Patterns</A></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Bob van der Poel
-2015-12-15
+2016-05-22
 </ADDRESS>
 </BODY>
 </HTML>

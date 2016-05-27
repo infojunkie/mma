@@ -227,6 +227,14 @@ chordlist = {
              (C, Ds, E, F, G, Ab, Bb),
              "7th with sharp 9th and flat 13th."),
 
+    '7b5(add13)':    ((C,     E,    Gb,    Bb, A+12 ),
+             (C, D, E, F, Gb, A, Bb),
+             "7th with flat 5 and 13th."),
+
+    '7(add13)':    ((C,     E,    G,    Bb, A+12 ),
+             (C, D, E, F, G, A, Bb),
+             "7th with added 13th."),
+
     '7b5b9':((C,     E,    Gb,    Bb, Db+12 ),
              (C, Db, E, F, Gb, A, Bb),
              "7th with flat 5th and flat 9th."),

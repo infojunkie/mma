@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Returning Values</TITLE>
+<META NAME="description" CONTENT="Returning Values">
+<META NAME="keywords" CONTENT="mma-plugins">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma-plugins.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="mma-plugins.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html59"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html57"
+  HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html51"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html60"
+  HREF="node5.html">Standard Interface</A>
+<B> Up:</B> <A NAME="tex2html58"
+  HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A NAME="tex2html52"
+  HREF="node3.html">Preset Values</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00400000000000000000">
+Returning Values</A>
+</H1>
+
+<P>
+In order to be of any use, a plugin will need to make modifications to
+your song or library file. You can, if you want, make these inside
+your function. However, we don't suggest you do. The API can change in
+the future. Plus, many settings rely on other basic 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  settings
+which are easy to miss. Much more robust is the method of creating
+string(s) with native (or even other plugin) commands and returning
+the to the main script.
+
+<P>
+This is easy to do. 
+
+<P>
+Just create a list of commands and push them onto the programs input
+stack. Examine the <TT><SPAN  CLASS="textbf">hello/plugin.py</SPAN></TT> module for actual code, but
+as a summary you'll need to:
+
+<P>
+
+<OL>
+<LI>Create lines for each line of code. In our example we use the
+  array ``ret'' and simply append each line to the array.
+
+<P>
+</LI>
+<LI>Process each of the lines into an acceptable format. This is
+  easy, it's just a matter of converting the string to a list of
+  words. In our example we do:
+
+<P>
+<code> ret = [l.split() for l in ret] </code>
+
+<P>
+</LI>
+<LI>Finally, return the value to the input queue. 
+
+<P>
+<code> gbl.inpath.push(ret, [gbl.lineno] * len(ret)) </code>
+
+<P>
+here we set the line number of each returned line to be the same as
+the current line being processed. Note: we're assuming that your
+plugin has imported ``gbl'' as detailed above.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html59"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html57"
+  HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html51"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html60"
+  HREF="node5.html">Standard Interface</A>
+<B> Up:</B> <A NAME="tex2html58"
+  HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A NAME="tex2html52"
+  HREF="node3.html">Preset Values</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Bob van der Poel
+2016-04-14
+</ADDRESS>
+</BODY>
+</HTML>

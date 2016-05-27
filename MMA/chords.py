@@ -28,6 +28,8 @@ from MMA.chordtable import chordlist
 import MMA.roman
 from MMA.keysig import keySig  # needed for voicing mode keycenter()
 
+import copy
+
 slashPrinted = []  # for slash chord error message
 
 ####################################################
@@ -119,38 +121,39 @@ cdAdjust = {
     'E#': 5, 'F' : 5,
     'F#': 6 }
 
+cdAdjustOrig = copy.copy(cdAdjust)
 
 def chordAdjust(ln):
     """ Adjust the chord point up/down one octave. """
 
-    notpair, ln = opt2pair(ln)
+    global cdAdjust
 
-    if not ln:
+    args, ln = opt2pair(ln)
+
+    if not ln and not args:
         error("ChordAdjust: Needs at least one argument.")
-    if notpair:
-        error("ChordAdjust: All args have to be in the format opt=value.")
 
-    for pitch, octave in ln:
-        if pitch not in cdAdjust:
-            error("ChordAdjust: '%s' is not a valid pitch" % pitch)
-
-        octave = stoi(octave, "ChordAdjust: expecting integer, not '%s'" % octave)
-
-        p = cdAdjust[pitch]
-        if octave == 0:
-            if p < -6:
-                cdAdjust[pitch] += 12
-            elif p > 6:
-                cdAdjust[pitch] -= 12
-
-        elif octave == -1 and p <= 6 and p >= -6:
-            cdAdjust[pitch] -= 12
-
-        elif octave == 1 and p <= 6 and p >= -6:
-            cdAdjust[pitch] += 12
-
+    for a in args:
+        if a.upper() == 'RESET':
+            cdAdjust = copy.copy(cdAdjustOrig)
+        
         else:
+            error("ChordAdjust: %s is not a valid argument." % a)
+
+    for p, octave in ln:
+        octave = stoi(octave, "ChordAdjust: expecting integer, not '%s'" % octave)
+        if octave not in (-1, 0, 1):
             error("ChordAdjust: '%s' is not a valid octave. Use 1, 0 or -1" % octave)
+
+        for pitch in p.split(','):
+            if pitch not in cdAdjust:
+                error("ChordAdjust: '%s' is not a valid pitch" % pitch)
+
+            if octave == 0:
+                cdAdjust[pitch] = cdAdjustOrig[pitch]
+            else:
+                cdAdjust[pitch] = cdAdjustOrig[pitch] + (octave * 12)
+       
 
 
 ###############################
@@ -283,13 +286,14 @@ class ChordNotes:
             if inversion < -5 or inversion > 5:
                 error("Chord inversions limited to -5 to 5 (more seems silly)")
 
-        if name.startswith('-'):
+        while name[0:1] in ['-', '+']:
+            if name[0] == '-':
+                octave -= 12
+            else:
+                octave += 12
+            if abs(octave) > 96:
+                error("Too many octave adjustments in '%s'." % startingName)
             name = name[1:]
-            octave = -12
-
-        if name.startswith('+'):
-            name = name[1:]
-            octave = 12
 
         # we have just the name part. Save 'origname' for debug print
 

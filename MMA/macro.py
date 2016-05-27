@@ -40,6 +40,7 @@ import MMA.midinote
 import MMA.swing
 import MMA.ornament
 import MMA.rpitch
+import MMA.chords
 
 from . import gbl
 from MMA.notelen import getNoteLen
@@ -89,7 +90,11 @@ class Macros:
         
         # Simple/global     system values
 
-        if s == 'KEYSIG':
+        if s == 'CHORDADJUST':
+            return ' '.join([ "%s=%s" % (a, MMA.chords.cdAdjust[a]) 
+                              for a in sorted(MMA.chords.cdAdjust)])
+
+        elif s == 'KEYSIG':
             return keySig.getKeysig()
 
         elif s == 'TIME':
@@ -127,6 +132,10 @@ class Macros:
 
         elif s == 'LASTGROOVE':
             return MMA.grooves.lastGroove
+
+        elif s == 'PLUGINS':
+            from MMA.regplug import simplePlugs  # to avoid circular import error
+            return ' '.join(simplePlugs)
 
         elif s == 'SEQ':
             return str(gbl.seqCount)
@@ -311,6 +320,10 @@ class Macros:
 
         elif func == 'ORNAMENT':
             return MMA.ornament.getOrnOpts(t)
+
+        elif func == 'PLUGINS':
+            from MMA.regplug import trackPlugs  # avoids circular import
+            return ' '.join(trackPlugs)
 
         elif func == 'RANGE':
             return ' '.join([str(x) for x in t.chordRange])
@@ -632,7 +645,7 @@ class Macros:
                 Set Foo AAA + BBB + $bar
                    $Foo == "AAABBBBAR"
 
-            The "+"s just strip out interveing spaces.
+            The "+"s just strip out intervening spaces.
         """
 
         if len(ln) < 1:
@@ -680,7 +693,7 @@ class Macros:
             lm.append(l)
 
         self.vars[v] = lm
-
+        
     def unsetvar(self, ln):
         """ Delete a variable reference. """
 
@@ -864,6 +877,11 @@ class Macros:
 
             s1, v1 = expandV(ln[1])
             s2, v2 = expandV(ln[2])
+
+            # Make the comparison to strings or values. If either arg
+            # is NOT a value, use string values for both.
+            if None in (v1, v2):
+                v1, v2 = s1, s2
 
             if action == 'LT' or action == '<':
                 compare = (v1 < v2)

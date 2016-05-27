@@ -28,21 +28,21 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html464"
+<A NAME="tex2html479"
   HREF="node3.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html462"
+<A NAME="tex2html477"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html456"
+<A NAME="tex2html471"
   HREF="node1.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html465"
+<B> Next:</B> <A NAME="tex2html480"
   HREF="node3.html">Tracks and Channels</A>
-<B> Up:</B> <A NAME="tex2html463"
+<B> Up:</B> <A NAME="tex2html478"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html457"
+<B> Previous:</B> <A NAME="tex2html472"
   HREF="node1.html">Overview and Introduction</A>
 <BR>
 <BR></DIV>
@@ -51,11 +51,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html466"
+<LI><A NAME="tex2html481"
   HREF="node2.html#SECTION00210000000000000000">Command Line Options</A>
-<LI><A NAME="tex2html467"
+<LI><A NAME="tex2html482"
   HREF="node2.html#SECTION00220000000000000000">Lines and Spaces</A>
-<LI><A NAME="tex2html468"
+<LI><A NAME="tex2html483"
   HREF="node2.html#SECTION00230000000000000000">Programming Comments</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -84,7 +84,7 @@ name followed by the required options. For example,
 
 <P>
 processes the file <TT><SPAN  CLASS="textbf">test</SPAN></TT><A NAME="tex2html12"
-  HREF="#foot892"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> and creates
+  HREF="#foot900"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> and creates
 the MIDI file <TT><SPAN  CLASS="textbf">test.mid</SPAN></TT>.
 
 <P>
@@ -140,7 +140,7 @@ The following command line options are available:
   number at the start of a data line ... note that the comment
   numbers will vary from the actual bar numbers of the generated
   song.<A NAME="tex2html13"
-  HREF="#foot767"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></TD>
+  HREF="#foot772"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT">-B <SPAN  CLASS="textbf">Range List</SPAN></TD>
 <TD ALIGN="LEFT">Same as -b (above), but here the bar
@@ -154,13 +154,25 @@ The following command line options are available:
 <TR><TD ALIGN="LEFT">-d</TD>
 <TD ALIGN="LEFT">Enable LOTS of debugging messages. This option is mainly
   designed for program development and may not be useful to users.<A NAME="tex2html14"
-  HREF="#foot896"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></TD>
+  HREF="#foot904"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT">-e</TD>
 <TD ALIGN="LEFT">Show parsed/expanded lines. Since 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does some
   internal fiddling with input lines, you may find this option
   useful in finding mismatched B<SMALL>EGIN</SMALL> blocks, etc.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-I <SPAN  CLASS="textbf">Name</SPAN></TD>
+<TD ALIGN="LEFT">Display a help or usage message for a plugin.
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will attempt to find and load the plugin <SPAN  CLASS="textbf">Name</SPAN> and
+  display its usage message (a ``not found'' message will be displayed
+  if the plugin doesn't have a printUsage method).</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-II</TD>
+<TD ALIGN="LEFT">Ignore permission test for loading <SMALL>PLUGINS</SMALL>. Use of this
+  option is not recommended, but it can be quite useful
+  when writing and testing a plugin.</TD>
 </TR>
 <TR><TD ALIGN="LEFT">-o</TD>
 <TD ALIGN="LEFT">A debug subset. This option forces the display of complete
@@ -239,17 +251,17 @@ See the -L option, below for an alternate report.</TD>
 <TR><TD ALIGN="LEFT">-0</TD>
 <TD ALIGN="LEFT">Generate a synchronization tick at the start of every MIDI
   track. Note that the option character is a ``zero'', not a ``O''. For
-  more details see S<SMALL>YNCHRONIZE</SMALL>, <A HREF="node27.html#synchronize">here</A>.</TD>
+  more details see S<SMALL>YNCHRONIZE</SMALL>, <A HREF="node29.html#synchronize">here</A>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT">-1</TD>
 <TD ALIGN="LEFT">Force all tracks to end at the same offset. Note that the
   option character is a ``one'', not an ``L''. For more details see S<SMALL>YNCHRONIZE</SMALL>,
-  <A HREF="node27.html#synchronize">here</A>.</TD>
+  <A HREF="node29.html#synchronize">here</A>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT">-m <SPAN  CLASS="textbf">BARS</SPAN></TD>
 <TD ALIGN="LEFT">Set the maximum number of bars which can be generated.
   The default setting is 500 bars (a long song!<A NAME="tex2html15"
-  HREF="#foot799"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>). This setting is
+  HREF="#foot807"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>). This setting is
   needed since you can create infinite loops by improper use of the
   <SMALL>GOTO</SMALL> command. If your song really is longer than 500 bars
   use this option to increase the permitted size.</TD>
@@ -257,7 +269,7 @@ See the -L option, below for an alternate report.</TD>
 <TR><TD ALIGN="LEFT">-M <SPAN  CLASS="textbf">x</SPAN></TD>
 <TD ALIGN="LEFT">Generate type 0 or 1 MIDI files. The parameter ``x'' must be
   set  to the single digit ``0'' or ''1''. For more details, see the
-  M<SMALL>IDI</SMALL>SMF section <A HREF="node23.html#midismf">here</A>.</TD>
+  M<SMALL>IDI</SMALL>SMF section <A HREF="node24.html#midismf">here</A>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT">-n</TD>
 <TD ALIGN="LEFT">Disable generation of MIDI output. This is useful
@@ -266,7 +278,7 @@ See the -L option, below for an alternate report.</TD>
 <TR><TD ALIGN="LEFT">-P</TD>
 <TD ALIGN="LEFT">Play and delete MIDI file. Useful in testing, the generated
   file will be played with the defined MIDI file player (see section
-  <A HREF="node30.html#midiplayer">here</A>). The file is created
+  <A HREF="node32.html#midiplayer">here</A>). The file is created
   in the current directory and has the name ``MMAtmpXXX.mid'' with
   ``XXX'' set to the current PID.</TD>
 </TR>
@@ -310,7 +322,7 @@ just sets the variable $test with no value.</TD>
 <TD ALIGN="LEFT">Play a short audio preview of a G<SMALL>ROOVE</SMALL> in the 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
   library. For complete details on this command see section
-  <A HREF="node30.html#groovepreview">here</A>.</TD>
+  <A HREF="node32.html#groovepreview">here</A>.</TD>
 </TR>
 <TR><TD ALIGN="CENTER" COLSPAN=2><SPAN> 
 		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
@@ -332,7 +344,7 @@ just sets the variable $test with no value.</TD>
   <TT><SPAN  CLASS="textbf">.mmaDB</SPAN></TT>) is not updated, 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will not be able to auto-load
   an unknown groove.  Please refer to the detailed discussion
-  <A HREF="node30.html#lib-files">here</A> for details.
+  <A HREF="node32.html#lib-files">here</A> for details.
 
 <P>
 <BR>
@@ -352,8 +364,8 @@ The current installation of
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will update the groove database with all files in the
   current L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>. All files <SPAN  CLASS="textit">must</SPAN> have a ``.mma''
   extension. Any directory containing a file named <TT><SPAN  CLASS="textbf">MMAIGNORE</SPAN></TT>
-  will be ignored<A NAME="tex2html16"
-  HREF="#foot899"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>. Note, that <TT><SPAN  CLASS="textbf">MMAIGNORE</SPAN></TT> consists of all
+  will be ignored.<A NAME="tex2html16"
+  HREF="#foot907"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> Note, that <TT><SPAN  CLASS="textbf">MMAIGNORE</SPAN></TT> consists of all
   uppercase letters and is usually an empty file.</TD>
 </TR>
 <TR><TD ALIGN="LEFT">-G</TD>
@@ -374,7 +386,7 @@ The current installation of
 <P>
 -i</TD>
 <TD ALIGN="LEFT">Specify the RC file to use. See
-  <A HREF="node30.html#sec-rc">details here</A>.</TD>
+  <A HREF="node32.html#sec-rc">details here</A>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT"><A NAME="f-option"></A>
 <P>
@@ -435,7 +447,7 @@ The current installation of
 
 <P>
 A number of the above command line options are also available from the
-C<SMALL>MD</SMALL>L<SMALL>INE</SMALL> option detailed <A HREF="node27.html#sect-cmdline">here</A>.
+C<SMALL>MD</SMALL>L<SMALL>INE</SMALL> option detailed <A HREF="node29.html#sect-cmdline">here</A>.
 
 <P>
 
@@ -471,7 +483,7 @@ Programming Comments</A>
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is designed to read and write files (including a file piped to
 it via stdin). However, it is not a
 filter.<A NAME="tex2html17"
-  HREF="#foot904"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
+  HREF="#foot912"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
 <P>
 As noted earlier in this manual, 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has been written entirely in
@@ -489,14 +501,14 @@ intensive Python loops.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot892">...</A><A
+<DT><A NAME="foot900">...</A><A
  HREF="node2.html#tex2html12"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>Actually, the file <TT><SPAN  CLASS="textbf">test</SPAN></TT>
   or <TT><SPAN  CLASS="textbf">test.mma</SPAN></TT> is processed. Please read section
-  <A HREF="node30.html#file-extensions">file extensions</A>.
+  <A HREF="node32.html#file-extensions">file extensions</A>.
 
 </DD>
-<DT><A NAME="foot767">...</A><A
+<DT><A NAME="foot772">...</A><A
  HREF="node2.html#tex2html13"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>Use of this command is not recommended for creating
     production MIDI files. A great deal of ``unused'' data is included
@@ -504,28 +516,28 @@ intensive Python loops.
     designed for quick previews and debugging.
 
 </DD>
-<DT><A NAME="foot896">... users.</A><A
+<DT><A NAME="foot904">... users.</A><A
  HREF="node2.html#tex2html14"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>
     A number of the debugging commands can also be set dynamically in a
-    song. See the debug section <A HREF="node27.html#debug">here</A>
+    song. See the debug section <A HREF="node29.html#debug">here</A>
     for details.
 
 </DD>
-<DT><A NAME="foot799">... song!</A><A
+<DT><A NAME="foot807">... song!</A><A
  HREF="node2.html#tex2html15"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>500 bars with
     4 beats per bar at 200 BPM is about 10 minutes.
 
 </DD>
-<DT><A NAME="foot899">... ignored</A><A
+<DT><A NAME="foot907">... ignored.</A><A
  HREF="node2.html#tex2html16"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>Sub-directories in a directory with a
     <TT><SPAN  CLASS="textbf">MMAIGNORE</SPAN></TT> <SPAN  CLASS="textit">are</SPAN> processed ... they need additional
     <TT><SPAN  CLASS="textbf">MMAIGNORE</SPAN></TT> entires to ignore.
 
 </DD>
-<DT><A NAME="foot904">...
+<DT><A NAME="foot912">...
 filter.</A><A
  HREF="node2.html#tex2html17"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
 <DD>It is possible that filter mode for output could be added to 
@@ -536,26 +548,26 @@ filter.</A><A
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html464"
+<A NAME="tex2html479"
   HREF="node3.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html462"
+<A NAME="tex2html477"
   HREF="mma.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html456"
+<A NAME="tex2html471"
   HREF="node1.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html465"
+<B> Next:</B> <A NAME="tex2html480"
   HREF="node3.html">Tracks and Channels</A>
-<B> Up:</B> <A NAME="tex2html463"
+<B> Up:</B> <A NAME="tex2html478"
   HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html457"
+<B> Previous:</B> <A NAME="tex2html472"
   HREF="node1.html">Overview and Introduction</A></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Bob van der Poel
-2015-12-15
+2016-05-22
 </ADDRESS>
 </BODY>
 </HTML>

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Bibliography and Thanks</TITLE>
-<META NAME="description" CONTENT="Bibliography and Thanks">
+<TITLE>Frequency Asked Questions</TITLE>
+<META NAME="description" CONTENT="Frequency Asked Questions">
 <META NAME="keywords" CONTENT="mma">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -39,86 +39,209 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
 <B> Next:</B> <A NAME="tex2html1038"
-  HREF="node35.html">Command Summary</A>
+  HREF="node35.html">Symbols and Constants</A>
 <B> Up:</B> <A NAME="tex2html1036"
   HREF="mma.html">Reference Manual</A>
 <B> Previous:</B> <A NAME="tex2html1030"
-  HREF="node33.html">Symbols and Constants</A>
+  HREF="node33.html">Creating Effects</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
-<H1><A NAME="SECTION003400000000000000000">
-Bibliography and Thanks</A>
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html1039"
+  HREF="node34.html#SECTION003410000000000000000">Chord Octaves</A>
+<LI><A NAME="tex2html1040"
+  HREF="node34.html#SECTION003420000000000000000">AABA Song Forms</A>
+<LI><A NAME="tex2html1041"
+  HREF="node34.html#SECTION003430000000000000000">Where's the GUI?</A>
+<LI><A NAME="tex2html1042"
+  HREF="node34.html#SECTION003440000000000000000">Where's the manual index?</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION003400000000000000000"></A>
+<A NAME="sec-faq"></A>
+<BR>
+Frequency Asked Questions
 </H1>
 
 <P>
-I've had help from a lot of different people and sources in developing
-this program.  If I have missed listing you in the <TT><SPAN  CLASS="textbf">CONTRIB</SPAN></TT>
-file shipped with the 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  distribution, please let me know and I'll
-add it right away. <SPAN  CLASS="textit">I really want to do this!</SPAN>
+This chapter will serve as a container for questions asked by
+some enthusiastic 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  users. It may make some sense in the future to
+distribute this information as a separate file.
 
 <P>
-I've also had the use of a number of reference materials:
-<DL COMPACT>
-<DT></DT>
-<DD>Craig Anderson. <SPAN  CLASS="textit">MIDI for Musicians.</SPAN> Amsco Publishing, New
-York, NY.
+
+<H1><A NAME="SECTION003410000000000000000">
+Chord Octaves</A>
+</H1>
 
 <P>
-</DD>
-<DT></DT>
-<DD>William Duckworth. <SPAN  CLASS="textit">Music Fundamentals.</SPAN> Wadsworth Publishing,
-Belomnt, CA.
+<SPAN  CLASS="textit">I've keyed in a song but some of the chords sound way too high
+  (or low).</SPAN>
 
 <P>
-</DD>
-<DT></DT>
-<DD>Michael Esterowitz. <SPAN  CLASS="textit">How To Play From A Fakebook.</SPAN> Ekay Music,
-Inc. Katonah, NY.
+When a real player plays chords he or she adjusts the position of the
+chords so that they don't ``bounce'' around between octaves. One way
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tries to do the same is with the ``Voicing Mode=Optimal''
+setting. However, sometimes the chord range of a piece is too large
+for this to work properly. In this case you'll have to use the octave
+adjustments in chords. For more details <A HREF="node14.html#sec-chordadjust">go here</A>.
 
 <P>
-</DD>
-<DT></DT>
-<DD>Pete Goodliffe. <SPAN  CLASS="textit">MIDI documentation (for the TSE3 library).</SPAN>
-<TT><A NAME="tex2html129"
-  HREF="http://tse3.sourceforge.net/">http://tse3.sourceforge.net/</A></TT>.
+
+<H1><A NAME="SECTION003420000000000000000">
+AABA Song Forms</A>
+</H1>
 
 <P>
-</DD>
-<DT></DT>
-<DD>Norman Lloyd. <SPAN  CLASS="textit">The Golden Encyclopedia Of Music.</SPAN> Golden Press,
-New York, NY.
+<SPAN  CLASS="textit">How can one define parts as part "A", part "B" ... and
+  arrange them at the end of the file? An option to repeat a ``solo''
+  section a number of times would be nice as well.</SPAN>
 
 <P>
-</DD>
-<DT></DT>
-<DD>The MIDI Manufacturers Association. <SPAN  CLASS="textit">Various papers, tables and
-  other information.</SPAN> <TT><A NAME="tex2html130"
-  HREF="http://www.midi.org/">http://www.midi.org/</A></TT>.
+Using 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variables and some simple looping, one might try something like:
 
 <P>
-</DD>
-<DT></DT>
-<DD>Victor López. <SPAN  CLASS="textit">Latin Rhythms: Mystery Unraveled.</SPAN> Alfred Publishing Company. These are handout notes from the 2005 Midwest Clinic 59th Annual Conference, Chicago, Illinois, December 16, 2005. A PDF of this document is available on various Internet sites.
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Swing
+<BR>  // Set the music into a 
+<BR>  // series of macros
+<BR>
+mset A
+<BR>&nbsp;&nbsp;Print Section A
+<BR>&nbsp;&nbsp;C
+<BR>&nbsp;&nbsp;G
+<BR>
+endmset
+<BR>
+mset B
+<BR>&nbsp;&nbsp;print Section B
+<BR>&nbsp;&nbsp;Dm
+<BR>&nbsp;&nbsp;Em
+<BR>
+endmset
+<BR>
+mset Solo
+<BR>&nbsp;&nbsp;Print Solo Section $Count
+<BR>&nbsp;&nbsp;Am / B7 Cdim
+<BR>
+endmset
+<BR>  // Use the macros for an
+<BR>  // "A, A, B, Solo * 8, A"
+<BR>  // form
+<BR>  $A
+<BR>  $A
+<BR>  $B
+<BR>
+set Count 1
+<BR>
+label a
+<BR>&nbsp;&nbsp;$solo
+<BR>&nbsp;&nbsp;inc COUNT
+<BR>&nbsp;&nbsp;if le $count 8
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;goto A
+<BR>&nbsp;&nbsp;endif
+<BR>  $A
+<BR></B> 
+   
+	    </td></tr>
+      </Table>
 
 <P>
-</DD>
-<DT></DT>
-<DD>Carl Brandt and Clinton Roemer. <SPAN  CLASS="textit">Standardized Chord
-  Symbol Notation.</SPAN> Roerick Music Co. Sherman Oaks, CA.
+Note that the ``Print'' lines are used for debugging purposes. The case
+of the variable names has been mixed to illustrate the fact that
+``Solo'' is the same as ``SOLO'' which is the same as ``solo''.
 
 <P>
-</DD>
-</DL>
+Now, if you don't like things that look like old BASIC program code,
+you could just as easily duplicate the above with:
 
 <P>
-And, finally, to all those music teachers my parents and I paid for,
-and the many people who have helped by listening and providing helpful
-suggestions and encouragement  in my musical pursuits for the
-last 40 plus years that I've been banging, squeezing and blowing. You know
-who you are--thanks.
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Swing
+<BR>
+repeat
+<BR>&nbsp;&nbsp;repeat
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Print Section A
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;C
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;G
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;If Def count
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eof
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Endif
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Endrepeat
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Print Section B
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Dm
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Em
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Set Count 1
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Repeat
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Print Solo $Count
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Am
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inc Count
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Repeatending 7
+<BR>&nbsp;&nbsp;Repeatend
+<BR>
+Repeatend   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The choice is up to you.
+
+<P>
+
+<H1><A NAME="SECTION003430000000000000000">
+Where's the GUI?</A>
+</H1>
+
+<P>
+<SPAN  CLASS="textit">I really think that 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is a cool program. But, it needs a
+  <SPAN  CLASS="textit">GUI</SPAN>.  Are you planning on writing one? Will you help me if I
+  start to write one?</SPAN>
+
+<P>
+Thanks for the kind comments! The author likes 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  too. A lot!
+
+<P>
+Some attempts have been made to write a number of <SPAN  CLASS="textit">GUI</SPAN>s for
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .  But, nothing seemed to be much more useful than the existing
+text interface. So, why waste too much time? There is nothing wrong with
+graphical programming interfaces, but perhaps not in this case.
+
+<P>
+But, I may well be wrong. If you think it'd be better with a
+<SPAN  CLASS="textit">GUI</SPAN> ... well, this is open source and you are more than
+welcome to write one. If you do, I'd suggest that you make your
+program a front-end which lets a user compile standard 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  files. If
+you find that more error reporting, etc. is required to interact
+properly with your code, let me know and I'll probably be quite
+willing to make those kind of changes.
+
+<P>
+
+<H1><A NAME="SECTION003440000000000000000">
+Where's the manual index?</A>
+</H1>
+
+<P>
+Yes,this manual needs an index. I just don't have the time
+to go though and do all the necessary work. Is there a volunteer?
 
 <P>
 
@@ -137,15 +260,15 @@ who you are--thanks.
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
 <BR>
 <B> Next:</B> <A NAME="tex2html1038"
-  HREF="node35.html">Command Summary</A>
+  HREF="node35.html">Symbols and Constants</A>
 <B> Up:</B> <A NAME="tex2html1036"
   HREF="mma.html">Reference Manual</A>
 <B> Previous:</B> <A NAME="tex2html1030"
-  HREF="node33.html">Symbols and Constants</A></DIV>
+  HREF="node33.html">Creating Effects</A></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Bob van der Poel
-2015-12-15
+2016-05-22
 </ADDRESS>
 </BODY>
 </HTML>
