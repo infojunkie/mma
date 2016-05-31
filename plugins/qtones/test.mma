@@ -1,0 +1,9 @@
+
+Plugin qtones
+
+// NEEDED: set tuning for tracks Solo-qflat and Solo-qsharp.
+//   this can be done with a midi-wheel command
+
+// Take the following line and convert to 3 riff tracks
+@qtones 4a  ;b; c**; d%%;
+
