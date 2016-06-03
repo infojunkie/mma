@@ -1,5 +1,5 @@
 
-# qtone. 
+# qtone.
 # parse a solo note string and break it into 3 lines:
 #   line 1 - western notes
 #   line 2 - quarter tone flats
@@ -8,6 +8,9 @@
 # We import the plugin utilities
 
 from MMA import pluginUtils as pu
+import MMA.alloc
+import MMA.gbl
+
 import re
 
 # ###################################
@@ -25,7 +28,7 @@ pu.setAuthor("Written by bvdp.")
 
 # rest of doc is left for later!!!!!!!!!!!!!!!!""")
 pu.setPluginDoc("""Docs? What docs?""")
-    
+
 
 # ###################################
 # # Entry points                    #
@@ -36,25 +39,54 @@ def printUsage():
 
 
 # Convert a line like:
-#  qtone            4c+;c+**;8b;a%%;b;c+;
+#  qtone            4c+;c+**;8b;a%;b;c+;
 # into
 #  solo Riff        4c+;4r;8b;r;b;c+;
 #  solo-qflat riff  4r;r;8r;a;r;;
 #  solo-qsharp riff 4r;c+;8r;;;;
 
 
+tuningSet = False
+
+def setTuning(trk):
+    global tuningSet, sTrack, fTrack
+
+    fTrack = '%s-qFlat' % trk
+    sTrack = '%s-qSharp' % trk
+
+    if not tuningSet:
+        
+        if not fTrack.upper() in MMA.gbl.tnames:
+            MMA.alloc.trackAlloc('%s' % fTrack, 0)
+            pu.addCommand("%s Copy %s" % (fTrack, trk))
+
+        if not sTrack.upper() in MMA.gbl.tnames:
+            MMA.alloc.trackAlloc('%s' % sTrack, 0)
+            pu.addCommand("%s Copy %s" % (sTrack, trk))
+
+        pu.addCommand( '%s MidiNote PB 0 -2048' % fTrack)
+        pu.addCommand( '%s MidiNote PB 0 2048' %  sTrack)
+        pu.addCommand( 'After Bar=EOF %s MidiNote PB 0 0' % fTrack)
+        pu.addCommand( 'After Bar=EOF %s MidiNote PB 0 0' % sTrack)
+        pu.sendCommands()
+
+        tuningSet = True
+
 def note2rest(n):
-    return re.sub('[abcdefg\+-]+', 'r', '4a+')
-    
+    return re.sub('[abcdefg\+\#\&-]+', 'r', n).replace('%', '').replace('*', '')
 
-def run(line):
-    """ Entry point. """
 
-    out1 = ["Solo Riff  "]
-    out2 = ["Solo-qflat Riff  "]
-    out3 = ["Solo-qsharp Riff  "]
+def trackRun(tr, line):
+    """ Entry point for track command. """
 
-    line = ''.join(line)
+    setTuning(tr)
+
+    out1 = ["%s Riff  " % tr]
+    out2 = ["%s Riff  " % fTrack]
+    out3 = ["%s Riff  " % sTrack]
+
+    line = ''.join(line)[:-1]
+
     for a in line.split(';'):
         if not ']' in a:
             attr, note = ('', a)
@@ -64,13 +96,13 @@ def run(line):
         # we now have just the note info to worry about. The stuff in []
         # is tucked away in 'attr'.
 
-        if '%%' in note:
-            flatNote = attr + note.replace('%%', '')
+        if '%' in note:
+            flatNote = attr + note.replace('%', '')
             normNote = attr + note2rest(note)
             sharpNote = attr + note2rest(note)
 
-        elif '**' in note:
-            sharpNote = attr + note.replace('**', '')
+        elif '*' in note:
+            sharpNote = attr + note.replace('*', '')
             normNote = attr + note2rest(note)
             flatNote = attr + note2rest(note)
 
@@ -89,5 +121,12 @@ def run(line):
     pu.addCommand( ''.join(out2) )
     pu.addCommand( ''.join(out3) )
 
-    pu.sendCommands()
 
+    # Leave these out. To see what's happening use the -e cmd line option
+    print(''.join(out1));
+    print(''.join(out2));
+    print(''.join(out3));
+
+
+
+    pu.sendCommands()

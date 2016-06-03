@@ -35,6 +35,7 @@ class AfterData:
         self.count = None
         self.lineno = -1
         self.id = None
+        self.eof = False
 
 afterData = []
 
@@ -51,10 +52,14 @@ def set(ln):
     for cmd, opt in opts:
         cmd = cmd.upper()
         if cmd == 'BAR':
-            opt = stoi(opt)
-            if opt < 1:
-                error("After: Destination bar must be positive, not '%s'." % opt)
-            dat.bar = opt
+            if opt.upper() == 'EOF':
+                dat.eof = True
+
+            else:
+                opt = stoi(opt)
+                if opt < 1:
+                    error("After: Destination bar must be positive, not '%s'." % opt)
+                    dat.bar = opt
             selected.append('Bar')
                 
         elif cmd == 'REPEAT':
@@ -101,14 +106,18 @@ def set(ln):
     dat.cmd  = ln
     dat.lineno = gbl.lineno
 
-    afterData.append(dat)
+    if dat.eof:
+         gbl.inpath.pushEOFline(dat.cmd)
+    else:
+        afterData.append(dat)
 
     if gbl.debug:
         print("After: Added event '%s' at bar %s." % (' '.join(dat.cmd), dat.bar))
 
 def check():
-    # Before reading any input, we check to see if any AFTER events have been
-    # created and if we need to process them now. 
+    """ Before reading any input, we check to see if any AFTER events have been
+        created and if we need to process them now. 
+    """
 
     global afterData
     stuff = []
@@ -128,3 +137,4 @@ def check():
 
         # delete any discarded AFTER events
         afterData = [ x for x in afterData if x.bar != nn]
+
