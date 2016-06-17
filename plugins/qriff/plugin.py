@@ -8,9 +8,11 @@
 # We import the plugin utilities
 
 from MMA import pluginUtils as pu
+
+# and some other things we'll need
+
 import MMA.alloc
 import MMA.gbl
-
 import re
 
 # ###################################
@@ -21,13 +23,26 @@ import re
 pu.setMinMMAVersion(15, 12)
 
 # A short plugin description.
-pu.setDescription("Separated quarter tone solo lines into 3 parts.")
+pu.setDescription("Separate quarter tone solo riff lines into 3 parts.")
 
 # A short author line.
 pu.setAuthor("Written by bvdp.")
+pu.setTrackType("Solo")
+pu.addArgument("valid riff data",     None,  "")
+# helpful notes
+pu.setPluginDoc("""QRiff ... convert a solo line into quarter tones.
 
-# rest of doc is left for later!!!!!!!!!!!!!!!!""")
-pu.setPluginDoc("""Docs? What docs?""")
+This plugin will convert a solo riff line into 3 separate solo lines:
+   Solo - the orginal track. It can be custom name like "Solo-Foo".
+          Any quarter tone notes are replaced by rests.
+   Solo-qFlat - the quarter tone flat notes.
+   Solo-qSharp - the quarter tone sharp notes.
+
+NOTE: Don't try to have chords in your riff line. It doesn't work!
+      Use only single notes!!!!
+
+To specify quarter tone flats and sharps use a single '%' or '*'.
+""")
 
 
 # ###################################
@@ -73,12 +88,17 @@ def setTuning(trk):
         tuningSet = True
 
 def note2rest(n):
+    """ String out note information and replace with a single 'r' (rest) """
     return re.sub('[abcdefg\+\#\&-]+', 'r', n).replace('%', '').replace('*', '')
 
 
 def trackRun(tr, line):
     """ Entry point for track command. """
 
+    # We check if track type is correct.
+    pu.checkTrackType(tr)
+    
+    # initalize tracks 2 and 3
     setTuning(tr)
 
     out1 = ["%s Riff  " % tr]
@@ -122,10 +142,10 @@ def trackRun(tr, line):
     pu.addCommand( ''.join(out3) )
 
 
-    # Leave these out. To see what's happening use the -e cmd line option
-    print(''.join(out1));
-    print(''.join(out2));
-    print(''.join(out3));
+    if MMA.gbl.debug:
+        print(''.join(out1));
+        print(''.join(out2));
+        print(''.join(out3));
 
 
 

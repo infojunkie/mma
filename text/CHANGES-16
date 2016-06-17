@@ -1,0 +1,14 @@
+
+Changes file for the 2016 series
+
+This reflects changes to MMA since the release of version 16.06.
+
+Minor change to pluginUtils.py so that 16.06 is recognized. 
+
+June 12, 2016: Reposted 16.06 packages. Silent fix.
+
+There was an import error in regpluy.py which showed only when using python 3.x. Fixed
+
+June 14, 2016: Reposted 16.06 packages. Silent fix (but posted message).
+
+

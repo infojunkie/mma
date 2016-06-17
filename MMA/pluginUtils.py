@@ -121,10 +121,10 @@ def setPluginDoc(doc):
     
 # Minimum MMA version required.
 def setMinMMAVersion(major, minor):
-    vre = re.compile("([0-9]+)\\.([0-9]+)\\.(.*)")
+    vre = re.compile("([0-9]+)\\.([0-9]+)\\.?(.*)")
     m = vre.match(gbl.version)
     if m is None:
-        error("Plugin utils: version %s not recognized." % glb.version)
+        error("Plugin utils: version %s not recognized." % gbl.version)
     cur_major = int(m.group(1))    
     cur_minor = int(m.group(2))    
     cur_rev = m.group(3)
@@ -135,6 +135,7 @@ def setMinMMAVersion(major, minor):
         return
     
     error("Plugin requires MMA version {:02}.{:02} or newer.".format(major, minor))
+
    
 # Returns plugin name
 def getName():
@@ -241,7 +242,7 @@ def _printUsage(plugin):
     for name, _, _ in plugin.ARGUMENTS:
         t += name + ", " 
         
-    lines.append(([4, 8], t[:-2]))
+    lines.append(([4, 8], t.strip().rstrip(",")))
     lines.append((0, ""))
 
     if plugin.TRACKTYPES is not None and len(plugin.TRACKTYPES) > 0:
@@ -277,11 +278,11 @@ def _printUsage(plugin):
                 firstindent, indent = indent
             else:
                 firstindent = indent
-                
+            
             llines = textwrap.wrap(line, width-indent)
             for i, lline in enumerate(llines):
                 if i == 0 and firstindent != indent:
-                    print(" " * firstindent + lline + (" \\" if len(llines) > 0 else ""))
+                    print(" " * firstindent + lline + (" \\" if len(llines) > 1 else ""))
                 else:
                     print(" " * indent + lline)
 

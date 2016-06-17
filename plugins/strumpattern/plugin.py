@@ -28,8 +28,8 @@ Bob van der Poel <bob@mellowood.ca>
 # ###################################
 
 # We import the plugin utilities
-
 from MMA import pluginUtils as pu
+
 
 # ###################################
 # # Documentation and arguments     #
@@ -148,31 +148,31 @@ def trackRun(trackname, line):
             t = 1+step*i
         
             if c == "u":
-                strums_normal.append("{:0.2} +{} {}".format(t, strum, volumeN))
+                strums_normal.append("{:0.4} -{} {}".format(t, strum, volumeN))
             elif c == "ue":
-                strums_normal.append("{:0.2} +{} {}".format(t, strum, volumeE))
+                strums_normal.append("{:0.4} -{} {}".format(t, strum, volumeE))
             elif c == "um":
-                strums_normal.append("{:0.2} 0 0".format(t))
-                strums_muted.append("{:0.2} +{} {}".format(t, strum, volumeM))
+                strums_normal.append("{:0.4} 0 0".format(t))
+                strums_muted.append("{:0.4} -{} {}".format(t, strum, volumeM))
                 
             elif c == "d":
-                strums_normal.append("{:0.2} -{} {}".format(t, strum, volumeN))
+                strums_normal.append("{:0.4} +{} {}".format(t, strum, volumeN))
             elif c == "de":
-                strums_normal.append("{:0.2} -{} {}".format(t, strum, volumeE))
+                strums_normal.append("{:0.4} +{} {}".format(t, strum, volumeE))
             elif c == "dm":
-                strums_normal.append("{:0.2} 0 0".format(t))
-                strums_muted.append("{:0.2} -{} {}".format(t, strum, volumeM))
+                strums_normal.append("{:0.4} 0 0".format(t))
+                strums_muted.append("{:0.4} +{} {}".format(t, strum, volumeM))
                 
             elif c == "x":
-                strums_normal.append("{:0.2} 0 0".format(t))
-                strums_muted.append("{:0.2} 0 {}".format(t, volumeM))
+                strums_normal.append("{:0.4} 0 0".format(t))
+                strums_muted.append("{:0.4} 0 {}".format(t, volumeM))
                 
             elif c == "0":
-                strums_normal.append("{:0.2} 0 0".format(t))
+                strums_normal.append("{:0.4} 0 0".format(t))
                 
             elif c.lstrip("0").isdigit():
                 for s in c:
-                    strums_normal.append("{:0.2} 0 {}:{}".format(t, s, volumeP))
+                    strums_normal.append("{:0.4} 0 {}:{}".format(t, s, volumeP))
 
             elif c == "-":
                 pass

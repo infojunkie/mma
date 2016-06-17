@@ -35,7 +35,6 @@ class AfterData:
         self.count = None
         self.lineno = -1
         self.id = None
-        self.eof = False
 
 afterData = []
 
@@ -53,8 +52,7 @@ def set(ln):
         cmd = cmd.upper()
         if cmd == 'BAR':
             if opt.upper() == 'EOF':
-                dat.eof = True
-
+                dat.bar = 'EOF'
             else:
                 opt = stoi(opt)
                 if opt < 1:
@@ -106,7 +104,7 @@ def set(ln):
     dat.cmd  = ln
     dat.lineno = gbl.lineno
 
-    if dat.eof:
+    if dat.bar == 'EOF':
          gbl.inpath.pushEOFline(dat.cmd)
     else:
         afterData.append(dat)

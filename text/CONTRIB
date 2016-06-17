@@ -32,7 +32,7 @@ Eric Le Bras has packaged MMA for the Archlinux distibution
 
 Rony Steelandt of Kara Music Production wrote the "creating a library"
 	tutorial, lots of debugging, suggestions on random ordering,
-    and encouragement.
+    and encouragement. RIP Rony ... you are missed.
 
 Igor Kaplan for instructions on how to run MMA on a windows pc/phone.
 
@@ -42,6 +42,9 @@ Gek S. Low for his contribution of a GUI frontend:
        http://xenon.stanford.edu/~geksiong/abc2mma .
 
 Jean-Jacques Ceresa for a whole bunch of code and manual corrections
-and suggestions.
+  and suggestions.
 
-Ignazio Di Napoli for the inline comment code and other suggestions.
+Ignazio Di Napoli for the inline comment code, pushing me on the PLUGIN work
+  and other suggestions.
+
+Karmin Ratib for suggestions on the quarter tone support.

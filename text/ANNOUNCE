@@ -1,15 +1,15 @@
 
-A stable release, version 15.12, of MMA--Musical MIDI Accompaniment
+A stable release, version 16.06, of MMA--Musical MIDI Accompaniment
 is available for downloading. In addition to a number of bug fixes
 and optimizations, MMA now features:
 
- - Works with Python 2.7 or 3.x
- - Lots of minor bug fixes
- - Added RPITCH for random "mistakes"
- - Added SUBROUTINES
- - Added FretNoise option for Plectrum tracks
- - Much better keysignature handling
- - A "whole wack" of library files which were missing are now in the distro
+ - A number of new macros
+ - RPITCH command
+ - SUBROUTINES
+ - FRETNOISE option for Plectrum tracks
+ - Enhanced TIME options
+ - PLUGINS
+ - AFTER command
  - Other minor enhancements
 
 Please read the file text/CHANGES-15 for a complete list of changes.

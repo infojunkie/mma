@@ -286,9 +286,10 @@ def registerPlugin(p):
 
     try:
         e = importlib.import_module(modName, package=None)
-    except ImportError, err:
+    except ImportError as err:
         error("Plugin: Error loading module '%s'. Python is reporting '%s'. "
-               "Most likely there is an Import statement in the module which is not working."% (modName, str(err)))
+              "Most likely there is an Import statement in the module which is not working." %
+              (modName, str(err)))
         
     # restore old sys.path.
     sys.path.pop(0)

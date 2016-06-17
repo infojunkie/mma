@@ -200,8 +200,19 @@ Added the pluginUtils module for your plugins to access. Added
 April 14, 2016
 Release 15.2.b
 
+-------------------------------------------------------------
+
 
 Added AFTER command
 
+-------------------------------------------------------------
+
 May 22, 2016
 Release 15.2.c
+
+Added EOF event to After.
+
+Wrote quarter tone riff module. It's not perfection, but works.
+
+June 11, 2016
+Release 16.06
