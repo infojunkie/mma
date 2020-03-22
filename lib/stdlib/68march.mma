@@ -154,7 +154,7 @@ Drum-3            Sequence  {1 0 90; 2 0 80}
 Begin Chord
     Voice    Trumpet
     Octave   5
-    Volume   +20
+    Volume   +20%
     Sequence {1 1 100 0 100 0 * 6}
 End
 

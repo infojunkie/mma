@@ -1,13 +1,15 @@
 
-Print A demo which shows all possible builtin macros.
+Print A demo which shows most of the builtin macros.
 Print
 Print NOTE: This should be updated as new system macros are added.
-Print NOTE: Bob--don't forget!
+Print NOTE: Bob--don't forget! (And, he does forget!)
 Print
 Groove Rhumba
 
 // Push a nice little string onto the Stack for later
 StackValue This message was pushed onto the stack.
+
+Print This is being printed on $_DateDate at $_DateTime 
 
 Print We've loaded in the Rhumba Groove so we have stuff to display.
 Print

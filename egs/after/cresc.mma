@@ -20,7 +20,7 @@ DefCall cresc
       Print ... removing the AFTER event.
       AFTER Remove=Volumecheck
    else 
-      Volume +10
+      Volume +10%
    endif
 EndDefCall
 
@@ -57,7 +57,7 @@ DefCall CRESC
    if >= $_Volume 100
       Volume p
    else 
-      Volume +10
+      Volume +10%
    endif
 EndDefCall
 

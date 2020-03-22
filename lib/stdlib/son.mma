@@ -128,9 +128,9 @@ DefGroove Son  Our basic Son rhythm.
 
 Groove Son
 
-Alltracks Volume -30
+Alltracks Volume -30%
 Begin Bass
-	Volume +40
+	Volume +40%
 	Articulate 70
 End
 
@@ -214,28 +214,28 @@ DefGroove SonEnd  Simple ending.
 //////  Standard alias definitions
 
 Begin DefAlias
-   Main-A Son
-   Main-B Son
-   Main-C Son
-   Main-D Son
-   Fill-AA  Son
-   Fill-BB  Son
-   Fill-CC  Son
-   Fill-DD  Son
+   Son Main-A
+   Son Main-B 
+   Son Main-C
+   Son Main-D
+   Son Fill-AA
+   Son Fill-BB
+   Son Fill-CC
+   Son Fill-DD
  
-   Main-Asus  SonSus 
-   Main-BSus  SonSus
-   Main-CSus  SonSus
-   Main-DSus  SonSus
+   SonSus Main-Asus
+   SonSus Main-BSus
+   SonSus Main-CSus
+   SonSus Main-DSus
 
-   Intro-A SonIntro
-   Intro-B SonIntro
-   Intro-C SonIntro
-   Intro-D SonIntro
+   SonIntro Intro-A
+   SonIntro Intro-B
+   SonIntro Intro-C
+   SonIntro Intro-D
 
-   Ending-A  SonEnd  
-   Ending-B  SonEnd
-   Ending-C  SonEnd
-   Ending-D  SonEnd
+   SonEnd  Ending-A
+   SonEnd  Ending-B
+   SonEnd  Ending-C 
+   SonEnd  Ending-D
 End
 

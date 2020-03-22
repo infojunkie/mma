@@ -42,7 +42,7 @@ def setTweak(ln):
     for cmd, opt in ln:
         cmd = cmd.upper()
 
-        if cmd == 'DEFAULTDRUM':
+        if cmd in ('DEFAULTDRUM', 'DEFAULTTONE'):
             MMA.pat.defaultDrum = MMA.midiC.decodeVoice(opt)
 
         elif cmd == 'DEFAULTVOICE':

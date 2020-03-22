@@ -70,7 +70,7 @@ def patchset(ln):
     if not ln:
         error("Patch Set expecting list of value pairs.")
 
-    notopt, ln = opt2pair(ln, 1)
+    notopt, ln = opt2pair(ln, toupper=True)
     if notopt:
         error("PATCH SET: All options must be VALUE=PAIR items.")
 

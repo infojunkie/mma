@@ -140,7 +140,7 @@ Begin Chord-sus
 	Octave 6
 End
 
-Chord Volume -20
+Chord Volume -20%
 
 DefGroove SalsaSus   Basic pattern with added strings.
 

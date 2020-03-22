@@ -103,7 +103,7 @@ Begin Arpeggio
     SeqRnd On
 End
 
-Chord-Sus Volume -20
+Chord-Sus Volume -20%
 
 DefGroove StringBalladPlus   Add a bit of piano to the strings.
 

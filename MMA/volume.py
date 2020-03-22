@@ -1,4 +1,4 @@
-# volume.py
+
 
 """
 This module is an integeral part of the program
@@ -23,6 +23,8 @@ Bob van der Poel <bob@mellowood.ca>
 """
 
 from MMA.common import *
+import MMA.debug
+import re
 
 """ Volumes are specified in musical terms, but converted to
     midi velocities. This table has a list of percentage changes
@@ -57,7 +59,7 @@ def adjvolume(ln):
     if not ln:
         error("Use: AdjustVolume DYN=RATIO [..]")
 
-    notopt, ln = opt2pair(ln, 1)
+    notopt, ln = opt2pair(ln, toupper=True)
 
     if notopt:
         error("ADJUSTVOLUME: Expecting DYNAMIC=RATIO pairs")
@@ -78,47 +80,61 @@ def adjvolume(ln):
         else:
             error("ADJUSTVOLUME DYNAMIC: '%s' for AdjustVolume is unknown" % v)
 
-    if gbl.debug:
-        print("Volume Ratio: %s%% Track / %s%% Master" % (vTRatio * 100, vMRatio * 100))
-        print("Volume table: %s" % 
+    if MMA.debug.debug:
+        dPrint("Volume Ratio: %s%% Track / %s%% Master" % (vTRatio * 100, vMRatio * 100))
+        dPrint("Volume table: %s" % 
               ' '.join([ "%s=%s" % (a, int(vols[a] * 100)) for a in sorted(vols)]))
 
+
+calcVolumeRePat = re.compile(
+    # This is a regular expression to parse the input for the calcVolume
+    # function. The details are embedded in the comments below.
+    # Thanks to Johan Vromans!
+
+    # Note, there are 2 parts to this. It's either numeric
+    # or mnemonic. We use a | to join the 2 halves.
+    # opt. +/- (assigned to 'pre'), numeric value ('val'), and optional % to 'post'
+    # Note the '$' terminator which forces NUMERIC[%] to be end.
+    r'(?P<pre>[-+])?(?P<val>[\d.]+)(?P<post>%)?$'
+    + '|' +
+    # mnemonic is assigned to 'mn'.
+    r'(?P<mn>[OFPM]+)$',re.IGNORECASE )
 
 def calcVolume(new, old):
     """ Calculate a new volume "new" possibly adjusting from "old". """
 
-    if new[0] == '-' or new[0] == '+':
-        a = stof(new, "Volume expecting value for %% adjustment, not %s" % new)
-        v = old + (old * a / 100.)
-        if v < 0:
-            v = 0
-            warning("Volume adjustment results in 0 volume.")
+    m = calcVolumeRePat.match(new)
+    if m is None:
+        error("Unknown volume '%s'" % new)
 
-    elif new[0] in "0123456789":
-        v = stof(new, "Volume expecting value, not '%s'" % new) / 100.
+    # Do we have a mnemonic?
 
-    else:
-        new = new.upper()
+    mn = m.group('mn')
+    if mn:
+        mn = mn.upper()
+        if not mn in vols:
+            error("Unknown volume mnemonic '%s'" % mn)
+        return vols[mn]
 
-        adj = None
+    # So it must be a value.
+    val  = m.group('val')
+    pre  = m.group('pre')
+    post = m.group('post')
 
-        if '+' in new:
-            new, adj = new.split('+')
-        elif '-' in new:
-            new, adj = new.split('-')
-            adj = '-' + adj
+    if pre and not post:
+        warning("Please use '%s%s%%' if you want to %screase the volume"
+                % (pre, val, "in" if pre == '+' else "de"))
 
-        if not new in vols:
-            error("Unknown volume '%s'" % new)
+    v = stof(val, "Volume expecting value, not '%s'" % val) / 100.
 
-        v = vols[new]
-
-        if adj:
-            a = stoi(adj, "Volume expecting adjustment value, not %s" % adj)
-            v += (v * (a / 100.))
+    if pre == '+':
+        v = old * ( 1 + v )
+    elif pre == '-':
+        v = old * ( 1 - v )
+    elif post == '%':
+        v = old * ( v )
 
     return v
-
 
 def setVolume(ln):
     """ Set master volume. """
@@ -131,8 +147,8 @@ def setVolume(ln):
     volume = calcVolume(ln[0], volume)
 
     futureVol = []
-    if gbl.debug:
-        print("Volume: %s%%" % volume)
+    if MMA.debug.debug:
+        dPrint("Volume: %s%%" % (100 * volume))
 
 
 # The next 3 are called from the parser.
@@ -179,8 +195,8 @@ def setSwell(ln):
     futureVol.extend(fvolume(0, futureVol[-1],
                              [str(int(volume * 100)), c])[offset:])
 
-    if gbl.debug:
-        print("Set Swell to: %s" % ' '.join([str(int(a * 100)) for a in futureVol]))
+    if MMA.debug.debug:
+        dPrint("Set Swell to: %s" % ' '.join([str(int(a * 100)) for a in futureVol]))
 
 
 def setCrescendo(dir, ln):
@@ -199,8 +215,8 @@ def setCrescendo(dir, ln):
 
     futureVol = fvolume(dir, volume, ln)
 
-    if gbl.debug:
-        print("Set (De)Cresc to: %s" % ' '.join([str(int(a * 100)) for a in futureVol]))
+    if MMA.debug.debug:
+        dPrint("Set (De)Cresc to: %s" % ' '.join([str(int(a * 100)) for a in futureVol]))
 
 # Used by both the 2 funcs above and from TRACK.setCresc()
 

@@ -29,6 +29,7 @@ import re
 from MMA.common import *
 from . import gbl
 import MMA.file
+import MMA.debug
 
 # Initialize the default midi player.
 if gbl.platform == 'Windows':
@@ -82,8 +83,8 @@ def setMidiPlayer(ln):
         n = ['']
     midiPlayer = n
 
-    if gbl.debug:
-        print("MidiPlayer set to '%s' Background=%s Delay=%s." %
+    if MMA.debug.debug:
+        dPrint("MidiPlayer set to '%s' Background=%s Delay=%s." %
             (' '.join(midiPlayer), inBackGround, waitTime))
 
 
@@ -119,7 +120,7 @@ def playMidi(file):
     try:
         pid = subprocess.Popen(cmd, shell=sh)
     except OSError as e:
-        print(e)
+        dPrint(e)
         msg = "MidiPlayer fork error."
         if re.search("[\'\"]", ''.join(cmd)):
             msg += " Using quotes in the MidiPlayer name/opts might be your problem."

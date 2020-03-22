@@ -1,11 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2019.2 (Released June 5, 2019) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>After</TITLE>
 <META NAME="description" CONTENT="After">
@@ -14,42 +10,41 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="distribution" CONTENT="global">
 
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019.2">
 
 <LINK REL="STYLESHEET" HREF="mma.css">
 
 <LINK REL="next" HREF="node28.html">
 <LINK REL="previous" HREF="node26.html">
-<LINK REL="up" HREF="mma.html">
 <LINK REL="next" HREF="node28.html">
 </HEAD>
 
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html909"
-  HREF="node28.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html907"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html901"
-  HREF="node26.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html910"
-  HREF="node28.html">Fine Tuning (Translations)</A>
-<B> Up:</B> <A NAME="tex2html908"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html902"
-  HREF="node26.html">Triggers</A>
+<B> Next:</B> <A
+ HREF="node28.html">Fine Tuning and Tweaks</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node26.html">Triggers</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION002700000000000000000"></A>
-<A NAME="sec-after"></A>
+<H1><A ID="SECTION002700000000000000000"></A>
+<A ID="sec-after"></A>
 <BR>
 After
 </H1>
@@ -62,10 +57,10 @@ to occur after a certain number of bars have been processed.
 
 <P>
 The A<SMALL>FTER</SMALL> command is used to set a 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  at some point in the
-future. This can be handy when you have set a portion of your song up
-in a macro and wish to make changes to volume, tempo, etc. during the
-expansion of the macro.
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command at some point
+in the future. This can be handy when you have set a portion of your
+song up in a macro and wish to make changes to volume, tempo, etc.
+during the expansion of the macro.
 
 <P>
 For example, let's assume you have a short piece of music set up in
@@ -111,22 +106,21 @@ A<SMALL>FTER</SMALL> has a number of options, all of which are set in
 option=value pairs:
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><DL>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
 <DT><STRONG>Bar</STRONG></DT>
 <DD>Specifies the bar number for the event to trigger. Note,
   this is the value of the bar as it is created; it is not the
-  ``comment'' bar number which optionally starts a chord line.
+  &ldquo;comment&rdquo; bar number which optionally starts a chord line. Unless
+  you know, exactly, how the bars are being generated it is best to
+  not use this option.
 
 <P>
-A special case option is the use of EOF as a pseudo line
-  number. In this case the command is appended to the end of the
-  <SPAN  CLASS="textbf">current</SPAN> file. You can not delete an event set with
-  B<SMALL>AR=</SMALL>E<SMALL>OF</SMALL>. You might think of this as a dynamic <SMALL>MMAEND</SMALL>
-  <A HREF="node32.html#sec-mmaend">(here)</A>. For a ``real
-  life'' example of this option, see the qriff plugin supplied with
-  this version of 
+However, the special case option using EOF as a pseudo line
+  number can be quite useful and robust. In this case the command is
+  appended to the end of the <SPAN  CLASS="textbf">current</SPAN> file. You can not delete
+  an event set with B<SMALL>AR=</SMALL>E<SMALL>OF</SMALL>. You might think of this as a
+  dynamic <SMALL>MMAEND</SMALL> <A HREF="node33.html#sec-mmaend">(here)</A>. For a &ldquo;real life&rdquo; example of this option,
+  see the qriff plugin supplied with this version of 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
 
 <P>
@@ -144,7 +138,7 @@ A special case option is the use of EOF as a pseudo line
 </DD>
 <DT><STRONG>Remove</STRONG></DT>
 <DD>A active event line can be removed using this option.
-  For example, if you have an event named ``Happy'' you can delete it
+  For example, if you have an event named &ldquo;Happy&rdquo; you can delete it
   using the command:
 
 <P>
@@ -179,17 +173,15 @@ will display a silly message after every four bars are processed.
 
 <P>
 </DD>
-</DL>
-</DD>
-</DL>
+</DL></td></tr></table>
 
 <P>
-Anything left on the command line after processing the options is assumed to be a valid
-
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command.<A NAME="tex2html115"
-  HREF="#foot16384"><SUP><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+Anything left on the command line after processing the options is
+assumed to be a valid 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command.<A ID="tex2html119"
+  HREF="#foot17024"><SUP><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
-A number of short examples of are contained in the <TT><SPAN  CLASS="textbf">egs/after</SPAN></TT> directory.
+A number of short examples of are contained in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/after</SPAN></SPAN> directory.
 
 <P>
 You can have any number of A<SMALL>FTER</SMALL> event lines. Each is checked
@@ -208,37 +200,35 @@ P<SMALL>RINT</SMALL> statements (yes, you can use A<SMALL>FTER</SMALL> for this!
 help you determine the exact event locations.
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot16384">... command.</A><A
- HREF="node27.html#tex2html115"><SUP><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
-<DD>The parsing occurs the option pairs are
-  <B>extracted</B> from the input line and any remaining tokens are
-  glued back together. So, you <B>can</B> have your options inserted
-  inside the command ...but this is not recommend!
+<DT><A ID="foot17024">... command.</A><A
+ HREF="node27.html#tex2html119"><SUP><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The parsing occurs when
+  the option pairs are <B>extracted</B> from the input line and any
+  remaining tokens are glued back together. So, you <B>can</B> have
+  your options inserted inside the command ...but this is not
+  recommended!
 
 </DD>
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html909"
-  HREF="node28.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html907"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html901"
-  HREF="node26.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html910"
-  HREF="node28.html">Fine Tuning (Translations)</A>
-<B> Up:</B> <A NAME="tex2html908"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html902"
-  HREF="node26.html">Triggers</A></DIV>
+<B> Next:</B> <A
+ HREF="node28.html">Fine Tuning and Tweaks</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node26.html">Triggers</A></DIV>
 <!--End of Navigation Panel-->
-<ADDRESS>
-Bob van der Poel
-2016-06-11
-</ADDRESS>
+
 </BODY>
 </HTML>

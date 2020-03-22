@@ -186,8 +186,36 @@ Drum-Kick Sequence D1234	// Kill kickdrum offbeats
 
 Defgroove PopBallad2       A straighter version of the ballad.
 
+///// Plus versions
+
+Groove PopBallad
+
+Begin Arpeggio-plus
+	Voice JazzGuitar
+	Sequence  A2  A4 {A4 Shift .5} A8
+	Range 1
+	Octave 6
+	Harmony Open
+	Volume m
+	Articulate 120
+	RTime 10
+	RVolume 10
+    SeqRnd On
+	Rskip 40
+End
+
+DefGroove PopBalladPlus  Adds nice guitar riffs. 
+
+Groove PopBallad1
+ Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBallad1Plus Alternative with riffs.
+Groove PopBallad2
+  Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBallad2Plus Straigther, with riffs.
+ 
 /////////////
-/// Sustained version
+/// Sustained versions
+///   not for version1 since that already has sus in it
 
 Groove PopBallad
 
@@ -240,11 +268,21 @@ End
 
 DefGroove PopBalladSus    A slightly lighter version, with strings.
 
-
 Groove PopBallad2
  Chord-Sus Groove PopBalladSus
 DefGroove PopBallad2Sus   Add strings to straight version.
 
+Groove PopBalladSus
+  Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBalladSusPlus Ballad with strings and guitar riffs.
+ 
+Groove PopBallad2Sus
+ Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBallad2SusPlus Alternative with strings and guitar riffs.
+Groove PopBallad2
+  Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBallad2Plus Straighter, with riffs.
+ 
 /////////////////////
 ///////////// Intro
 

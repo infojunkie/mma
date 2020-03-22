@@ -144,17 +144,17 @@ Groove Lullaby1Sus
 SeqSize 4
 
 Begin Chord
-	  Volume -30
+	  Volume -30%
 	  Sequence  * * * {1 1 90 0}
 End
 
 Begin Bass
-	  Volume +20
+	  Volume +20%
 	  Sequence  * * * B1
 End
 
 Begin Chord-Sus 
-	  Volume +40
+	  Volume +40%
 End
 
 DefGroove LullabyIntro

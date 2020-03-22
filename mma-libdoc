@@ -158,9 +158,11 @@ def  dodir(dir):
 
     index.append("</ul>")
 
+    # Insert this at the END of the stdlib listing.
     if dir.lower() == "stdlib":
-        index.append('<P><h3>These groove should be callable just by using their names. If you have problems with duplicate groove names you can always force their use with a "use" directive.</h3>')
+        index.append('<P><h3>These grooves should be callable just by using their names. If you have problems with duplicate groove names you can always force their use with a "use" directive.</h3>')
 
+    # recurse though any other directories in the lib dir (ie. contri/more/files)
     for d in newdirs:
         dodir(d)
 

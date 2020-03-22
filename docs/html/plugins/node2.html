@@ -1,11 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2019.2 (Released June 5, 2019) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>Entry Points</TITLE>
 <META NAME="description" CONTENT="Entry Points">
@@ -13,55 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-2">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019.2">
 
 <LINK REL="STYLESHEET" HREF="mma-plugins.css">
 
 <LINK REL="next" HREF="node3.html">
 <LINK REL="previous" HREF="node1.html">
-<LINK REL="up" HREF="mma-plugins.html">
 <LINK REL="next" HREF="node3.html">
 </HEAD>
 
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html36"
-  HREF="node3.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html34"
-  HREF="mma-plugins.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html28"
-  HREF="node1.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html37"
-  HREF="node3.html">Preset Values</A>
-<B> Up:</B> <A NAME="tex2html35"
-  HREF="mma-plugins.html">Plugins</A>
-<B> Previous:</B> <A NAME="tex2html29"
-  HREF="node1.html">Easy Guide</A>
+<B> Next:</B> <A
+ HREF="node3.html">Preset Values</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="node1.html">Easy Guide</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 <!--Table of Child-Links-->
-<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html38"
+<LI><A ID="tex2html15"
   HREF="node2.html#SECTION00210000000000000000">run(param-list):</A>
-<LI><A NAME="tex2html39"
+<LI><A ID="tex2html16"
   HREF="node2.html#SECTION00220000000000000000">trackRun():</A>
-<LI><A NAME="tex2html40"
-  HREF="node2.html#SECTION00230000000000000000">printUsage():</A>
+<LI><A ID="tex2html17"
+  HREF="node2.html#SECTION00230000000000000000">dataRun(param-list):</A>
+<LI><A ID="tex2html18"
+  HREF="node2.html#SECTION00240000000000000000">printUsage():</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
 
-<H1><A NAME="SECTION00200000000000000000">
+<H1><A ID="SECTION00200000000000000000">
 Entry Points</A>
 </H1>
 
@@ -72,22 +69,20 @@ Following are simple examples for each entry point recognized by
 
 <P>
 
-<H1><A NAME="SECTION00210000000000000000">
+<H1><A ID="SECTION00210000000000000000">
 run(param-list):</A>
 </H1>
 
 <P>
 The <SMALL>RUN()</SMALL> function is executed when a 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  script encounters
-the plugin's keyword in a non-track context. following is a simple bit
-of Python code we used in the <TT><SPAN  CLASS="textbf">hello</SPAN></TT> example shipped with
+the plugin's keyword in a non-track context. Following is a simple bit
+of Python code we used in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">hello</SPAN></SPAN> example shipped with
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><PRE>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
 def run(l):
     print("Hello. This is the run() function in the MMA plugin.")
     print("We are at line %s in the MMA file %s." % (gbl.lineno, gbl.infile))
@@ -96,12 +91,10 @@ def run(l):
         print("Args passed are:")
         for i in l:
             print(i)
-</PRE>
-</DD>
-</DL>
+</PRE></td></tr></table>
 
 <P>
-In the first line we pass the parameter ``l''. This is set by the
+In the first line we pass the parameter &ldquo;l&rdquo;. This is set by the
 main 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  parser and contains a list of any parameters passed to the
 @H<SMALL>ELLO</SMALL> function. 
@@ -111,7 +104,7 @@ We leave the rest of the program as an exercise.
 
 <P>
 
-<H1><A NAME="SECTION00220000000000000000">
+<H1><A ID="SECTION00220000000000000000">
 trackRun():</A>
 </H1>
 
@@ -131,19 +124,15 @@ context. For example:
 
 <P>
 The difference between the simple and track versions is that
-trackRun() is also passed the ``name'' of the track. For example,
+trackRun() is also passed the &ldquo;name&rdquo; of the track. For example,
 the above example will have the first parameter set to the string
-``PLECTRUM-MAIN''. Using the following code you can set a variable
-(in this case ``self'') to point to the Plectrum-Main class.
+&ldquo;PLECTRUM-MAIN&rdquo;. Using the following code you can set a variable
+(in this case &ldquo;self&rdquo;) to point to the Plectrum-Main class.
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><PRE>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
     self = gbl.tnames[name]
-</PRE>
-</DD>
-</DL>
+</PRE></td></tr></table>
 
 <P>
 For this to work, you will need to import 
@@ -152,30 +141,22 @@ the namespace. We suggest you do that at the top of your plugin.py
 module:
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><PRE>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
     import MMA.gbl as gbl
-</PRE>
-</DD>
-</DL>
+</PRE></td></tr></table>
 
 <P>
-Using the ``self'' variable you now have access to all of the
+Using the &ldquo;self&rdquo; variable you now have access to all of the
 variables associated with the track. You'll have to dig though the
 code a bit, but a few examples (most of the settings are in the form
 of a list with a value for every sequence point in your song):
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><PRE>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
   self.volume  -- track specific volume 
   self.articulate -- track specifc articulations
   self.sticky -- a True/False setting
-</PRE>
-</DD>
-</DL>
+</PRE></td></tr></table>
 
 <P>
 For more variables we suggest you examine the pat.py module.
@@ -183,11 +164,61 @@ For more variables we suggest you examine the pat.py module.
 <P>
 Yes, you can change these values from your plugin. Is that a good
 idea? Probably not! For an alternate method to change settings read
-the ``returning values'' chapter, below.
+the &ldquo;returning values&rdquo; chapter, below.
 
 <P>
 
-<H1><A NAME="SECTION00230000000000000000">
+<H1><A ID="SECTION00230000000000000000">
+dataRun(param-list):</A>
+</H1>
+
+<P>
+The <SMALL>DATA</SMALL>R<SMALL>UN()</SMALL> function is executed when a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  script
+encounters the plugin's keyword in a data line context. If you examine
+the very simple code for addgm/plugin.py you'll see a one line python
+function defined in the example file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugins/addgm</SPAN></SPAN> shipped with
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
+def dataRun(ln):
+     return ['Gm'] + ln
+</PRE></td></tr></table>
+
+<P>
+All it does is to add "Gm" to the start of data line. However, there
+is nothing saying you can't do much, much more with this. The function
+is passed the entire data line (as a Python list). You could parse it
+and change chord names or types, etc.
+
+<P>
+
+<UL>
+<LI>If no leading comment line number is present in your data line
+  <SPAN  CLASS="textit">and</SPAN> the run() function <SPAN  CLASS="textbf">is</SPAN> defined, the run()
+  function (from the plugin) will be called.
+
+<P>
+</LI>
+<LI>If there is not a leading comment line number and run()
+  <SPAN  CLASS="textbf">has not</SPAN> been defined, a comment line number based on
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's internal tables is inserted into the start of the line and
+  the dataRun() function (from the plugin) is called.
+
+<P>
+</LI>
+<LI>In most cases you'll find it easiest to create a plugin which
+  has a trackRun() and/or a run() function <SPAN  CLASS="textbf">or</SPAN> a dataRun()
+  function. Combining them will lead to your confusion!
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION00240000000000000000">
 printUsage():</A>
 </H1>
 
@@ -205,26 +236,23 @@ and the program ends.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html36"
-  HREF="node3.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html34"
-  HREF="mma-plugins.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html28"
-  HREF="node1.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html37"
-  HREF="node3.html">Preset Values</A>
-<B> Up:</B> <A NAME="tex2html35"
-  HREF="mma-plugins.html">Plugins</A>
-<B> Previous:</B> <A NAME="tex2html29"
-  HREF="node1.html">Easy Guide</A></DIV>
+<B> Next:</B> <A
+ HREF="node3.html">Preset Values</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="node1.html">Easy Guide</A></DIV>
 <!--End of Navigation Panel-->
-<ADDRESS>
-Bob van der Poel
-2016-06-11
-</ADDRESS>
+
 </BODY>
 </HTML>

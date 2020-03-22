@@ -261,6 +261,7 @@ DefGroove 50sRockIntro1   Alternate introduction (no big sax bop on bar 4).
 ////////// Simple Ending
 
 Groove 50sRock
+SeqSize 1
 
 Drum-Snare 	 Sequence D24 
 Drum-HH      Sequence D1234

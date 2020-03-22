@@ -178,7 +178,7 @@ Begin Arpeggio
    Groove BigBandPlus
    Voice JazzGuitar
    Octave 5
-   Volume +20
+   Volume +20%
    Harmony Open
 End
 DefGroove BigBand1Plus Bigband1 with additional guitar arpeggios.

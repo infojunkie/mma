@@ -1,237 +1,248 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2019.2 (Released June 5, 2019) -->
+<HTML lang="EN">
 <HEAD>
-<TITLE>Documentation Strings</TITLE>
-<META NAME="description" CONTENT="Documentation Strings">
+<TITLE>Begin/End Blocks</TITLE>
+<META NAME="description" CONTENT="Begin/End Blocks">
 <META NAME="keywords" CONTENT="mma">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019.2">
 
 <LINK REL="STYLESHEET" HREF="mma.css">
 
 <LINK REL="next" HREF="node32.html">
 <LINK REL="previous" HREF="node30.html">
-<LINK REL="up" HREF="mma.html">
 <LINK REL="next" HREF="node32.html">
 </HEAD>
 
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html984"
-  HREF="node32.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html982"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html976"
-  HREF="node30.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html985"
-  HREF="node32.html">Paths, Files and Libraries</A>
-<B> Up:</B> <A NAME="tex2html983"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html977"
-  HREF="node30.html">Begin/End Blocks</A>
+<B> Next:</B> <A
+ HREF="node32.html">Documentation Strings</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node30.html">Other Commands and Directives</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 <!--Table of Child-Links-->
-<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html986"
-  HREF="node31.html#SECTION003110000000000000000">Doc</A>
-<LI><A NAME="tex2html987"
-  HREF="node31.html#SECTION003120000000000000000">Author</A>
-<LI><A NAME="tex2html988"
-  HREF="node31.html#SECTION003130000000000000000">DocVar</A>
+<LI><A ID="tex2html703"
+  HREF="node31.html#SECTION003110000000000000000">Begin</A>
+<LI><A ID="tex2html704"
+  HREF="node31.html#SECTION003120000000000000000">End</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
 
-<H1><A NAME="SECTION003100000000000000000">
-Documentation Strings</A>
-</H1>
-
-<P>
-It has been mentioned a few times already the importance of clearly
-documenting your files and library files. For the most part, you can
-use comments in your files; but in library files you use the
-D<SMALL>OC</SMALL> directive.
-
-<P>
-In addition to the commands listed in this chapter, you should also
-note <A HREF="node6.html#sec-grooves">D<SMALL>EF</SMALL>G<SMALL>ROOVES</SMALL></A>).
-
-<P>
-For some real-life examples of how to document your library files,
-look at any of the library files supplied with this distribution.
-
-<P>
-
-<H1><A NAME="SECTION003110000000000000000"></A> <A NAME="sec-docs"></A>
+<H1><A ID="SECTION003100000000000000000"></A>
+<A ID="sec-blocks"></A>
 <BR>
-Doc
+Begin/End Blocks
 </H1>
 
 <P>
-A D<SMALL>OC</SMALL> command is pretty simple: 
+Entering a series of directives for a specific track can get quite
+tedious.  To make the creation of library files a bit easier, you can
+create a block. For example, the following:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Doc This is a documentation string!   </B> 
+    <B>Drum Define X 0 2 100; 50 2  90  
+<BR>
+Drum Define Y 0 2 100  
+<BR>
+Drum Sequence X Y   </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-In most cases, D<SMALL>OC</SMALL>s are treated as C<SMALL>OMMENT</SMALL>s.  However,
-if the <SPAN  CLASS="textit">-Dx</SPAN><A NAME="tex2html125"
-  HREF="#foot18702"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> option is given
-on the command line, D<SMALL>OC</SMALL>s are processed and printed to standard
-output.
-
-<P>
-For producing the <SPAN  CLASS="textit">
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Standard Library Reference</SPAN> a trivial
-Python program is used to collate the output generated with a command
-like:
+Can be replaced with:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>$ mma -Dxl -w /usr/local/lib/mma/swing  </B> 
+    <B>Drum Begin 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Define X 0 2 100; 50 2 90  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Define Y 0 2 100 
+<BR>
+End 
+<BR>
+Drum Sequence X Y   </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-Note,  the '-w' option has been used to suppress the printing of warning
-messages.
-
-<P>
-All D<SMALL>OC</SMALL> lines/strings are concatenated into one long
-paragraph. If you want any line breaks they should be indicated with a
-``&lt;P&gt;''. In latex this is converted to a new
-line; in html it is left as is (forcing a new line as well).
+Or, even more simply, with:
 
 <P>
 
-<H1><A NAME="SECTION003120000000000000000">
-Author</A>
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Drum Define
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;X 0 2 100; 50 2 90  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Y 0 2 100 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you examine some of the library files you will see that  this
+shortcut is used a lot.
+
+<P>
+
+<H1><A ID="SECTION003110000000000000000">
+Begin</A>
 </H1>
 
 <P>
-As part of the documentation package, there is a A<SMALL>UTHOR</SMALL>
-command:
+The B<SMALL>EGIN</SMALL> command requires any number of arguments. Valid
+examples include:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Author Bob van der Poel  </B> 
+    <B>Begin Drum 
+<BR>
+Begin Chord2 
+<BR>
+Begin Walk Define   </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-Currently A<SMALL>UTHOR</SMALL> lines are processed and the data is saved, but
-never used. It may be used in a future library documentation
-procedures, so you should use it in any library files you write.
+Once a B<SMALL>EGIN</SMALL> block has been entered, all subsequent lines have
+the words from the B<SMALL>EGIN</SMALL> command prepended to each line of
+data. There is not much magic here&mdash;B<SMALL>EGIN</SMALL>/E<SMALL>ND</SMALL> is really
+just some syntactic sugar.
 
 <P>
 
-<H1><A NAME="SECTION003130000000000000000">
-DocVar</A>
+<H1><A ID="SECTION003120000000000000000">
+End</A>
 </H1>
 
 <P>
-If any variables are used to change the behavior of a library file
-they should be documented with a D<SMALL>OC</SMALL>V<SMALL>AR</SMALL> command. Normally these
-lines are treated as comments, but when processing with the -Dxl or
--Dxh command line options the data is parsed and written to the output
-documentation files.
+To finish off a B<SMALL>EGIN</SMALL> block, use a single E<SMALL>ND</SMALL> on a line
+by itself.
 
 <P>
-Assuming that you are using the 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variable $C<SMALL>HORD</SMALL>V<SMALL>OICE</SMALL> as
-an optional voice setting in your file, you might have the following
-in a library file:
+Defining musical data or repeats inside a block
+(other than COMMENT blocks) will not work.
+
+<P>
+Nesting is permitted, e.g.:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Begin DocVar
+    <B>Scale Begin  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Begin Define 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</B><SPAN  CLASS="textit">stuff</SPAN><B>  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;End  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence </B><SPAN  CLASS="textit">stuff</SPAN><B> 
 <BR>
-ChordVoice  Voice used in Chord tracks (defaults to Piano2).
-<BR>
-End
-<BR> 
-<BR>
-If NDef ChordVoice 
-<BR>
-Set ChordVoice Piano2 
-<BR>
-Endif  </B> 
+End  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-All variables used in the library file should be documented. You
-should list the user variables first, and then any variables internal
-to the library file. To double check to see what variables are used
-you can add a S<SMALL>HOW</SMALL>V<SMALL>ARS</SMALL> to the end of the library file and
-compile. Then document the variables and remove the S<SMALL>HOW</SMALL>V<SMALL>ARS</SMALL>.
+A B<SMALL>EGIN</SMALL> must be competed with a E<SMALL>ND</SMALL> before the end of a
+file, otherwise an error will be generated. The U<SMALL>SE</SMALL> and
+I<SMALL>NCLUDE</SMALL> commands are not permitted inside a block.
 
 <P>
-<BR><HR><H4>Footnotes</H4>
-<DL>
-<DT><A NAME="foot18702">...-Dx</A><A
- HREF="node31.html#tex2html125"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
-<DD>See the <A HREF="node2.html#cmd-summary">command
-    summary</A>.
+Caution:
 
-</DD>
-</DL>
+<UL>
+<LI>Be careful when using user defined plugins inside a
+block. If you were to do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin @myplugin 
+<BR>&nbsp;&nbsp;&nbsp;some args 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and the plugin returns strings back into your source file, you will
+end up forever loop. The plugin is returning a data line back and
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will insert &ldquo;@myplugin&rdquo; to the new line. However, the block:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin 
+<BR>&nbsp;&nbsp;&nbsp;@myplugin ... 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+should work fine.
+</LI>
+</UL>
+
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html984"
-  HREF="node32.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html982"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html976"
-  HREF="node30.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html985"
-  HREF="node32.html">Paths, Files and Libraries</A>
-<B> Up:</B> <A NAME="tex2html983"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html977"
-  HREF="node30.html">Begin/End Blocks</A></DIV>
+<B> Next:</B> <A
+ HREF="node32.html">Documentation Strings</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node30.html">Other Commands and Directives</A></DIV>
 <!--End of Navigation Panel-->
-<ADDRESS>
-Bob van der Poel
-2016-06-11
-</ADDRESS>
+
 </BODY>
 </HTML>

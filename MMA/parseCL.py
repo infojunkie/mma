@@ -59,7 +59,7 @@ def setChordTabs(l):
         This table is set up on each TIME change. Need to
         do it even if the TIME is NOT changed since the table
         positions might. Cheap to do, so not worth worrying.
- """
+    """
 
     global chordTabs
 
@@ -80,9 +80,9 @@ def parseChordLine(l):
     p = 0                    # our beat counter --- points to tab 0, 1, etc in chordTabs
 
     for ll in l:
-        if "@" in ll:  # we have something like "Cm@3.2"
-            ch, beat = ll.split("@", 1)
-            beat = stof(beat, "Expecting an value after the @ in '%s'" % ll)
+        if '@' in ll:  # we have something like "Cm@3.2"
+            ch, beat = ll.split('@', 1)
+            beat = stof(beat, "Expecting a value after the @ in '%s'" % ll)
             
             if beat < 1:
                 error("Beat after @ must be 1 or greater, not '%s'." % beat)
@@ -112,7 +112,7 @@ def parseChordLine(l):
                     ch = lastChord
                 else:
                     error("No previous chord for '/' or '-' at line start")
-            else:         # '/' other than at start just increment the beat counter
+            else:  # '/' other than at start just increment the beat counter
                 continue
 
         if ctable:
@@ -134,37 +134,54 @@ def parseChordLine(l):
         else:
             ctab.lastchord = lastChord
 
-        """ If the chord we just extracted has a 'z' in it then we do the
-            following ugly stuff to figure out which tracks to mute. 'ch'
-            will be a chord name or 'z' when this is done.
-        """
+        # If the chord we just extracted has a 'z' in it then we do the
+        # following ugly stuff to figure out which tracks to mute. 'ch'
+        # will be a chord name or 'z' when this is done.
 
         if 'z' in ch:
-            c, r = ch.split('z', 1)
+            if ch.count('z')>1:
+                error("Only one 'z' is permitted in the mute shortcut. '%s' is "
+                      "illegal." % ch)
+
+            if lastChord and 'z' in lastChord:  # strip off z stuff from prior chord
+                lastChord = lastChord.split('z')[0]
+                
+            c, r = ch.split('z', 1)  # get chord and track list
 
             if not c:   # no chord specified
                 c = 'z'        # dummy chord name to keep chordnotes() happy
-                if r == '!':    # mute all
-                    r = 'DCAWBSRP'
-                elif not r:     # mute all tracks except Drum
-                    r = 'CBAWSRP'
-                else:
-                    error("To mute individual tracks you must "
-                          "use a chord/z combination not '%s'" % ch)
 
-            else:    # illegal construct -- 'Cz!'
+                if r == '!':    # 'z!' is fine, mute all
+                    r = 'DCAWBSRP'
+                elif not r:     # 'z' is fine, mute all tracks except Drum
+                    r = 'CBAWSRP'
+                    
+                else:
+                    if lastChord:
+                        c = lastChord
+                        if 'z' in c:
+                            c = c.split('z')[0]  # we only want the chord
+                    else:
+                        error("Unable to find a chord for '%s'. Try specifing the "
+                              "chord name." % ch)
+                        if not c:
+                            error("To use this shortcut to mute individual tracks "
+                                  "the chord must be included. "
+                                  "Use CHORDz[DCAWBSRP] not '%s'" % ch)
+
+
+            else:    # illegal CHORD + 'z' or 'z!'
                 if r == '!':
                     error("'%s' is illegal. 'z!' mutes all tracks "
                           "so you can't include the chord." % ch)
-
                 elif not r:
-                    error("'%s' is illegal. You must specify tracks "
+                    error("'%s' is illegal. This notation is a shortcut,  You must specify tracks "
                           "if you use a chord." % ch)
 
             ch = c   # this will be 'z' or the chord part
 
-            # note this indent ... we do it always!
-            for v in r:   # 'r' must be a list of track specifiers
+            # Got a chord (real name or 'z') and tracks to mute
+            for v in r:
                 if v == 'C':
                     ctab.chordZ = 1
                 elif v == 'B':
@@ -185,15 +202,15 @@ def parseChordLine(l):
                     error("Unknown track '%s' for muting in '%s'" % (v, ch))
 
         ctab.chord = MMA.chords.ChordNotes(ch)  # Derive chord notes (or mute)
-
         ctable.append(ctab)
 
-    # Test to see that all chords are in range.
+    # Finished each chord in data line, test
+    # to see that all chords are in range.
     if ctable[-1].chStart >= endTime:
         error("Maximum offset for chord '%s' must be less than %s, not '%s'." %
               (ctable[-1].name, endTime / quarter + 1, ctable[-1].chStart / quarter + 1))
 
-    # Done all chords in line, fix up some pointers.
+    # Fix up some pointers.
 
     for i, v in enumerate(ctable[:-1]):  # set end range for each chord
         ctable[i].chEnd = ctable[i + 1].chStart

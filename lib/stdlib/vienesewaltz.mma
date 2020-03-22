@@ -136,16 +136,16 @@ DefGroove VieneseWaltz1Sus     Waltz with arpeggios and strings.
 
 Groove VieneseWaltz
 
-Chord-Piano Volume -30
+Chord-Piano Volume -30%
 
 Begin Arpeggio
     Groove VieneseWaltz1
-	Volume -25
+	Volume -25%
 	Articulate 110
 End
 Begin Scale
     Groove VieneseWaltz1
-	Volume -25
+	Volume -25%
 	Articulate 110
 End
 

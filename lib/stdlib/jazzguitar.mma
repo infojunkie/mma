@@ -75,7 +75,7 @@ DefGroove JazzGuitarWalk     Changes the bass pattern to walking.
 
 Groove JazzGuitar
 
-Plectrum Volume +0 / / -30   /// cut volume for guitar on 4th bar
+Plectrum Volume +0% / / -30%   /// cut volume for guitar on 4th bar
 
 Begin Arpeggio
 	Voice $_Plectrum_Voice
@@ -115,7 +115,7 @@ DefGroove JazzGuitar2Walk  The strum pattern with walking bass
 
 Groove JazzGuitar2
 
-Plectrum Volume +0 / / -30
+Plectrum Volume +0% / / -30%
 Begin Arpeggio
 	Groove JazzGuitar1
 	Octave 5
@@ -223,15 +223,20 @@ DefGroove JazzGuitar2WalkSusPlus   Syncopated walking version with strings and r
 
 Groove JazzGuitarWalk
 SeqSize 1
-
 Plectrum Sequence { 1 1 80 * 6}
+
 Begin Walk
    Sequence {1 1 90 * 6}
    Direction Up
    Octave -1
    Accent 1 30 3 20
+   // This next line slices the walk_articulate
+   // settings and takes 80% of the the first bar
+   // and applies that to all of the new ones ... which
+   // here is only 1 since we have a seqsize of 1
    Articulate $( int( $_Walk_Articulate[0] * .8 ))
 End
+
 DefGroove JazzGuitarFill  Changes the guitar strum and walk to 2 \
                           sets of quarter note triplets.
 
@@ -286,7 +291,7 @@ Groove JazzGuitar
 SeqSize 2
 
 Begin Plectrum
-    Sequence {1 0 90; 1.5 0 1-5:80; 2 0 85; 2.5 0 1-5:80; 4 0 80; 4 0 70} \
+    Sequence {1 0 90; 1.5 0 1-5:80; 2 0 85; 2.5 0 1-5:80; 4 0 80} \
              {1 30 80 70 60 50 50 40; 3 30 60 50 40 35 32 30}
 End
 

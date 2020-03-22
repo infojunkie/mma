@@ -97,7 +97,7 @@ DefGroove ShuffleBoggie  Blues with a shuffle style.
 
 Groove ShuffleBoggie
 
-Alltracks Chord Bass Volume -20
+Alltracks Chord Bass Volume -20%
 
 Begin Arpeggio
 	  Voice CleanGuitar
@@ -121,7 +121,7 @@ DefGroove ShuffleBoggie1  Adds an articulated guitar riff to the basic beat.
 
 Groove ShuffleBoggie
 
-Alltracks Chord Bass Volume -30
+Alltracks Chord Bass Volume -30%
 
 Begin Chord-Sus
 	Voice Strings

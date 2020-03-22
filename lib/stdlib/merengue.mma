@@ -1,4 +1,4 @@
-
+    
 // merengue
 
 Begin Doc
@@ -118,7 +118,7 @@ DefGroove Merengue2      Add brass hits every 4 bars.
 
 Groove Merengue
 
-Alltracks Volume -20
+Alltracks Volume -20%
 Begin Chord-Sus
 	Voice Bandoneon
 	Sequence   { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
@@ -132,13 +132,13 @@ End
 DefGroove MerengueSus         Basic version with sustained bandoneon.
 
 Groove Merengue1
-Alltracks Volume -20
+Alltracks Volume -20%
 Chord-Sus Groove MerengueSus
 DefGroove Merengue1Sus        Bandoneon rhythm and sustain.
 
 Groove Merengue2
-Alltracks Volume -20
-Chord-Brass Volume +30
+Alltracks Volume -20%
+Chord-Brass Volume +30%
 Chord-Sus Groove MerengueSus
 DefGroove Merengue2Sus        Bandoneon rhythm with 4 bar brass hits.
 

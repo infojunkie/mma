@@ -29,21 +29,53 @@ parts of MMA. It is safe to load the whole works with:
 without side effects (yeah, right).
 
 """
-
 from random import randrange
 import sys
+import time
 from . import gbl
 from textwrap import wrap
+import MMA.debug
+
+# A buffer for various debug/warning/error messages
+# this is only used if MMA_LOGFILE has been set. The
+# buffer is dumped at exit.
+outBuffer = []
 
 # having the term width is nice for pretty print error/warning
 from MMA.termsize import getTerminalSize
 termwidth = getTerminalSize()[0]-1
- 
+
+def bufferPrint(a):
+    if gbl.logFile:
+        outBuffer.append(a)
+    else:
+        print(a)
+
+def cleanPrintBuffer():
+    """ Write an existing stored buffer (debug/error/warning). """
+    
+    if outBuffer and gbl.logFile:
+        outBuffer.insert(0, "\n**** Run log: '%s' %s" % ( gbl.infile, time.asctime()))
+        
+        opath = open(gbl.logFile, 'a')    # Open output for append
+        try:
+            import fcntl
+            fcntl.flock(opath, fcntl.LOCK_EX)   # make sure we print in one batch
+        except:
+            pass
+        opath.write('\n'.join(outBuffer))   # dump entire buffer
+        opath.close()                       # this will release lock as well
+
 def prettyPrint(msg):
     """ Simple formatter for error/warning messages."""
 
-    for a in wrap(msg, termwidth, initial_indent='', subsequent_indent='    '):
-        print(a)
+    if isinstance(msg, list):
+        msg = ' '.join(msg)
+    try:
+        for a in wrap(msg, termwidth, initial_indent='', subsequent_indent='    '):
+            bufferPrint(a)
+    except:
+        bufferPrint(msg)
 
 def error(msg):
     """ Print an error message and exit.
@@ -70,15 +102,18 @@ def error(msg):
     for a in msg:
         a = ord(a)
         if a < 0x20 or a >= 0x80:
-            print("Corrupt input file? Illegal character 'x%02x' found." % a)
+            bufferPrint("Corrupt input file? Illegal character 'x%02x' found." % a)
             break
 
+    if gbl.ignoreBadChords:  # set with -xCHORD and -xPERMISSIVE options
+        return
+    
     sys.exit(1)
 
 def warning(msg):
     """ Print warning message and return. """
 
-    if not gbl.noWarn:
+    if not MMA.debug.noWarn:
         if gbl.lineno >= 0:
             linno = "<Line %d>" % gbl.lineno
         else:
@@ -91,7 +126,14 @@ def warning(msg):
 
         prettyPrint("Warning: %s %s %s" % (linno, file, msg))
 
-   
+
+def dPrint(msg):
+    """ Print/buffer a debugging message. Keep separate since we might
+        want to install line numbering, etc. later???
+    """
+
+    prettyPrint(msg)
+    
 def getOffset(ticks, ranLow=None, ranHigh=None):
     """ Calculate a midi offset into a song.
 
@@ -213,14 +255,17 @@ def lnExpand(ln, msg):
     return ln
 
 
-def opt2pair(ln, toupper=0):
+def opt2pair(ln, toupper=False, notoptstop=False):
     """ Parse a list of options. Separate out "=" option pairs.
 
         Returns:
            newln - original list stripped of opts
            opts  - list of options. Each option is a tuple(opt, value)
 
-       Note: default is to leave case alone, setting toupper converts everything to upper.
+       Note: default is to leave case alone. Setting toupper converts 
+                everything to upper.
+             default is to parse entire line. Setting notoptstop stops parse at first
+                word which is not a xx=yy pair.
     """
 
     opts = []
@@ -243,13 +288,16 @@ def opt2pair(ln, toupper=0):
     ln = ln.replace(' ,', ',')
     ln = ln.split()
 
-    for a in ln:
+    for v, a in enumerate(ln):
         if toupper:
             a = a.upper()
         try:
             o, v = a.split('=', 1)
             opts.append((o, v))
-        except ValueError:   # this means no '='
+        except ValueError:   # this means no '=', split() failed
             newln.append(a)
+            if notoptstop:
+                newln.extend(ln[v+1:])
+                break
 
     return newln, opts

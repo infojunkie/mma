@@ -47,6 +47,10 @@ Begin Drum Define
 	4S       2S; 2S Shift .25
 	8S       4S; 4S Shift .125
 
+    // Useful for triplet patterns ... this gives 3 hits on beat 1. Shift to preference
+
+    3S       1 0 90; 1.33 0 80; 1.66 0 70
+    
 End
 
 // Define runs to use in scales. Whole notes to 32nds.
@@ -66,9 +70,12 @@ Begin Bass Define
     B3      1 4 5 90               // 5th on 1
     B13     B1 ; 3 4 5 90          // Root on 1, 5th on 3
     B11     B1 ; B1 Shift 2        // Root on 1 and 3
-    B1234   B13; B13 Shift 1       // Root, 5, Root, 5
+    B1234   B11; B3 Shift 1; B3 Shift 3    // Root, 5, Root, 5
 
-    // These are used as sustained strings on root, 3rd, 5th
+    // A little run up. Plays root, 3rd, 4th and 4th (next bar play a 5th)
+    B1to4   1 4 1 80; 2 4 2 85; 3 4 3 90; 4 4 4 100
+    // A run down, 5th, 4rd, 3rd, 2nd (next bar play a root)
+    B5to2   1 4 5 90; 2 4 4 85; 3 4 3 80; 4 4 2 75
 
     Sus1   1 1 1 90 * 4
     Sus3   1 1 3 90 * 4
@@ -117,6 +124,8 @@ Begin Walk Define
     W1234     1 1 90 * 4           // Walk on 1, 2, 3 and 4
     W12       1 4 90; 2 4 90       // 1 and 2
     W13       1 4 90 ; 3 4 90      // 1 and 3
+    W124      1 4 90; 2 4 80; 4 4 90  // 1,2 and 4
+    W134      1 4 90; 3 5 80; 4 4 90  // 1,3 and 4
     W8        W1234 * 2            // Eights
 End
 

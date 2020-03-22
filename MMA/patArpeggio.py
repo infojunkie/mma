@@ -80,11 +80,11 @@ class Arpeggio(PC):
             self.arpDirection = 1
             self.lastDirection = direct
 
-        range = self.chordRange[sc]
-        if range != self.lastRange:
+        crange = self.chordRange[sc]
+        if crange != self.lastRange:
             self.arpOffset = -1
             self.arpDirection = 1
-            self.lastRange = range
+            self.lastRange = crange
 
         for p in pattern:
             tb = self.getChordInPos(p.offset, ctable)
@@ -102,28 +102,28 @@ class Arpeggio(PC):
                 tb.chord.compress()
 
             if self.invert[sc]:
-                tb.chord.invert(self.invert[sc])
+                tb.chord.invert(random.randrange(self.invert[sc][0], self.invert[sc][1]+1))
 
             # This should be optimized, it recreates the chord for every pattern.
             # Problem is that one would need to check all the LIMIT, COMPRESS, etc
             # settings each for each bar as well, so it's probably just as easy to
             # leave it as is. Besides, this works.
 
-            ln = range
-            o = 0
+            octave = 0  # octave adjuster
             ourChord = []
-            while ln >= 1:
-                for a in tb.chord.noteList:
-                    ourChord.append(a + o)
-                ln -= 1
-                o += 12
+            
+            # for the range, stack up chords
+            for l in range(int(crange)):
+                ourChord.extend([x+octave for x in tb.chord.noteList])
+                octave += 12
 
-            if ln > 0 and ln < 1:      # for fractional  lengths
-                ln = int(tb.chord.noteListLen * ln)
-                if ln < 2:   # important, min of 2 notes in arp.
-                    ln = 2
-                for a in tb.chord.noteList[:ln]:
-                    ourChord.append(a + o)
+            # fractional range, add partial chord
+            fr = crange - int(crange)
+            if fr:      # for fractional  lengths
+                fr = int(tb.chord.noteListLen * fr)
+                if fr < 2:   # important, min of 2 notes in arp.
+                    fr = 2
+                ourChord.extend([x+octave for x in tb.chord.noteList[:fr]])
 
             if direct == 'BOTH':
                 if self.arpOffset < 0:
@@ -165,9 +165,9 @@ class Arpeggio(PC):
             offset = p.offset
             if self.ornaments['type']:
                 offset = MMA.ornament.doOrnament(self, notelist,
-                                        self.getChordInPos(offset, ctable).chord.scaleList, p)
+                               self.getChordInPos(offset, ctable).chord.scaleList, p)
                 notelist = []
 
-            self.sendChord(notelist + harmlist, p.duration,offset)
+            self.sendChord(notelist + harmlist, p.duration, offset)
 
             tb.chord.reset()    # important, other tracks chord object

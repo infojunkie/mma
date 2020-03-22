@@ -174,7 +174,21 @@ DefGroove 8Beat1     Adds interest to bass line with alternate walking bars.
 
 Chord-Sus Groove 8BeatSus
 DefGroove 8Beat1Sus  Adds sustained string to 8Beat1.
-	
+
+/// a straight walking bass line
+Groove 8Beat
+Bass Sequence -
+Begin Walk
+   Sequence W1234  Wskip 
+Voice	FingeredBass
+	Octave 3
+	RVolume 5
+	Articulate 60
+End
+DefGroove 8BeatWalk   A complete walking bass line alternative
+Chord-Sus Groove 8BeatSus
+DefGroove 8BeatWalkSus  Sustained strings with walking bass
+
 /////////////////////////////
 /// Plus versions add in piano
 
@@ -207,9 +221,17 @@ Groove 8Beat1
 Arpeggio Groove 8BeatPlus
 DefGroove 8Beat1Plus  Interesting bass line and piano.
 
+Groove 8BeatWalk
+Arpeggio Groove 8BeatPlus
+DefGroove 8BeatWalkPlus  Walking bass line and piano.
+
 Groove 8Beat1Sus
 Arpeggio Groove 8BeatPlus
 DefGroove 8Beat1SusPlus  Interesting bass, piano and strings.
+
+Groove 8BeatWalkSus
+Arpeggio Groove 8BeatPlus
+DefGroove 8BeatWalkSusPlus  Walking  bass, piano and strings.
 
 ///////////////////////
 /// Intro

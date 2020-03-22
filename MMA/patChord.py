@@ -31,6 +31,7 @@ import MMA.ornament
 from . import gbl
 from MMA.common import *
 from MMA.pat import PC, Pgroup
+import MMA.debug
 
 import copy
 
@@ -79,7 +80,7 @@ class Chord(PC):
     def setVoicing(self, ln):
         """ set the Voicing Mode options.  Only valid for CHORDS. """
 
-        notopt, ln = opt2pair(ln, toupper=1)
+        notopt, ln = opt2pair(ln, toupper=True)
 
         if notopt:
             error("Voicing: Each Voicing option must be a OPT=VALUE pair.")
@@ -95,9 +96,12 @@ class Chord(PC):
                 if val in ('-', 'NONE', 'ROOT'):
                     val = None
 
-                if val and (max(self.invert) + max(self.compress)):
-                    warning("Setting both VoicingMode and Invert/Compress is not a good idea")
-
+                # If we're setting a voicing mode check to see if we've
+                # previously set invert or compress ... warning
+                if val and (any(self.invert) or any(self.compress)):
+                    warning("Setting both VoicingMode and "
+                            "Invert/Compress is not a good idea")
+                        
                 # When we set voicing mode we always reset this. This forces
                 # the voicingmode code to restart its rotations.
 
@@ -151,9 +155,12 @@ class Chord(PC):
 
                 self.voicing.dir = val
 
-        if gbl.debug:
+            else:
+                error("Voicing does not have a '%s' option" % mode)
+                
+        if MMA.debug.debug:
             v = self.voicing
-            print("Set %s Voicing MODE=%s RANGE=%s CENTER=%s RMOVE=%s MOVE=%s DIR=%s " %
+            dPrint("Set %s Voicing MODE=%s RANGE=%s CENTER=%s RMOVE=%s MOVE=%s DIR=%s " %
                   (self.name, v.mode, v.range, v.center, v.random, v.bcount, v.dir))
 
     def setDupRoot(self, ln):
@@ -178,8 +185,8 @@ class Chord(PC):
 
         self.dupRoot = seqBump(tmp)
 
-        if gbl.debug:
-            print("%s DupRoot set to: %s" % (self.name, self.getDupRootSetting()))
+        if MMA.debug.debug:
+            dPrint("%s DupRoot set to: %s" % (self.name, self.getDupRootSetting()))
 
     def getDupRootSetting(self):
         """ Need to convert nested list ints to string. """
@@ -280,7 +287,6 @@ class Chord(PC):
         elif vmode == "INVERT":
             if chord.rootNote < -2:
                 chord.invert(1)
-
             elif chord.rootNote > 2:
                 chord.invert(-1)
             chord.compress()
@@ -340,7 +346,7 @@ class Chord(PC):
             # Invert.
 
             if self.invert[sc]:
-                tb.chord.invert(self.invert[sc])
+                tb.chord.invert(random.randrange(self.invert[sc][0], self.invert[sc][1]+1))
 
             # Voicing adjustment for 'jazz' or altered chords. If a chord (most
             # likely something like a M7 or flat-9 ends up with any 2 adjacent

@@ -31,6 +31,7 @@ from MMA.pat  import PC, Pgroup
 
 from . import gbl
 from MMA.common import *
+import MMA.debug
 
 import copy
 
@@ -97,8 +98,8 @@ class Scale(PC):
 
         self.scaleType = seqBump(tmp)
 
-        if gbl.debug:
-            print("Set %s ScaleType to: %s" %
+        if MMA.debug.debug:
+            dPrint("Set %s ScaleType to: %s" %
                   (self.name, ' '.join(self.scaleType)))
         
     def restart(self):

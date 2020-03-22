@@ -25,7 +25,7 @@ Bob van der Poel <bob@mellowood.ca>
 
 from . import gbl
 from MMA.common import *
-
+import MMA.debug
 from MMA.notelen import noteLenTable
 
 from MMA.alloc import trackAlloc
@@ -165,14 +165,14 @@ def trackSequence(name, ln):
 
     self.sequence = seqBump(tmp)
 
-    if gbl.seqshow:
+    if MMA.debug.seqshow:
         msg = ["%s sequence set:" % self.name]
         for a in ln:
             if a in "Zz-":
                 msg.append("-")
             else:
                 msg.append(a)
-        print(' '.join(msg))
+        dPrint(' '.join(msg))
 
 
 def seqsize(ln):
@@ -202,8 +202,8 @@ def seqsize(ln):
 
         MMA.seqrnd.seqRndWeight = seqBump(MMA.seqrnd.seqRndWeight)
 
-    if gbl.debug:
-        print("Set SeqSize to %s" % n)
+    if MMA.debug.debug:
+        dPrint("Set SeqSize to %s" % n)
 
 
 def seq(ln):
@@ -273,8 +273,8 @@ def trackSeqClear(name, ln):
 
     for n in gbl.tnames:
         if n.find(name) == 0:
-            if gbl.debug:
-                print("SeqClear: Track %s cleared." % n)
+            if MMA.debug.debug:
+                dPrint("SeqClear: Track %s cleared." % n)
             gbl.tnames[n].clearSequence()
 
 
@@ -296,12 +296,12 @@ def trackSeqRnd(name, ln):
     else:
         error("SeqRnd: '%s' is not a valid option" % arg)
 
-    if gbl.debug:
+    if MMA.debug.debug:
         if self.seqRnd:
             a = "On"
         else:
             a = "Off"
-        print("%s SeqRnd: %s" % (self.name, a))
+        dPrint("%s SeqRnd: %s" % (self.name, a))
 
 
 def trackSeqRndWeight(name, ln):
@@ -324,8 +324,8 @@ def trackSeqRndWeight(name, ln):
 
     self.seqRndWeight = seqBump(tmp)
 
-    if gbl.debug:
-        print("Set %s SeqRndWeight: %s" % 
+    if MMA.debug.debug:
+        dPrint("Set %s SeqRndWeight: %s" % 
               (self.name, ' '.join([str(a) for a in self.seqRndWeight])))
 
 

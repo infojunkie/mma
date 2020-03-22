@@ -136,7 +136,7 @@ built in styles. First off, create a directory
 "includes/joplin". Next, create 5 files with some example code. First
 off the main file which sets the voicing, etc.
 
-FILE: include/joblin/main
+FILE: includes/aria/joplin/main
 
 --------------
 
@@ -178,7 +178,7 @@ Now, in your song you can do something like:
 
 Tempo 120
 Groove Swing
-Include joplin/pat1
+Include joplin/pat1  /// note, we're including the settings AND the pattern
 .....
 
 include joplin/pat3

@@ -32,7 +32,7 @@ This program will convert the above to:
         5.0.116=NewTines
      End
 
-The names in the orginal file are converted to CamelCase; both ';' and []
+The names in the original file are converted to CamelCase; both ';' and []
 comments are converted to MMA // style.
 
 The conversion recognizes the "ONEBASED" keyword. When found, subsequent

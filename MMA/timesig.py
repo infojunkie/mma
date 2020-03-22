@@ -47,7 +47,7 @@ class TimeSig:
         self.lastsig = (None, None)
 
 
-    def set(self, nn, dd):
+    def create(self, nn, dd):
         """ Set timesig. If no change from last value, ignore. """
 
         if self.lastsig != (nn, dd):
@@ -84,7 +84,7 @@ class TimeSig:
         else:
             error("Timesig: Denominator must be 1, 2, 4, 8, 16, 32 or 64, not '%s'." % dd)
 
-        self.set(nn, dd)
+        self.create(nn, dd)
 
 
     def get(self):

@@ -10,9 +10,7 @@ End
 
 
 Begin DocVar
-  WalkMode   If this variable is set the bass line is replaced in all patterns with a 4 beat \
-             walking bass. By default a 1/3 bass line is used. In the Piano variations \
-             WalkMode replaces the piano bass with an acoustic bass.
+  WalkMode   If this variable is set the bass line is replaced in all patterns with a 4 beat walking bass. By default a 1/3 bass line is used. In the Piano variations WalkMode replaces the piano bass with an acoustic bass.
 End
 
 Author Bob van der Poel

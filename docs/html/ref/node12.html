@@ -1,11 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2019.2 (Released June 5, 2019) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>Automatic Melodies: Aria Tracks</TITLE>
 <META NAME="description" CONTENT="Automatic Melodies: Aria Tracks">
@@ -14,42 +10,41 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="distribution" CONTENT="global">
 
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019.2">
 
 <LINK REL="STYLESHEET" HREF="mma.css">
 
 <LINK REL="next" HREF="node13.html">
 <LINK REL="previous" HREF="node11.html">
-<LINK REL="up" HREF="mma.html">
 <LINK REL="next" HREF="node13.html">
 </HEAD>
 
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html656"
-  HREF="node13.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html654"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html648"
-  HREF="node11.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html657"
-  HREF="node13.html">Randomizing</A>
-<B> Up:</B> <A NAME="tex2html655"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html649"
-  HREF="node11.html">Emulating plucked instruments: Plectrum</A>
+<B> Next:</B> <A
+ HREF="node13.html">Randomizing</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node11.html">Emulating plucked instruments: Plectrum</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION001200000000000000000"></A>
-<A NAME="chap-aria"></A>
+<H1><A ID="SECTION001200000000000000000"></A>
+<A ID="chap-aria"></A>
 <BR>
 Automatic Melodies: Aria Tracks
 </H1>
@@ -81,7 +76,7 @@ short step to use a specialized pattern to generate a melody.
 
 <P>
 It might serve to look at the sample song files enclosed in this
-package in the directory <TT><SPAN  CLASS="textbf">egs/aria</SPAN></TT>. Compile and play them. Not
+package in the directory <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/aria</SPAN></SPAN>. Compile and play them. Not
 too bad?
 
 <P>
@@ -97,26 +92,26 @@ The following commands are important to note:
 <P>
 <DL>
 <DT><STRONG>Range</STRONG></DT>
-<DD>Just like scale tracks. A R<SMALL>ANGE</SMALL> of 2.5 would let
+<DD>Set the octave range to use. A R<SMALL>ANGE</SMALL> of 2.5 would let
   
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  work on a two and one-half octave chord, etc.
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  work over two and one-half octaves, etc.
 
 <P>
 </DD>
 <DT><STRONG>ScaleType</STRONG></DT>
-<DD>Much like a scale track. By default, the setting for
+<DD>Set the type of &ldquo;scale&rdquo; to use. By default, the setting for
   this is CHORD. But, you can use AUTO, SCALE, CHORD, KEY or
   CHROMATIC. AUTO and SCALE are identical and force 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to select
   notes from the scale associated with the current chord; CHROMATIC
-  generates an 11 tone scale starting at the root note of the chord;
-  CHORD forces the selection to the notes in the current chord; KEY
+  uses a twelve tone scale starting at the root note of the chord;
+  CHORD forces the selection to use the notes in the current chord; KEY
   sets the scale to one based on the current key signature (see
-  <A HREF="node29.html#keysignature">here</A>).
+  <A HREF="node30.html#keysignature">here</A>).
 
 <P>
 In addition, each of the above listed S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL>s can have a
-  single ``-'' appended to it. If this case, the list of notes used
+  single &ldquo;-&rdquo; (minus sign) appended to it. In this case the list of notes used
   for the melody will be depleted until all the notes are used or
   there is a key change, chord change, etc. This mode will, mostly, avoid
   repeated notes. You might even think of it as a poor man's 12 tone
@@ -126,13 +121,15 @@ In addition, each of the above listed S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL>s c
 </DD>
 <DT><STRONG>Direction</STRONG></DT>
 <DD>As 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  processes the song it moves a note-selection
-  pointer up or down. By default D<SMALL>IRECTION</SMALL> is set to the single
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  processes the song it moves a
+  note-selection pointer up or down a list containing the notes in the
+  selected scale. The scale can be any of the S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL>s
+  described above. By default D<SMALL>IRECTION</SMALL> is set to the single
   value "1" which tells 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to add 1 after each note is generated.
-  However, you can set the value to an integer -4 to 4 or the special
-  value "r*". The ``r'' setting creates a random direction. You can
-  have 1 to 4 ``r''s:
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to add 1 to the pointer after each note is generated.
+  However, you can set the value to an integer -4 to 4 or 1, 2, 3 or 4
+  &ldquo;r&rdquo;s. The &ldquo;r&rdquo; settings create random directions (you can have 1
+  to 4 &ldquo;r&rdquo;s):
 
 <P>
 <BLOCKQUOTE>
@@ -156,11 +153,8 @@ In addition, each of the above listed S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL>s c
 </BLOCKQUOTE>
 
 <P>
-With "r" a random value -1, 0 or 1 will be used.
-
-<P>
-<SPAN  CLASS="textit">Important: in an A<SMALL>RIA</SMALL> track the sequence size/point is
-    ignored for D<SMALL>IRECTION</SMALL>.</SPAN>
+<SPAN  CLASS="textit">Important: in an A<SMALL>RIA</SMALL> track the sequence size and its
+    current value (based on the current measure) is ignored for D<SMALL>IRECTION</SMALL>.</SPAN>
 
 <P>
 </DD>
@@ -286,10 +280,10 @@ Please note the following:
 
 <P>
 </LI>
-<LI>D<SMALL>IRECTION</SMALL> <SPAN  CLASS="textit">cannot</SPAN> be changed on a bar by bar
-  basis. It applies to the entire sequence. After each note in the
-  A<SMALL>RIA</SMALL> is generated a pointer advances to the next direction in
-  the list.
+<LI>D<SMALL>IRECTION</SMALL> <SPAN  CLASS="textit">cannot</SPAN> be changed on a bar by bar basis.
+  It applies to the entire sequence. After each note in the
+  A<SMALL>RIA</SMALL> is generated a pointer advances to the next direction
+  value in the list.
 
 <P>
 </LI>
@@ -302,6 +296,14 @@ patterns and S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL> to generate less predictable p
 H<SMALL>ARMONY</SMALL>O<SMALL>NLY</SMALL> with a different voice and pattern.
 
 <P>
+<SPAN  CLASS="textit">Suggestion: Since very minor changes in any A<SMALL>RIA</SMALL>
+setting can make dramatic changes in the resulting output we strongly
+suggest that you start with very simple S<SMALL>EQUENCE</SMALL> and
+D<SMALL>IRECTION</SMALL> commands. Trying to listen to and debug complicated
+settings will be a frustrating experience. Start simple and listen to
+what is going on. Then add enhancements to your liking.</SPAN>
+
+<P>
 Oh, and have fun!
 
 <P>
@@ -310,26 +312,23 @@ Oh, and have fun!
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html656"
-  HREF="node13.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html654"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html648"
-  HREF="node11.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html657"
-  HREF="node13.html">Randomizing</A>
-<B> Up:</B> <A NAME="tex2html655"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html649"
-  HREF="node11.html">Emulating plucked instruments: Plectrum</A></DIV>
+<B> Next:</B> <A
+ HREF="node13.html">Randomizing</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node11.html">Emulating plucked instruments: Plectrum</A></DIV>
 <!--End of Navigation Panel-->
-<ADDRESS>
-Bob van der Poel
-2016-06-11
-</ADDRESS>
+
 </BODY>
 </HTML>

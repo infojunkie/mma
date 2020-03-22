@@ -123,13 +123,13 @@ Begin Chord-Sus
 	Volume mp
 End
 
-Chord-Piz Volume -40
+Chord-Piz Volume -40%
 
 DefGroove SlowBroadwaySus   Add sustained strings.
 
 Begin Arpeggio
 	Groove SlowBroadway1
-	Volume -40
+	Volume -40%
 End
 
 DefGroove SlowBroadway1Sus   Sustained strings and apregiating flute.

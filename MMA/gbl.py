@@ -22,7 +22,7 @@ Bob van der Poel <bob@mellowood.ca>
 
 """
 
-version = "16.06"        # Version -- June/2016
+version = "20.02"        # Version -- Feb/2020
 
 """ A few globals are actually set in the calling stub, mma.py. This is
     done to make future ports and platform specific settings a bit easier.
@@ -88,16 +88,16 @@ muteTracks = []
 ############# String constants ####################
 
 
-EXT = ".mma"        # extension for song/lib files.
+EXT = ".mma"        # extension for song/lib files (STATC).
 
 
 ##############  Tempo, and other midi positioning.  #############
 
 
-BperQ       =  192    # midi ticks per quarter note
-Bper128     =  BperQ/16  # a 1/128 note. Used for small timings
-QperBar     =  4      # Beats/bar, set with TIME
-barLen      =  BperQ * QperBar  # convenience (updated by TIME)
+BperQ       =  192    # midi ticks per quarter note (STATIC)
+Bper128     =  BperQ/16  # a 1/128 note. Used for small timings (STATIC)
+QperBar     =  4      # Beats/bar, set with TIME (this is a fp value!)
+barLen      =  int(BperQ * QperBar)  # convenience (updated by TIME)
 tickOffset  =  0      # offset of current bar in ticks
 tempo       =  120    # current tempo
 seqSize     =  1      # variation sequence table size
@@ -114,16 +114,17 @@ barNum      =  0      # Current line number
 
 barPtrs     = {}      # for each bar, pointers to event start/end
 
-synctick    =  0      # flag, set if we want a tick on all tracks at offset 0
-endsync     =  0      # flag, set if we want a eof sync
-
 outPath    =   ''      # Directory for MIDI file
 inpath     =   None    # input file
 
-midiFileType   = 1     # type 1 file, SMF command can change to 0
-runningStatus  = 1     # running status enabled
+midiFileType   = 1     # type 1 file, "MidiFile SMF" command can change to 0/1
+runningStatus  = 1     # running status enabled "MidiFile Running" changes to 0/1
 
 inAllGrooves = False   # set if running an ALLGROOVES command
+
+encoding = 'cp1252'
+noCredit = False   # set to not have credits in midi file
+logFile = ''    # this is set if user wants logging to be buffered.
 
 #############  Options. #############
 
@@ -135,22 +136,6 @@ inAllGrooves = False   # set if running an ALLGROOVES command
 
 barRange       =     []      # both -B and -b use this
 
-# the Lxxx values are the previous settings, used for LASTDEBUG macro
-
-debug          =     Ldebug         = 0
-pshow          =     Lpshow         = 0
-seqshow        =     Lseqshow       = 0
-showrun        =     Lshowrun       = 0
-noWarn         =     LnoWarn        = 0
-noOutput       =     LnoOutput      = 0
-showExpand     =     LshowExpand    = 0
-showFilenames  =     LshowFilenames = 0
-chshow         =     Lchshow        = 0
-
-plecShow       =     LplecShow  = 0  # not a command line setting
-rmShow         =     LrmShow    = 0  # not command
-gvShow         =     LgvShow    = 0
-
 printProcessed = False  # command line flag -L sets this
 
 outfile        =     None
@@ -160,5 +145,9 @@ maxBars        =     500
 makeGrvDefs    =     0
 
 playFile       =     0       # set if we want to call a player
+
+# set if an exception is catching unknown chords
+# this is used by -xCHORDS 
+ignoreBadChords = False
 
 

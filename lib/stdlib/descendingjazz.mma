@@ -78,7 +78,7 @@ Begin Bass
 	Articulate    70
 End
 
-Begin Bass-Chord    // we need to create desending chords
+Begin Bass-Chord    // we need to create desending chords. This is a BASS track!
 	Voice         Piano1
 	Sequence      Down1  Down2
 	Harmony       3Below+8Above

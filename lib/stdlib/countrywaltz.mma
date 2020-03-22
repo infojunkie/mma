@@ -243,7 +243,6 @@ Begin Drum-Kick
 	Volume p
 End
 	
-DefGroove CountryWaltzEnd 	A good ending with a cymbal roll. The \
-                            4th bar just hits on the first beat.
+DefGroove CountryWaltzEnd 	A good, simple ending. The 4th bar just hits on the first beat.
 
 	

@@ -21,7 +21,7 @@ $lns
 // Note how we use Vexpand to NOT expand the macros until runtime.
 
 Vexpand off
-After Print Repeat=4  This is between bar $( $_Barnum -1 ) and $_Barnum
+After  Repeat=4 Print This is between bar $( $_Barnum -1 ) and $_Barnum
 Vexpand on
 
 $LNS

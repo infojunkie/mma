@@ -119,13 +119,13 @@ Begin Chord-Sus
 	Volume p
 End
 
-Chord-Piz  Volume -30
+Chord-Piz  Volume -30%
 
 DefGroove BroadwaySus   Add sustained strings.
 
 Begin Arpeggio-Flute
 	Groove Broadway1
-	Volume -40
+	Volume -40%
 End
 
 DefGroove Broadway1Sus   Sustained strings and apregiating flute.

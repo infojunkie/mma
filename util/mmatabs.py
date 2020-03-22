@@ -62,12 +62,17 @@ def doinsts(order):
             outfile.write("\\insline{%s} {%s}\n" % (a, n))
 
     else:
+        #for a in sorted(voiceInx.keys()):
+        #    print a, voiceInx[a]
+            
         for a in sorted(voiceInx.keys()):
+            if a == 'DISTORTONGUITAR': continue  # skip old sp. mistake
             v=voiceInx[a]
             if v>127: continue  # we don't want "none" to appear
             n=voiceNames[v].replace('&', '\&')
+            a=a.replace('&', '\&')
             outfile.write( "\\insline{%s} {%s}\n" % (n, v))
-
+            
 def dochords():
     """ Print out a list of chord names and docs in LaTex. """
 

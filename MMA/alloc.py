@@ -33,6 +33,7 @@ import MMA.patArpeggio
 import MMA.patSolo
 import MMA.patAria
 import MMA.grooves
+import MMA.debug
 
 from . import gbl
 from MMA.common import *
@@ -95,7 +96,7 @@ def trackAlloc(name, err):
     for slot in MMA.grooves.glist.keys():
         newtk.saveGroove(slot)
 
-    if gbl.debug:
-        print("Creating new track %s" % name)
+    if MMA.debug.debug:
+        dPrint("Creating new track %s" % name)
 
     return

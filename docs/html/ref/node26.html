@@ -1,11 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2019.2 (Released June 5, 2019) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>Triggers</TITLE>
 <META NAME="description" CONTENT="Triggers">
@@ -14,42 +10,41 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="distribution" CONTENT="global">
 
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019.2">
 
 <LINK REL="STYLESHEET" HREF="mma.css">
 
 <LINK REL="next" HREF="node27.html">
 <LINK REL="previous" HREF="node25.html">
-<LINK REL="up" HREF="mma.html">
 <LINK REL="next" HREF="node27.html">
 </HEAD>
 
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html899"
-  HREF="node27.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html897"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html891"
-  HREF="node25.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node27.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node25.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html900"
-  HREF="node27.html">After</A>
-<B> Up:</B> <A NAME="tex2html898"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html892"
-  HREF="node25.html">Patch Management</A>
+<B> Next:</B> <A
+ HREF="node27.html">After</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node25.html">Patch Management</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION002600000000000000000"></A>
-<A NAME="sec-triggers"></A>
+<H1><A ID="SECTION002600000000000000000"></A>
+<A ID="sec-triggers"></A>
 <BR>
 Triggers
 </H1>
@@ -63,8 +58,8 @@ T<SMALL>RIGGER</SMALL>.
 <P>
 T<SMALL>RIGGER</SMALL>s are available for all tracks with the exception of
 M<SMALL>ELODY</SMALL> and S<SMALL>OLO</SMALL>. T<SMALL>RIGGER</SMALL>s are <SPAN  CLASS="textit">not</SPAN> saved in
-G<SMALL>ROOVES</SMALL>.<A NAME="tex2html112"
-  HREF="#foot15952"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+G<SMALL>ROOVES</SMALL>.<A ID="tex2html116"
+  HREF="#foot16584"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 Once you understand the concept of a T<SMALL>RIGGER</SMALL>, we think you'll
 find them very useful. Suppose, for example, that you only want a
@@ -125,9 +120,7 @@ With that under our belts, let's have a look at all options available:
 First, commands which do not require an additional option:
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><DL>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
 <DT><STRONG>Auto</STRONG></DT>
 <DD>This keyword signals that a trigger should occur
     <SPAN  CLASS="textit">at any point</SPAN> when a chord is changed. In this case you do
@@ -141,28 +134,24 @@ First, commands which do not require an additional option:
 <DT><STRONG>Off</STRONG></DT>
 <DD>Turns the trigger for the specified track off. This is
     the same as having a T<SMALL>RIGGER</SMALL> command with no arguments. No
-    other commands are permitted with an ``off'' setting.
+    other commands are permitted with an &ldquo;off&rdquo; setting.
 
 <P>
 </DD>
 <DT><STRONG>Rest</STRONG></DT>
 <DD>This keyword signals that a trigger should occur
     <SPAN  CLASS="textit">at any point</SPAN> where a rest starts. In this way you can
-    handle a rest like a ``special'' chord.
+    handle a rest like a &ldquo;special&rdquo; chord.
 
 <P>
 </DD>
-</DL>
-</DD>
-</DL>
+</DL></td></tr></table>
 
 <P>
 The following commands are set in the OPTION=VALUE format:
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><DL>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
 <DT><STRONG>Beats</STRONG></DT>
 <DD>A comma separated list of beats for your trigger. Note
     that this is ignored if you have set one of the keywords
@@ -218,7 +207,7 @@ If the chord name is not in the specified list, no trigger is
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Chord-Test Trigger Beats=1,2,3,4 Ctonics= C,E,F   </B> 
+    <B>Chord-Test Trigger Beats=1,2,3,4 Ctonics=C,E,F   </B> 
    
 	    </td></tr>
       </Table>
@@ -230,7 +219,7 @@ If the tonic of the chord is not in the specified list, no trigger
 <P>
 </DD>
 <DT><STRONG>CTypes</STRONG></DT>
-<DD>A list of chord types (e.g., ``m'', ``7'', ``dim'')
+<DD>A list of chord types (e.g., &ldquo;m&rdquo;, &ldquo;7&rdquo;, &ldquo;dim&rdquo;)
     which are checked against the active chord at each point of
     theB<SMALL>EATS</SMALL> list. Example:
 
@@ -299,8 +288,8 @@ and a C<SMALL>OUNT</SMALL> of 3 you can have a triplet play for each
 
 <P>
 will cause trigger events to be played only when a chord changes
-    in bars 1, 5 or 9.<A NAME="tex2html113"
-  HREF="#foot16047"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> Please note that the bar numbers
+    in bars 1, 5 or 9.<A ID="tex2html117"
+  HREF="#foot16679"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> Please note that the bar numbers
     are not checked against the actual bar numbers in your song (which
     can be hard to calculate after repeats and endings), but with the
     number label in the file. So a trigger command in the above
@@ -337,7 +326,9 @@ Please don't number your bars like this! It's just an example.
     the original sequence for the track will be used. Use of this
     command (in conjunction with the S<SMALL>EQUENCE</SMALL> command) lets you
     have different patterns for bars with and without a trigger
-    response.
+    response. The only permitted options for this command are &ldquo;On&rdquo;,
+    &ldquo;1&rdquo;, or &ldquo;True&rdquo; to enable and &ldquo;Off&rdquo;, &ldquo;0&rdquo; or &ldquo;False&rdquo; to
+    disable.
 
 <P>
 </DD>
@@ -366,14 +357,19 @@ Only one sequence is permitted in a trigger command.
 <DT><STRONG>Sticky</STRONG></DT>
 <DD>This is a convience option to set the S<SMALL>TICKY</SMALL>
     bit for the current track. Its effect is the same as described <A HREF="node6.html#sect-sticky">here</A>. When using the option in a
-    T<SMALL>RIGGER</SMALL> line you must include the ``='' as in:
-    
+      T<SMALL>RIGGER</SMALL> line you must include the &ldquo;=&rdquo; as in:
+
+<P>
+
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
     <B>Drum-Triangle Trigger Sticky=True   </B> 
    
 	    </td></tr>
       </Table>
+
+<P>
+You can disable this command by using a &ldquo;False&rdquo; option.
 
 <P>
 </DD>
@@ -389,9 +385,7 @@ Only one sequence is permitted in a trigger command.
 
 <P>
 </DD>
-</DL>
-</DD>
-</DL>
+</DL></td></tr></table>
 
 <P>
 Things to note:
@@ -434,7 +428,7 @@ When combining various options you should note the hierarchy of
 </OL>
 
 <P>
-If any of the above conditions result in ``no trigger'', no events
+If any of the above conditions result in &ldquo;no trigger&rdquo;, no events
   will be generated. You can force events with the use of the
   O<SMALL>VERRIDE</SMALL> option (above).
 
@@ -462,7 +456,7 @@ will reset all options to the default and disable the trigger.
 
 <UL>
 <LI>Using R<SMALL>OMAN</SMALL> notation, the chord name will be the value
-    of the roman numeral (e.g., ``I'', ``vii''); however, the tonic
+    of the roman numeral (e.g., &ldquo;I&rdquo;, &ldquo;vii&rdquo;); however, the tonic
     and type will be correctly derived.
 
 <P>
@@ -473,7 +467,7 @@ will reset all options to the default and disable the trigger.
 <P>
 </LI>
 <LI>P<SMALL>OLYCHORDS</SMALL> will have only the root (left side) of the
-    name saved (the chords ``C'' and ``C&brvbar;D'' are identical
+    name saved (the chords &ldquo;C&rdquo; and &ldquo;C&brvbar;D&rdquo; are identical
     for the purposes of a trigger).
 
 <P>
@@ -515,23 +509,23 @@ If you want a trigger to sound across different grooves you must set
 
 <P>
 A number of example files are included in the distribution in the
-directory <TT><A NAME="tex2html114"
-  HREF="egs/trigger">egs/trigger</A></TT>.
+directory <kbd><A ID="tex2html118"
+  HREF="egs/triggers">egs/triggers</A></kbd>.
 
 <P>
 
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot15952">...G<SMALL>ROOVES</SMALL>.</A><A
- HREF="node26.html#tex2html112"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DT><A ID="foot16584">...G<SMALL>ROOVES</SMALL>.</A><A
+ HREF="node26.html#tex2html116"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>If triggers were part of a groove, the
   triggers a user creates would disappear on a groove change. Probably
   not what is expected.
 
 </DD>
-<DT><A NAME="foot16047">... 9.</A><A
- HREF="node26.html#tex2html113"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DT><A ID="foot16679">... 9.</A><A
+ HREF="node26.html#tex2html117"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>This is a good reason to number each
       bar in your song, as recommended <A HREF="node8.html#sect-barnumbers">here</A>.
 
@@ -539,26 +533,23 @@ directory <TT><A NAME="tex2html114"
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html899"
-  HREF="node27.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html897"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html891"
-  HREF="node25.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node27.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node25.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html900"
-  HREF="node27.html">After</A>
-<B> Up:</B> <A NAME="tex2html898"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html892"
-  HREF="node25.html">Patch Management</A></DIV>
+<B> Next:</B> <A
+ HREF="node27.html">After</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node25.html">Patch Management</A></DIV>
 <!--End of Navigation Panel-->
-<ADDRESS>
-Bob van der Poel
-2016-06-11
-</ADDRESS>
+
 </BODY>
 </HTML>

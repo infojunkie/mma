@@ -21,9 +21,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 Bob van der Poel <bob@mellowood.ca>
 
 
+This code just sets up truncate. The heavy lifting is done in pat.py/bar()
+where the sequence for each track is re-created with adjusted offsets.
+In parse.py/parse() we adjust the song pointer for the current seq size.
+
 """
 
 from MMA.common import *
+import MMA.debug
 
 length = None
 count = None
@@ -52,7 +57,7 @@ def setTruncate(ln):
     beats = stof(ln[0], "Truncate: Bar length must be value.")
 
     if beats < 1 or beats >= gbl.QperBar:
-        error("Tuncate: Range must be 1 to %s, not '%s'." % (gbl.QperBar, beats))
+        error("Truncate: Range must be 1 to %s, not '%s'." % (gbl.QperBar, beats))
 
     length = int(beats * gbl.BperQ)
 
@@ -80,14 +85,14 @@ def setTruncate(ln):
             else:
                 opt = stof(opt, "Truncate: Expecting value, not '%s'." % opt)
                 side = int((opt - 1) * gbl.BperQ)
-                if side + length > max:
+                if side >= gbl.barLen:
                     error("Truncate: Side value of '%g' too large." % opt)
 
         else:
             error("Truncate: '%s' is an unknown option." % cmd)
 
-    if gbl.debug:
-        print("Truncate: Next %s bar(s) are %g beats, "
+    if MMA.debug.debug:
+        dPrint("Truncate: Next %s bar(s) are %g beats, "
               "using pattern from beats %g to %g."
             % (count, beats, float(side) / gbl.BperQ, (float(side) + length) / gbl.BperQ))
 

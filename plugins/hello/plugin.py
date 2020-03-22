@@ -55,6 +55,9 @@ def trackRun(name, l):
 
     gbl.inpath.push(ret, [gbl.lineno] * len(ret))
 
+def dataRun(ln):
+    return ['Gm'] + ln
+        
 # Entry for usage (mma -Ihello)
 
 def printUsage():    

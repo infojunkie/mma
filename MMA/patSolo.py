@@ -35,6 +35,7 @@ from . import gbl
 from MMA.common import *
 from MMA.pat import PC, Pgroup
 from MMA.keysig import keySig
+import MMA.debug
 
 import re
 import random
@@ -77,6 +78,14 @@ class Melody(PC):
     followKey = 1
     rootChord = 0   # start off with a C chord as default
 
+    def __init__(self, ln):
+        """ We need special init here incase this is converted to drumType.
+            If we don't have a toneList, we're screwed.
+        """
+
+        self.toneList = [self.drumTone]
+        PC.__init__(self, ln)   # This order is important!
+
     def setDrumType(self):
         """ Set this track to be a drum track. """
 
@@ -84,14 +93,15 @@ class Melody(PC):
             error("You cannot change a track to DRUM once it has been used")
 
         self.drumType = 1
-        self.setChannel('10')
-
+        self.setChannel('10')  # MMA assumes all drums are on channel 10
+        self.voice = seqBump([MMA.pat.defaultDrum])
+        
     def setVoicing(self, ln):
         """ Set the voicing option for a solo/melody track. Only permitted
             option is FOLLOWCHORD.
         """
 
-        notopt, ln = opt2pair(ln, toupper=1)
+        notopt, ln = opt2pair(ln, toupper=True)
 
         if notopt:
             error("Voicing %s: Each option must be a OPT=VALUE pair." % self.name)
@@ -141,6 +151,7 @@ class Melody(PC):
         self.grooves[gname]['FOLLOWCHORD'] = self.followChord
         self.grooves[gname]['FOLLOWKEY'] = self.followKey
         self.grooves[gname]['ROOT'] = self.rootChord
+        self.grooves[gname]['TONES'] = self.toneList[:]
 
     def restoreGroove(self, gname):
         """ Restore special/local/variables for groove. """
@@ -148,7 +159,20 @@ class Melody(PC):
         self.followChord = self.grooves[gname]['FOLLOWCHORD']
         self.followKey = self.grooves[gname]['FOLLOWKEY']
         self.rootChord = self.grooves[gname]['ROOT']
+        self.toneList = self.grooves[gname]['TONES']
         PC.restoreGroove(self, gname)
+
+    def setSeqSize(self):
+        """ Expand existing pattern list. """
+
+        self.toneList = seqBump(self.toneList)
+        PC.setSeqSize(self)
+
+    def clearSequence(self):
+        """ Set some initial values. Called from init and clear seq. """
+
+        PC.clearSequence(self)
+        self.toneList = seqBump([self.drumTone])
 
     def defPatRiff(self, ln):
         """ Create a solo pattern. This is used for solo sequenes only.
@@ -200,8 +224,8 @@ class Melody(PC):
                           % (self.name, opt, ', '.join(valid)))
                 self.arpDirection = opt
 
-        if gbl.debug:
-            print("%s Arpeggiate: Rate=%s Decay=%s Direction=%s" % 
+        if MMA.debug.debug:
+            dPrint("%s Arpeggiate: Rate=%s Decay=%s Direction=%s" % 
                   (self.name, self.arpRate, self.arpDecay, self.arpDirection))
 
     def getNoteLen(self, n):
@@ -656,7 +680,7 @@ class Melody(PC):
             pitch = None
             count = 0
             for n in nn:
-                if n.isgrace or not n.pitch:
+                if n.isgrace or n.pitch==None:
                     continue
                 pitch = n.pitch
                 duration = n.duration
@@ -860,8 +884,8 @@ def setAutoSolo(ln):
 
         autoSoloTracks.append(n)
 
-    if gbl.debug:
-        print("AutoSolo track names: %s" % ' '.join([a for a in autoSoloTracks]))
+    if MMA.debug.debug:
+        dPrint("AutoSolo track names: %s" % ' '.join([a for a in autoSoloTracks]))
 
 
 ###############
@@ -916,7 +940,7 @@ def extractSolo(ln, rptcount):
                     and set(gbl.tnames[t].harmonyOnly) != {None}:
                 gbl.tnames[t].setRiff(firstSolo[:])
 
-                if gbl.debug:
-                    print("%s duplicated to %s for HarmonyOnly." % (trk, t))
+                if MMA.debug.debug:
+                    dPrint("%s duplicated to %s for HarmonyOnly." % (trk, t))
 
     return ln

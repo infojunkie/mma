@@ -31,8 +31,9 @@ import sys
 import importlib
 import hashlib
 import json
+import MMA.debug
 
-from MMA.paths import plugPath 
+from MMA.paths import plugPaths
 from MMA.common import *
 import MMA.parse
 from MMA.alloc import trkClasses
@@ -56,6 +57,7 @@ prefix = "@"
 plugList = []      # all loaded plugins
 simplePlugs = []   # simple funcs registered
 trackPlugs = []    # track funcs registered
+dataPlugs = []     # data plugs registered
 
 # A list of entry points for the command line help
 # function. Each plugin should have a function printUsage().
@@ -88,7 +90,7 @@ def findPlugin(targ):
     
            - the users current directory
            - the directory in which the current file being processed lives
-           - the plugin directory.
+           - the plugin directories.
 
            The search is case-insensitive.
 
@@ -101,35 +103,36 @@ def findPlugin(targ):
     def matchName(d):
         """ Find a directory entry in 'd' matching the plugin name """
 
-        if [b.upper() for b in os.listdir(d)].count(targ) > 1:
-            warning("Plugin may have duplicate entries in '%s' for '%s'. This "
-                    "is most likly due to the same name with different cases. You "
-                    "should check and delete/rename one!" % (d, targ))
+        if os.access(d, os.R_OK):  # skip non-exist dirs and ones we can't access
+            if [b.upper() for b in os.listdir(d)].count(targ) > 1:
+                warning("Plugin: there are duplicate entries of '%s' in '%s'. This "
+                   "is most likly due to the same name with different cases. You "
+                   "should check and delete/rename one!" % (targ, d))
 
-        for a in os.listdir(d):
-            if a.lower() == targ.lower():
-                for b in os.listdir(os.path.join(d, a)):
-                    if b.lower() == plugEntry.lower():
-                        # Create a module name based on the case of the files found
-                        mName = "%s.%s" % (a, b[0:-3])
-
-                        return os.path.join(a, b), mName
+            for a in os.listdir(d):
+                if a.lower() == targ.lower():
+                    for b in os.listdir(os.path.join(d, a)):
+                        if b.lower() == plugEntry.lower():
+                            # Create a module name based on the case of the files found
+                            mName = "%s.%s" % (a, b[0:-3])
+                            return os.path.join(a, b), mName
 
         return None, None
 
     # 1. Current dir. If found convert to complete path
     if tryDot:
-        mdir, modName = matchName('.')
-        if mdir:
-            return os.path.realpath('.'), mdir, modName
+        for dir in ('.', 'plugins'):
+            mdir, modName = matchName(dir)
+            if mdir:
+                return os.path.realpath(dir), mdir, modName
 
     # 2. Check for the plugin in the same directory as the current
-    #    file being processed. This may well be a library file
+    #    file being processed ... the current file could be a library file.
     if tryLocal:
         if gbl.inpath:
             n = gbl.inpath.fname
             path = os.path.dirname(gbl.inpath.fname)
-            # if path in None then we're in '.' and we've done that in (1)
+            # if path is None then we're in '.' and we've done that in (1)
             if path:
                 mdir, modName = matchName(path)
                 if mdir:
@@ -137,14 +140,15 @@ def findPlugin(targ):
 
     # 3. The plugin directory (mmapath/plugins)
     if tryPlugDir:
-        mdir, modName = matchName(plugPath)
-        if mdir:
-            return plugPath, mdir, modName
+        for p in MMA.paths.plugPaths:
+            mdir, modName = matchName(p)
+            if mdir:
+                return p, mdir, modName
 
     return None, None, None
 
 def hashfile(p):
-    """ Calculate a sha-1 hash value on a file. """
+    """ Calculate a sha-256 hash value on a file. """
 
     sha256 = hashlib.sha256(b'mmaIsWonderful')
 
@@ -173,10 +177,10 @@ def getPermission(path, name):
     # We need somewhere to store this registery. appdirs to the rescue!
     if not permFile:
         cachePath = errorName = MMA.appdirs.user_data_dir('mma', 'Mellowood')
-
+        
         # Can we access the directory? If not, we first try to create
-        # a mma directory (we're assuming that HOME/.config or MMA/lib already
-        # exists.
+        # a mma directory (we're assuming that HOME/.config, HOME/.local/config,
+        # or MMA/lib already exists.
         try:
             os.makedirs(cachePath)
         except OSError:
@@ -283,7 +287,10 @@ def registerPlugin(p):
     sys.path.insert(0, pdir)
 
     # load the module. 
-
+    if plugName in sys.modules.keys():
+        error("Plugin: the name of the '%s' is already is use by the system. "
+              "Most likely MMA has already imported a module by that name. "
+              "Please rename the package!" % plugName)
     try:
         e = importlib.import_module(modName, package=None)
     except ImportError as err:
@@ -293,32 +300,44 @@ def registerPlugin(p):
         
     # restore old sys.path.
     sys.path.pop(0)
-    
+
     # The module is now in memory.
     # Find and register the entry points.
 
     cmdName = prefix + p.upper()
 
     e.plugInName = {'name': plugName,
-                    'dir': pdir,
+                    'dir':  pdir,
                     'path': plugPath,
-                    'cmd': cmdName   }
+                    'cmd':  cmdName   }
 
-    if hasattr(e, 'run'):
+    try:
         MMA.parse.simpleFuncs[cmdName] = e.run
         simplePlugs.append(cmdName)
-        if gbl.debug:
-            print("Plugin: %s simple plugin RUN registered." % cmdName.title())
-
-    if hasattr(e, 'trackRun'):
+        if MMA.debug.debug:
+            dPrint("Plugin: %s simple plugin RUN registered." % cmdName.title())
+    except:
+        pass
+    
+    try:
         MMA.parse.trackFuncs[cmdName] = e.trackRun
         trackPlugs.append(cmdName)
-        if gbl.debug:
-            print("Plugin: %s track plugin TrackRun registered." % cmdName.title())
-
-    if hasattr(e, 'printUsage'):
+        if MMA.debug.debug:
+            dPrint("Plugin: %s track plugin TrackRun registered." % cmdName.title())
+    except:
+        pass
+    
+    try:
+        MMA.parse.dataFuncs[cmdName] = e.dataRun
+        dataPlugs.append(cmdName)
+        if MMA.debug.debug:
+            dPrint("Plugin: %s data plugin DataRun registered." % cmdName.title())
+    except:
+        pass
+    
+    try:
         plugHelp[cmdName] = e.printUsage
-    else:
+    except:
         plugHelp[cmdName] = None
 
     return cmdName
@@ -365,16 +384,16 @@ def plugin(ln):
                 else:
                     error("Plugin Disable: '%s' is an unknown or illegal option." % o)
 
-            if gbl.debug:
+            if MMA.debug.debug:
                 if plugsOff:
-                    print("Plugin: loading disabled.")
+                    dPrint("Plugin: loading disabled.")
                 else:
                     if not tryLocal:
-                        print("Plugin: no local plug loading.")
+                        dPrint("Plugin: no local plug loading.")
                     if not tryDot:
-                        print("Plugin: no current directory plug loading.")
+                        dPrint("Plugin: no current directory plug loading.")
                     if not tryPlugDir:
-                        print("Plugin: no plugin directory plug loading.")
+                        dPrint("Plugin: no plugin directory plug loading.")
         else:
             error("Plugin: '%s' is an unknown command." % cmd)
 

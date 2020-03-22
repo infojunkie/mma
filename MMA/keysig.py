@@ -28,6 +28,7 @@ other module.
 
 from . import gbl
 from   MMA.common import *
+import MMA.debug
 
 majKy = { "C" :  0, "G" :  1, "D" :  2,
           "A" :  3, "E" :  4, "B" :  5,
@@ -58,7 +59,7 @@ class KeySig:
         self.setAccList()
         self.keyNoteValue = notevalues['C']
 
-    def set(self, ln):
+    def create(self, ln):
         """ Set the keysignature. Used by solo & aria tracks. Formats are:
               1. A,D,E, Eb,  etc followed by optional minor/major
                    flat can be b or &, sharp is #
@@ -111,6 +112,9 @@ class KeySig:
         elif kname[0] in "01234567":
             c = int(kname[0])
 
+            if kname == '0':
+                kname = '0#'
+                
             if len(kname) < 2:
                 error("KeySig: numerical keysig needs sharp/flat indicator.")
 
@@ -153,8 +157,8 @@ class KeySig:
             if gbl.tnames[t].vtype == 'ARIA':
                 gbl.tnames[t].restart()
 
-        if gbl.debug:
-            print("KeySig:", self.getKeysig())
+        if MMA.debug.debug:
+            dPrint("KeySig: %s" % self.getKeysig())
 
     def getKeysig(self):
         """ Create a key sig string. """
@@ -303,5 +307,5 @@ def transpose(ln):
     else:
         gbl.transpose = getTranspose(ln, "Transpose")
 
-    if gbl.debug:
-        print("Set Transpose to %s" % gbl.transpose)
+    if MMA.debug.debug:
+        dPrint("Set Transpose to %s" % gbl.transpose)

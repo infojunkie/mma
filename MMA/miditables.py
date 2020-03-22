@@ -71,7 +71,7 @@ voiceNames = {
     21: 'Accordion', 22: 'Harmonica', 23: 'Bandoneon',
     24: 'NylonGuitar', 25: 'SteelGuitar', 26: 'JazzGuitar',
     27: 'CleanGuitar', 28: 'MutedGuitar', 29: 'OverDriveGuitar',
-    30: 'DistortonGuitar', 31: 'GuitarHarmonics', 32: 'AcousticBass',
+    30: 'DistortionGuitar', 31: 'GuitarHarmonics', 32: 'AcousticBass',
     33: 'FingeredBass', 34: 'PickedBass', 35: 'FretlessBass',
     36: 'SlapBass1', 37: 'SlapBass2', 38: 'SynthBass1',
     39: 'SynthBass2', 40: 'Violin', 41: 'Viola',
@@ -107,6 +107,8 @@ voiceNames = {
     NONETONE: 'None'}
 
 voiceInx = dict((v.upper(), k) for (k, v) in voiceNames.items())
+# fix an unfortunate spelling error.
+voiceInx['DISTORTONGUITAR']=voiceInx['DISTORTIONGUITAR']
 
 # Controller names. Tables are borrowed from:
 #     http: //www.midi.org/about-midi/table3.shtml

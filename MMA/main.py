@@ -32,10 +32,13 @@ import MMA.options
 import MMA.auto
 import MMA.docs
 import MMA.tempo
+import MMA.debug
+from  MMA.safe_eval import safeEnv
 
 from . import gbl
-from MMA.common import *
-from MMA.lyric import lyric
+from   MMA.common import *
+from   MMA.lyric import lyric
+
 import MMA.paths
 
 cmdSMF = None
@@ -46,6 +49,16 @@ cmdSMF = None
 # This is the program mainline. It is called/executed
 # exactly once from a call in the stub program mma.py.
 
+# for some reason, someone might want a different encoding
+# real easy to set it from env at startup
+m = safeEnv( 'MMA_ENCODING' )
+if m:    # don't set to empty ... will crash
+    gbl.encoding = m
+
+# MMA prints errors/warning/debug to stdout
+# this will redirect to a file
+gbl.logFile = safeEnv('MMA_LOGFILE')
+
 MMA.paths.init()   # initialize the lib/include paths
 
 
@@ -55,9 +68,9 @@ MMA.options.opts()
 
 #  LibPath and IncPath are set before option parsing, but
 #  debug setting wasn't. So we need to do the debug for this now
-if gbl.debug:
-    print("Initialization has set LibPath set to %s" % MMA.paths.libPath)
-    print("Initialization has set IncPath set to %s" % MMA.paths.incPath)
+if MMA.debug.debug:
+    dPrint("Initialization has set LibPath set to %s" % MMA.paths.libPath)
+    dPrint("Initialization has set IncPath set to %s" % MMA.paths.incPath)
 
 #######################################
 # Set up initial meta track stuff. Track 0 == meta
@@ -67,7 +80,7 @@ m = gbl.mtrks[0] = MMA.midi.Mtrk(0)
 if gbl.infile:
     if gbl.infile != 1:
         fileName = MMA.file.locFile(gbl.infile, None)
-        if fileName:
+        if fileName and not gbl.noCredit:
             m.addTrkName(0, "%s" % fileName.rstrip(".mma"))
             m.addText(0, "Created by MMA. Input filename: %s" % fileName)
 
@@ -120,7 +133,8 @@ if MMA.options.cmdSMF is not None:
 ######################################
 # Create the output filename
 
-MMA.paths.createOutfileName(".mid")
+if not MMA.debug.noOutput:
+    MMA.paths.createOutfileName(".mid")
 
 
 ################################################
@@ -148,7 +162,7 @@ MMA.paths.dommaEnd()
 #################################################
 # Just display the channel assignments (-c) and exit...
 
-if gbl.chshow:
+if MMA.debug.chshow:
     msg = ["\nFile '%s' parsed, but no MIDI file produced!" % gbl.infile]
     msg.append("\nTracks allocated:\n")
     k = list(gbl.tnames.keys())
@@ -200,7 +214,7 @@ if gbl.chshow:
 ####################################
 # Dry run, no output
 
-if gbl.noOutput:
+if MMA.debug.noOutput:
     gbl.lineno = -1
     warning("Input file parsed successfully. No midi file generated")
     sys.exit(0)
@@ -269,7 +283,8 @@ for n in sorted(gbl.mtrks.keys())[1:]:     # check all but 0 (meta)
         trackCount += 1
 
 if gbl.printProcessed:
-    print( "Bars processed: %s" % ' '.join(gbl.barLabels))
+    import MMA.rangeify
+    print ("Bars processed: %s" % MMA.rangeify.rangeify(gbl.barLabels))
 
 if trackCount == 1:  # only meta track
     if fileExist:
@@ -285,8 +300,15 @@ if fileExist:
     msg = "Overwriting existing"
 else:
     msg = "Creating new"
-print("%s midi file (%s bars, %.2f min): '%s'" %
-    (msg, gbl.barNum, gbl.totTime, outfile))
+
+print("%s midi file (%s bars, %.2f min / %d:%02d m:s): '%s'" %
+    (msg, gbl.barNum, gbl.totTime, gbl.totTime, (gbl.totTime%1)*60, outfile))
+
+# Insert the estimated play time in seconds into a comment line.
+# A player program can search for this and display it. The value
+# will be terminated by a null which should be easy enuf to search for.
+
+gbl.mtrks[0].addText(0, "DURATION: %d" % (gbl.totTime*60) )
 
 try:
     out = open(outfile, 'wb')
@@ -300,5 +322,6 @@ if gbl.playFile:
     import MMA.player
     MMA.player.playMidi(outfile)
 
-if gbl.debug:
-    print("Completed processing file '%s'." % outfile)
+if MMA.debug.debug:
+    dPrint("Completed processing file '%s'." % outfile)
+

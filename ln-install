@@ -12,7 +12,7 @@ if PY3:
     raw_input = input
 
 def okay(msg):
-    print msg
+    print(msg)
     a=raw_input("   Press <ENTER> to continue (anything else will terminate): ")
 
     if a:

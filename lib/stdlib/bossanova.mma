@@ -236,7 +236,8 @@ Begin Arpeggio
    Rvolume 10
    Range .9
    Direction Random
-   Sequence  {1 4 90; 2 4 90; 3 4 90; 3.5 8 90; 4. 8 90 } {1.5 8 90; 2.5 8 90; 3 4 90; 4 4 90}
+   Sequence  {1 4 90; 2 4 90; 3 4 90; 3.5 8 90; 4. 8 90 } \
+             {1.5 8 90; 2.5 8 90; 3 4 90; 4 4 90}
 End
 
 DefGroove BossaNovaPlus    Basic rhythm with apreggiating guitar.

@@ -103,7 +103,7 @@ End
 DefGroove PopSpiritualPlus   Let the guitar apreggiate.
 Begin Chord-Sus
   Groove PopSpiritualSus
-  Volume -40
+  Volume -40%
 End
 
 DefGroove PopSpiritualSusPlus  Organ and guitar.

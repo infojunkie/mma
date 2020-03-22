@@ -1,11 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2019.2 (Released June 5, 2019) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>Preset Values</TITLE>
 <META NAME="description" CONTENT="Preset Values">
@@ -13,53 +9,50 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-2">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019.2">
 
 <LINK REL="STYLESHEET" HREF="mma-plugins.css">
 
 <LINK REL="next" HREF="node4.html">
 <LINK REL="previous" HREF="node2.html">
-<LINK REL="up" HREF="mma-plugins.html">
 <LINK REL="next" HREF="node4.html">
 </HEAD>
 
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html49"
-  HREF="node4.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html47"
-  HREF="mma-plugins.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html41"
-  HREF="node2.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html50"
-  HREF="node4.html">Returning Values</A>
-<B> Up:</B> <A NAME="tex2html48"
-  HREF="mma-plugins.html">Plugins</A>
-<B> Previous:</B> <A NAME="tex2html42"
-  HREF="node2.html">Entry Points</A>
+<B> Next:</B> <A
+ HREF="node4.html">Returning Values</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="node2.html">Entry Points</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION00300000000000000000">
+<H1><A ID="SECTION00300000000000000000">
 Preset Values</A>
 </H1>
 
 <P>
 When a plugin is initialized the dictionary <SPAN  CLASS="textbf">PlugInName</SPAN> is
-created in plugin module's namespace. It contains the following items:
+created in the plugin module's namespace. It contains the following items:
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><PRE>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
    'name' - the name of the plugin. The case of the containing
 directory is preserved
 
@@ -70,27 +63,18 @@ example:  /home/bob/MMA/plugins
 /home/bob/MMA/plugins/hello/plugin.py
 
    'cmd'  - the registered command name. For example, @HELLO
-</PRE>
-</DD>
-</DL>
+</PRE></td></tr></table>
 
 <P>
 You can access any of these values in your module using the notation:
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><PRE>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
     zz = plugInName['name']
-</PRE>
-</DD>
-</DL>
+</PRE></td></tr></table>
 
 <P>
 <BR><HR>
-<ADDRESS>
-Bob van der Poel
-2016-06-11
-</ADDRESS>
+
 </BODY>
 </HTML>

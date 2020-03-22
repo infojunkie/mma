@@ -117,7 +117,7 @@ DefGroove GuitarBalladSus  Guitar arpeggios with a bit of strings.
 Groove GuitarBallad1
 Begin Chord-Sus
     Groove GuitarBalladSus
-    Volume -20
+    Volume -20%
 End
 
 DefGroove GuitarBallad1Sus   Guitar arpeggios with chords and strings.

@@ -62,6 +62,7 @@ You might look at beatDivision and adjust the offsets using
 """
 
 import sys
+from . import gbl
 
 class MidiData:
     def __init__(self):
@@ -111,7 +112,7 @@ class MidiData:
         """ Return a string of count chars. """
 
         s = self.midifile[self.offset:self.offset+count]
-        s = s.decode(encoding="cp1252")
+        s = s.decode(encoding=gbl.encoding)
         self.offset += count
         return s
 

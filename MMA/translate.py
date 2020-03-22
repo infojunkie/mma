@@ -29,7 +29,7 @@ import MMA.midiC
 
 from . import gbl
 from MMA.common import *
-
+import MMA.debug
 
 """ Translation table for VOICE. This is ONLY used when a voice is set
     from the VOICE command. If a translation exists the translation is
@@ -50,16 +50,16 @@ class Vtable:
 
         return ' '.join(l)
 
-    def set(self, ln):
+    def create(self, ln):
         """ Set a name/alias for voice translation, called from parser. """
 
         if not ln:
             self.table = {}
-            if gbl.debug:
-                print("Voice Translation table reset.")
+            if MMA.debug.debug:
+                dPrint("Voice Translation table reset.")
             return
 
-        ln, opts = opt2pair(ln, toupper=1)
+        ln, opts = opt2pair(ln, toupper=True)
 
         if ln:
             error("VOICETR: Each translation pair must be in the format Alias=Voice.")
@@ -67,8 +67,8 @@ class Vtable:
         for v, a in opts:
             self.table[v] = a
 
-        if gbl.debug:
-            print("Voice Translations: %s" % ' '.join(["%s=%s" % (v, a) for v, a in opts]))
+        if MMA.debug.debug:
+            dPrint("Voice Translations: %s" % ' '.join(["%s=%s" % (v, a) for v, a in opts]))
 
     def get(self, name):
         """ Return a translation or original. """
@@ -107,12 +107,12 @@ class Dtable:
 
         if not ln:
             self.table = {}
-            if gbl.debug:
-                print("DrumTone Translation table reset.")
+            if MMA.debug.debug:
+                dPrint("DrumTone Translation table reset.")
 
             return
 
-        ln, opts = opt2pair(ln, 1)
+        ln, opts = opt2pair(ln, toupper=True)
 
         if ln:
             error("TONETR: Each translation pair must be in the format Tone=NewTone.")
@@ -128,8 +128,8 @@ class Dtable:
 
             self.table[v1] = a1
 
-        if gbl.debug:
-            print("TONETR Translations: %s" % 
+        if MMA.debug.debug:
+            dPrint("TONETR Translations: %s" % 
                   ' '.join(["%s(%s)=%s" % (v, MMA.midiC.drumToValue(v), 
                                            MMA.midiC.drumToValue(a)) for v, a in opts]))
 
@@ -176,8 +176,8 @@ class VoiceVolTable:
 
         if not ln:
             self.table = {}
-            if gbl.debug:
-                print("Voice Volume Adjustment table reset.")
+            if MMA.debug.debug:
+                dPrint("Voice Volume Adjustment table reset.")
 
             return
 
@@ -198,8 +198,8 @@ class VoiceVolTable:
 
             self.table[val] = a / 100.
 
-        if gbl.debug:
-            print("VOICEVOLTR: %s" % ' '.join(["%s=%s" % (v.upper(), a) for v, a in opts]))
+        if MMA.debug.debug:
+            dPrint("VOICEVOLTR: %s" % ' '.join(["%s=%s" % (v.upper(), a) for v, a in opts]))
 
     def get(self, v, vol):
         """ Return an adjusted value or original. """
@@ -230,12 +230,12 @@ class DrumVolTable:
 
         if not ln:
             self.table = {}
-            if gbl.debug:
-                print("DRUMVOLTR: Adjustment table reset.")
+            if MMA.debug.debug:
+                dPrint("DRUMVOLTR: Adjustment table reset.")
 
             return
 
-        ln, opt = opt2pair(ln, 1)
+        ln, opt = opt2pair(ln, toupper=True)
 
         if ln:
             error("DRUMVOLTR: Each option must be in the format TONE=AJUSTMENT.")
@@ -252,8 +252,8 @@ class DrumVolTable:
 
             self.table[val] = a / 100.
 
-        if gbl.debug:
-            print("DRUMVOLTR: %s" %
+        if MMA.debug.debug:
+            dPrint("DRUMVOLTR: %s" %
                   ' '.join(["%s=%s" % (MMA.midiC.valueToDrum(val), a) for v, a in opt]))
 
 

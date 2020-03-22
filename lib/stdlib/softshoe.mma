@@ -49,7 +49,8 @@ End
 Begin Drum-OHH
 	Tone      OpenHiHat
 	Sequence  { D13 ; D24 Shift .75 } / / {D1234 ; D12 Shift .75; D34 Shift .5}
-	Volume    pp   /   pp-10   pp-20
+	Volume    pp
+    Volume    100%   100%   -10%    -20%
 	Rtime     2
 	Rvolume   10
 End

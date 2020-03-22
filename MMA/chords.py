@@ -27,6 +27,7 @@ from MMA.common import *
 from MMA.chordtable import chordlist
 import MMA.roman
 from MMA.keysig import keySig  # needed for voicing mode keycenter()
+import MMA.debug
 
 import copy
 
@@ -83,8 +84,8 @@ def defChord(ln):
 
     chordlist[name] = (notes, scale, "User Defined")
 
-    if gbl.debug:
-        print("ChordType '%s', %s" % (name, chordlist[name]))
+    if MMA.debug.debug:
+        dPrint("ChordType '%s', %s" % (name, chordlist[name]))
 
 
 def printChord(ln):
@@ -251,7 +252,7 @@ class ChordNotes:
         """
 
         slash = None
-        wmessage = ''   # slash warning msg, builder needed for gbl.rmShow
+        wmessage = ''   # slash warning msg, builder needed for debug.rmShow
         octave = 0
         inversion = 0
         polychord = None
@@ -275,8 +276,8 @@ class ChordNotes:
         if ':' in name:
             name, barre = name.split(':', 1)
             barre = stoi(barre, "Expecting integer after ':'")
-            if barre < -20 or barre > 20:
-                error("Chord barres limited to -20 to 20 (more is silly)")
+            if barre < -127 or barre > 127:
+                error("Chord barres limited to -127 to 127 (more than about +/-20 is silly)")
         else:
             barre = 0
 
@@ -423,7 +424,7 @@ class ChordNotes:
                         wmessage += "\nChords with '%s': %s" % (slash, ' '.join(sorted(ll)))
 
                     slashPrinted.append(t)  # only print this chord/slash once
-                if not gbl.rmShow:
+                if not MMA.debug.rmShow:
                     warning(wmessage)
 
         if polychord:
@@ -439,14 +440,14 @@ class ChordNotes:
             self.noteListLen = len(self.noteList)
             self.bnoteList = tuple(self.noteList)
 
-        if gbl.rmShow:  # Display roman debug (Debug=Roman)
+        if MMA.debug.rmShow:  # Display roman debug (Debug=Roman)
             if slash:
                 a = '/' + slash
             else:
                 a = ''
             if wmessage:
                 a += '   ' + wmessage
-            print(" %03s] %-09s -> %s%s" % (gbl.lineno, startingName, name, a))
+            dPrint(" %03s] %-09s -> %s%s" % (gbl.lineno, startingName, name, a))
         
     def reset(self):
         """ Restores notes array to original, undoes mangling. """
@@ -459,7 +460,7 @@ class ChordNotes:
         """ Apply an inversion to a chord.
 
         This does not reorder any notes, which means that the root note of
-        the chord reminds in postion 0. We just find that highest/lowest
+        the chord reminds in position 0. We just find that highest/lowest
         notes in the chord and adjust their octave.
 
         NOTE: Done on the existing list of notes. Returns None.
@@ -467,7 +468,6 @@ class ChordNotes:
 
         if n:
             c = self.noteList[:]
-
             while n > 0:        # Rotate up by adding 12 to lowest note
                 n -= 1
                 c[c.index(min(c))] += 12

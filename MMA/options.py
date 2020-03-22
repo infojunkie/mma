@@ -29,10 +29,8 @@ import os
 import MMA.docs
 import MMA.parse
 import MMA.chords
-import MMA.alloc
 import MMA.volume
 import MMA.exits
-import MMA.regplug
 
 from . import gbl
 from MMA.common import *
@@ -53,7 +51,9 @@ def cmdError(e):
     error("CmdLine: the command line option '%s' is not permitted in a MMA script." % e)
 
 def opts(l=None):
-    """ Option parser. """
+    """ Option parser. 
+         FIXME: this code segment is much too long!
+    """
 
     if not l:
         l = sys.argv[1:]
@@ -62,8 +62,8 @@ def opts(l=None):
         internal = True
 
     try:
-        opts, args = getopt.gnu_getopt(l,
-                                       "b:B:dpsS:ri:wneom:f:M:cLgGvVD:01PT:I:", [])
+        opts, args = getopt.gnu_getopt(
+                         l, "b:B:dpsS:ri:wneom:f:M:cLgGvVD:01PT:I:x:", [])
     except getopt.GetoptError:
         usage()
 
@@ -75,47 +75,26 @@ def opts(l=None):
             setBarRange(a)
             gbl.barRange.append("ABS")
 
-        elif o == '-d':
-            gbl.debug = gbl.Ldebug = 1
-
-        elif o == '-o':
-            gbl.showFilenames = gbl.LshowFilenames = 1
-
-        elif o == '-p':
-            gbl.pshow = gbl.Lpshow = 1
-
-        elif o == '-s':
-            gbl.seqshow = gbl.Lseqshow = 1
-
+        elif o in ('-d', '-o', '-p', '-s', '-r', '-w', '-n', '-e', '-c'):
+            import MMA.debug   # circular dep. problem
+            MMA.debug.cmdLineDebug(o[-1])
+        
         elif o == '-S':
             ln = a.split('=', 1)
             macros.setvar(ln)
-
-        elif o == '-r':
-            gbl.showrun = gbl.Lshowrun = 1
-
-        elif o == '-w':
-            gbl.noWarn = gbl.LnoWarn = 1
-
-        elif o == '-n':
-            gbl.noOutput = gbl.LnoOutput = 1
-
-        elif o == '-e':
-            gbl.showExpand = gbl.LshowExpand = 1
-
-        elif o == '-c':
-            gbl.chshow = gbl.Lchshow = 1
 
         elif o == '-L':
             gbl.printProcessed = True
 
         elif o == '-f':
+            import MMA.paths
             gbl.outfile = a
             if internal:
                 warning("Output filename overwritten by -f CmdLine option.")
                 MMA.paths.createOutfileName(".mid")
 
         elif o == '-i':
+            import MMA.paths
             if internal:
                 cmdError("-i")
             MMA.paths.setRC(a)
@@ -171,6 +150,7 @@ def opts(l=None):
                 gbl.createDocs = 99
 
             elif a == 'k':
+                import MMA.alloc
                 # important! Needs a space before the trailing LF for mma.el
                 print("Base track names: %s \n" % 
                       ' '.join([a for a in sorted(MMA.alloc.trkClasses)]))
@@ -186,10 +166,12 @@ def opts(l=None):
                 usage()
 
         elif o == '-0':
-            gbl.synctick = 1
+            import MMA.sync
+            MMA.sync.synchronize(['START'])
 
         elif o == '-1':
-            gbl.endsync = 1
+            import MMA.sync
+            MMA.sync.synchronize(['END'])
 
         elif o == '-P':
             gbl.playFile = 1
@@ -199,6 +181,7 @@ def opts(l=None):
             # the plugin security. Use -II for security override.
             # It does mean you can't have plugin called "I", but
             # you could use "i" and it'll work.
+            import MMA.regplug
             if a == 'I':
                 MMA.regplug.secOverRide = True
 
@@ -211,6 +194,7 @@ def opts(l=None):
                 
 
         elif o == '-V':
+            import MMA.file
             if internal:
                 cmdError("-V")
             gbl.playFile = 2  # signal create and play groove
@@ -259,6 +243,10 @@ def opts(l=None):
 
             args = [tfile]
 
+        elif o=='-x':  # any one of some xtra, seldom used, options
+            import MMA.xtra
+            MMA.xtra.xoption(a, args)
+            
         else:
             usage()      # unreachable??
 
@@ -281,9 +269,11 @@ def opts(l=None):
 
     if gbl.infile == '-':
         gbl.infile = 1
-
+        
         if not gbl.outfile:
-            error("Input from STDIN specified. Use -f to set an output filename.")
+            import MMA.debug   # circular dep. problem
+            if not(MMA.debug.noOutput):
+                error("Input from STDIN specified. Use -f to set an output filename.")
 
 
 def usage(msg=''):
@@ -291,7 +281,7 @@ def usage(msg=''):
 
     txt = [
         "MMA - Musical Midi Accompaniment",
-        "  Copyright 2003-14, Bob van der Poel. Version %s" % gbl.version,
+        "  Copyright 2003-19, Bob van der Poel. Version %s" % gbl.version,
         "  Distributed under the terms of the GNU Public License.",
         "  Usage: mma [opts ...] INFILE [opts ...]",
         "",
@@ -327,6 +317,9 @@ def usage(msg=''):
         " -v    display Version number",
         " -V <groove [options]> preview play groove",
         " -w    disable Warning messages",
+        " -xCHORDS=<chord list> test listed chords for validity",
+        " -xNOCREDIT disable MMA credits in Midi Meta track",
+        " -xCHECKFILE=<filename> check chords in file",
         " -0    create sync at start of all channel tracks",
         " -1    create sync at end of all channel tracks",
         " -     a single hyphen signals to use STDIN instead of a file"]
@@ -342,7 +335,7 @@ def usage(msg=''):
 
 def setBarRange(v):
     """ Set a range of bars to compile. This is the -B/b option."""
-
+    
     if gbl.barRange:
         error("Only one -b or -B permitted.")
 

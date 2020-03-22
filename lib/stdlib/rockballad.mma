@@ -28,7 +28,6 @@ Include stdpats
 
 /////////////////////////////////////////////////
 ////// RockBallad
-
 SeqSize 4
 
 Begin Drum
@@ -159,17 +158,17 @@ Groove RockBalladIntro
 Chord-Sus Groove RockBalladVoice
 
 Begin Chord
-	  Volume -10
+	  Volume -10%
 	  Sequence  C13 / / L1
 	  Articulate 110
 End
 
-Drum  Volume -20
-Drum-Snare Volume -20
-Drum-Kick  Volume -10
+Drum  Volume -20%
+Drum-Snare Volume -20%
+Drum-Kick  Volume -10%
 
-Bass Volume -20
-Walk Volume -20
+Bass Volume -20%
+Walk Volume -20%
 
 
 DefGroove RockBalladSusIntro  4 bar intro with mostly strings.

@@ -1,11 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2019.2 (Released June 5, 2019) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>Standard Interface</TITLE>
 <META NAME="description" CONTENT="Standard Interface">
@@ -13,64 +9,63 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-2">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019.2">
 
 <LINK REL="STYLESHEET" HREF="mma-plugins.css">
 
 <LINK REL="next" HREF="node6.html">
 <LINK REL="previous" HREF="node4.html">
-<LINK REL="up" HREF="mma-plugins.html">
 <LINK REL="next" HREF="node6.html">
 </HEAD>
 
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html69"
-  HREF="node6.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html67"
-  HREF="mma-plugins.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html61"
-  HREF="node4.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html70"
-  HREF="node6.html">Tutorial</A>
-<B> Up:</B> <A NAME="tex2html68"
-  HREF="mma-plugins.html">Plugins</A>
-<B> Previous:</B> <A NAME="tex2html62"
-  HREF="node4.html">Returning Values</A>
+<B> Next:</B> <A
+ HREF="node6.html">Tutorial</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="node4.html">Returning Values</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 <!--Table of Child-Links-->
-<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html71"
+<LI><A ID="tex2html19"
   HREF="node5.html#SECTION00510000000000000000">How to use pluginUtils module</A>
-<LI><A NAME="tex2html72"
+<LI><A ID="tex2html20"
   HREF="node5.html#SECTION00520000000000000000">Function documentation</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
 
-<H1><A NAME="SECTION00500000000000000000">
+<H1><A ID="SECTION00500000000000000000">
 Standard Interface</A>
 </H1>
 
 <P>
-To make life easier for plugin authors, a module, <TT><SPAN  CLASS="textbf">pluginUtils.py</SPAN></TT>,  has been added to
+To make life easier for plugin authors, a module, <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">pluginUtils.py</SPAN></SPAN>,  has been added to
 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .<A NAME="tex2html1"
-  HREF="#foot249"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .<A ID="tex2html1"
+  HREF="#foot263"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 
-<H1><A NAME="SECTION00510000000000000000">
+<H1><A ID="SECTION00510000000000000000">
 How to use pluginUtils module</A>
 </H1>
 
@@ -93,9 +88,7 @@ To explain how to use pluginUtils, we have commented the source of the
 StrumPattern plugin.
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><PRE>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
     # We import the plugin utilities
     from MMA import pluginUtils as pu
 
@@ -136,7 +129,7 @@ StrumPattern plugin.
     pu.setPluginDoc("""
     The pattern is specified as a string of comma-separed values, that are equally spaced into the bar.
     
-   ...... Use the command ``mma -i strumpattern'' to see the complete documentation!
+   ...... Use the command &ldquo;mma -i strumpattern&rdquo; to see the complete documentation!
         
     Each time it's used, %NAME% creates a clone track of the provided one using the voice MutedGuitar for chucks and muted strums.
     Its name is the name of the main track with an appended "-Muted", if you need to change it you must do so every time after using %NAME%.
@@ -157,7 +150,7 @@ StrumPattern plugin.
     def printUsage():
         pu.printUsage()
 
-    # This is a track plugin, so we define track_run(trackname, line).
+    # This is a track plugin, so we define trackRun(trackname, line).
     # For non-track plugins we use run(line).
     # When using this library, only one of the two can be used.
     def trackRun(trackname, line):
@@ -191,13 +184,11 @@ StrumPattern plugin.
         pu.addCommand("{}-Muted Voice MutedGuitar".format(trackname))
         pu.addCommand("{}-Muted Sequence {}".format(trackname, all_muted))
         pu.sendCommands()
-</PRE>
-</DD>
-</DL>
+</PRE></td></tr></table>
 
 <P>
 
-<H1><A NAME="SECTION00520000000000000000">
+<H1><A ID="SECTION00520000000000000000">
 Function documentation</A>
 </H1>
 
@@ -262,8 +253,8 @@ Following are the available functions in the pluginUtil.py module.
 <P>
 </DD>
 <DT><STRONG>printUsage()</STRONG></DT>
-<DD>Prints documentation using data from addArgument, setAuthor, setDescription,
-    setTrackType.
+<DD>Prints documentation using data from addArgument, setAuthor,
+    setDescription, setSynopsis and setTrackType.
 
 <P>
 </DD>
@@ -282,6 +273,11 @@ Following are the available functions in the pluginUtil.py module.
 
 <P>
 </DD>
+<DT><STRONG>setSynopsis(descr)</STRONG></DT>
+<DD>Sets a synopsis of the plugin.
+
+<P>
+</DD>
 <DT><STRONG>setMinMMAVersion(major, minor)</STRONG></DT>
 <DD>Sets the miminum 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  version required, throws an error if not met.
@@ -294,7 +290,8 @@ Following are the available functions in the pluginUtil.py module.
 <P>
 </DD>
 <DT><STRONG>setTrackType(*types)</STRONG></DT>
-<DD>Sets track types to which the plugin applies; if empty everything is 
+<DD>Sets track types to which the plugin applies; if empty everythi
+  ng is 
     accepted.
 
 <P>
@@ -309,7 +306,7 @@ Following are the available functions in the pluginUtil.py module.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot249">....</A><A
+<DT><A ID="foot263">....</A><A
  HREF="node5.html#tex2html1"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>The module has been authored by Ignazio Di Napoli
   &lt;neclepsio@gmail.com&gt; and all kudos should go to him.
@@ -318,26 +315,23 @@ Following are the available functions in the pluginUtil.py module.
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html69"
-  HREF="node6.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html67"
-  HREF="mma-plugins.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html61"
-  HREF="node4.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html70"
-  HREF="node6.html">Tutorial</A>
-<B> Up:</B> <A NAME="tex2html68"
-  HREF="mma-plugins.html">Plugins</A>
-<B> Previous:</B> <A NAME="tex2html62"
-  HREF="node4.html">Returning Values</A></DIV>
+<B> Next:</B> <A
+ HREF="node6.html">Tutorial</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="node4.html">Returning Values</A></DIV>
 <!--End of Navigation Panel-->
-<ADDRESS>
-Bob van der Poel
-2016-06-11
-</ADDRESS>
+
 </BODY>
 </HTML>

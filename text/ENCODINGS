@@ -14,5 +14,8 @@ MMA does accept some "extended" characters $B0 (176) and $F8 (248) which
 
 Now, this will all work only if we open the file in the right encoding. To
  make things "pretty much work" we use the encoding of "cp1252". If this
- is a problem, please let us know!
+ is a problem, please let us know! However, in the latest versions of MMA
+ we have a new shell (bash) environment variable "MMA_ENCODING" which can
+ be set to change the default encoding.
+ 
 

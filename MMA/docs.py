@@ -147,7 +147,10 @@ def docDefine(ln):
     if not gbl.createDocs:
         return
 
-    l = [ln[0], gbl.seqSize, ' '.join(ln[1:])]
+    des = ' '.join(ln[1:])  
+    if des[-1] != '.':  # Add a '.' to the end of all descriptions
+        des += '.'
+    l = [ln[0], gbl.seqSize, des]
     for a in sorted(gbl.tnames.keys()):
         c = gbl.tnames[a]
         if c.sequence and len(c.sequence) != c.sequence.count(None):
@@ -298,7 +301,6 @@ def totex(s):
     #s = s.replace("\\", "\\\\")
     s = s.replace("#", "\\#")
     s = s.replace("&", "\\&")
-
     q = "``"
     while s.count('"'):
         s = s.replace('"', q, 1)
@@ -450,6 +452,9 @@ def htmlGraph(f):
                     bwidth = .1
                 offset = (p.offset * pointx) // gbl.BperQ + (a * pointPerS)
                 if trk.vtype == 'CHORD' or trk.vtype == 'PLECTRUM':
+                    # A plectrum track with all 0 volumes is a mute, so ignore.
+                    if trk.vtype == 'PLECTRUM' and sum(p.vol) == 0:
+                        continue
                     ll = len(p.vol) - p.vol.count(0)
                     vol = sum(p.vol) // ll
                 else:

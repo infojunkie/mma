@@ -31,14 +31,14 @@ from MMA.common import *
 import MMA.auto
 import MMA.grooves
 import MMA.exits
+import MMA.debug
 
 outfile = ''
 
 libPath = []
 libDirs = []
 incPath = []
-
-plugPath = os.path.join(gbl.MMAdir, "plugins")
+plugPaths = []
 
 mmaStart = []
 mmaEnd   = []
@@ -52,11 +52,13 @@ def init():
     
     setLibPath([os.path.join(gbl.MMAdir, 'lib')], user=0)
     if not libPath or not os.path.isdir(libPath[0]):
-        print("Warning: Library directory not found (check mma.py).")
+        dPrint("Warning: Library directory not found (check mma.py).")
 
     setIncPath([os.path.join(gbl.MMAdir, 'includes')])
     if not incPath or not os.path.isdir(incPath[0]):
-        print("Warning: Include directory not found.")
+        dPrint("Warning: Include directory not found.")
+
+    setPlugPath([os.path.join(gbl.MMAdir, "plugins")] )
 
 
 ##################################
@@ -71,8 +73,8 @@ def mmastart(ln):
     for a in ln:
         gbl.mmaStart.append(MMA.file.fixfname(a))
 
-    if gbl.debug:
-        print("MMAstart set to: %s" % gbl.mmaStart)
+    if MMA.debug.debug:
+        dPrint("MMAstart set to: %s" % gbl.mmaStart)
 
 def mmaend(ln):
     """ Set/append to the mmaend list. """
@@ -83,8 +85,8 @@ def mmaend(ln):
     for a in ln:
         gbl.mmaEnd.append(MMA.file.fixfname(a))
 
-    if gbl.debug:
-        print("MMAend set to: %s" % gbl.mmaEnd)
+    if MMA.debug.debug:
+        dPrint("MMAend set to: %s" % gbl.mmaEnd)
 
 def setRC(f):
     """ Set a rc file from the command line."""
@@ -111,8 +113,8 @@ def readRC():
     for i in rcfiles:
         f = MMA.file.locFile(i, None)
         if f:
-            if gbl.showrun:
-                print("Reading RC file '%s'" % f)
+            if MMA.debug.showrun:
+                dPrint("Reading RC file '%s'" % f)
             MMA.parse.parseFile(f)
             readDone = 1
             break
@@ -120,7 +122,7 @@ def readRC():
             if mmaRC:
                 error("Specified init file '%s' not found" % mmaRC)
 
-    if not readDone and gbl.debug:
+    if not readDone and MMA.debug.debug:
         gbl.lineno = -1
         warning("No RC file was found or processed")
 
@@ -200,8 +202,8 @@ def setLibPath(ln, user=1):
 
     expandLib(user)
 
-    if gbl.debug:
-        print("LibPath set: %s" % ' '.join(libPath))
+    if MMA.debug.debug:
+        dPrint("LibPath set: %s" % ' '.join(libPath))
 
 
 def expandLib(user=0):
@@ -233,8 +235,8 @@ def expandLib(user=0):
 
     MMA.auto.grooveDB = []
 
-    if gbl.debug:
-        print("LibPath expansion set to:", ' '.join(libDirs))
+    if MMA.debug.debug:
+        dPrint("LibPath expansion set to: %s" % ' '.join(libDirs))
 
 
 def setIncPath(ln):
@@ -247,8 +249,8 @@ def setIncPath(ln):
         f = MMA.file.fixfname(l)
         incPath.append(f)
 
-    if gbl.debug:
-        print("IncPath set: %s" % ' '.join(incPath))
+    if MMA.debug.debug:
+        dPrint("IncPath set: %s" % ' '.join(incPath))
 
 ###########################################
 # Output pathname
@@ -266,8 +268,8 @@ def setOutPath(ln):
     else:
         gbl.outPath = MMA.file.fixfname(ln[0])
 
-    if gbl.debug:
-        print("OutPath set to '%s'" % gbl.outPath)
+    if MMA.debug.debug:
+        dPrint("OutPath set to '%s'" % gbl.outPath)
 
 
 def createOutfileName(extension):
@@ -300,3 +302,19 @@ def createOutfileName(extension):
         outfile += extension
 
     outfile = MMA.file.fixfname(outfile)
+
+
+##############################################
+# Set up the plugin paths
+
+def setPlugPath(ln):
+    """ Set the plugPath variable.  """
+
+    global plugPaths
+    plugPaths = []
+
+    for l in ln:
+        plugPaths.append( MMA.file.fixfname(l) )
+
+    if MMA.debug.debug:
+        dPrint("PlugPath set: %s" % ' '.join(plugPaths))

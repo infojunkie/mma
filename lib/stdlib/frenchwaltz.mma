@@ -147,12 +147,12 @@ If Eq $BassRegister 3
 Endif
 
 If Eq $BassRegister 4
-  Chord-L Volume -10
-  Chord-M Volume -10
-  Chord-H Volume -10
-  Bass-L  Volume -10
-  Bass-M  Volume -10
-  Bass-H  Volume -10
+  Chord-L Volume -10%
+  Chord-M Volume -10%
+  Chord-H Volume -10%
+  Bass-L  Volume -10%
+  Bass-M  Volume -10%
+  Bass-H  Volume -10%
 Endif
 
 If Eq $BassRegister 5
@@ -266,15 +266,15 @@ End
 
 Begin Chord-L
        Sequence L1
-	   Volume -30
+	   Volume -30%
 End
 Begin Chord-M 
       Sequence L1
-	  Volume -30
+	  Volume -30%
 End
 Begin Chord-H
        Sequence L1
-	   Volume -30
+	   Volume -30%
 End
 Bass-L        Sequence -
 Bass-M	      Sequence -
@@ -325,15 +325,15 @@ End
 
 Begin Chord-L
        Sequence L1
-	   Volume -30
+	   Volume -30%
 End
 Begin Chord-M
        Sequence L1
-	   Volume -30
+	   Volume -30%
 End
 Begin Chord-H 
       Sequence L1
-	  Volume -30
+	  Volume -30%
 End
 Bass-L        Sequence -
 Bass-M	      Sequence -
@@ -383,15 +383,15 @@ End
 
 Begin Chord-L
        Sequence L1
-	   Volume -30
+	   Volume -30%
 End
 Begin Chord-M
        Sequence L1
-	   Volume -30
+	   Volume -30%
 End
 Begin Chord-H
        Sequence L1
-	   Volume -30
+	   Volume -30%
 End
 Bass-L        Sequence -
 Bass-M	      Sequence -

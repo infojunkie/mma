@@ -22,24 +22,37 @@ Bob van der Poel <bob@mellowood.ca>
 
 """
 
+# This code pretends to implement a "safe" eval(). It really
+# isn't safe! There are many ways an evil coder can exploit
+# the safeguards. Unfortunately, python just isn't written to
+# have a really bullet proof eval(). Look at your scripts before
+# running things blindly!
+
 import re
 from math import *
+from random import randint
 from os import environ
-
-from MMA.common import error
+from MMA.common import *
 
 safeCmds = ['ceil', 'fabs', 'floor', 'exp', 'log', 'log10', 'pow',
             'sqrt', 'acos', 'asin', 'atan', 'atan2', 'cos', 'hypot',
             'sin', 'tan', 'degrees', 'radians', 'cosh', 'sinh',
-            'int', 'in', '.join', 'str', '.split', 'for']
+            'int', 'in', '.join', 'str', '.split', 'for', 'randint' ]
 
 
-def safe_eval(expr):
-    
-    #if expr.startswith( '_UNSAFE_'):
-    #    if environ.has_key('MMA_SAFE'):
-    #        return eval(expr[8:])
+def safeEnv(var):
+    """ Return the value of an env variable. 
+        On my system non-existant env vars register as None and
+        vars set to '' return as '' ... so we convert them all to
+        ''. MMA doesn't have a NoneType.
+    """
 
+    ret = environ.get(var)
+    if ret == None:
+        ret == ''
+    return ret
+
+def safeEval(expr):
     toks = re.split(r'([a-zA-Z_\.]+|.)', expr)
 
     for t in toks:
@@ -49,3 +62,4 @@ def safe_eval(expr):
         return eval(expr)
     except:
         error("Illegal operation in '%s'." % expr)
+

@@ -132,13 +132,13 @@ Begin Chord-Sus
 	Volume p
 End
 
-Chord-Strings  Volume -30
+Chord-Strings  Volume -30%
 
 DefGroove BWMarchSus   Add sustained strings.
 
 Begin Arpeggio
 	Groove BWMarchPlus
-	Volume -40
+	Volume -40%
 End
 
 DefGroove BWMarchSusPlus   Sustained strings and apregiating flute.

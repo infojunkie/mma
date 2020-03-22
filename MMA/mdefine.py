@@ -46,7 +46,7 @@ def mdefine(ln):
     if name.upper() == 'Z':
         error("The name 'Z' is reserved")
 
-    mdef.set(name, ' '.join(ln[1:]))
+    mdef.create(name, ' '.join(ln[1:]))
 
 
 def trackMdefine(name, ln):
@@ -68,7 +68,7 @@ class Mdefine:
         except:
             error("The MDEFINE pattern %s has not been defined" % name)
 
-    def set(self, name, ln):
+    def create(self, name, ln):
         """ Parse a MDEFINE line.
 
             The line must be in the form:

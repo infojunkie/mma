@@ -140,12 +140,12 @@ SeqSize 1
 
 Begin Drum-hat
     Sequence { D13 * 3 }
-	Volume +20
+	Volume +20%
 End
 
 Begin Drum-Snare
     Sequence { D13 * 3 }
-	Volume +10
+	Volume +10%
 End
 
 Begin Chord 

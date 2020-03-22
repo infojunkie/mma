@@ -147,7 +147,7 @@ Groove RockWaltz
 
 Bass Sequence -
 Begin Walk
-    Volume -30
+    Volume -30%
     Sequence	W123
 End
 DefGroove RockWaltzWalk         Walking bass version of RockWaltz.		

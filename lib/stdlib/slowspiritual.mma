@@ -101,7 +101,7 @@ End
 DefGroove SlowSpiritualPlus   Let the guitar apreggiate.
 Begin Chord-Sus
   Groove SlowSpiritualSus
-  Volume -40
+  Volume -40%
 End
 
 DefGroove SlowSpiritualSusPlus  Organ and guitar.

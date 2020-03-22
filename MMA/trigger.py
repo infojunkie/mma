@@ -25,6 +25,7 @@ All trigger functions.
 """
 
 from MMA.common import *
+import MMA.debug
 from . import gbl
 import MMA.truncate
 
@@ -196,7 +197,7 @@ def setTrigger(name, ln):
         ln = ln.split()
         sequence = sequence[0]
 
-    ln, opts = opt2pair(ln, toupper=False)
+    ln, opts = opt2pair(ln)
 
     ##########################
     # do opts with args
@@ -238,7 +239,11 @@ def setTrigger(name, ln):
 
         elif cmd == 'MEASURES':
             for a in opt.split(','):
-                trigger.measures.append(a)
+                if not a.isdigit():
+                    warning("%s Trigger: Measures should be bar labels, not '%s'."
+                            "This trigger will be ignored." % (self.name, a))
+                    continue
+                trigger.measures.append(a.lstrip('0'))
 
         elif cmd == 'OVERRIDE':
             if opt.upper() in ('ON', 1, 'TRUE'):
@@ -290,7 +295,7 @@ def setTrigger(name, ln):
         else:
             error("%s Trigger '%s' is an unknown command." % (self.name, cmd))
 
-    if gbl.debug:
+    if MMA.debug.debug:
         MMA.debug.trackSet(self.name, "TRIGGER")
 
 def getTriggerOptions(self):

@@ -173,6 +173,32 @@ Walk         Sequence  -
 
 DefGroove R&B-BalladIntro     A bit laid-back, 4 bar intro.
 
+/////////////////////////////////////////////
+/// Fill, for endings
+
+Groove R&B-Ballad
+
+Begin Alltracks
+	Rskip 0
+	Rtime 0
+End
+Seqsize 1
+
+Drum-Kick    Sequence   D1
+Drum-Clap    Sequence   D1
+Drum-Snare   Sequence   D1234
+
+Chord        Sequence   C13
+Chord-Organ  Sequence   -
+
+Bass         Sequence  -
+Begin Walk
+    Sequence  W1234
+    Articulate 50
+	Volume ff
+End
+
+DefGroove R&B-BalladFill Bass Heavy one bar fill.
 
 /////////////////////////////////////////////
 /// Ending

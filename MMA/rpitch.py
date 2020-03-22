@@ -25,7 +25,7 @@ Bob van der Poel <bob@mellowood.ca>
 
 from MMA.common import *
 from . import gbl
-import MMA.debug
+import MMA.debug 
 
 import random
 
@@ -140,7 +140,7 @@ def setRPitch(name, ln):
                 error("%s RPitch %s Unknown options." % o)
 
 
-    if gbl.debug:
+    if MMA.debug.debug:
          MMA.debug.trackSet(self.name, "RPitch")
 
 def doRpitch(self, note):

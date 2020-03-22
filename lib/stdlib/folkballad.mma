@@ -71,6 +71,33 @@ End
 
 DefGroove FolkBallad1   Alternating chord and arpeggio work.
 
+// Plus versions
+
+Groove FolkBallad
+
+Begin Arpeggio-Plus
+	Voice Piano1
+	Sequence  {A4; 1.5 8 90; 3.5 8 90} \
+              {A2; 1.5 4 90; 3.5 4 90} \
+              {A4 Shift .5} \
+              {A2; A4 Shift .5}
+    Harmony OpenBelow+OpenAbove
+	Articulate 130
+	Rvolume 0,20
+	Rskip 50
+    Range 1
+    SeqRnd ON
+    Direction Random
+	Volume m
+	Octave 5
+End
+
+DefGroove FolkBalladPlus  Basic arpeggio ballad with counter melody
+
+Groove FolkBallad1
+Arpeggio-Plus Groove FolkBalladPlus
+DefGroove FolkBallad1Plus  Alternating chord/arpeggio ballad with counter melody
+
 // Add sustained voice
 
 Groove FolkBallad
@@ -86,12 +113,17 @@ Begin Chord-Sus
 End
 
 DefGroove FolkBalladSus     Arpeggios with harmonica
+Arpeggio-Plus Groove FolkBalladPlus
+DefGroove FolkBalladSusPlus Arpeggios, counter melody and harmonica
 
 Groove FolkBallad1
 
 Chord-Sus Groove FolkBalladSus
 
-DefGroove FolkBallad1Sus   Chord and apreggios with harmonica
+DefGroove FolkBallad1Sus   Chord/Arpeggios with harmonica
+
+Arpeggio-Plus Groove FolkBalladPlus
+DefGroove FolkBallad1SusPlus Chord/Arpeggios, counter melody and harmonica
 
 
 // Introduction

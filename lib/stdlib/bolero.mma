@@ -160,7 +160,7 @@ Begin Arpeggio-Guitar
 End
 
 Begin Plectrum
-	Volume -40
+	Volume -40%
 	Rskip 30
 End
 

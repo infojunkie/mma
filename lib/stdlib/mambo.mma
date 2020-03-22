@@ -155,7 +155,7 @@ DefGroove Mambo3    Add jazz guitar chords.
 //////// Sustained versions
 
 Groove Mambo
-Alltracks Volume -20
+Alltracks Volume -20%
 Begin Chord-Sus
 	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
 	SeqRnd On
@@ -171,17 +171,17 @@ End
 DefGroove MamboSus         Sustained version.
 
 Groove Mambo1
-Alltracks Volume -20
+Alltracks Volume -20%
 Chord-Sus Groove MamboSus
 DefGroove Mambo1Sus         Sustain and pizzicato arpeggios.
 
 Groove Mambo2
-Alltracks Volume -20
+Alltracks Volume -20%
 Chord-Sus Groove MamboSus
 DefGroove Mambo2Sus         Sustain and articulated Marimbas.
 
 Groove Mambo3
-Alltracks Volume -20
+Alltracks Volume -20%
 Chord-Sus Groove MamboSus
 DefGroove Mambo3Sus         Sustain and guitar chords.
 

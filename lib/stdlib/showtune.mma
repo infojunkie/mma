@@ -95,8 +95,8 @@ Begin Arpeggio-Piz
 	Sequence   z    z   z  A4
 End
 
-Chord-Flute Volume -20
-Chord-String Volume -20
+Chord-Flute Volume -20%
+Chord-String Volume -20%
 
 DefGroove ShowTune1   Add in pizzicato strings.
 
@@ -175,7 +175,7 @@ Begin Arpeggio-Piz
    Sequence  z    z    z    A8
    Range 2
    Octave 4
-   Volume -20
+   Volume -20%
 End
 
 DefGroove ShowTuneIntro   4 bar intro with plucked strings.

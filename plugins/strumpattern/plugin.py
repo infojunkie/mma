@@ -109,7 +109,7 @@ Version 1.0.
 def printUsage():
     pu.printUsage()
 
-# This is a track plugin, so we define track_run(trackname, line).
+# This is a track plugin, so we define trackrun(trackname, line).
 # For non-track plugins we use run(line).
 # When using this library, only one of the two can be used.
 def trackRun(trackname, line):

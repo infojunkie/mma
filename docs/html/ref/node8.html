@@ -1,11 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2019.2 (Released June 5, 2019) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>Musical Data Format</TITLE>
 <META NAME="description" CONTENT="Musical Data Format">
@@ -14,75 +10,75 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="distribution" CONTENT="global">
 
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019.2">
 
 <LINK REL="STYLESHEET" HREF="mma.css">
 
 <LINK REL="next" HREF="node9.html">
 <LINK REL="previous" HREF="node7.html">
-<LINK REL="up" HREF="mma.html">
 <LINK REL="next" HREF="node9.html">
 </HEAD>
 
 <BODY  bgcolor="#ffffff">
 
 <DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html582"
-  HREF="node9.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html580"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html574"
-  HREF="node7.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html583"
-  HREF="node9.html">Lyrics</A>
-<B> Up:</B> <A NAME="tex2html581"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html575"
-  HREF="node7.html">Riffs</A>
+<B> Next:</B> <A
+ HREF="node9.html">Lyrics</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node7.html">Riffs</A>
 <BR>
 <BR></DIV>
 <!--End of Navigation Panel-->
 <!--Table of Child-Links-->
-<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html584"
+<LI><A ID="tex2html523"
   HREF="node8.html#SECTION00810000000000000000">Bar Numbers</A>
-<LI><A NAME="tex2html585"
+<LI><A ID="tex2html524"
   HREF="node8.html#SECTION00820000000000000000">Bar Repeat</A>
-<LI><A NAME="tex2html586"
+<LI><A ID="tex2html525"
   HREF="node8.html#SECTION00830000000000000000">Chords</A>
-<LI><A NAME="tex2html587"
-  HREF="node8.html#SECTION00840000000000000000">Rests</A>
-<LI><A NAME="tex2html588"
+<LI><A ID="tex2html526"
+  HREF="node8.html#SECTION00840000000000000000">Rests (Muting)</A>
+<LI><A ID="tex2html527"
   HREF="node8.html#SECTION00850000000000000000">Positioning</A>
-<LI><A NAME="tex2html589"
+<LI><A ID="tex2html528"
   HREF="node8.html#SECTION00860000000000000000">Case Sensitivity</A>
-<LI><A NAME="tex2html590"
+<LI><A ID="tex2html529"
   HREF="node8.html#SECTION00870000000000000000">Track Chords</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
 
-<H1><A NAME="SECTION00800000000000000000"></A>
-<A NAME="sec-music"></A>
+<H1><A ID="SECTION00800000000000000000"></A>
+<A ID="sec-music"></A>
 <BR>
 Musical Data Format
 </H1>
 
 <P>
-Compared to patterns, sequences, grooves and the various directives used in 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> ,
-the actual bar by bar chord notations are surprisingly simple.
+Compared to patterns, sequences, grooves and the various directives
+used in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , the actual bar by bar chord notations are surprisingly
+simple.
 
 <P>
-Any line in your input file which is not a directive or comment is assumed to
-be a bar of chord data.
+Any line in your input file which is not a directive or comment is
+assumed to be a bar of chord data.
 
 <P>
 A line for chord data consists of the following parts:
@@ -125,7 +121,8 @@ Formally, this becomes:
       </Table>
 
 <P>
-As you can see, all that is really needed is a single chord. So, the line:
+As you can see, all that is really needed is a single chord. So, the
+line:
 
 <P>
 
@@ -149,17 +146,18 @@ is completely valid. As is:
       </Table>
 
 <P>
-The optional solo or melody data is enclosed in ``{ }''s. The
+The optional solo or melody data is enclosed in &ldquo;{ }&rdquo;s. The
 complete format and use is detailed in the <A HREF="node10.html#chap-solo">Solo and
   Melody Tracks</A>.
 
 <P>
-Lyrics are enclosed in ''[ ]'' brackets. See the <A HREF="node9.html#sec-lyrics">Lyrics section</A>.
+Optional lyrics are enclosed in &rdquo;[ ]&rdquo; brackets. See the
+<A HREF="node9.html#sec-lyrics">Lyrics section</A>.
 
 <P>
 
-<H1><A NAME="SECTION00810000000000000000"></A>
-<A NAME="sect-barnumbers"></A>
+<H1><A ID="SECTION00810000000000000000"></A>
+<A ID="sect-barnumbers"></A>
 <BR>
 Bar Numbers
 </H1>
@@ -174,8 +172,8 @@ Note that only a numeric item is permitted here.
 Get in the habit of using bar numbers. You'll thank yourself when a
 song seems to be missing a bar, or appears to have an extra one.
 Without the leading bar numbers it can be quite frustrating to match
-your input file to a piece of sheet music.<A NAME="tex2html38"
-  HREF="#foot4166"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+your input file to a piece of sheet music.<A ID="tex2html38"
+  HREF="#foot4310"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 One important use of the leading bar number is for the -b command line
 option <A HREF="node2.html#b-option">detailed here</A>.
@@ -206,12 +204,13 @@ example:
 In the above example bars 2, 3 and 4 are comment bars.
 
 <P>
-The command line option -L <A HREF="node2.html#running-L">, detailed here,</A> can be used to display your line
-numbers at the end of a run. 
+The command line option -L <A HREF="node2.html#running-L">, detailed
+  here,</A> can be used to display your
+line numbers at the end of a run.
 
 <P>
 
-<H1><A NAME="SECTION00820000000000000000">
+<H1><A ID="SECTION00820000000000000000">
 Bar Repeat</A>
 </H1>
 
@@ -220,7 +219,7 @@ Quite often music has several sequential identical bars. Instead of
 typing these bars over and over again, 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has an optional
 <SPAN  CLASS="textit">multiplier</SPAN> which can be placed at the end of a line of music
-data. The multiplier or factor can is specified as ``* NN'' This will
+data. The multiplier or factor can is specified as &ldquo;* NN&rdquo; This will
 cause the current bar to repeated the specified number of times. For
 example:
 
@@ -235,16 +234,16 @@ example:
 
 <P>
 produces 4 bars of output with each the first 2 beats of each bar a Cm
-chord and the last 2 a Dm. (The ``/'' is explained below.)
+chord and the last 2 a Dm. (The &ldquo;/&rdquo; is explained below.)
 
 <P>
 
-<H1><A NAME="SECTION00830000000000000000">
+<H1><A ID="SECTION00830000000000000000">
 Chords</A>
 </H1>
 
 <P>
-The most important part of a musical data line is, of course, the
+The most important part of a musical data line are, of course, the
 chords. You can specify a different chord for each beat in your music.
 For example:
 
@@ -259,8 +258,8 @@ For example:
 
 <P>
 specifies four different chords in a bar. It should be obvious by now
-that in a piece in <SPAN  CLASS="textbf">4/4</SPAN> you'll end up with a ``Cm'' chord on
-beat 1, ``Dm'' on 2, etc.
+that in a piece in <SPAN  CLASS="textbf">4/4</SPAN> you'll end up with a &ldquo;Cm&rdquo; chord on
+beat 1, &ldquo;Dm&rdquo; on 2, etc.
 
 <P>
 If you have fewer chord names than beats, the bar will be filled
@@ -292,9 +291,9 @@ are equivalent (assuming 4 beats per bar). There must be one (or more)
 spaces between each chord.
 
 <P>
-One further shorthand is the ``/'' or ``-''. This simply means to repeat the
-last chord (in the following discussion we use ``/'', but it all
-applies to ``-'' as well). So:
+One further shorthand is the &ldquo;/&rdquo; or &ldquo;-&rdquo;. This simply means to
+repeat the last chord (in the following discussion we use &ldquo;/&rdquo;, but
+it all applies to &ldquo;-&rdquo; as well). So:
 
 <P>
 
@@ -318,11 +317,11 @@ is the same as
       </Table>
 
 <P>
-It is perfectly okay to start a line with a ``/''. In this case the
+It is perfectly okay to start a line with a &ldquo;/&rdquo;. In this case the
 last chord from the previous line is used. If the first line of music
-data begins with a ``/'' you'll get an error--
+data begins with a &ldquo;/&rdquo; you'll get an error&mdash;
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tries to be
-smart, but it doesn't read minds. Having ``/'' at the end of the bar
+smart, but it doesn't read minds. Having &ldquo;/&rdquo; at the end of the bar
 is a tad silly since 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  just ends up throwing these away, but it
 does no harm.
@@ -333,29 +332,41 @@ does no harm.
 numeral notation. In addition, you can specify slash chords,
 inversions, barre offsets, and shift the octave up or down. Refer to
 the complete table in the appendix for
-<A HREF="node35.html#sec-chordname">details</A>.
+<A HREF="node36.html#sec-chordname">details</A>.
 
 <P>
 
-<H1><A NAME="SECTION00840000000000000000"></A>
-<A NAME="rests"></A>
+<H1><A ID="SECTION00840000000000000000"></A>
+<A ID="rests"></A>
 <BR>
-Rests
+Rests (Muting)
 </H1>
 
 <P>
-To disable a voice for a beat you can use a ``z'' for a chord name. If
-used by itself a ``z'' will disable all but the drum tracks for the
-given beat. However, you can disable ``Chord'', ``Arpeggio'',
-``Scale'', ``Walk'', ``Aria'', or ``Bass'' tracks as well by appending a track
-specifier to the ``z''. Track specifiers are the single letters ``C'',
-``A'', ``S'', ``W'', ``B'', ``R'' or `D'' and ``!''. Track specifiers are
-only valid if you also specify a chord. The track specifiers are:
+When a track is created it can have periods of silence in it. For
+example, in a W<SMALL>ALK</SMALL> track we probably don't want the tone to
+drone on for an entire bar: we may sound a tone on beats one and three
+and mute it on beats two and four. So far, so good.
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><DL>
+However, what happens if we are using a track and want everything to
+progress, but we don't want a W<SMALL>ALK</SMALL> tone on beat three? Simple,
+we mute beat three for the W<SMALL>ALK</SMALL> track for a single beat.
+
+<P>
+To mute a track (or all tracks) for a beat (or a series of beats) you
+can use a special chord name, &ldquo;z&rdquo;. When you just use the &ldquo;z&rdquo; by
+itself it will mute all tracks except for the D<SMALL>RUM</SMALL> tracks.
+However, you can disable &ldquo;Chord&rdquo;, &ldquo;Arpeggio&rdquo;, &ldquo;Scale&rdquo;, &ldquo;Walk&rdquo;,
+&ldquo;Aria&rdquo;, or &ldquo;Bass&rdquo; tracks as well by appending a track specifier to
+the &ldquo;z&rdquo;. Track specifiers are the single letters &ldquo;C&rdquo;, &ldquo;A&rdquo;,
+&ldquo;S&rdquo;, &ldquo;W&rdquo;, &ldquo;B&rdquo;, &ldquo;R&rdquo;, &ldquo;P&rdquo; or &ldquo;D&rdquo; and &ldquo;!&rdquo;. If you do not
+specify a chord name immediately before the 'z' and optional track
+specifiers, the previous chord will be used. You cannot use a chord
+name with the &ldquo;!&rdquo; specifier. The track specifiers are:
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
 <DT><STRONG>D</STRONG></DT>
 <DD>All drum tracks,
 
@@ -397,116 +408,104 @@ only valid if you also specify a chord. The track specifiers are:
 <P>
 </DD>
 <DT><STRONG>!</STRONG></DT>
-<DD>All tracks (almost the same as DWBCAP, see below).
+<DD>Silence.
 
 <P>
 </DD>
-</DL>
-</DD>
-</DL>
+</DL></td></tr></table>
 
 <P>
-Assuming the ``C'' is the chord and ``AB'' are the track specifiers:
-
-<P>
-<DL COMPACT>
-<DT></DT>
-<DD><DL>
-<DT><STRONG>CzAB</STRONG></DT>
-<DD>mutes the A<SMALL>RPEGGIO</SMALL> and B<SMALL>ASS</SMALL> tracks,
-
-<P>
-</DD>
-<DT><STRONG>z</STRONG></DT>
-<DD>mutes all the tracks except for the drums,
-
-<P>
-</DD>
-<DT><STRONG>Cz</STRONG></DT>
-<DD>is not permitted,
-
-<P>
-</DD>
-<DT><STRONG>zAB</STRONG></DT>
-<DD>is not permitted.
-
-<P>
-</DD>
-</DL>
-</DD>
-</DL>
-
-<P>
-Assuming that you have a drum, chord and bass pattern defined:
+Assuming that you have a drum, chord, and walk sequences defined the
+following chord/mute combinations:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Fm z G7zC CmzD  </B> 
+    <B>Fm z G7zC CmzD zW Em / z!  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-would generate the following beats:
+will generate the following beats:
 
 <P>
-<DL COMPACT>
-<DT></DT>
-<DD><DL>
-<DT><STRONG>1</STRONG></DT>
-<DD>Drum pattern, Fm chord and bass,
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
+<DT><STRONG>1 - Fm</STRONG></DT>
+<DD>Fm chord, walk and drum,
 
 <P>
 </DD>
-<DT><STRONG>2</STRONG></DT>
-<DD>Drum pattern only,
+<DT><STRONG>2 - z</STRONG></DT>
+<DD>Drum only,
 
 <P>
 </DD>
-<DT><STRONG>3</STRONG></DT>
-<DD>Drum pattern and G7 bass, no chord,
+<DT><STRONG>3 - G7zC</STRONG></DT>
+<DD>G7 walk and drum, no chord,
 
 <P>
 </DD>
-<DT><STRONG>4</STRONG></DT>
-<DD>Cm chord and bass, no drum.
+<DT><STRONG>4 - CmzD</STRONG></DT>
+<DD>Cm chord and walk, no drum.
 
 <P>
 </DD>
-</DL>
+<DT><STRONG>5 - zW</STRONG></DT>
+<DD>Cm (from previous chord) chord and drum, no walk,
+
+<P>
 </DD>
-</DL>
+<DT><STRONG>6 - Em</STRONG></DT>
+<DD>Em chord with chord, walk and drum,
 
 <P>
-In addition, there is a super-z notation. ``z!'' forces all
-instruments to be silent for the given beats. ``z!'' is the same as
-``zABCDWR'', except that the latter is not valid since it needs a
-prefixed chord.
+</DD>
+<DT><STRONG>7 - /</STRONG></DT>
+<DD>Em chord as per previous,
 
 <P>
-The ``z'' notation is used when you have a ``tacet'' beat or beats.
-The alternate notations can be used to silence specific tracks for a
-beat or two, but this is used less frequently.
+</DD>
+<DT><STRONG>9 - z!</STRONG></DT>
+<DD>No chord, walk or drums.
+  
+</DD>
+</DL></td></tr></table>
+
+<P>
+As you can see from the above example, there is a super-z notation.
+&ldquo;z!&rdquo; which forces all instruments to be silent for the given beats.
+&ldquo;z!&rdquo; is the same as &ldquo;zABCDWR&rdquo;.
+
+<P>
+The &ldquo;z&rdquo; notation is quite often used when you have a &ldquo;tacet&rdquo; beat
+or beats. The alternate notations can be used to silence specific
+tracks for a beat or two, but this is used less frequently.
+
+<P>
+One problem with the notation (and remember, it is a shortcut) is that
+you cannot specify <SPAN  CLASS="textit">which</SPAN> drum, chord, etc. track you wish to
+mute. To do that you should adjust the defined sequence.
 
 <P>
 
-<H1><A NAME="SECTION00850000000000000000"></A>
-<A NAME="chord-position"></A>
+<H1><A ID="SECTION00850000000000000000"></A>
+<A ID="chord-position"></A>
 <BR>
 Positioning
 </H1>
 
 <P>
 In earlier versions of 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  all chords (and rests) were positioned on
-the beat, and one could only specify a limited number of chord changes
-per bar. Using the enhanced positioning syntax an unlimited number of
-chord changes per bar can be specified. But, please note <SPAN  CLASS="textit">the
-  changes you hear in your song depend on the specific pattern you are
-  using! You might specify a chord at, for example, beat 2.25, but if
-  the pattern doesn't sound a chord at that position it's a bit silly.</SPAN>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  all chords (and rests) were positioned
+on the beat, and one could only specify a limited number of chord
+changes per bar. Using the enhanced positioning syntax an unlimited
+number of chord changes per bar can be specified. But, please note
+<SPAN  CLASS="textit">the changes you hear in your song depend on the specific pattern
+  you are using! You might specify a chord at, for example, beat 2.25,
+  but if the pattern doesn't sound a chord at that position it's a bit
+  silly.</SPAN>
 
 <P>
 As discussed above, a normal set of chord changes is entered like:
@@ -521,11 +520,11 @@ As discussed above, a normal set of chord changes is entered like:
       </Table>
 
 <P>
-which sets a ``Cm'' for beats 1 and 2, and ``Dm'' for beats 3 to the
+which sets a &ldquo;Cm&rdquo; for beats 1 and 2, and &ldquo;Dm&rdquo; for beats 3 to the
 bar end.
 
 <P>
-To modify this, you can use the ``@'' symbol along with an offset to
+To modify this, you can use the &ldquo;@&rdquo; symbol along with an offset to
 indicate other changes. So, the above example could also be written
 as:
 
@@ -539,7 +538,7 @@ as:
       </Table>
 
 <P>
-Changing on the ``off beat'' is simple as well. Consider,
+Changing on the &ldquo;off beat&rdquo; is simple as well. Consider,
 
 <P>
 
@@ -551,16 +550,16 @@ Changing on the ``off beat'' is simple as well. Consider,
       </Table>
 
 <P>
-In this case the ``C'' chord is in effect from the first beat until
-beat 3.5, a ``D'' chord is set for 3.5 until 4, and an ``F'' from 4 to
-the end of bar. 
+In this case the &ldquo;C&rdquo; chord is in effect from the first beat until
+beat 3.5, a &ldquo;D&rdquo; chord is set for 3.5 until 4, and an &ldquo;F&rdquo; from 4 to
+the end of bar.
 
 <P>
 In parsing, when 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  finds a chord name without the ``@'' it assumes
-that the position is the next full beat after the previous chord
-... which means that in the above example ``F'' and ``F@4'' are
-equivalent.
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  finds a chord name without the &ldquo;@&rdquo; it
+assumes that the position is the next full beat after the previous
+chord ... which means that in the above example &ldquo;F&rdquo; and &ldquo;F@4&rdquo;
+are equivalent.
 
 <P>
 
@@ -571,7 +570,8 @@ equivalent.
 
 <P>
 </LI>
-<LI>Chords must be specified in order of their position in the bar. For example,
+<LI>Chords must be specified in order of their position in the bar.
+  For example,
 
 <P>
 
@@ -583,17 +583,20 @@ equivalent.
       </Table>
 
 <P>
-would generate an error.
+would generate an error (the Cm is on beat 1, Dm on beat 2 and the
+  attempted beat 1.5 for the E is not permitted). Just reorder things
+  and all will be fine.
 
 <P>
 </LI>
-<LI>No spaces are permitted between chord and the ``@'' symbol or
-  between the ``@'' and the value.
+<LI>No spaces are permitted between chord and the &ldquo;@&rdquo; symbol or
+  between the &ldquo;@&rdquo; and the value.
 
 <P>
 </LI>
-<LI>The ``@'' must be at the end of the chord following any chord
-  modifiers. The chords ``+Cdim&gt;-2@2.5'' and ``E/G#@4'' are perfectly acceptable.
+<LI>The &ldquo;@&rdquo; must be at the end of the chord following any chord
+  modifiers. The chords &ldquo;+Cdim&gt;-2@2.5&rdquo; and
+  &ldquo;E/G#@4&rdquo; are perfectly acceptable.
 
 <P>
 </LI>
@@ -601,23 +604,28 @@ would generate an error.
 
 <P>
 
-<H1><A NAME="SECTION00860000000000000000">
+<H1><A ID="SECTION00860000000000000000">
 Case Sensitivity</A>
 </H1>
 
 <P>
-In direct conflict with the rest of the rules for input files, all
-chord names (and modifiers) <SPAN  CLASS="textit">are</SPAN> case sensitive. This means that you <SPAN  CLASS="textit">can
-  not</SPAN> use notations like ``cm''--use ``Cm'' instead.
+In direct conflict with the rest of the rules for 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  input files,
+all chord names (and modifiers) <SPAN  CLASS="textit">are</SPAN> case sensitive. This means
+that you <SPAN  CLASS="textit">can not</SPAN> use notations like &ldquo;cm&rdquo;&mdash;use &ldquo;Cm&rdquo;
+instead.
 
 <P>
-The ``z'' and the associated track specifiers are also case sensitive.
-For example, the form ``Zc'' will <SPAN  CLASS="textit">not</SPAN> work!
+For consistency, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  considers &ldquo;z&rdquo; and the associated track
+specifiers to be part of a chord name: they are also case
+sensitive. For example, the forms &ldquo;Z&rdquo; and &ldquo;zc&rdquo; will <SPAN  CLASS="textit">not</SPAN>
+work!
 
 <P>
 
-<H1><A NAME="SECTION00870000000000000000"></A>
-<A NAME="track-chord"></A>
+<H1><A ID="SECTION00870000000000000000"></A>
+<A ID="track-chord"></A>
 <BR>
 Track Chords
 </H1>
@@ -625,9 +633,9 @@ Track Chords
 <P>
 In most cases you want to have the same chords applied to all the
 different tracks in your song. However, certain styles of music prove
-the ``exception to the rule.'' Certain hip-hop and rap styles use a
+the &ldquo;exception to the rule.&rdquo; Certain hip-hop and rap styles use a
 repetitive bass line or a melody snippet which doesn't
-change--regardless of the underlying chord structure of the piece.
+change&mdash;regardless of the underlying chord structure of the piece.
 
 <P>
 In these cases, you can create a S<SMALL>EQUENCE</SMALL> and have it play
@@ -636,7 +644,8 @@ using the same notes without having the chords affect it.
 <P>
 A track specific chord is set just like the data described above.
 However, you cannot include a label, lyric, repeat, or other modifier.
-Assuming a defined B<SMALL>ASS</SMALL> and C<SMALL>HORD</SMALL> G<SMALL>ROOVE</SMALL>, a simple example would be:
+Assuming a defined B<SMALL>ASS</SMALL> and C<SMALL>HORD</SMALL> G<SMALL>ROOVE</SMALL>, a
+simple example would be:
 
 <P>
 
@@ -661,20 +670,20 @@ In the above example the track-specific chords for the B<SMALL>ASS</SMALL> are
 applied to all the subsequent bars in the song.
 
 <P>
-To end the track-specific chords, use an empty argument or an empty
-{ }:
+To end the track-specific chords, use an empty argument or an empty {
+}:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Bass Chords    </B> 
+    <B>Bass Chords   </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-or 
+or
 
 <P>
 
@@ -687,8 +696,8 @@ or
 
 <P>
 You can set different chords in each bar of the sequence. In this case
-use curly brackets ``{ }'' around each bar. So,
-assuming you have a 4 bar sequence:
+use curly brackets &ldquo;{ }&rdquo; around each bar. So, assuming you have a
+4 bar sequence:
 
 <P>
 
@@ -704,19 +713,19 @@ will give you a different set of chords for each bar in the sequence.
 
 <P>
 You can easily repeat chord patterns for a subset of bars using a
-single ``/'' (in this case the curly brackets ``{ }'' are optional).
+single &ldquo;/&rdquo; (in this case the curly brackets &ldquo;{ }&rdquo; are optional).
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Chord Chords {I / III} /  / {V7}   </B> 
+    <B>Chord Chords {I / III} / / {V7}   </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-or 
+or
 
 <P>
 
@@ -728,19 +737,23 @@ or
       </Table>
 
 <P>
+In the above example we tried to trick you a little by using
+R<SMALL>OMAN </SMALL>N<SMALL>UMERALS</SMALL> ... keep reading!
+
+<P>
 You can disable a track completely using the special rest notation
-``z''. If you have a empty setting for some bars in the sequence,
-using an empty set of curly brackets ``{ }', that bar will use the
+&ldquo;z&rdquo;. If you have a empty setting for some bars in the sequence,
+using an empty set of curly brackets &ldquo;{ }', that bar will use the
 chord set for the rest of the song.
 
 <P>
 If using this for a D<SMALL>RUM</SMALL> track, remember that to mute a drum
-you will need to the the ``z!'' rest notation.
+you will need to the the &ldquo;z!&rdquo; rest notation.
 
 <P>
-Since harmonies, <A HREF="node15.html#sec-harmony">here</A>,
-also depend on chords you can create interesting effects by setting a
-track specific chord in a S<SMALL>OLO</SMALL> or even S<SMALL>CALE</SMALL> track.
+Since harmonies, <A HREF="node15.html#sec-harmony">here</A>, also depend on chords you can create
+interesting effects by setting a track specific chord in a S<SMALL>OLO</SMALL>
+or even S<SMALL>CALE</SMALL> track.
 
 <P>
 C<SMALL>HORDS</SMALL> set in this manner are saved in G<SMALL>ROOVES</SMALL>, so they
@@ -748,17 +761,17 @@ can be used to write interesting styles.
 
 <P>
 In most cases, you will be better off using R<SMALL>OMAN </SMALL>N<SMALL>UMERAL</SMALL>
-chords, <A HREF="node35.html#romanchords">details</A>.
+chords, <A HREF="node36.html#romanchords">details</A>.
 Since the chord data is stored as unmodified text, key changes will
 modify the chord (which is probably what you want).
 
 <P>
 This option can also come in handy when you have a bass line set via
 slash chord names and the bass notes are not part of the underlying
-chord. For example, you might have the chords snippet ``Db/Eb  Eb/Db''
+chord. For example, you might have the chords snippet &ldquo;Db/Eb Eb/Db&rdquo;
 which will generate 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  warnings. Since the ``Eb'' and ``Db'' are only
-needed for the bass line, something like this will work nicely:
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  warnings. Since the &ldquo;Eb&rdquo; and &ldquo;Db&rdquo; are
+only needed for the bass line, something like this will work nicely:
 
 <P>
 
@@ -782,7 +795,7 @@ Don't forget to turn off the track specific chords!
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A NAME="foot4166">... music.</A><A
+<DT><A ID="foot4310">... music.</A><A
  HREF="node8.html#tex2html38"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>If your line
   numbers get out of order you can use the supplied utility
@@ -795,26 +808,23 @@ Don't forget to turn off the track specific chords!
 </DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html582"
-  HREF="node9.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html580"
-  HREF="mma.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html574"
-  HREF="node7.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<A
+ HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html583"
-  HREF="node9.html">Lyrics</A>
-<B> Up:</B> <A NAME="tex2html581"
-  HREF="mma.html">Reference Manual</A>
-<B> Previous:</B> <A NAME="tex2html575"
-  HREF="node7.html">Riffs</A></DIV>
+<B> Next:</B> <A
+ HREF="node9.html">Lyrics</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node7.html">Riffs</A></DIV>
 <!--End of Navigation Panel-->
-<ADDRESS>
-Bob van der Poel
-2016-06-11
-</ADDRESS>
+
 </BODY>
 </HTML>

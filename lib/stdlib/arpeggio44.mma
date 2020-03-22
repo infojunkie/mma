@@ -15,8 +15,7 @@ End
 Begin DocVar
   Harmony    Sets the Harmony used for the piano. Default: None.
   Direction  Sets the arpeggio direction. Default: UP.
-  Bass       If set Bass is enabled with a hit on beats 1 and 3. Default: no bass. Note that 
-             that you cannot change the bass pattern with this variable.
+  Bass       If set Bass is enabled with a hit on beats 1 and 3. Default: no bass. Note that that you cannot change the bass pattern with this variable.
 End
 
 If Ndef Harmony

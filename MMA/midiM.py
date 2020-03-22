@@ -29,6 +29,7 @@ These are necessary to create the big-endian values MIDI expects.
 import sys
 from struct import pack, unpack
 from MMA.common import *
+from . import gbl
 
 PY3 = sys.version_info[0] == 3
 
@@ -39,15 +40,17 @@ ctr={"tuple":0, "str":0, "int":0, "bytes":0}
 
 def packBytes(*args):
     """ Return a packed string of bytes as a single string.
-        args - an arbitrary number of strings, ints, lists [int[,int]..] or tuples (int[,int]..)
+        args - an arbitrary number of strings, ints, lists [int[,int]..]
+               or tuples (int[,int]..) 
         return - a single string.
 
-        Note: strings are just concatenated into the string, tuples & ints are packed into
-              single value bytes. In the future they _may_ be a reason to use struct.pack
-              on string data, but I don't see it at this time.
+        Note: strings are just concatenated into the string, tuples & ints
+              are packed into single value bytes. In the future there
+               _may_ be a reason to use struct.pack on string data, but I
+              don't see it at this time.
 
-              When calling, make sure tuples/lists are all ints. Having a string in
-              a tuple will crash the whole mess!
+              When calling, make sure tuples/lists are all ints. Having
+              a string in a tuple will crash the whole mess!
     """
 
     ret = []
@@ -70,7 +73,7 @@ def packBytes(*args):
         # but we'll leave it just in case :)
         elif ty == str:
             if PY3:
-                ret.append(pack('%ss' % len(a), a.encode(encoding="cp1252")))
+                ret.append(pack('%ss' % len(a), a.encode(encoding=gbl.encoding)))
             else:
                 ret.append(a)
 

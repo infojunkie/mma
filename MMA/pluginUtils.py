@@ -52,6 +52,7 @@ class _pluginInfo (object):
     def __init__(self):
         self.NAME = None
         self.DESCRIPTION = ""
+        self.SYNOPSIS = ""
         self.AUTHOR = ""
         self.TRACKTYPES = None
         self.ARGUMENTS = []
@@ -100,6 +101,10 @@ def _P():
 # A short description.
 def setDescription(descr):
     _P().DESCRIPTION = descr
+
+# Synopsis.
+def setSynopsis(syno):
+    _P().SYNOPSIS = syno
 
 # Author.
 def setAuthor(author):
@@ -232,18 +237,21 @@ def _printUsage(plugin):
         lines.append((0, plugin.DESCRIPTION))
         lines.append((0, ""))
     lines.append((0, "SYNOPSIS"))
-    lines.append((0, ""))
-    
-    t = ""
-    if plugin.TRACKTYPES is not None:
-        t += "Track "
-    t += plugin.NAME + " "
-        
-    for name, _, _ in plugin.ARGUMENTS:
-        t += name + ", " 
-        
-    lines.append(([4, 8], t.strip().rstrip(",")))
-    lines.append((0, ""))
+    if plugin.SYNOPSIS != "":
+        for line in plugin.SYNOPSIS.splitlines():
+            lines.append((0, line))
+        lines.append((0, ""))
+    else:
+        t = ""
+        if plugin.TRACKTYPES is not None:
+            t += "Track "
+        t += plugin.NAME + " "
+
+        for name, _, _ in plugin.ARGUMENTS:
+            t += name + ", " 
+
+        lines.append(([4, 8], t.strip().rstrip(",")))
+        lines.append((0, ""))
 
     if plugin.TRACKTYPES is not None and len(plugin.TRACKTYPES) > 0:
         if len(plugin.TRACKTYPES) == 1:
@@ -310,12 +318,14 @@ def getTrackType(name):
         name = name.split("-")[0]
     return name.upper()
             
-
 error = error
 warning = warning
 
 def getVar(name):
     return macros.vars[name]
+       
+def setVar(name,value):
+    macros.vars[name.upper()] = str(value)
        
 def getSysVar(name):
     return macros.sysvar(name)

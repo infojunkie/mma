@@ -111,9 +111,9 @@ DefGroove SlowBolero  Easy going Bolero for ballads.
 
 Groove SlowBolero
 
-Alltracks Volume -30
+Alltracks Volume -30%
 Begin Bass
-	Volume +40
+	Volume +40%
 	Articulate 70
 End
 

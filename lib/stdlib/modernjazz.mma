@@ -12,7 +12,7 @@ NewSet ArpeggioVoice MutedTrumpet
 
 Begin DocVar
 	  ArpeggioVoice  Voice for the alternating arpeggios in ModernJazz1 \
-	  and ModernJazz2 (plus the SUS versions of 1 and 2).
+	  and ModernJazz2 (plus the SUS versions of 1 and 2). \
         (Default=MutedTrumpet). Also used in Introduction and Ending.
 End
 

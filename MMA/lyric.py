@@ -25,7 +25,7 @@ Bob van der Poel <bob@mellowood.ca>
 from . import gbl
 from   MMA.common import *
 import MMA.paths
-
+import MMA.debug
 
 class Lyric:
     textev = None    # set if TEXT EVENTS (not recommended)
@@ -109,8 +109,8 @@ class Lyric:
 
                 elif v == 'LYRIC':
                     self.textev = None
-                    if gbl.debug:
-                        print("Lyric: lyrics set as LYRIC events.")
+                    if MMA.debug.debug:
+                        dPrint("Lyric: lyrics set as LYRIC events.")
 
                 else:
                     error("Lyric: Valid options for EVENT are TEXT or LYRIC.")
@@ -118,13 +118,13 @@ class Lyric:
             elif o == 'SPLIT':
                 if v == 'BAR':
                     self.barsplit = 1
-                    if gbl.debug:
-                        print("Lyric: lyrics distributed thoughout bar.")
+                    if MMA.debug.debug:
+                        dPrint("Lyric: lyrics distributed thoughout bar.")
 
                 elif v == 'NORMAL':
                     self.barsplit = None
-                    if gbl.debug:
-                        print("Lyric: lyrics appear as one per bar.")
+                    if MMA.debug.debug:
+                        dPrint("Lyric: lyrics appear as one per bar.")
 
                 else:
                     error("Lyric: Valid options for SPLIT are BAR or NORMAL.")
@@ -145,19 +145,19 @@ class Lyric:
                 if self.versenum < 1:
                     error("Lyric: Attempt to set Verse to %s. Values must be > 0" % self.versenum)
 
-                if gbl.debug:
-                    print("Lyric: Verse number set to %s" % self.versenum)
+                if MMA.debug.debug:
+                    dPrint("Lyric: Verse number set to %s" % self.versenum)
 
             elif o == 'CHORDS':
                 if v in ('1', 'ON'):
                     self.dupchords = 1
-                    if gbl.debug:
-                        print("Lyric: Chords are duplicated as lyrics.")
+                    if MMA.debug.debug:
+                        dPrint("Lyric: Chords are duplicated as lyrics.")
 
                 elif v in ('0', 'OFF'):
                     self.dupchords = 0
-                    if gbl.debug:
-                        print("Lyric: Chords are NOT duplicated as lyrics.")
+                    if MMA.debug.debug:
+                        dPrint("Lyric: Chords are NOT duplicated as lyrics.")
 
                 else:
                     error("Lyric: CHORDS expecting 'ON' or 'OFF', not %s'" % v)
@@ -175,14 +175,14 @@ class Lyric:
                 else:
                     self.transpose = v
 
-                if gbl.debug:
-                    print("Lyric: Chord names transposed %s steps." % self.transpose)
+                if MMA.debug.debug:
+                    dPrint("Lyric: Chord names transposed %s steps." % self.transpose)
 
             elif o == 'ADDTRANSPOSE':
                 self.transpose += MMA.keysig.getTranspose([v], "Lyric AddTranspose")
 
-                if gbl.debug:
-                    print("Lyric: Chord names transposed %s steps." % self.transpose)
+                if MMA.debug.debug:
+                    dPrint("Lyric: Chord names transposed %s steps." % self.transpose)
 
             elif o == 'CNAMES':
                 if v in ('#', 'SHARP'):
@@ -194,13 +194,13 @@ class Lyric:
                 else:
                     error("Lyric CNames: expecting 'Sharp' or 'Flat', not '%s'" % v )
 
-                if gbl.debug:
+                if MMA.debug.debug:
                     msg = "Lyric: Chord names favor "
                     if self.transKey:
                         msg += "#."
                     else:
                         msg += "b."
-                    print(msg)
+                    dPrint(msg)
 
             elif o == 'KARMODE':
                 if v in ('ON', '1'):
@@ -232,17 +232,17 @@ class Lyric:
                 else:
                     error("Lyric Kar: expecting On, 1, Off or 0, not '%s'." % v)
 
-                if gbl.debug:
+                if MMA.debug.debug:
                     msg = "Lyric: Karmode",
                     if self.karmode:
                         msg += "enabled."
                     else:
                         msg += "disabled."
-                    print(msg)
+                    dPrint(msg)
 
             else:
                 error("Usage: Lyric expecting EVENT, SPLIT, VERSE, CHORDS, TRANSPOSE,"
-                      "CNAMES, KAR, ENABLE or SET, not '%s'" % o)
+                      "CNAMES, KARMODE, ENABLE or SET, not '%s'" % o)
 
         # All the opt=value options have been taken care of. ln can now only
         # contain "On", "OFF" or "Set ..." Anything else is an error.
@@ -299,18 +299,11 @@ class Lyric:
             ln = ln + self.pushedLyrics.pop(0)
             a = b = 1   # flag that we have lyrics, count really doesn't matter
 
-        if rpt > 1:
-            if self.dupchords:
-                error("Chord to lyrics not supported with bar repeat")
-            elif a or b:
-                error("Bars with both repeat count and lyrics are not permitted")
-
         ln, lyrics = pextract(ln, '[', ']')
 
-        """ If the CHORDS=ON option is set, make a copy of the chords and
-            insert as lyric. This permits illegal chord lines, but they will
-            be caught by the parser.
-        """
+        # If the CHORDS=ON option is set, make a copy of the chords and
+        # insert as lyric. This permits illegal chord lines, but they will
+        # be caught by the parser. NOTE: Also discards [] or SET lyrics.
 
         if self.dupchords:
             ly = []
@@ -350,7 +343,7 @@ class Lyric:
 
                 ly.append(v)
 
-            i = gbl.QperBar - len(ly)
+            i = int(gbl.QperBar - len(ly))
             if i > 0:
                 ly.extend(['/'] * i)
             lyrics.insert(0, ' '.join(ly) + '\\r')
@@ -384,9 +377,12 @@ class Lyric:
         beat = 0
         bstep = gbl.QperBar / float(len(lyrics))
 
-        for t, a in enumerate(lyrics):
+        for t, a in enumerate(lyrics):  # do by syllable
             a, b = pextract(a, '<', '>', onlyone=True)
 
+            if self.dupchords:
+                a=a.split("@")[0]  # ignore chord position marker
+            
             if b and b[0]:
                 beat = stof(b[0], "Expecting value in <%s> in lyric" % b)
                 if beat < 1 or beat > gbl.QperBar+1:
@@ -404,6 +400,7 @@ class Lyric:
                 elif not a.endswith('-') and not a.endswith('\n') and not a.endswith('\r'):
                     a += ' '
 
+                # Call midi module to add lyric syllable to the MIDI track
                 p = getOffset(beat * gbl.BperQ)
                 if self.enabled:
                     if self.textev or self.karmode:
@@ -412,9 +409,7 @@ class Lyric:
                         gbl.mtrks[0].addLyric(p, a)
 
             beat += bstep
-
         return (ln, lyrics)
-
 
 # Create a single instance of the Lyric Class.
 

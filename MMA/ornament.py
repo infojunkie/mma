@@ -29,7 +29,7 @@ from MMA.common import *
 from . import gbl
 import MMA.notelen
 import random
-
+import MMA.debug
 
 def default():
     return {'type': None, 'chromatic': False, 'duration': .2, 'pad': (.1, .1),
@@ -79,8 +79,8 @@ def setOrnament(self, ln):
     if (notopt and len(notopt) == 1 and notopt[0].upper() in ('NONE', 'OFF')) \
             or (not notopt and not optpair):
         o['type'] = None
-        if gbl.debug:
-            print("%s Ornament: Off" % self.name)
+        if MMA.debug.debug:
+            dPrint("%s Ornament: Off" % self.name)
         return
 
     if notopt or not optpair:
@@ -185,8 +185,8 @@ def setOrnament(self, ln):
         else:
             error("%s Ornament: '%s' is an unknown option." % (self.name, cmd))
 
-    if gbl.debug:
-        print("%s Ornament: %s" % (self.name, getOrnOpts(self)))
+    if MMA.debug.debug:
+        dPrint("%s Ornament: %s" % (self.name, getOrnOpts(self)))
 
 
 def getNote(o, orig, scale, off):

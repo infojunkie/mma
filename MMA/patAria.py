@@ -28,7 +28,7 @@ import MMA.notelen
 import MMA.harmony
 from MMA.keysig import keySig
 import MMA.chords
-
+import MMA.debug
 from . import gbl
 from MMA.common import *
 from MMA.pat import PC, Pgroup
@@ -102,11 +102,11 @@ class Aria(PC):
         self.deplete = seqBump(dlpt)
         self.restart()
 
-        if gbl.debug:
+        if MMA.debug.debug:
             msg = ["Set %s ScaleType:" % self.name]
             for a in self.scaleType:
                 msg.append(a)
-            print(' '.join(msg))
+            dPrint(' '.join(msg))
 
     def setDirection(self, ln):
         """ Set direction for melody creation.
@@ -128,18 +128,18 @@ class Aria(PC):
                           "(Maximum of 4 r's, got %d)." % (self.name, len(a)))
                 self.selectDir.append(a.upper())
             else:   # not random, has to be an integer -4 ... 4
-                a = stoi(a, "Expecting integer value or 'r*'.")
+                a = stoi(a, "Expecting integer value or 'r', 'rr', 'rrr' or 'rrrr'.")
                 if a < -4 or a > 4:
                     error("%s Direction: args must be 'r' or -4 to 4, not '%s'" % (self.name, a))
                 self.selectDir.append(a)
 
         self.restart()
 
-        if gbl.debug:
+        if MMA.debug.debug:
             msg = ["Set %s Direction:" % self.name]
             for a in self.selectDir:
                 msg.append(str(a))
-            print(' '.join(msg))
+            dPrint(' '.join(msg))
 
     def restart(self):
         self.ssvoice = -1

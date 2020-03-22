@@ -27,6 +27,7 @@ import struct
 from . import gbl
 import MMA.mdefine
 from   MMA.common import *
+import MMA.debug
 
 # Storage for midi channel init commands (MidiInit). Commands are added
 # from the functions setMidiInt and trackSetMidiInit in this module.
@@ -80,8 +81,8 @@ def rawMidi(ln):
     mb = MMA.midiM.packBytes((mb))   # save value for debug
     gbl.mtrks[0].addToTrack(gbl.tickOffset, mb)
 
-    if gbl.debug:
-        print("MIDI: Inserted raw midi in metatrack: %s" %
+    if MMA.debug.debug:
+        dPrint("MIDI: Inserted raw midi in metatrack: %s" %
               ' '.join([str(a) for a in struct.unpack("%sB" % len(mb), mb)]))
 
 
@@ -117,12 +118,12 @@ def setMidiFileType(ln):
         else:
             error("Use: MIDIFile [SMF=0/1] [RUNNING=0/1]")
 
-    if gbl.debug:
+    if MMA.debug.debug:
         if gbl.runningStatus:
             a = 'ON'
         else:
             a = 'OFF'
-        print("MIDIFile: SMF=%s RUNNING=%s" % (gbl.midiFileType, a))
+        dPrint("MIDIFile: SMF=%s RUNNING=%s" % (gbl.midiFileType, a))
 
 
 def setChPref(ln):
@@ -144,8 +145,8 @@ def setChPref(ln):
 
         gbl.midiChPrefs[n.upper()] = c
 
-    if gbl.debug:
-        print("ChannelPref: %s" % 
+    if MMA.debug.debug:
+        dPrint("ChannelPref: %s" % 
               ' '.join(["%s=%s" % (n, c) for n, c in gbl.midiChPrefs.items()]))
 
 
@@ -197,7 +198,7 @@ def doMidiTrackCresc(ln, dir, func):
     global masterMidiVolume
     step = 10
 
-    ln, opts = opt2pair(ln, True)
+    ln, opts = opt2pair(ln, toupper=True)
     for o, v in opts:
         if o == 'STEP':
             step = stoi(v)
@@ -254,8 +255,8 @@ def doMidiTrackCresc(ln, dir, func):
     masterMidiVolume = v2
     gbl.mtrks[0].addMasterVolume(end, v2)
 
-    if gbl.debug:
-        print("MIDI(de)Cresc: Added %s changes" % t)
+    if MMA.debug.debug:
+        dPrint("MIDI(de)Cresc: Added %s changes" % t)
 
 
 def setMidiVolume(ln):
@@ -274,8 +275,8 @@ def setMidiVolume(ln):
     gbl.mtrks[0].addMasterVolume(gbl.tickOffset, v)
     masterMidiVolume = v
 
-    if gbl.debug:
-        print("MidiVolume: Master volume set to %s." % v)
+    if MMA.debug.debug:
+        dPrint("MidiVolume: Master volume set to %s." % v)
 
 
 def setChannelInit(ln):
@@ -322,8 +323,8 @@ def setChannelInit(ln):
     for c in channels:
         channelInit[c].append(ln)
 
-    if gbl.debug:
-        print("ChannelInit: '%s' queued to channels %s" % 
+    if MMA.debug.debug:
+        dPrint("ChannelInit: '%s' queued to channels %s" % 
             (' '.join(ln), ','.join([str(c) for c in channels])))
 
 
@@ -356,7 +357,7 @@ def trackMidiVolume(name, ln):
     gbl.tnames[name].midiPending.append(("CVOLUME", gbl.tickOffset, v))
     gbl.tnames[name].cVolume = v
 
-    if gbl.debug:
+    if MMA.debug.debug:
         MMA.debug.trackSet(name, 'MIDIVolume')
 
 
@@ -427,8 +428,8 @@ def doMidiCresc(name, ln, dir, func):
         gbl.tnames[name].midiPending.append(("CVOLUME", int(p), v))
         p += step
 
-    if gbl.debug:
-        print("%s MidiVolume: Added %s changes" % (name, t))
+    if MMA.debug.debug:
+        dPrint("%s MidiVolume: Added %s changes" % (name, t))
 
 def trackGlis(name, ln):
     """ Enable/disable portamento. """
@@ -443,8 +444,8 @@ def trackGlis(name, ln):
 
     gbl.tnames[name].midiPending.append(("GLIS", gbl.tickOffset, v))
 
-    if gbl.debug:
-        print("Set %s MIDIGlis to %s" % (name, v))
+    if MMA.debug.debug:
+        dPrint("Set %s MIDIGlis to %s" % (name, v))
 
 
 def trackWheel(name, ln):
@@ -463,7 +464,7 @@ def trackWheel(name, ln):
     cycle = False
     rate = None
 
-    ln, opts = opt2pair(ln, True)
+    ln, opts = opt2pair(ln, toupper=True)
 
     if ln:
         if len(ln) == 1 and ln[0] == 'RESET':
@@ -544,8 +545,8 @@ def trackWheel(name, ln):
             startOffset = gbl.tickOffset
         tdata.midiPending.append(("WHEEL", startOffset, setOnly))
 
-        if gbl.debug:
-            print("MidiWheel %s: detuned to %s at %s ticks." %
+        if MMA.debug.debug:
+            dPrint("MidiWheel %s: detuned to %s at %s ticks." %
                 (name, setOnly, startOffset))
         return
 
@@ -607,12 +608,12 @@ def trackWheel(name, ln):
     if reset:
         tdata.midiPending.append(("WHEEL", off+5, 0x2000))  # reset at end
 
-    if gbl.debug:
+    if MMA.debug.debug:
         if not reset:
             rset = "No RESET." 
         else:
             rset = ''
-        print("MidiWheel %s: detuned %s to %s from %s to %s. %s" % 
+        dPrint("MidiWheel %s: detuned %s to %s from %s to %s. %s" % 
             (name, startValue, endValue, startOffset, endOffset, rset))
 
 
@@ -685,12 +686,12 @@ def trackPan(name, ln):
     else:
         tdata.midiPending.append(("PAN", gbl.tickOffset, newPan))
 
-    if gbl.debug:
+    if MMA.debug.debug:
         if beats:
-            print("Set %s MIDIPan from %s to %s over %s beats." % 
+            dPrint("Set %s MIDIPan from %s to %s over %s beats." % 
                 (name, initPan, newPan, beats))
         else:
-            print("Set %s MIDIPan to %s" % (name, newPan))
+            dPrint("Set %s MIDIPan to %s" % (name, newPan))
 
 
 def trackMidiText(name, ln):
@@ -702,8 +703,8 @@ def trackMidiText(name, ln):
     ln = ' '.join(ln)
     gbl.tnames[name].midiPending.append(("MIDITEXT", gbl.tickOffset, ln))
 
-    if gbl.debug:
-        print("Set %s MIDIText '%s'." % (name, ln))
+    if MMA.debug.debug:
+        dPrint("Set %s MIDIText '%s'." % (name, ln))
 
 
 def trackMidiCue(name, ln):
@@ -715,8 +716,8 @@ def trackMidiCue(name, ln):
     ln = ' '.join(ln)
     gbl.tnames[name].midiPending.append(("MIDICUE", gbl.tickOffset, ln))
 
-    if gbl.debug:
-        print("Set %s MIDICue '%s'." % (name, ln))
+    if MMA.debug.debug:
+        dPrint("Set %s MIDICue '%s'." % (name, ln))
 
 
 def trackMidiExt(ln):
@@ -736,7 +737,7 @@ def trackMidiExt(ln):
         pn = "_%s" % ids
         ids += 1
 
-        MMA.mdefine.mdef.set(pn, s[0])
+        MMA.mdefine.mdef.create(pn, s[0])
         ln = ln[:sp] + ' ' + pn + ' ' + ln[sp:]
 
     return ln.split()
@@ -797,5 +798,5 @@ def trackMidiName(name, ln):
 
     gbl.tnames[name].midiPending.append(('TNAME', 0, ln[0]))
 
-    if gbl.debug:
-        print("Set %s MIDI Track Name to %s" % (name, ln[0]))
+    if MMA.debug.debug:
+        dPrint("Set %s MIDI Track Name to %s" % (name, ln[0]))

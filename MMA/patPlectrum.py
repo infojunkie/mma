@@ -29,7 +29,7 @@ import MMA.notelen
 from . import gbl
 from MMA.common import *
 from MMA.pat import PC, Pgroup
-
+import MMA.debug 
 import copy
 
 class PlecStruct:
@@ -62,6 +62,7 @@ class Plectrum(PC):
         self.setPlectrumTuning(['e-', 'a-', 'd', 'g', 'b', 'e+'])
         self.fretNoise = None
         self.lastChord = None
+        self._chordShapes = {}
 
     def saveGroove(self, gname):
         """ Save special/local variables for groove. """
@@ -122,8 +123,8 @@ class Plectrum(PC):
         
         if not l or len(l)==1 and ( l[0].upper()=='OFF' or l[0].upper()=='NONE'):
             self.fretNoise = None
-            if gbl.debug:
-                print("%s FretNoise Off" % self.name)
+            if MMA.debug.debug:
+                dPrint("%s FretNoise Off" % self.name)
             return
 
         self.fretNoise = Fnoise()  # new fret noise object
@@ -208,8 +209,8 @@ class Plectrum(PC):
         if not o.track:
             error("%s Fretnoise: No track was set. Use 'Track=some-bass-track' option." % self.name)
 
-        if gbl.debug:
-            print(self.getFretNoiseOptions())
+        if MMA.debug.debug:
+            dPrint(self.getFretNoiseOptions())
         
 
     def setStrum(self, l):
@@ -240,7 +241,7 @@ class Plectrum(PC):
             For standard guitar tuning use setTuning("e- a- d g b e+")
 
         """
-
+        
         if self.channel != 0:   # if tuning changes while strings are still sounding
             self.grooveFinish(0)
 
@@ -266,7 +267,60 @@ class Plectrum(PC):
 
         self._capoFretNo = stoi(capoFretNo, "%s Capo: expecting integer, not '%s'."
                                 % (self.name, capoFretNo))
-     
+
+    def setPlectrumShape(self,shape):
+        """Defines a chord shape.
+
+            PLECTRUM SHAPE [ chord [ f1 f2 ... fn ] ]
+
+            Defines a shape (fingering) for a specific chord.
+            The number of values supplied must match the number
+            of strings defined in the current tuning.
+
+            If a shape is defined for a particular chord, this shape
+            will be used for the notes to sound. Capo and barre
+            settings will be ignored for this chord.
+
+            Allowable values are integers between 0 and 24, and a
+            minus sign (or 'x' or 'n') for a muted string.
+
+            Without arguments, removes all current shape definitions.
+            With only the chord name, removes the shape definition
+            for this chord.
+
+        """
+
+        if len(shape) == 0:
+            # Forget all definitions.
+            self._chordShapes = {}
+            return
+        
+        chord = shape.pop(0)
+        if len(shape) == 0:
+            # Forget definition for this chord.
+            if chord in self._chordShapes:
+                self._chordShapes.pop(chord)
+            else:
+                warning("%s: Chord %s was not shaped" % (self.name, chord))
+            return
+
+        if len(shape) != len(self._tuning):
+            error("%s: Shape requires values for %d strings (%d provided)" %
+                  (self.name, len(self._tuning), len(shape)))
+
+        self._chordShapes[chord] = []
+        for i, n in enumerate(shape):
+            if n == '-' or n.lower() == 'x' or n.lower == 'n':
+                self._chordShapes[chord].append(None)
+            else:
+                try:
+                    pos = int(n)
+                except:
+                    pos = None
+                if pos == None or pos < -127 or pos > 127:
+                    error("%s: Shape requires values between -127 and 127, or '-' for a muted string" % (self.name))
+                self._chordShapes[chord].append(pos)
+                
     def decodePlectrumPatterns(self, a, patterns):
         """ Decode plectrum patterns for a guitar here are examples """
 
@@ -529,6 +583,30 @@ class Plectrum(PC):
 
         return notes
 
+    def fretboardShapes(self, chordName, chordList):
+        shape = self._chordShapes[chordName]
+        notes = []
+        stringNo = -1
+        for fretNo in shape:
+            stringNo += 1
+            fret = PlecStruct()
+            try:
+                fretNo = int(fretNo)
+            except:
+                fretNo = None
+
+            openString = self._tuning[stringNo]
+            fret.fretNo = fretNo
+            fret.chordIndex = stringNo
+            fret.duplicate = False
+            if fretNo == None:
+                fret.pitch = openString
+            else:
+                fret.pitch = self.adjustNote(openString + fretNo)
+            notes.append(fret)
+
+        return notes
+
     def trackBar(self, pattern, ctable):
         """ Do a plectrum bar.
 
@@ -541,6 +619,7 @@ class Plectrum(PC):
         for p in pattern:
             try:
                 ct = self.getChordInPos(p.offset, ctable)
+                chordName = ct.chord.name
                 chordList = ct.chord.noteList   # catch no noteList attribute
             except AttributeError:
                 continue
@@ -560,7 +639,7 @@ class Plectrum(PC):
 
             chordBarreFretNo += ct.chord.barre
 
-            if gbl.debug or gbl.plecShow:
+            if MMA.debug.debug or MMA.debug.plecShow:
                 self.printChordShape(ct, chordBarreFretNo)
 
             plectrumNoteOnList = []  # for debugging only
@@ -574,7 +653,10 @@ class Plectrum(PC):
 
             pluckStringIndex = 0
 
-            notes = self.fretboardNotes(chordList, chordBarreFretNo)
+            if chordName in self._chordShapes:
+                notes = self.fretboardShapes(chordName, chordList)
+            else:
+                notes = self.fretboardNotes(chordList, chordBarreFretNo)
 
             fretNoiseCount = 0
             for stringNo, vol in enumerate(p.pluckVol):
@@ -612,8 +694,13 @@ class Plectrum(PC):
                     note = notes[stringNo].pitch
 
                     if notes[stringNo].duplicate:
-                        if gbl.debug:
-                            print("%s: Ignoring duplicate note %d." % (self.name, note))
+                        if MMA.debug.debug:
+                            dPrint("%s: Ignoring duplicate note %d." % (self.name, note))
+                        continue
+
+                    if notes[stringNo].fretNo == None:
+                        if MMA.debug.debug:
+                            dPrint("%s: Ignoring muted note %d." % (self.name, note))
                         continue
 
                     outputVolume = self.adjustVolume(vol, p.offset)
@@ -641,8 +728,8 @@ class Plectrum(PC):
 
                 self.lastChord = ct.name
 
-            if gbl.debug:
-                print("%s: channel=%s offset=%s chordList=%s NoteOn=%s." % 
+            if MMA.debug.debug:
+                dPrint("%s: channel=%s offset=%s chordList=%s NoteOn=%s." % 
                     (self.name, self.channel, p.offset + gbl.tickOffset,
                         chordList, plectrumNoteOnList))
 
@@ -653,34 +740,51 @@ class Plectrum(PC):
         # catch the case when there is no noteList attribute
         if hasattr(self, 'previousChordList'):
             if chordList == self.previousChordList and \
-                    chordBarreFretNo == self.previousFretNo:
+                    chordBarreFretNo == self.previousFretNo \
+                    and not ( chordTable.name in self._chordShapes \
+                              and self._chordShapes[chordTable.name] != self.previousShape ) :
                 return
         self.previousChordList = chordList
         self.previousFretNo = chordBarreFretNo
+        if  chordTable.name in self._chordShapes:
+            self.previousShape = self._chordShapes[chordTable.name]
+        else:
+            self.previousShape = None
 
-        notes = self.fretboardNotes(chordList, chordBarreFretNo)
+        capoFretNo = self._capoFretNo
+        if chordTable.name in self._chordShapes:
+            notes = self.fretboardShapes(chordTable.name, chordList)
+            capoFretNo = 0
+            chordBarreFretNo = 0
+        else:
+            notes = self.fretboardNotes(chordList, chordBarreFretNo)
         notes.reverse()
 
         printStart = 0
-        startFretNo = self._capoFretNo + chordBarreFretNo
+        startFretNo = capoFretNo + chordBarreFretNo
         if startFretNo < 0:
             printStart = startFretNo
 
-        print("%s %s chord %s" % (self.name, chordTable.name,  chordList))
+        dPrint("%s %s chord %s" % (self.name, chordTable.name,  chordList))
         for stringNo, openNote in enumerate(reversed(self._tuning)):
             openNote = self.adjustNote(openNote)  # puts into middle octave 60==5*12
             note = notes[stringNo].pitch
 
-            msg = ["%s   %3d" % (self.name, openNote + self._capoFretNo)]
+            msg = ["%s   %3d" % (self.name, openNote + capoFretNo)]
             finger = note - openNote
             for fretNo in range(printStart, 20):
-                if fretNo == 0 and self._capoFretNo == 0:
+                if fretNo == 0 and notes[stringNo].fretNo == None and capoFretNo == 0:
+                    msg.append("X")
+                elif fretNo == 0 and capoFretNo == 0:
                     msg.append("|")
-                elif fretNo == self._capoFretNo and chordBarreFretNo == 0:
-                    msg.append("$")
+                elif fretNo == capoFretNo and chordBarreFretNo == 0:
+                    if notes[stringNo].fretNo == None:
+                        msg.append("X")
+                    else:
+                        msg.append("$")
                 elif fretNo == finger:
                     msg.append("*")
-                elif fretNo == self._capoFretNo:
+                elif fretNo == capoFretNo:
                     msg.append("$")
                 elif fretNo == startFretNo:
                     msg.append(":")
@@ -689,12 +793,14 @@ class Plectrum(PC):
                 else:
                     msg.append("-")
 
-            msg.append("%d  %d" % (notes[stringNo].chordIndex, note,))
+            msg.append("%d" % (notes[stringNo].chordIndex))
+            if notes[stringNo].fretNo != None:
+                msg.append("  %d" % (note))
             if notes[stringNo].duplicate:
                 msg.append("  duplicate")
 
-            print(' '.join(msg))
-        print('\n')
+            dPrint(' '.join(msg))
+        dPrint('\n')
 
 def noteNameToMidiPitch(s):
     """ Convert a name ('e', 'g#') to a MIDI pitch. """

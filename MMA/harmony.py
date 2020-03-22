@@ -25,6 +25,7 @@ Bob van der Poel <bob@mellowood.ca>
 from MMA.common import *
 import MMA.debug
 
+
 def setHarmony(self, ln):
     """ Set the harmony. """
 
@@ -43,10 +44,10 @@ def setHarmony(self, ln):
     if self.vtype in ('CHORD', 'DRUM'):
         warning("Harmony setting for %s track ignored" % self.vtype)
 
-    if gbl.debug:
+    if MMA.debug.debug:
         MMA.debug.trackSet(self.name, "Harmony")
 
-
+        
 def setHarmonyOnly(self, ln):
     """ Set the harmony only. """
 
@@ -66,7 +67,7 @@ def setHarmonyOnly(self, ln):
     if self.vtype in ('CHORD', 'DRUM'):
         warning("HarmonyOnly setting for %s track ignored" % self.vtype)
 
-    if gbl.debug:
+    if MMA.debug.debug:
         MMA.debug.trackSet(self.name, 'HarmonyOnly')
 
 
@@ -88,7 +89,7 @@ def setHarmonyVolume(self, ln):
     if self.vtype in ('PLECTRUM', 'DRUM'):
         warning("HarmonyVolume adjustment for %s track ignored" % self.vtype)
 
-    if gbl.debug:
+    if MMA.debug.debug:
         MMA.debug.trackSet(self.name, "HarmonyVolume")
 
 
@@ -117,7 +118,7 @@ def harmonize(hmode, note, chord):
             a = gethnote(note, chord)
             b = gethnote(a, chord)
             hnotes.extend([a, b])
-
+            
         elif tp == '38BELOW':
             a = gethnote(note, chord)
             b = gethnote(a, chord)
@@ -132,7 +133,7 @@ def harmonize(hmode, note, chord):
             a = gethnote(note, chord)
             b = gethnote(a, chord)
             hnotes.extend([a+24, b+24])
-
+            
         elif tp in ('OPEN', "OPENBELOW"):
             a = gethnote(note, chord)
             hnotes.append(gethnote(a, chord))
@@ -166,14 +167,76 @@ def harmonize(hmode, note, chord):
 
         elif tp == '24ABOVE':
             hnotes.append(note + (3 * 12))
+
+        elif ":" in tp:
+            hnotes.append(note + intervalHarmony(tp))
+            
         else:
             error("Unknown harmony type '%s'" % tp)
 
-    """ Strip out duplicate notes from harmony list.
-        Cute trick here ... using set().
-    """
+    # Strip out duplicate notes from harmony list.
+    #  Cute trick here ... just use set().
 
     return list(set(hnotes))
+
+
+# The following are used for the interval harmonies (2:Per4, etc)
+# Whole tone to half step conversion table
+
+halfSteps = { 'UNI':  0,
+              'MIN2': 1,
+              'MAJ2': 2,  'DIM3': 2,
+              'MIN3': 3,  'AUG2': 3,
+              'MAJ3': 4,  'DIM4': 4,
+              'PER4': 5,  'AUG3': 5,
+              'AUG4': 6,  'DIM5': 6,
+              'PER5': 7,  'DIM6': 7,
+              'MIN6': 8,  'AUG5': 8,
+              'MAJ6': 9,  'DIM7': 9,
+              'MIN7': 10, 'AUG6': 10, 
+              'MAJ7': 11, 'DIM8': 11,
+              'OCT':  12, 'AUG7': 12  }
+
+sNames = ("MINOR", "MAJOR", "DIMINISHED", "PERFECT", "AUGMENTED", "OCTAVE", "UNISON")
+dNames = (("SECOND", "2"), ("THIRD", "3"), ("FOURTH", "4"),
+           ("FIFTH", "5"), ("SIXTH", "6"), ("SEVENTH", "7") )
+
+def intervalHarmony(harmName):
+    """ Return number of 1/2 steps for harmony. Syntax is:
+            [octave]:interval
+              octave - integer -5 to +5 (optional)
+              interval - symbolic name or value
+    """
+
+    # since the caller got here due to a ':' in the string, we're
+    # safe in doing the split.
+    octave, name = harmName.split(':', 1)
+
+    # set the octave
+    if octave:
+        octave = stoi(octave, "Harmony: octave expecting integer")
+        if octave <-4 or octave>4:
+            error("Harmony: Octave %s is too large. Use -4 to 4" % octave)
+    else:
+        octave = 0
+
+    if name.isdigit():
+        halfs = stoi(name, "Harmony: Unexpected error in number of half steps.")
+
+    else:
+        # Convert full names to our abreviations. This permits a
+        # wide range of input names and fairly short lookup table.
+        for a in sNames:
+            name = name.replace(a, a[:3])
+        for a in dNames:
+            name = name.replace(a[0], a[1])
+
+        if name not in halfSteps:
+            error("Interval harmony %s is unknown." % harmName)
+
+        halfs = halfSteps[name]
+        
+    return (octave * 12) + halfs
 
 
 def gethnote(note, chord):
@@ -186,7 +249,7 @@ def gethnote(note, chord):
 
         This routine works by creating a chord list with all
         its notes having a value less than the note (remember, this
-        is all MIDI values). We then grab notes from the end of
+        is all in MIDI values). We then grab notes from the end of
         the chord until one is found which is less than the original
         note.
     """
@@ -223,3 +286,4 @@ def gethnote(note, chord):
             break
 
     return h
+

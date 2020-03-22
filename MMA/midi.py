@@ -22,53 +22,20 @@ Bob van der Poel <bob@mellowood.ca>
 """
 
 
-from MMA.midiM import intToWord, intTo3Byte, intToLong, intToVarNumber, intTo14, packBytes
+from   MMA.midiM import intToWord, intTo3Byte, intToLong, intToVarNumber, intTo14, packBytes
 import MMA.midiC
-
+import MMA.debug
+import MMA.sync
 from . import gbl
-from MMA.common import *
-from MMA.miditables import NONETONE
+from   MMA.common import *
+from   MMA.miditables import NONETONE
 
 splitChannels = []
-
-syncTone = [80, 90]  # tone/velocity for -0 option. Changable from setSyncTone
 
 # some constants we use to catorgize event types
 MIDI_NOTE = 1
 MIDI_PRG = 2
 
-
-def setSyncTone(ln):
-    """ Parser routine, sets tone/velocity for the -0 sync tone. """
-
-    global syncTone
-    emsg = "SetSyncTone: Expecting option pairs: Tone=xx Velocity=xx | Volume=xx."
-
-    notopts, ln = opt2pair(ln)
-
-    if notopts or not ln:
-        error(emsg)
-
-    for cmd, opt in ln:
-        cmd = cmd.upper()
-
-        if cmd == "TONE":
-            t = stoi(opt)
-            if t < 0 or t > 127:
-                error("SetSyncTone: Tone must be 0..127, not %s." % t)
-            syncTone[0] = t
-
-        elif cmd == "VELOCITY" or cmd == "VOLUME":
-            t = stoi(opt)
-            if t < 1 or t > 127:
-                error("SetSyncTone: Velocity must be 1..127, not %s." % v)
-            syncTone[1] = t
-
-        else:
-            error(emsg)
-
-    if gbl.debug:
-        print("SetSyncTone: Tone=%s, Velocity=%s" % tuple(syncTone))
 
 def setSplitChannels(ln):
     """ Parser routine, sets up list of track to split. Overwrites existing. """
@@ -97,11 +64,11 @@ def setSplitChannels(ln):
         if ch not in splitChannels:
             splitChannels.append(ch)
 
-    if gbl.debug:
+    if MMA.debug.debug:
         msg = ["SplitChannels: "]
         for a in splitChannels:
             msg.append(str(a))
-        print(' '.join(msg))
+        dPrint(' '.join(msg))
 
 
 ####################
@@ -188,8 +155,8 @@ def writeSplitTrack(channel, out):
             else:
                 notes[n].miditrk[offset] = [ev]
 
-    if gbl.debug:
-        print(" Data has been split into %s tracks." % len(notes))
+    if MMA.debug.debug:
+        dPrint(" Data has been split into %s tracks." % len(notes))
 
     # Insert a channel name in all the new tracks.
 
@@ -252,8 +219,8 @@ class Mtrk:
             cc - midi clocks/tick
             bb - # of 32nd notes in quarter (normally 8)
 
-            This is only called by timeSig.set(). Don't
-            call this directly since the timeSig.set() checks for
+            This is only called by timeSig.create(). Don't
+            call this directly since the timeSig.create() checks for
             duplicate settings.
         """
 
@@ -453,7 +420,7 @@ class Mtrk:
             an all-notes-off at that position.
         """
 
-        if gbl.endsync and self.channel >= 0:
+        if MMA.sync.endsync and self.channel >= 0:
             eof = gbl.tickOffset
             for offset in tr.keys():
                 if offset > eof:
@@ -465,12 +432,12 @@ class Mtrk:
             easier sync in multi-tracks.
         """
 
-        if gbl.synctick and self.channel >= 0:
-            t, v = syncTone
+        if MMA.sync.synctick and self.channel >= 0:
+            t, v = MMA.sync.syncTone
             self.addToTrack(0, packBytes((0x90 | self.channel, t, v)))
             self.addToTrack(1, packBytes((0x90 | self.channel, t, 0)))
 
-        if gbl.debug:
+        if MMA.debug.debug:
             ttl = 0
             lg = 1
             for t in tr:
@@ -482,7 +449,7 @@ class Mtrk:
                 nm = "META"
             else:
                 nm = self.trackname
-            print( "<%s> Unique ts: %s; Ttl events %s; Average ev/ts %.2f" %
+            dPrint( "<%s> Unique ts: %s; Ttl events %s; Average ev/ts %.2f" %
                 (nm, len(tr), ttl, float(ttl)/len(tr)))
 
         last = 0
@@ -688,7 +655,7 @@ def stripRange():
                 validRange.append([bp[b][1], bp[b][2]])
 
     if not validRange:
-        print("   Range directive -b/B would result in empty file.\n"
+        dPrint("   Range directive -b/B would result in empty file.\n"
               "   Entire file is being created. Check the range.")
         return
 
@@ -799,4 +766,4 @@ def stripRange():
             lastev = z[-1]
     gbl.tickOffset = lastev
 
-    print("  File has been truncated for -b/-B option. Bar count/time incorrect.")
+    dPrint("  File has been truncated for -b/-B option. Bar count/time incorrect.")

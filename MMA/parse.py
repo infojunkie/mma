@@ -33,6 +33,7 @@ import random
 from . import gbl
 from MMA.common import *
 
+import MMA.debug
 import MMA.notelen
 import MMA.chords
 import MMA.file
@@ -54,6 +55,7 @@ import MMA.paths
 import MMA.player
 import MMA.sequence
 import MMA.swing
+import MMA.sync
 import MMA.truncate
 import MMA.ornament
 import MMA.trigger
@@ -89,8 +91,8 @@ def parseFile(n):
     parse(f)
     gbl.inpath = fp
 
-    if gbl.debug:
-        print("File '%s' closed." % n)
+    if MMA.debug.debug:
+        dPrint("File '%s' closed." % n)
 
 
     
@@ -99,21 +101,20 @@ def parse(inpath):
     """ Process a mma input file. """
 
     global beginData, lastChord
-
+    
     gbl.inpath = inpath
-
     curline = None
 
     while 1:
         MMA.after.check()
         
         curline = inpath.read()
+
         if curline is None:   # eof, exit parser
             break
 
         l = macros.expand(curline)
         if not l:
-            
             continue
 
         """ Handle BEGIN and END here. This is outside of the Repeat/End
@@ -153,12 +154,12 @@ def parse(inpath):
             l = beginData + l
             action = l[0].upper()
 
-        if gbl.showExpand and action != 'REPEAT':
-            print(l)
+        if MMA.debug.showExpand and action != 'REPEAT':
+            dPrint(l)
 
         if action in simpleFuncs:
             simpleFuncs[action](l[1:])
-            continue
+            continue            
 
         """ We have several possibilities ...
             1. The command is a valid assigned track name,
@@ -196,63 +197,62 @@ def parse(inpath):
         """
 
         if action.isdigit():   # isdigit() matches '1', '1234' but not '1a'!
-            gbl.barLabel = l[0]
+            gbl.barLabel = l[0].lstrip('0')
             l = l[1:]
             if not l:        # ignore empty lines
                 continue
         else:
             gbl.barLabel = ''
 
-        """ A bar can have an optional repeat count. This must
-            be at the end of bar in the form '* xx'.
-        """
-
+        ##  A bar can have an optional repeat count. This must
+        ##  be at the end of bar in the form '* xx'.
         if len(l) > 1 and l[-2] == '*':
             rptcount = stoi(l[-1], "Expecting integer after '*'")
             l = l[:-2]
-
         else:
             rptcount = 1
 
-        """ Extract solo(s) from line ... this is anything in {}s.
-            The solo data is pushed into RIFFs and discarded from
-            the current line.
-        """
+        # Dataplugins all start with '@'. Code is in the plugin code.
+        # A data plugin modifies the existing data line and returns it.
+        if l[0].startswith('@'):
+            p = l[0].upper()
+            if p not in dataFuncs:
+                error("Unknown data plugin '%s' called." % p)
+            l = dataFuncs[p](l[1:])
 
+        # Extract solo(s) from line ... this is anything in {}s.
+        # The solo data is pushed into RIFFs and discarded from
+        # the current line.
         l = ' '.join(l)
         l = MMA.patSolo.extractSolo(l, rptcount)
 
-        """ Set lyrics from [stuff] in the current line.
-            NOTE: lyric.extract() inserts previously created
-                  data from LYRICS SET and inserts the chord names
-                  if that flag is active.
-        """
-
+        # set lyrics from [stuff] in the current line.
+        # NOTE: lyric.extract() inserts previously created
+        #       data from LYRICS SET and inserts the chord names
+        #       if that flag is active.
         l, lyrics = lyric.extract(l, rptcount)
-
         l = l.split()
 
-        """ At this point we have only chord info. A number
-            of sanity checks are made:
-              1. Make sure there is some chord data,
-              2. Ensure the correct number of chords.
-        """
-
+        # At this point we have only chord info. A number
+        # of sanity checks are made:
+        #   1. Make sure there is some chord data,
+        #   2. Ensure the correct number of chords.
         if not l:
-            error("Expecting music (chord) data. Even lines with\n"
-                  "  lyrics or solos still need a chord")
+            error("Expecting music (chord) data. Even lines with "
+                  "lyrics or solos still need a chord. If you "
+                  "don't want a chord use 'z'.")
 
-        """ We now have a chord line. It'll look something like:
-
-              ['Cm', '/', 'z', 'F#@4.5'] or ['/' 'C@3' ]
-
-            For each bar we create a list of CTables, one for each
-            chord in the line. Each entry has the start/end (in beats), chordname, etc.
-        """
+        # We now have a chord line. It'll look something like:
+        #
+        #      ['Cm', '/', 'z', 'F#@4.5'] or ['/' 'C@3' ]
+        #
+        #    For each bar we create a list of CTables, one for each
+        #    chord in the line. Each entry has the start/end (in beats), chordname, etc.
+        #
 
         ctable = parseChordLine(l)   # parse the chord line
 
-         # Create MIDI data for the bar
+        # Create MIDI data for the bar
 
         for rpt in range(rptcount):   # for each bar in the repeat count ( Cm * 3)
 
@@ -265,9 +265,8 @@ def parse(inpath):
             else:
                 MMA.volume.nextVolume = None
 
-            """ Set up for rnd seq. This may set the current seq point. If return
-                is >=0 then we're doing track rnd.
-            """
+            # Set up for rnd seq. This may set the current seq point.
+            # If return is >=0 then we're doing track rnd.
 
             rsq, seqlist = MMA.seqrnd.setseq()
 
@@ -325,18 +324,26 @@ def parse(inpath):
 
             # Enabled with the -r command line option
 
-            if gbl.showrun:
+            if MMA.debug.showrun:
                 if lyrics:       # we print lyric as a list 
                     ly = lyrics  # with the []s
                 else:
                     ly = ''      # no lyric
-                print("%3d: %s %s" % (gbl.barNum, ' '.join(l), ly))
+                dPrint("%3d: %s %s" % (gbl.barNum, ' '.join(l), ly))
 
+            # if repeat count is set with dupchord we push
+            # the chord back and get lyric.extract to add the
+            # chord to the midi file again. A real lyric is
+            # just ignored ... 2 reasons: the lyric is mangled and
+            # and it makes sense to only have it once!
+            if rpt and lyric.dupchords:
+                _,lyrics = lyric.extract(' '.join(l), 0)
 
+            
 ##################################################################
 
 def allTracks(ln):
-    """ Apply track to all tracks. """
+    """ Apply command to all specified tracks or track types. """
 
     types1 = ('BASS', 'CHORD', 'ARPEGGIO', 'SCALE', 'DRUM', 'WALK', 'PLECTRUM')
     types2 = ('MELODY', 'SOLO', 'ARIA')
@@ -345,7 +352,7 @@ def allTracks(ln):
     ttypes = []
 
     if len(ln) < 1:
-        error("AllTracks: argument (track?) required")
+        error("AllTracks: Requires arguments: [Track | Track-Name] command.")
 
     i = 0
     while i < len(ln) and ln[i].upper() in allTypes:
@@ -356,7 +363,7 @@ def allTracks(ln):
         ttypes = types1
 
     if i >= len(ln):
-        error("AllTracks: Additional argument (command?) required")
+        error("AllTracks: A command is required after the Track or Track-Name.")
 
     cmd = ln[i].upper()
     args = i + 1
@@ -454,9 +461,11 @@ def repeat(ln):
         if act in ('REPEATEND', 'ENDREPEAT'):
             if l:
                 l = macros.expand(l)
-                if len(l) == 2 and l[0].upper() == 'NOWARN':
-                    l = l[1:]
-                    warn = 0
+                if len(l) == 2:
+                    l = [x.upper() for x in l]
+                    if 'NOWARN' in l:
+                        l.remove('NOWARN')
+                        warn = 0
                 else:
                     warn = 1
 
@@ -496,9 +505,11 @@ def repeat(ln):
 
             if l:
                 l = macros.expand(l)
-                if len(l) == 2 and l[0].upper() == 'NOWARN':
-                    warn = 0
-                    l = l[1:]
+                if len(l) == 2:
+                    l = [x.upper() for x in l]
+                    if 'NOWARN' in l:
+                        l.remove('NOWARN')
+                        warn = 0
                 else:
                     warn = 1
 
@@ -594,31 +605,16 @@ def usefile(ln):
 #######################################
 # Misc
 
-def synchronize(ln):
-    """ Set synchronization in the MIDI. A file mode for -0 and -1. """
-
-    if not ln:
-        error("SYNCHRONIZE: requires args END and/or START.")
-
-    for a in ln:
-        if a.upper() == 'END':
-            gbl.endsync = 1
-        elif a.upper() == 'START':
-            gbl.synctick = 1
-        else:
-            error("SYNCHRONIZE: expecting END or START")
-
-
 def rndseed(ln):
     """ Reseed the random number generator. """
 
     if not ln:
-        random.seed()
+        random.seed()   # just resets, not predicable.
 
     elif len(ln) > 1:
         error("RNDSEED: requires 0 or 1 arguments")
     else:
-        random.seed(stof(ln[0]))
+        random.seed(stoi(ln[0]))  # predicable results.
 
 
 def lnPrint(ln):
@@ -647,97 +643,6 @@ def printActive(ln):
     print("\n")
 
 
-def setDebug(ln):
-    """ Set debugging options dynamically. """
-
-    msg = ("Debug: Use MODE=On/Off where MODE is one or more of "
-           "DEBUG, FILENAMES, PATTERNS, SEQUENCE, "
-           "RUNTIME, WARNINGS, EXPAND, ROMAN or PLECTRUM.")
-
-    if not len(ln):
-        error(msg)
-
-    # save current flags
-
-    gbl.Ldebug = gbl.debug
-    gbl.LshowFilenames = gbl.showFilenames
-    gbl.Lpshow = gbl.pshow
-    gbl.Lseqshow = gbl.seqshow
-    gbl.Lshowrun = gbl.showrun
-    gbl.LnoWarn = gbl.noWarn
-    gbl.LnoOutput = gbl.noOutput
-    gbl.LshowExpand = gbl.showExpand
-    gbl.Lchshow = gbl.chshow
-    gbl.LplecShow = gbl.plecShow
-    gbl.LrmShow = gbl.rmShow
-    gbl.LgvShow = gbl.gvShow
-
-    ln, opts = opt2pair(ln, 1)
-    if ln:
-        error("Each debug option must be a opt=value pair.")
-
-    for cmd, val in opts:
-        if val == 'ON' or val == '1':
-            val = 1
-        elif val == 'OFF' or val == '0':
-            val = 0
-        else:
-            error("Debug: %s needs ON, 1, OFF, or 0 arg." % cmd)
-
-        if cmd == 'DEBUG':
-            gbl.debug = val
-            if gbl.debug:
-                print("Debug=%s." % val)
-
-        elif cmd == 'FILENAMES':
-            gbl.showFilenames = val
-            if gbl.debug:
-                print("ShowFilenames=%s." % val)
-
-        elif cmd == 'PATTERNS':
-            gbl.pshow = val
-            if gbl.debug:
-                print("Pattern display=%s." % val)
-
-        elif cmd == 'SEQUENCE':
-            gbl.seqshow = val
-            if gbl.debug:
-                print("Sequence display=%s." % val)
-
-        elif cmd == 'RUNTIME':
-            gbl.showrun = val
-            if gbl.debug:
-                print("Runtime display=%s." % val)
-
-        elif cmd == 'WARNINGS':
-            gbl.noWarn = not(val)
-            if gbl.debug:
-                print("Warning display=%s" % val)
-
-        elif cmd == 'EXPAND':
-            gbl.showExpand = val
-            if gbl.debug:
-                print("Expand display=%s." % val)
-
-        elif cmd == 'ROMAN':
-            gbl.rmShow = val
-            if gbl.debug:
-                print("Roman numeral chords/slash display=%s" % val)
-
-        elif cmd == 'GROOVE':
-            gbl.gvShow = val
-            if gbl.debug:
-                print("Groove re-define display=%s" % val)
-
-        elif cmd == 'PLECTRUM':
-            gbl.plecShow = val
-            if gbl.debug:
-                print("Plectrum display=%s" % val)
-
-        else:
-            error(msg)
-
-
 ###########################################################
 ###########################################################
 ## Track specific commands
@@ -746,6 +651,7 @@ def setDebug(ln):
 #######################################
 # Pattern/Groove
 
+    
 def trackDefPattern(name, ln):
     """ Define a pattern for a track.
 
@@ -821,8 +727,8 @@ def deleteTrks(ln):
         if not name in gbl.deletedTracks:
             gbl.deletedTracks.append(name)
 
-        if gbl.debug:
-            print("Track '%s' deleted" % name)
+        if MMA.debug.debug:
+            dPrint("Track '%s' deleted" % name)
 
 #######################################
 # Volume
@@ -1087,9 +993,9 @@ def trackPlectrumTuning(name, ln):
 
     g = gbl.tnames[name]
 
-    if hasattr(g, "setPlectrumTuning"):
+    try:
         g.setPlectrumTuning(ln)
-    else:
+    except AttributeError:
         warning("TUNING: not permitted in %s tracks. Arg '%s' ignored." %
                 (g.vtype, ' '.join(ln)))
 
@@ -1104,9 +1010,9 @@ def trackPlectrumCapo(name, ln):
         error("Use: %s Capo N" % name)
 
     g = gbl.tnames[name]
-    if hasattr(g, "setPlectrumCapo"):
+    try:
         g.setPlectrumCapo(ln[0])
-    else:
+    except AttributeError:
         warning("CAPO: not permitted in %s tracks. Arg '%s' ignored." %
                 (g.vtype, ' '.join(ln)))
 
@@ -1117,11 +1023,23 @@ def trackPlectrumFretNoise(name, ln):
 
     g = gbl.tnames[name]
 
-    if hasattr(g, "setPlectrumFretNoise"):
+    try:
         g.setPlectrumFretNoise(ln)
-    else:
+    except AttributeError:
         warning("FRETNOISE: not permitted in %s tracks. Arg '%s' ignored." %
                 (g.vtype, ' '.join(ln)))
+
+def trackPlectrumShape(name, ln):
+    """ Define chord shape for stringed instrument. """
+
+    g = gbl.tnames[name]
+    
+    try:
+        g.setPlectrumShape(ln)
+    except AttributeError:
+        warning("SHAPE: not permitted in %s tracks. Arg '%s' ignored." %
+                (g.vtype, ' '.join(ln)))
+
 
 #######################################
 # MIDI setting
@@ -1203,9 +1121,9 @@ def trackArpeggiate(name, ln):
         error("Use: %s Arpeggiate N" % name)
 
     g = gbl.tnames[name]
-    if hasattr(g, "setArp"):
+    try:
         g.setArp(ln)
-    else:
+    except AttributeError:
         warning("Arpeggiate: not permitted in %s tracks. Arg '%s' ignored." %
                 (g.vtype, ' '.join(ln)))
 
@@ -1217,9 +1135,9 @@ def trackStretch(name, ln):
         error("Use: %s Stretch N" % name)
 
     g = gbl.tnames[name]
-    if hasattr(g, "setStretch"):
+    try:
         g.setStretch(ln)
-    else:
+    except AttributeError:
         warning("Stretch: not permitted in %s tracks. Arg '%s' ignored." %
                 (g.vtype, ' '.join(ln)))
 
@@ -1287,7 +1205,7 @@ def trackUnify(name, ln):
 """
 
 simpleFuncs = {'ADJUSTVOLUME': MMA.volume.adjvolume,
-               'AFTER': MMA.after.set,
+               'AFTER': MMA.after.create,
                'ALLGROOVES': MMA.grooves.allgrooves,
                'ALLTRACKS': allTracks,
                'AUTHOR': MMA.docs.docAuthor,
@@ -1300,7 +1218,7 @@ simpleFuncs = {'ADJUSTVOLUME': MMA.volume.adjvolume,
                'COMMENT': comment,
                'CRESC': MMA.volume.setCresc,
                'CUT': MMA.tempo.cut,
-               'DEBUG': setDebug,
+               'DEBUG': MMA.debug.setDebug,
                'DEC': macros.vardec,
                'DECRESC': MMA.volume.setDecresc,
                'DEFALIAS': MMA.grooves.grooveAlias,
@@ -1324,7 +1242,7 @@ simpleFuncs = {'ADJUSTVOLUME': MMA.volume.adjvolume,
                'IFEND': ifend,
                'INC': macros.varinc,
                'INCLUDE': include,
-               'KEYSIG': keySig.set,
+               'KEYSIG': keySig.create,
                'LABEL': comment,
                'LYRIC': lyric.option,
                'MIDIDEF': MMA.mdefine.mdefine,
@@ -1367,12 +1285,13 @@ simpleFuncs = {'ADJUSTVOLUME': MMA.volume.adjvolume,
                'SETLIBPATH': MMA.paths.setLibPath,
                'SETMIDIPLAYER': MMA.player.setMidiPlayer,
                'SETOUTPATH': MMA.paths.setOutPath,
-               'SETSYNCTONE': MMA.midi.setSyncTone,
+               'SETPLUGPATH': MMA.paths.setPlugPath,
+               'SETSYNCTONE': MMA.sync.setSyncTone,
                'SHOWVARS': macros.showvars,
                'STACKVALUE': macros.stackValue,
                'SWELL': MMA.volume.setSwell,
                'SWINGMODE': MMA.swing.swingMode,
-               'SYNCHRONIZE': synchronize,
+               'SYNCHRONIZE': MMA.sync.synchronize,
                'TEMPO': MMA.tempo.tempo,
                'TIME': MMA.tempo.setTime,
                'TIMESIG': timeSig.setSig,
@@ -1384,7 +1303,7 @@ simpleFuncs = {'ADJUSTVOLUME': MMA.volume.adjvolume,
                'VARCLEAR': macros.clear,
                'VEXPAND': macros.vexpand,
                'VOICEVOLTR': MMA.translate.voiceVolTable.set,
-               'VOICETR': MMA.translate.vtable.set,
+               'VOICETR': MMA.translate.vtable.create,
                'VOLUME': MMA.volume.setVolume,
                'TRANSPOSE': MMA.keysig.transpose}
 
@@ -1434,6 +1353,7 @@ trackFuncs = {
     "ORNAMENT": trackOrnament,
     'TUNING': trackPlectrumTuning,
     'CAPO': trackPlectrumCapo,
+    'SHAPE': trackPlectrumShape,
     'RANGE': trackRange,
     'RDURATION': trackRduration,
     'RESTART': MMA.sequence.trackRestart,
@@ -1461,3 +1381,5 @@ trackFuncs = {
     'VOICING': trackVoicing,
     'VOLUME': trackVolume,
     'DEFINE': trackDefPattern}
+
+dataFuncs = {}
