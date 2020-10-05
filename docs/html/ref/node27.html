@@ -178,8 +178,36 @@ will display a silly message after every four bars are processed.
 <P>
 Anything left on the command line after processing the options is
 assumed to be a valid 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command.<A ID="tex2html119"
-  HREF="#foot17024"><SUP><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command. <SPAN  CLASS="textit">Important: all options must
+be on the command line before the actual command to execute.</SPAN> So, this
+will work:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>After Repeat=1 Print Testing  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+but this will not:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>After  Print Testing Repeat=1  <em><Font color=Red>
+	¡¡Wrong!!
+    <Font color=Black > </em>   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+since the &ldquo;Repeat=1&rdquo; is considered to be part of the command.
+
 <P>
 A number of short examples of are contained in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/after</SPAN></SPAN> directory.
 
@@ -195,21 +223,10 @@ R<SMALL>EPEAT</SMALL> option will continue to be active until they are removed
 with a R<SMALL>EMOVE</SMALL> command.
 
 <P>
-Using the command line options <B>-e</B> and <B>-r</B> and copious
+Using the command line options <SPAN  CLASS="textit">-e</SPAN> and <SPAN  CLASS="textit">-r</SPAN> and copious
 P<SMALL>RINT</SMALL> statements (yes, you can use A<SMALL>FTER</SMALL> for this!) will
 help you determine the exact event locations.
-<BR><HR><H4>Footnotes</H4>
-<DL>
-<DT><A ID="foot17024">... command.</A><A
- HREF="node27.html#tex2html119"><SUP><SPAN CLASS="arabic">27</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
-<DD>The parsing occurs when
-  the option pairs are <B>extracted</B> from the input line and any
-  remaining tokens are glued back together. So, you <B>can</B> have
-  your options inserted inside the command ...but this is not
-  recommended!
 
-</DD>
-</DL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A

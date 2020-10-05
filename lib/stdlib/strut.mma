@@ -121,7 +121,7 @@ DefGroove    StrutIntro   4 bar intro.
 
 Groove StrutIntro
 Chord-Sus Groove StrutSus
-DefGroove StrutSusIntro
+DefGroove StrutSusIntro   Same intro with sustained strings
 
 ////////////////////////////////
 /// Ending

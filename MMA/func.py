@@ -137,7 +137,7 @@ def callFunction(l):
     if fname not in funcList:
         error("Call: '%s' has not been defined." % fname)
 
-    # Convert any escaped '\,' into $ff ... see explanation in defCall() 
+    # Convert any escaped '\,' into $ff ... see explanation in defCall()
     p = ' '.join(l[1:]).replace('\,', chr(255)).split(',')
 
     # Validate calling params

@@ -46,11 +46,11 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html479"
+<LI><A ID="tex2html488"
   HREF="node2.html#SECTION00210000000000000000">Command Line Options</A>
-<LI><A ID="tex2html480"
+<LI><A ID="tex2html489"
   HREF="node2.html#SECTION00220000000000000000">Lines and Spaces</A>
-<LI><A ID="tex2html481"
+<LI><A ID="tex2html490"
   HREF="node2.html#SECTION00230000000000000000">Programming Comments</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -78,8 +78,8 @@ name followed by the required options. For example,
       </Table>
 
 <P>
-processes the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test</SPAN></SPAN><A ID="tex2html12"
-  HREF="#foot890"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> and creates
+processes the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test</SPAN></SPAN><A ID="tex2html13"
+  HREF="#foot907"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> and creates
 the MIDI file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test.mid</SPAN></SPAN>.
 
 <P>
@@ -132,8 +132,8 @@ The following command line options are available:
     specified range will be compiled. The bar numbers refer to the
     &ldquo;comment&rdquo; bar number at the start of a data line ... note
     that the comment numbers will vary from the actual bar numbers of
-    the generated song. <A ID="tex2html13"
-  HREF="#foot762"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+    the generated song. <A ID="tex2html14"
+  HREF="#foot770"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 </DD>
 <DT><STRONG>-B Range List</STRONG></DT>
@@ -152,8 +152,8 @@ The following command line options are available:
 <DT><STRONG>-d</STRONG></DT>
 <DD>Enable LOTS of debugging messages. This option is mainly
     designed for program development and may not be useful to
-    users.<A ID="tex2html14"
-  HREF="#foot892"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+    users.<A ID="tex2html15"
+  HREF="#foot909"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
 <P>
 </DD>
 <DT><STRONG>-e</STRONG></DT>
@@ -289,8 +289,8 @@ See the -L option, below for an alternate report.
 <DT><STRONG>-i BARS</STRONG></DT>
 <DD>Set the maximum number of bars which can be
     generated. The default setting is 500 bars (a long
-    song!<A ID="tex2html15"
-  HREF="#foot793"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>). This setting is needed since you can create
+    song!<A ID="tex2html16"
+  HREF="#foot801"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>). This setting is needed since you can create
     infinite loops by improper use of the <SMALL>GOTO</SMALL> command. If your
     song really is longer than 500 bars use this option to increase
     the permitted size.
@@ -410,8 +410,8 @@ The current installation of
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will update the groove database with all files in the
     current L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>. All files <SPAN  CLASS="textit">must</SPAN> have a &ldquo;.mma&rdquo;
     extension. Any directory containing a file named <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN>
-    will be ignored.<A ID="tex2html16"
-  HREF="#foot895"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> Note, that
+    will be ignored.<A ID="tex2html17"
+  HREF="#foot912"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> Note, that
     <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> consists of all uppercase letters and is usually
     an empty file.
 
@@ -460,12 +460,14 @@ The current installation of
     save the generated MIDI data.
 
 <P>
-
+</DD>
+<DT></DT>
+<DD>
 		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
            <tr> <td>
-	       <SPAN  CLASS="textbf"> The following commands are used to
-        create the documentation. As a user you should probably never
-        have a need for any of them.</SPAN>
+	       <SPAN  CLASS="textbf"> The following commands are used
+        to create the documentation. As a user you should probably
+        never have a need for any of them.</SPAN>
 	
            </td></tr>
         </Table>
@@ -499,6 +501,12 @@ The current installation of
     line. If the specified groove name has a '/' the first part of the
     name is assumed to be a file to read using U<SMALL>SE</SMALL>. Used by the
     <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma-libdoc.py</SPAN></SPAN> tool.
+
+<P>
+</DD>
+<DT><STRONG>-Djs</STRONG></DT>
+<DD>Generate JSON output for the specified G<SMALL>ROOVE</SMALL>.
+    See -D<SMALL>GH</SMALL>, above, for more details.
 
 <P>
 </DD>
@@ -551,6 +559,13 @@ The current installation of
 
 <P>
 </DD>
+<DT><STRONG>-xGrooves <SPAN  CLASS="textit">[NAME]</SPAN></STRONG></DT>
+<DD>Lists all the G<SMALL>ROOVE</SMALL> names in the
+    
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  database. Details <A HREF="node28.html#sect-xtra-grooves">here</A>.
+
+<P>
+</DD>
 </DL>
 A number of the above command line options are also available from the
 C<SMALL>MD</SMALL>L<SMALL>INE</SMALL> option detailed <A HREF="node30.html#sect-cmdline">here</A>.
@@ -587,8 +602,8 @@ Programming Comments</A>
 <P>
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is designed to read and write files (including a file piped to
-it via stdin). However, it is not a filter.<A ID="tex2html17"
-  HREF="#foot899"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
+it via stdin). However, it is not a filter.<A ID="tex2html18"
+  HREF="#foot916"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
 <P>
 As noted earlier in this manual, 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has been written entirely in
@@ -607,15 +622,15 @@ tweaking some of the more time intensive Python loops.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot890">...</A><A
- HREF="node2.html#tex2html12"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DT><A ID="foot907">...</A><A
+ HREF="node2.html#tex2html13"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>Actually, the file
   <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test</SPAN></SPAN> or <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test.mma</SPAN></SPAN> is processed. Please read section
   <A HREF="node33.html#file-extensions">file extensions</A>.
 
 </DD>
-<DT><A ID="foot762">... song.</A><A
- HREF="node2.html#tex2html13"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DT><A ID="foot770">... song.</A><A
+ HREF="node2.html#tex2html14"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>Use of this command is not
       recommended for creating production MIDI files. A great deal of
       &ldquo;unused&rdquo; data is included in the files which may create timing
@@ -623,28 +638,28 @@ tweaking some of the more time intensive Python loops.
       debugging.
 
 </DD>
-<DT><A ID="foot892">... users.</A><A
- HREF="node2.html#tex2html14"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DT><A ID="foot909">... users.</A><A
+ HREF="node2.html#tex2html15"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD> A number of the debugging commands can also be
       set dynamically in a song. See the debug section
       <A HREF="node28.html#debug">here</A> for details.
 
 </DD>
-<DT><A ID="foot793">... song!</A><A
- HREF="node2.html#tex2html15"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DT><A ID="foot801">... song!</A><A
+ HREF="node2.html#tex2html16"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>500 bars with 4 beats per bar at 200 BPM is about
       10 minutes.
 
 </DD>
-<DT><A ID="foot895">... ignored.</A><A
- HREF="node2.html#tex2html16"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DT><A ID="foot912">... ignored.</A><A
+ HREF="node2.html#tex2html17"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>Sub-directories in a directory with a
       <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> <SPAN  CLASS="textit">are</SPAN> processed ... they need
       additional <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> entires to ignore.
 
 </DD>
-<DT><A ID="foot899">... filter.</A><A
- HREF="node2.html#tex2html17"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DT><A ID="foot916">... filter.</A><A
+ HREF="node2.html#tex2html18"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
 <DD>It is possible
   that filter mode for output could be added to 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , but I'm not

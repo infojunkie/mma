@@ -246,21 +246,14 @@ def setTrigger(name, ln):
                 trigger.measures.append(a.lstrip('0'))
 
         elif cmd == 'OVERRIDE':
-            if opt.upper() in ('ON', 1, 'TRUE'):
-                trigger.override = True
-            elif opt.upper() in ('OFF', 0, 'FALSE'):
-                trigger.override = False
+            trigger.override = getTF(opt, "Trigger 'OverRide'")
 
         elif cmd == 'TRUNCATE':
-            if opt.upper() in ('ON', 1, 'TRUE'):
-                trigger.truncate = True
-            elif opt.upper() in ('OFF', 0, 'FALSE'):
-                trigger.truncate = False
-            else:
-                error("%s Trigger Truncate expecting ON OFF, not %s." %
-                      (self.name, opt))
+            trigger.truncate = getTF(opt, "Trigger 'Turncate'")
 
         elif cmd == 'SEQUENCE':
+            if not sequence and opt:
+                sequence = opt
             if sequence:
                 sequence = sequence.rstrip('; ')
                 trigger.seq = self.defPatRiff(sequence)
@@ -268,13 +261,7 @@ def setTrigger(name, ln):
                 error("%s Trigger Sequence expecting {patterns...}." % self.name)
 
         elif cmd == 'STICKY':
-            if opt.upper() in ('ON', 1, 'TRUE'):
-                self.sticky = True
-            elif opt.upper() in ('OFF', 0, 'FALSE'):
-                self.sticky == False
-            else:
-                error("%s Trigger Sticky expecting ON OFF, not %s" % \
-                      (self.name, opt))
+            self.sticky = getTF(opt, "Trigger 'Sticky'")
 
         else:
             error("%s Trigger '%s' is an unknown command." % (self.name, cmd))
@@ -307,7 +294,6 @@ def getTriggerOptions(self):
 
     if trigger.mode in ('AUTO', 'REST'):
         mode = trigger.mode
-
     
     if not trigger.beats:
         beats = '[]'
@@ -339,8 +325,13 @@ def getTriggerOptions(self):
     else:
         seq = "Sequence={}"
 
-    return "%s Beats=%s CNames=%s CTypes=%s CTonics=%s Bars=%s" \
-              "Count=%s Truncate=%s Override=%s %s" % \
+    if trigger.measures:
+        measures = ','.join([i for i in trigger.measures])
+    else:
+        measures = '[]'
+        
+    return "%s Beats=%s CNames=%s CTypes=%s CTonics=%s Bars=%s " \
+              "Count=%s Truncate=%s Override=%s Measures=%s %s" % \
           ( mode, beats, cnames, ctypes, tonics, bars, trigger.count,
-            trigger.truncate, trigger.override, seq)
+            trigger.truncate, trigger.override, measures, seq)
 

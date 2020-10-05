@@ -159,7 +159,7 @@ def libUpdate():
         # Strip out defs of deleted (not found) files. Only on -g (update mode)
 
         if gbl.makeGrvDefs == 1:
-            for f in db.keys():
+            for f in list(db.keys()):
                 if f not in processedFiles:
                     print("       Deleting: %s" % f)
                     del db[f]

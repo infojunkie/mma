@@ -46,15 +46,15 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html590"
+<LI><A ID="tex2html601"
   HREF="node18.html#SECTION001810000000000000000">Skew</A>
-<LI><A ID="tex2html591"
+<LI><A ID="tex2html602"
   HREF="node18.html#SECTION001820000000000000000">Accent</A>
-<LI><A ID="tex2html592"
+<LI><A ID="tex2html603"
   HREF="node18.html#SECTION001830000000000000000">Delay</A>
-<LI><A ID="tex2html593"
+<LI><A ID="tex2html604"
   HREF="node18.html#SECTION001840000000000000000">Notes</A>
-<LI><A ID="tex2html594"
+<LI><A ID="tex2html605"
   HREF="node18.html#SECTION001850000000000000000">Summary</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -333,7 +333,29 @@ patterns and solo note sequences  are defined or created</SPAN>. This can be
 confusing ... you can't take an existing G<SMALL>ROOVE</SMALL> and just do a
 S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> after calling it up ... the command will have no
 effect. Instead, you'll have modify the actual library code. Or write
-your own.
+your own. And, to add yet another potential downfall, a G<SMALL>ROOVE</SMALL>
+command will undo any existing S<SMALL>WING</SMALL> options, but only for
+those tracks which are saved/restored in a G<SMALL>ROOVE</SMALL>. So, if you have
+the following code:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Solo Riff 8a;b;c;d;e;f;g; 
+<BR>
+SwingMode On 
+<BR>
+Groove Dixie 
+<BR>
+C 
+<BR>  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+It will work since the G<SMALL>ROOVE</SMALL> does not save/restore S<SMALL>OLO</SMALL> tracks.
 
 <P>
 The complete S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> setting is saved in the current

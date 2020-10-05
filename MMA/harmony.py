@@ -24,7 +24,7 @@ Bob van der Poel <bob@mellowood.ca>
 
 from MMA.common import *
 import MMA.debug
-
+import random
 
 def setHarmony(self, ln):
     """ Set the harmony. """
@@ -98,10 +98,19 @@ def setHarmonyVolume(self, ln):
 def harmonize(hmode, note, chord):
     """ Get harmony note(s) for given chord. """
 
+    if not chord:
+        return
+    
     hnotes = []
+    chord = sorted(list(chord))
 
     for tp in hmode.split('+'):
 
+        # if harmonies are concated with commas we need to
+        # randomly select one of them
+        if ',' in tp:
+            tp = random.choice(tp.split(','))
+        
         if tp in ('2', '2BELOW'):
             hnotes.append(gethnote(note, chord))
 
@@ -114,33 +123,27 @@ def harmonize(hmode, note, chord):
         elif tp == '28ABOVE':
             hnotes.append(gethnote(note, chord)+24)
 
-        elif tp in ('3', '3BELOW'):
+        elif tp in ('3', '3BELOW', '38BELOW'):
             a = gethnote(note, chord)
             b = gethnote(a, chord)
+            if tp == '38BELOW':
+                a -= 12
+                b -= 12
             hnotes.extend([a, b])
             
-        elif tp == '38BELOW':
+        elif tp in ('3ABOVE', '38ABOVE'):
             a = gethnote(note, chord)
             b = gethnote(a, chord)
-            hnotes.extend([a-12, b-12])
-
-        elif tp == '3ABOVE':
-            a = gethnote(note, chord)
-            b = gethnote(a, chord)
+            if tp == '38ABOVE':
+                a += 24
+                b += 24
             hnotes.extend([a+12, b+12])
-
-        elif tp == '38ABOVE':
-            a = gethnote(note, chord)
-            b = gethnote(a, chord)
-            hnotes.extend([a+24, b+24])
             
-        elif tp in ('OPEN', "OPENBELOW"):
+        elif tp in ('OPEN', "OPENBELOW", 'OPEN8BELOW'):
             a = gethnote(note, chord)
+            if tp == 'OPEN8ABOVE':
+                a -= 12
             hnotes.append(gethnote(a, chord))
-
-        elif tp == 'OPEN8BELOW':
-            a = gethnote(note, chord)
-            hnotes.append(gethnote(a-12, chord))
 
         elif tp == 'OPENABOVE':
             a = gethnote(note, chord)
@@ -168,15 +171,64 @@ def harmonize(hmode, note, chord):
         elif tp == '24ABOVE':
             hnotes.append(note + (3 * 12))
 
+        elif tp == 'TOP':
+            hnotes.append(note + chord[-1])
+        
+        elif tp in('TOPABOVE', 'TOP8ABOVE', 'TOP16ABOVE'):
+            h = chord[-1]
+            while h <= note:
+                h += 12
+            if tp == 'TOP8ABOVE':
+                h += 12
+            elif tp == 'TOP16ABOVE':
+                h += 24
+            hnotes.append(h)
+        
+        elif tp in('TOPBELOW', 'TOP8BELOW', 'TOP16BELOW'):
+            h = chord[-1]
+            while h >= note:
+                h -= 12
+            if tp == 'TOP8BELOW':
+                h -= 12
+            elif tp == 'TOP16BELOW':
+                h -= 24
+            hnotes.append(h)
+
+        elif tp == 'ROOT':
+            hnotes.append(note + chord[0])
+
+        elif tp in ('ROOTABOVE', 'ROOT8ABOVE', 'ROOT16ABOVE'):
+            h = chord[0]
+            while h <= note:
+                h += 12
+            if tp == 'ROOT8ABOVE':
+                h += 12
+            elif tp == 'ROOT16ABOVE':
+                h += 24
+            hnotes.append(h)
+
+        elif tp in('ROOTBELOW', 'ROOT8BELOW', 'ROOT16BELOW'):
+            h = chord[0]
+            while h >= note:
+                h -= 12
+            if tp == 'ROOT8BELOW':
+                h -= 12
+            elif tp == 'ROOT16BELOW':
+                h -= 24
+            hnotes.append(h)
+            
         elif ":" in tp:
             hnotes.append(note + intervalHarmony(tp))
-            
+
+        elif tp == 'NONE':
+            continue
+        
         else:
             error("Unknown harmony type '%s'" % tp)
 
     # Strip out duplicate notes from harmony list.
     #  Cute trick here ... just use set().
-
+#    print (note, chord, hnotes)
     return list(set(hnotes))
 
 
@@ -254,36 +306,32 @@ def gethnote(note, chord):
         note.
     """
 
-    wm = "No harmony note found since no chord, using note " \
-         "0 which will sound bad"
+    ch = chord[:] # we're buggering the chord octave, so copy the list
 
-    if not chord:        # should never happen!
-        warning(wm)
-        return 0
+   
+    # Note: did a test and none of my files seem to be triggering both of the
+    # the following conditions.
+    # If 1st note in chord is > basenote then we know all notes in chord are
+    # above the basenote. Lower the chord
+    while ch[-1] > note:
+        ch = [x-12 for x in ch]
+    # Ensure the highest note in the chord is in octave range
+    while ch[-1]+12 < note:
+        ch = [x+12 for x in ch]
 
-    ch = list(chord)    # copy chord and sort
-    ch.sort()
+    # get a note from the chord which is
+    # less than the current note. Just step
+    # until the chord note is >= 'note' and
+    # use the previous If the note is the chord's
+    # root we actually return the root note. We
+    # do have to return something.
 
-    # ensure that the note is in the chord
-
-    while ch[-1] < note:
-        for i, n in enumerate(ch):
-            ch[i] += 12
-
-    while ch[0] >= note:
-        for i, v in enumerate(ch):
-            ch[i] -= 12
-
-    # get one lower than the note
-
-    while 1:
-        if not ch:            # this probably can't happen
-            warning(wm)
-            return 0
-
-        h = ch.pop()
-        if h < note:
+    h = ch[0]
+    for i in ch:
+        if i >= note:
             break
+        else:
+            h = i
 
     return h
 

@@ -105,13 +105,7 @@ def setOrnament(self, ln):
                       (self.name, opt))
 
         elif cmd == 'CHROMATIC':
-            if opt in ('ON', 'TRUE'):
-                o['chromatic'] = True
-            elif opt in ('OFF', 'FALSE'):
-                o['chromatic'] = False
-            else:
-                error("%s Ornament Chromatic: value must be 'On' or 'Off', not '%s'." %
-                      (self.name, opt))
+            o['chromatic'] = getTF(opt, "%s Ornament Chromatic" % (self.name))
 
         elif cmd == 'DURATION':
             v = stof(opt)

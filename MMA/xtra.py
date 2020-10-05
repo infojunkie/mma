@@ -24,10 +24,15 @@ Handle -x options.
 
 """
 
-from common import *
+import os
+import sys
+
+from MMA.common import *
 from . import gbl
-import macro
 from MMA.lyric import lyric
+import MMA.paths 
+import MMA.auto
+    
 
 def checkChords(clist):
     """ Take a list of chords passed on the command line and check them
@@ -106,7 +111,44 @@ def checkFile(l):
     # summarize
     print("Valid chords: %s" % ', '.join(sorted(validChords)))
     sys.exit(0)
+
+def listGrooves(arg):
+    """ List the grooves found in the files in args. 
+        Directories are parsed for all files.
+    """
+
+    if len(arg) > 1:
+        error("-xGrooves: too many args (use 1 or none)")
+    
+    matching = []
+    if arg:
+        arg = arg[0].upper()
+    else:
+        arg = ''
+    
+    # the libpath can't be changed via a CLI, so we only
+    # need (and use) the default
+    libp = MMA.paths.libPath
+    
+    MMA.auto.findGroove('')  # initalize the database
+
+    for dir, g in MMA.auto.grooveDB:
+        for filename, namelist in g.items():
+            for x in namelist:
+                if arg in x:
+                    for a in MMA.paths.libPath:
+                        if filename.startswith(a):
+                            filename = filename[len(a)+1:]
+                            break
+                    if filename.endswith(gbl.EXT):
+                        filename = filename[:-len(gbl.EXT)]
+                    matching.append("%s:%s" % (filename,x))
+                
+    for a in sorted(matching):
+        print (a)
         
+    sys.exit(0)
+    
 def xoption(opt, args):
     """ Xtra, seldom used, options """
     
@@ -128,6 +170,9 @@ def xoption(opt, args):
         if len(args) != 1:
             error("-xCheckFile: Exactly one filename required. Use '-xCheckFile <FILENAME>'.")
         checkFile(args[0])
+
+    elif opt == "GROOVES":
+        listGrooves(args)
         
     else:
         error("'%s' in an unknown -x option" % opt)

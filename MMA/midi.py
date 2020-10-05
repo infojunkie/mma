@@ -31,6 +31,7 @@ from   MMA.common import *
 from   MMA.miditables import NONETONE
 
 splitChannels = []
+tempoChanges = []    # A list of tempo changes, use to check from tempo.py
 
 # some constants we use to catorgize event types
 MIDI_NOTE = 1
@@ -392,10 +393,10 @@ class Mtrk:
         
         self.addToTrack(offset, packBytes(cvol, v))
 
-    def addTempo(self, offset, beats):
+    def addTempo(self, offset, bpm):
         """ Create a midi tempo meta event.
 
-             beats - beats per second
+             bpm - beats per minute
 
              Return - packed midi string
         """
@@ -403,8 +404,9 @@ class Mtrk:
         cmd = packBytes((0xff, 0x51, 0x03))
         self.delDup(offset, cmd)
 
-        self.addToTrack(offset, packBytes(cmd, intTo3Byte(60000000 // beats)))
-
+        self.addToTrack(offset, packBytes(cmd, intTo3Byte(60000000 // bpm)))
+        tempoChanges.append([offset, bpm])
+        
     def writeMidiTrack(self, out):
         """ Create/write the MIDI track.
 
@@ -422,7 +424,7 @@ class Mtrk:
 
         if MMA.sync.endsync and self.channel >= 0:
             eof = gbl.tickOffset
-            for offset in tr.keys():
+            for offset in list(tr.keys()):
                 if offset > eof:
                     del tr[offset]
             self.addToTrack(eof, packBytes((0xb0 | self.channel, 0x7b, 0)))
@@ -499,6 +501,19 @@ class Mtrk:
         out.write(intToLong(totsize))
         out.write(tdata)
 
+    def getLastOffset(self):
+        """ Go though the data and find the last offset. 
+            Used in re-allocating tracks. A completely
+            empty track will return 0, but that's okay
+            and shouldn't happen in any event.
+        """
+
+        offset = 0  
+        for a in self.miditrk:
+            if a > offset:
+                offset = a
+        return offset
+    
     def addPairToTrack(self, boffset, startRnd, endRnd, duration, note, v, unify ):
         """ Add a note on/off pair to a track.
 

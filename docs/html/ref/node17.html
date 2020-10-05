@@ -46,19 +46,19 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html583"
+<LI><A ID="tex2html594"
   HREF="node17.html#SECTION001710000000000000000">Tempo</A>
-<LI><A ID="tex2html584"
+<LI><A ID="tex2html595"
   HREF="node17.html#SECTION001720000000000000000">Time</A>
-<LI><A ID="tex2html585"
+<LI><A ID="tex2html596"
   HREF="node17.html#SECTION001730000000000000000">TimeSig</A>
-<LI><A ID="tex2html586"
+<LI><A ID="tex2html597"
   HREF="node17.html#SECTION001740000000000000000">Truncate</A>
-<LI><A ID="tex2html587"
+<LI><A ID="tex2html598"
   HREF="node17.html#SECTION001750000000000000000">BeatAdjust</A>
-<LI><A ID="tex2html588"
+<LI><A ID="tex2html599"
   HREF="node17.html#SECTION001760000000000000000">Fermata</A>
-<LI><A ID="tex2html589"
+<LI><A ID="tex2html600"
   HREF="node17.html#SECTION001770000000000000000">Cut</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -113,7 +113,7 @@ to increase or decrease the current rate by including a leading &ldquo;+&rdquo;,
 will increase the current rate to 130 beats/minute.
 
 <P>
-The tempo can be changed series of beats, much like a ritardando or
+The tempo can be changed over a series of beats, much like a ritardando or
 accelerando in real music. Assuming that a time signature of
 <SPAN  CLASS="textbf">4/4</SPAN>, the current tempo is 120, and there are 4 beats in a
 bar, the command:
@@ -129,11 +129,11 @@ bar, the command:
 
 <P>
 will cause 4 tempo entries to be placed in the current bar (in the
-MIDI meta track). The start of the bar will be 115, the 2nd beat will
-be at 110, the 3rd at 105 and the last at 100. Note: printing the value of the
-builtin 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  macro $_T<SMALL>EMPO</SMALL> will reflect the final value, not the
-intermediates.
+MIDI meta track). The start of the bar will be 115, the 2nd beat
+will be at 110, the 3rd at 105 and the last at 100. Note: printing the
+value of the builtin 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  macro $_T<SMALL>EMPO</SMALL> will, properly,
+reflect the current value, not the final one.
 
 <P>
 You can also vary an existing rate using a &ldquo;+&rdquo;, &ldquo;-&rdquo; or &ldquo;*&rdquo; in
@@ -158,6 +158,23 @@ the increase over the next five and a half bars. Assuming a start
 tempo of 100 and 4 beats/bar, the meta track will have a tempo
 settings of 101, 102, 103 ... 120. This will occur over 22 beats
 (5.5 bars * 4 beats) of music.
+
+<P>
+The duration can be set using beats by appending a single &ldquo;b&rdquo; to the
+value:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tempo +20 22b  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+is the same as the previous example. A &ldquo;m&rdquo; can be appended to the
+duration for consistency. 
 
 <P>
 Using the multiplier is handy if you are switching to &ldquo;double time&rdquo;:
@@ -187,6 +204,95 @@ and to return:
 Note that the &ldquo;+&rdquo;, &ldquo;-&rdquo; or &ldquo;*&rdquo; sign must <SPAN  CLASS="textit">not</SPAN> be separated
 from the tempo value by any spaces. The value for T<SMALL>EMPO</SMALL> can be
 any value, but will be converted to integer for the final setting.
+
+<P>
+There are two options to the T<SMALL>EMPO</SMALL> command, both set as
+option=value pairs:
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
+<DT><STRONG>Offset</STRONG></DT>
+<DD>Sets an offset for the change. This can be given in
+    bars (the default) or beats. To specify beats append a single &ldquo;b&rdquo; to
+    the value. For consistency for can add a &ldquo;m&rdquo; for measures/bars.
+    Floating point values are permitted.
+
+<P>
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tempo 120 Offset=2b  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will insert the, possibly new tempo, in two beats, and:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tempo 120 Offset=1.5  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will insert the tempo (assuming 4 beats per bar) do so in 6 beats.
+
+<P>
+</DD>
+<DT><STRONG>Restore</STRONG></DT>
+<DD>The <SMALL>RESTORE</SMALL> option will change the T<SMALL>EMPO</SMALL>
+  back to the current setting in the specified number of bars. You
+  can end the option with a single &ldquo;b&rdquo; to indicate beats or,
+  optionally, a &ldquo;m&rdquo; for measures/bars. Floating point values are
+  permitted.
+
+<P>
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tempo 120 Restore=2.5m  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will change the T<SMALL>EMPO</SMALL> to 120 BPM at the current position and
+  then restore it to the previous setting in two and half bars.
+
+<P>
+</DD>
+</DL></td></tr></table>
+
+<P>
+Please note:
+
+<P>
+
+<UL>
+<LI>After changing the tempo the value of the macro $_T<SMALL>EMPO</SMALL>
+  will reflect the tempo at the current point, not the final value you
+  are setting the tempo to.
+
+<P>
+</LI>
+<LI>After completing any tempo changes, a check is done to see if
+  any of the settings in the current command will be overwritten by a
+  previous one (most likely due to a large O<SMALL>FFSET</SMALL> or
+  R<SMALL>ESTORE</SMALL> setting. This will be reported as a warning.
+
+<P>
+</LI>
+</UL>
 
 <P>
 
@@ -314,8 +420,8 @@ to set up for a waltz:
 <P>
 This will set the beats per bar to 3, the time signature meta event to
 &ldquo;3/4&rdquo; and the chord tabs to 1,2,3. The following table shows the
-known time signatures, etc.<A ID="tex2html75"
-  HREF="#foot9761"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>.
+known time signatures, etc.<A ID="tex2html76"
+  HREF="#foot9882"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>.
 
 <P>
 <DIV class="CENTER">
@@ -398,7 +504,7 @@ known time signatures, etc.<A ID="tex2html75"
 
 <P>
 Many time signatures can have different meters. For example, in
-<SPAN  CLASS="textbf">6/8</SPAN> you could have 6 or 2 beats/measure. In these cases we
+<SPAN  CLASS="textbf">6/8</SPAN> you could have 6 or 2 beats/bar. In these cases we
 leave it to you to set the T<SMALL>ABS</SMALL> to the correct values for your
 piece.
 
@@ -1178,8 +1284,8 @@ thought. The symbol is also referred to as &ldquo;railroad tracks&rdquo;.
 
 <P>
 The idea is to stop the music on all tracks, pause briefly, and
-resume.<A ID="tex2html76"
-  HREF="#foot9777"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+resume.<A ID="tex2html77"
+  HREF="#foot9898"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  provides the C<SMALL>UT</SMALL> command to help deal with this
@@ -1390,17 +1496,17 @@ If the offset is omitted, the current bar position will be used. This
 the same as using an offset value of 0.
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot9761">... etc.</A><A
- HREF="node17.html#tex2html75"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DT><A ID="foot9882">... etc.</A><A
+ HREF="node17.html#tex2html76"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>These are known to 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . There
   are many more valid time signatures. Gardner Read lists over 100 of
   them in <SPAN  CLASS="textit">Music Notation</SPAN>.
 
 </DD>
-<DT><A ID="foot9777">...
+<DT><A ID="foot9898">...
 resume.</A><A
- HREF="node17.html#tex2html76"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+ HREF="node17.html#tex2html77"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>The answer to the music theory question of whether
   the &ldquo;pause&rdquo; takes time <SPAN  CLASS="textit">from</SPAN> the current beat or is treated
   as a &ldquo;fermata&rdquo; is not clear&mdash;but as far as 

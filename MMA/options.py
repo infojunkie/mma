@@ -25,6 +25,7 @@ Bob van der Poel <bob@mellowood.ca>
 import getopt
 import sys
 import os
+import tempfile
 
 import MMA.docs
 import MMA.parse
@@ -146,6 +147,9 @@ def opts(l=None):
             elif a == 'gh':
                 gbl.createDocs = 4
 
+            elif a == 'js':
+                gbl.createDocs = 5
+
             elif a == 'bo':
                 gbl.createDocs = 99
 
@@ -195,13 +199,15 @@ def opts(l=None):
 
         elif o == '-V':
             import MMA.file
-            if internal:
+            
+            if internal:   # can't have a -V in a -V :)
                 cmdError("-V")
+                
             gbl.playFile = 2  # signal create and play groove
             if not args:
                 error("-V: option requires Groove Name.")
 
-            tfile = "MMAtmp%s.mma" % os.getpid()
+            _, tfile = tempfile.mkstemp(prefix="MMA_", suffix=".mma")
             op = open(tfile, "w")
             groove = ''
             cmds = []
@@ -239,10 +245,12 @@ def opts(l=None):
 
             op.close()
 
+            # we can only have one scratch file, so no fear of overload.
+            # otherwise we might need to explicity delete file here.
             MMA.exits.files.append(tfile)
 
-            args = [tfile]
-
+            args = [tfile]  # fake the CLI so mma thinks the created file is yours
+            
         elif o=='-x':  # any one of some xtra, seldom used, options
             import MMA.xtra
             MMA.xtra.xoption(a, args)
@@ -294,6 +302,7 @@ def usage(msg=''):
         " -Dxl  eXtract Latex doc blocks from file",
         " -Dxh  eXtract HTML doc blocks from file",
         " -Dgh  extract HTML Groove doc",
+        " -Djs  extract JSON Groove information",
         " -Dbo  extract text for browser app",
         " -Ds   extract sequence lists from file",
         " -e    show parsed/Expanded lines",

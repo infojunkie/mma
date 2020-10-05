@@ -73,7 +73,7 @@ Begin Arpeggio
 	Volume     p
 End
 
-DefGroove RagtimePlus
+DefGroove RagtimePlus  Addition of a arpeggiating piano makes it a bit busier
 
 /////////////////////////////////////////////////
 /// Sustained

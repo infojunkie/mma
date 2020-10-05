@@ -42,7 +42,7 @@ import MMA.debug
 
 from . import gbl
 from MMA.common import *
-from MMA.miditables import NONETONE
+from MMA.miditables import NONETONE, drumKits
 
 pats = {}        # Storage for all pattern defines
 
@@ -161,7 +161,7 @@ class PC:
 
 
     ##########################################
-    ## These are called from process() to set options
+    ## These are called from parse() to set options
 
     def setCompress(self, ln):
         """ set/unset the compress flag. """
@@ -171,15 +171,8 @@ class PC:
         tmp = []
 
         for n in ln:
-
-            if n.upper() in ("ON", "TRUE"):
-                n = "1"
-            if n.upper() in ("OFF", "FALSE"):
-                n = "0"
-            if n not in ("0", "1"):
-                error("%s Compress: Argument 0, 1, True, False, not '%s'." % (self.name, n))
-
-            if n == '1':
+            n = getTF(n, "%s Compress" % (self.name))
+            if n:
                 n = 1
             else:
                 n = 0
@@ -372,8 +365,17 @@ class PC:
                         break
 
             if c < 0:
-                error("No MIDI channel is available for %s, "
-                      "Try CHShare or Delete unused tracks" % self.name)
+                # parse all tracks and find lowest allocated offset
+                lowOff = gbl.tickOffset
+                lowCh = -1
+                for ch in range(1, 17):
+                    if ch == 10:
+                        pass
+                    t = gbl.mtrks[ch].getLastOffset()
+                    if t < lowOff:
+                        lowOff = t
+                        lowCh = ch
+                c = lowCh
 
         else:
             c = stoi(ln, "%s Channel assignment expecting Value, not %s" %
@@ -414,7 +416,7 @@ class PC:
                     continue
 
                 if tr.channel == c:
-                    error("Channel %s is assigned to %s" % (c, tr.name))
+                    warning("Channel %s is being reassigned to %s" % (c, tr.name))
 
         self.channel = c
         if not self.name in gbl.midiAssigns[c]:
@@ -494,14 +496,7 @@ class PC:
             error("%s Sticky needs single argument ('True/False')." % self.name)
          
         arg = ln[0].upper()
-        if arg in ("TRUE", "ON", "1"):
-            self.sticky = True
-
-        elif arg in ("FALSE", "OFF", "0"):
-            self.sticky = False 
-
-        else:
-            error("%s Sticky: '%s' is not a valid option." % (self.name, arg))
+        self.sticky = getTF(arg, "%s Sticky" % (self.name))
 
         if MMA.debug.debug:
             MMA.debug.trackSet(self.name, "Sticky")
@@ -861,8 +856,22 @@ class PC:
         """
 
         ln = lnExpand(ln, '%s Voice' % self.name)
-        tmp = []
 
+        # It we have a drum track, permit setting voice with the
+        # the name of a drumkit. Note, kitnames all end with "KIT"
+        # but the actual kits are stored without.
+        if self.vtype == 'DRUM':
+            tmp = [ x.upper() for x  in ln ]
+            newline = []
+            for a in tmp:
+                if a.endswith('KIT'):
+                    a = a[:-3]
+                    if a in drumKits:
+                        a = str(drumKits[a])
+                newline.append(a)
+            ln = newline
+
+        tmp = []
         for n in ln:
             voc = MMA.midiC.decodeVoice(n)
             tmp.append(voc)
@@ -1201,7 +1210,7 @@ class PC:
             a = stoi(n, "Expecting value in articulation setting")
             a = getIncDecValue(self.artic[i], incr, a)
 
-            if self.vtype is 'PLECTRUM':
+            if self.vtype == 'PLECTRUM':
                 if a < 0 or a > 500:
                     error("%s: Articulation setting must be 0 .. 500 (midi ticks), not %s" %
                           (self.name, a))
@@ -1229,14 +1238,8 @@ class PC:
         tmp = []
 
         for n in ln:
-            n = n.upper()
-            if n in ('ON', 'TRUE', '1'):
-                tmp.append(1)
-            elif n in('OFF', 'FALSE', '0'):
-                tmp.append(0)
-            else:
-                error("Unify accepts On/True/1 or Off/False/0, not %s." % n)
-
+            tmp.append(getTF(n, "Unify"))
+                       
         self.unify = seqBump(tmp)
 
         if MMA.debug.debug:
@@ -1300,8 +1303,9 @@ class PC:
             then call back to this to finish the job.
         """
 
-        self.doMidiClear()
-
+        if self.vtype != 'PLECTRUM' or MMA.patPlectrum.plectrumReset == True:
+            self.doMidiClear()
+            
         g = self.grooves[gname]
 
         self.sequence = g['SEQ']

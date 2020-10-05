@@ -54,7 +54,7 @@ drumNames = {
     75: 'Claves', 76: 'HighWoodBlock', 77: 'LowWoodBlock',
     78: 'MuteCuica', 79: 'OpenCuica', 80: 'MuteTriangle',
     81: 'OpenTriangle', 82: 'Shaker', 83: 'JingleBell',
-    84: 'Castanets', 85: 'MuteSudro', 86: 'OpenSudro'}
+    84: 'Castanets', 85: 'MuteSurdo', 86: 'OpenSurdo'}
 
 drumInx = dict((v.upper(), k) for (k, v) in drumNames.items())
 
@@ -164,3 +164,29 @@ ctrlNames = {
     126: 'PolyOff', 127: 'PolyOn'}
 
 ctrlInx = dict((v.upper(), k) for (k, v) in ctrlNames.items())
+
+# These are the names of the drumkits. Those marked
+# with 'RS' are Roland standard, others are known to
+# Yamaha and Casio. Duplicate names are okay.
+drumKits = {
+    'STANDARD'   :  0,   # RS
+    'STANDARD2'  :  1,
+    'ROOM'       :  8,   # RS
+    'POWER'      : 16,   # RS
+    'ROCK'       : 16,
+    'ELECTRONIC' : 24,   # RS
+    'TR808'      : 25,   # RS
+    'SYNTH1'     : 25,
+    'SYNTH2'     : 30,
+    'JAZZ'       : 32,   # RS
+    'BRUSH'      : 40,   # RS
+    'ORCHESTRA'  : 48,   # RS
+    'CLASSIC'    : 48,
+    'SFX'        : 56,   # RS
+    'HIPHOP1'    : 64,
+    'HIPHOP2'    : 65,
+    'TECHNO1'    : 66,
+    'TECHNO2'    : 67,
+    'DANCE1'     : 68,
+    'DANCE2'     : 69
+}

@@ -110,7 +110,6 @@ def playMidi(file):
 
     cmd = [pl]
     if opts:
-    #    cmd.append(' '.join(opts))  # puts all opts into one string, not right??
         cmd.extend(opts)
     cmd.append(file)
 

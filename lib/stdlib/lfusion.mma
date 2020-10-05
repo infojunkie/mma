@@ -209,6 +209,49 @@ Chord-Sus Groove LfusionSus
 DefGroove LFusion1Sus  The zydeco with strings.
 
 //////////////////////////
+/// Intro
+/////////////////////////
+
+Groove Lfusion
+
+Drum-Kick   Sequence      D13 
+Drum-Rcym   Sequence      D123
+Drum-Bongo  Sequence      -
+Drum-Mconga Sequence      D1
+Drum-Oconga Sequence      D1
+Drum-Lconga Sequence      D3
+Drum-Cabasa Sequence      -
+Drum-Claves Sequence      {D13; D1 Shift .5}
+Drum-Block  Sequence      D123
+Drum-Cuica  Sequence      -
+Drum-MTri   Sequence      D13
+Drum-OTir   Sequence      -
+Drum-Shaker Sequence      D13
+
+Walk        Sequence      -
+Bass        Sequence      B1234  B11 / B1
+
+Arpeggio    Sequence      -
+
+Begin Chord
+   Voice Piano1
+   Sequence      C13
+   Accent  /// no accent for intro
+   Articulate 110
+End
+
+DefGroove LFusionIntro  Smooth intro with strings
+
+Groove LFusionIntro
+ Begin Chord-Sus
+    Groove LfusionSus
+    Octave 5
+    Volume m mp pp  ppp
+ End
+ 
+DefGroove LFusionIntroSus  Intro with strings
+
+//////////////////////////
 /// Endings
 
 Groove Lfusion
@@ -235,6 +278,7 @@ Arpeggio    Sequence      -
 Chord       Sequence      C13
 
 DefGroove  LFusionEnd        A one bar ending.
+
 
 
 Begin Chord

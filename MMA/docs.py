@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 Bob van der Poel <bob@mellowood.ca>
 
 """
-
+import json
 import os
 import time
 
@@ -269,6 +269,18 @@ def docDump():
                 print("TRACK %s" % c)
                 print("VOICE %s" % v)
                 print("SEQ %s" % s)
+
+    elif gbl.createDocs == 5:    # JSON
+        doc = []
+        for l in defs:
+            groove = {
+                 "groove": l[0],
+                 "description": l[2],
+                 "size": l[1],
+            }
+            [groove['track'], groove['voice'], groove['sequence']] = l[3]
+            doc.append(groove)
+        print(json.dumps(doc, indent=1))
 
     elif gbl.createDocs == 99:  # creating entry for groove browser
         for a, b in (("``", '"'), ("''", '"'), ('  ', ' ')):

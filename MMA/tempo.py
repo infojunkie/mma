@@ -34,9 +34,9 @@ import MMA.midi
 ######################################
 # Tempo/timing
 
-timeTable = { 
+timeTable = {
     # duple times
-    '2/2': (4,    (1, 3)), 
+    '2/2': (4,    (1, 3)),
     '2/4': (2,    (1, 2)),
     '6/4': (6,    (1, 4)),
     '6/8': (6,    (1, 4)),   # need this way to keep compatible with 'stdpats68'
@@ -46,14 +46,14 @@ timeTable = {
     '3/4': (3,    (1, 2, 3)),
     '3/8': (1.5,  (1, 1.5, 2)),
     '9/8': (4.5,  (1, 2.5, 4)),
-    
+
     # quadruple
     '4/4': (4,    (1, 2, 3, 4) ),
     '12/8':(6,    (1, 2.5, 4, 5.5)),
 
     # quintuple
     '5/4': (5,    (1, 2, 3, 4, 5) ),
-    '5/8': (2.5,  (1, 1.5, 2, 2.5, 3 ) ), 
+    '5/8': (2.5,  (1, 1.5, 2, 2.5, 3 ) ),
 
     # septuple
     '7/4': (7,    (1, 2, 3, 4, 5, 6, 7) )
@@ -85,7 +85,7 @@ def setTime(ln):
                 error("Time: First tab must be 1, not %s." % tabList[0])
         else:
             error("TIME: Unknown option '%s'." % cmd)
-        
+
     if len(ln) != 1:
         error("Time: Too many options. Use TIME BperBar [Tabs=xx].")
 
@@ -106,7 +106,7 @@ def setTime(ln):
         sigSet = True
     else:
         if '/' in n:  # unknown time sig
-            error("Time: Unknown timesignature '%s'. You may need to set TIME and TIMESIG separately." % n) 
+            error("Time: Unknown timesignature '%s'. You may need to set TIME and TIMESIG separately." % n)
         n = stof(n)
 
         if n < 1 or n > 12:
@@ -133,7 +133,7 @@ def setTime(ln):
 
     # need to do this after setting time.
     if (tabList[-1]-1) * gbl.BperQ >= gbl.barLen:
-        error("Time: Last tab must be < %s, not '%s'." % 
+        error("Time: Last tab must be < %s, not '%s'." %
               (float(gbl.barLen/gbl.BperQ)+1, tabList[-1]))
 
     setChordTabs(tabList)
@@ -143,14 +143,59 @@ def setTime(ln):
             sig =  "TimeSig %s " % timeSig.getAscii()
         else:
             sig = ''
-        dPrint ("Time: Time %s %sTabs=%s." % 
+        dPrint ("Time: Time %s %sTabs=%s." %
                (gbl.QperBar, sig,  ','.join([str(x) for x in tabList])))
-            
+        
+    
 def tempo(ln):
     """ Set tempo.
 
         Note: All tempo stuff is inserted into the meta track.
     """
+        
+    def stoBeats(opt):
+        """ Convert string to fp value. Trailing 'B' or 'M' indicates
+            beats or measures. By default assumes MEASURES.
+            Returns: number of beats
+        """
+
+        o = opt
+        z = o[-1:].upper()
+        if z.isdigit():
+            mult = gbl.QperBar
+        elif z == 'M':
+            mult = gbl.QperBar
+            o = o[:-1]
+        elif z == 'B':
+            mult = 1
+            o = o[:-1]
+            
+        else:
+            error("Tempo: expecting a value with optional 'B' or 'M', not '%s'" % opt)
+
+        t = mult * stof(o)
+        if t < 0:
+            error("Tempo: expecting a positive value, not '%s', derived from '%s'" % (t, opt))
+            
+        return int(t)
+
+    startOffset = 0
+    restore = 0
+    origTempo = gbl.tempo
+
+    ln, opts = opt2pair(ln, toupper=True)
+
+    # Parse off options
+
+    for cmd, opt in opts:
+        if cmd == 'OFFSET':
+            startOffset = stoBeats(opt)
+
+        elif cmd == 'RESTORE':
+            restore = int( (stoBeats(opt) * gbl.BperQ)) + gbl.tickOffset
+
+        else:
+           error("Tempo '%s' is an unknown command." % cmd)
 
     if not ln or len(ln) > 2:
         error("Tempo: Use [*,+,-]BperM [BARS]")
@@ -178,24 +223,21 @@ def tempo(ln):
     if len(ln) == 1:
         gbl.tempo = int(v)
 
-        gbl.mtrks[0].addTempo(gbl.tickOffset, gbl.tempo)
+        gbl.mtrks[0].addTempo(gbl.tickOffset + startOffset, gbl.tempo)
+        lastChange = gbl.tickOffset + startOffset
 
         if MMA.debug.debug:
-            dPrint("Tempo: Set to %s" % gbl.tempo)
+            dPrint("Tempo: Set to %s, offset=%s beats" % (gbl.tempo, startOffset/gbl.BperQ))
 
     else:              # Do a tempo change over bar count
-        bars = ln[1]
-
-        bars = stof(bars, "Tempo: Beat count expecting value, not %s" % bars)
-        numbeats = int(bars * gbl.QperBar)
-
+        numbeats = stoBeats(ln[1])
         if numbeats < 1:
-            error("Tempo: Beat count must be greater than 1")
+            error("Tempo: Beat count must be greater than 0")
 
         # Vary the rate in the meta track
 
         tincr = (v - gbl.tempo) / float(numbeats)    # incr per beat
-        bstart = gbl.tickOffset            # start
+        bstart = gbl.tickOffset + startOffset            # start
         boff = 0
         tempo = gbl.tempo
 
@@ -208,15 +250,33 @@ def tempo(ln):
         if tempo != v:
             gbl.mtrks[0].addTempo(bstart + boff, int(v))
 
+        lastChange = bstart+boff
+
         gbl.tempo = int(v)
 
         if MMA.debug.debug:
-            dPrint("Tempo: Set future value to %s over %s beats" % 
+            dPrint("Tempo: Set future value to %s over %s beats" %
                 (int(tempo), numbeats))
 
+    # Restore the original tempo after specified beats.
+    if restore:
+        gbl.mtrks[0].addTempo(restore, origTempo)
+        gbl.tempo = origTempo   # not really right, this tempo will be in effect later
+        lastChange = restore
+        if MMA.debug.debug:
+            dPrint("Tempo: Restored to %s in %s beats" %
+               (origTempo, (restore-gbl.tickOffset)/gbl.BperQ))
+        
     if gbl.tempo <= 0:
         error("Tempo: Setting must be greater than 0.")
 
+    # Check meta track for any tempo changes past the last one
+    # we've just inserted.
+
+    for p, v in MMA.midi.tempoChanges:
+        if p > lastChange:
+            warning("Tempo change may be invalid since there are more changes after this point.")
+            break
 
 def beatAdjust(ln):
     """ Delete or insert some beats into the sequence.
@@ -272,7 +332,7 @@ def trackCut(name, ln):
     if len(ln) != 1:
         error("Cut %s: Offset missing." % name)
 
-    offset = stof(ln[0], "Cut %s: Expecting value, (not '%s') for offest." % (name, ln[0]))
+    offset = stof(ln[0], "Cut %s: Expecting value, (not '%s') for offset." % (name, ln[0]))
 
     if offset < -gbl.QperBar or offset > gbl.QperBar:
         warning("Cut %s: %s is a large beat offset" % (name, offset))

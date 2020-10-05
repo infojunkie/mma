@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 #  Works with python 2 and 3
 
 # Renumber a mma song file. Just take any lines
-# which start with a number and do those sequenially.
+# which start with a number and do those sequentially.
 
 import sys, os
 
@@ -55,13 +55,13 @@ for l in inpath:
 
     if l and l[0].isdigit():
         try:
-            x = int(l.split()[0])
+            currentLnum = int(l.split()[0])
         except:
-            x = None
+            currentLnum = None
     else:
-        x = None
+        currentLnum = None
 
-    if x != None:
+    if currentLnum != None:
         otherstuff = ''           # break off non-chord items
         cmt = ''
         if l.count('//'):
@@ -73,9 +73,14 @@ for l in inpath:
                 l=l[:i]
                 l=l.strip()
                 break
-        newl=['%-5s' % linenum]
 
-        linenum += 1              # the global line number
+        # if current line is 0 or less leave it alone
+        # Should we test on neg values since MMA will not accept them??
+        if currentLnum <= 0:
+            newl = ['%-5s' % currentLnum]
+        else:
+            newl=['%-5s' % linenum]
+            linenum += 1              # the global line number
 
         for a in l.split()[1:]:   # do each chord item
             newl.append(" %6s" % a)
@@ -106,4 +111,4 @@ except:
 try:
     os.rename(tempfile, filename)
 except:
-    error("Cannot rename '%s' to '%s'." (tempfile, filename) )
+    error("Cannot rename '%s' to '%s'." % (tempfile, filename) )

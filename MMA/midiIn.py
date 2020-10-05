@@ -52,7 +52,7 @@ def midiinc(ln):
     verbose = False
     octAdjust = 0
     velAdjust = 100
-    ignorePC = True
+    ignorePC = True   # ignore imported PC commands before insert point
     stretch = None
 
     notopt, ln = opt2pair(ln)
@@ -103,40 +103,16 @@ def midiinc(ln):
                 error("MidiInc: 'End' must be > 0.")
 
         elif cmd == 'TEXT':
-            opt = opt.upper()
-            if opt in ("ON", 'TRUE', '1'):
-                doText = True
-            elif opt in ("OFF", 'FALSE', '0'):
-                doText = False
-            else:
-                error("MidiInc: 'Text' expecting 'ON' or 'OFF'")
+            doText = getTF(opt, "MidiInc 'Text'")
 
         elif cmd == 'LYRIC':
-            opt = opt.upper()
-            if opt in ("ON", 'TRUE', '1'):
-                doLyric = True
-            elif opt in ("OFF", 'FALSE', '0'):
-                doLyric = False
-            else:
-                error("MidiInc: 'Lyric' expecting 'ON' or 'OFF'")
+            doLyric = getTF(opt, "MidiInc 'Lyric'")
 
         elif cmd == "REPORT":
-            opt = opt.upper()
-            if opt in ("ON", 'TRUE', '1'):
-                report = True
-            elif opt in ("OFF", 'FALSE', '0'):
-                report = False
-            else:
-                error("MidiInc: 'Report' expecting 'ON' or 'OFF'")
+            report = getTF(opt, "MidiInc 'Report'")
 
         elif cmd == "VERBOSE":
-            opt = opt.upper()
-            if opt in ("ON", 'TRUE','1'):
-                verbose = True
-            elif opt in ("OFF", 'FALSE', '0'):
-                verbose = False
-            else:
-                error("MidiInc: 'Verbose' expecting 'ON' or 'OFF'")
+            verbose = getTF(opt, "MidiInc 'Verbose'")
 
         elif cmd == "STRIPSILENCE":
             opt = opt.upper()
@@ -148,14 +124,9 @@ def midiinc(ln):
                 stripSilence = stoi(opt, "MIdiInc StripSilence= expecting "
                                     "'value', 'On' or 'Off', not %s" % opt)
 
+
         elif cmd == "IGNOREPC":
-            opt = opt.upper()
-            if opt in ("TRUE", "ON", "1"):   # default
-                ignorePC = True
-            elif opt in ("FALSE", "OFF", "0"):  # use program change in imported
-                ignorePC = False
-            else:
-                error("MIdiInc: 'IncludePC' expecting 'True' or 'False', not %s" % opt)
+            ignorePC = getTF(opt, "MidiInc 'IgnorePC'")
 
         elif cmd == "STRETCH":
             v = stof(opt)
@@ -391,10 +362,10 @@ def midiinc(ln):
                     print("No events in Channel %s" % ch)
 
         
-        # If we're processing midi voice changes (ignorePC=off) and there
+        # If we're processing midi voice changes (ignorePC=False) and there
         # are events BEFORE the first note, we need to insert
         # them before the notes. We put them all at the current midi offset.
-        if ignorePC==0:
+        if ignorePC==False:
             for ev in mf.events[ch]:
                 if ev[0] > mf.firstNote:
                     break

@@ -301,3 +301,24 @@ def opt2pair(ln, toupper=False, notoptstop=False):
                 break
 
     return newln, opts
+
+
+def getTF(option, e=''):
+    """ Test the STRING option for a true/false value and return the boolean
+         True, On, 1 -- True
+         False, Off, 0 -- False
+
+         Optional e arg is prepended to any error message.
+    """
+
+    option = option.upper()
+    if option in ("TRUE", "ON", "1"):
+        return True
+
+    if option in ("FALSE", "OFF", "0"):
+        return False
+
+    if e:
+        e+=": "
+    error("%sRequires True or False, not '%s'." % (e,option))
+         

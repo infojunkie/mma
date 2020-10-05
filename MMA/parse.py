@@ -76,14 +76,19 @@ from MMA.keysig import keySig
 beginData = []      # Current data set by a BEGIN statement
 beginPoints = []    # since BEGINs can be nested, we need ptrs for backing out of BEGINs
 
-
 ########################################
 # File processing. Mostly jumps to pats
 ########################################
 
-def parseFile(n):
+def parseFile(n, depth=[0]):
     """ Open and process a file. Errors exit. """
 
+    depth[0] += 1
+    if depth[0]>50:
+        error("USE/INCLUDE recursion error. "
+              "Use and Include are limited to a depth of 50. "
+              "Check current file and rc files for error.")
+        
     fp = gbl.inpath
 
     f = MMA.file.ReadFile(n)
@@ -94,8 +99,7 @@ def parseFile(n):
     if MMA.debug.debug:
         dPrint("File '%s' closed." % n)
 
-
-    
+    depth[0] -= 1
                 
 def parse(inpath):
     """ Process a mma input file. """
@@ -196,6 +200,7 @@ def parse(inpath):
             a line number on a line by itself it okay.
         """
 
+        
         if action.isdigit():   # isdigit() matches '1', '1234' but not '1a'!
             gbl.barLabel = l[0].lstrip('0')
             l = l[1:]
@@ -255,7 +260,6 @@ def parse(inpath):
         # Create MIDI data for the bar
 
         for rpt in range(rptcount):   # for each bar in the repeat count ( Cm * 3)
-
             """ Handle global (de)cresc by popping a new volume off stack. """
 
             if MMA.volume.futureVol:
@@ -339,7 +343,9 @@ def parse(inpath):
             if rpt and lyric.dupchords:
                 _,lyrics = lyric.extract(' '.join(l), 0)
 
-            
+            if rpt and MMA.after.needed():
+                MMA.after.check(recurse=True)
+                
 ##################################################################
 
 def allTracks(ln):
@@ -394,7 +400,7 @@ def repeatending(ln):
 
 
 def endmset(ln):
-    error("EndMset/MSetEnd without If")
+    error("EndMset/MSetEnd without Mset")
 
 
 def ifend(ln):
@@ -574,7 +580,6 @@ def include(ln):
         error("Could not find include file '%s'" % ln[0])
 
     parseFile(fn)
-
 
 def usefile(ln):
     """ Include a library file. """

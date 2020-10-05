@@ -32,6 +32,12 @@ from MMA.pat import PC, Pgroup
 import MMA.debug 
 import copy
 
+# By default notes are NOT stopped with a groove change
+# for plectrum tracks. Set this to True to change the
+# default or do so via Tweaks PlectrumRest=
+# New for version 20.03.
+plectrumReset = False   
+
 class PlecStruct:
     pass
 

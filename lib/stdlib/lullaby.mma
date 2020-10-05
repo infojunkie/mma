@@ -157,7 +157,7 @@ Begin Chord-Sus
 	  Volume +40%
 End
 
-DefGroove LullabyIntro
+DefGroove LullabyIntro A 4 bar intro with sustained chords
 
 
 ///////////////////

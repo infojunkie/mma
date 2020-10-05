@@ -53,12 +53,11 @@ def trackSequence(name, ln):
     if self.vtype == "SOLO":
             warning("Sequences for SOLO tracks are not saved in Grooves.")
 
-    """ Before we do extraction of {} stuff make sure we have matching {}s.
-        Count the number of { and } and if they don't match read more lines and
-        append. If we get to the EOF then we're screwed and we error out. Only trick
-        is to make sure we do macro expansion! This code lets one have long
-        sequence lines without bothering with '\' continuations.
-    """
+    # Before we do extraction of {} stuff make sure we have matching {}s.
+    # Count the number of { and } and if they don't match read more lines and
+    # append. If we get to the EOF then we're screwed and we error out. Only trick
+    # is to make sure we do macro expansion! This code lets one have long
+    # sequence lines without bothering with '\' continuations.
 
     oLine = gbl.lineno   # in case we error out, report start line
     while ln.count('{') != ln.count('}'):
@@ -74,13 +73,15 @@ def trackSequence(name, ln):
 
         ln += ' ' + l
 
-    """ Extract out any {} definitions and assign them to new
-        define variables (__1, __99, etc) and melt them
-        back into the string.
-    """
+    # Extract out any {} definitions and assign them to new
+    # define variables (__1, __99, etc) and melt them
+    # back into the string. The variable 'ids' is reset
+    # for every sequence defined. This is fine since tracks don't
+    # share sequence data and if we redefine a specific track we
+    # don't care about the old setting.
 
     ids = 1
-
+        
     while 1:
         sp = ln.find("{")
 
@@ -97,14 +98,13 @@ def trackSequence(name, ln):
         trk = name.split('-')[0]
         trackAlloc(trk, 1)
 
-        """ We need to mung the plectrum classes. Problem is that we define all
-            patterns in the base class (plectrum-banjo is created in PLECTRUM)
-            which is fine, but the def depends on the number of strings in the
-            instrument (set by the tuning option). So, we save the tuning for
-            the base class, copy the real tuning, and restore it.
-
-            NOTE: at this point the base and current tracks have been initialized.
-        """
+        # We need to mung the plectrum classes. Problem is that we define all
+        # patterns in the base class (plectrum-banjo is created in PLECTRUM)
+        # which is fine, but the def depends on the number of strings in the
+        # instrument (set by the tuning option). So, we save the tuning for
+        # the base class, copy the real tuning, and restore it.
+        #
+        # NOTE: at this point the base and current tracks have been initialized.
 
         if trk == 'PLECTRUM' and name != trk:
             z = gbl.tnames[trk]._tuning[:]
@@ -118,32 +118,26 @@ def trackSequence(name, ln):
 
         ln = ln[:sp] + ' ' + pn + ' ' + ln[sp:]
 
+
     ln = ln.split()
 
-    """ We now have a sequence we can save for the track. All the {} defs have
-        been converted to special defines (_1, _2, etc.).
-
-        First we expand ln to the proper length. lnExpand() also
-        duplicates '/' to the previous pattern.
-
-        Then we step though ln:
-
-          - convert 'z', 'Z' and '-' to empty patterns.
-
-          - duplicate the existing pattern for '*'
-
-          - copy the defined pattern for everything else.
-            There's a bit of Python reference trickery here.
-            Eg, if we have the line:
-
-              Bass Sequence B1 B2
-
-            the sequence is set with pointers to the existing
-            patterns defined for B1 and B2. Now, if we later change
-            the definitions for B1 or B2, the stored pointer DOESN'T
-            change. So, changing pattern definitions has NO EFFECT.
-
-    """
+    # We now have a sequence we can save for the track. All the {} defs have
+    # been converted to special defines (_1, _2, etc.).
+    #
+    # First we expand ln to the proper length. lnExpand() also
+    # duplicates '/' to the previous pattern.
+    #
+    # Then we step though ln:
+    #  - convert 'z', 'Z' and '-' to empty patterns.
+    #  - duplicate the existing pattern for '*'
+    #  - copy the defined pattern for everything else.
+    #    There's a bit of Python reference trickery here.
+    #    Eg, if we have the line:
+    #       Bass Sequence B1 B2
+    #    the sequence is set with pointers to the existing
+    #    patterns defined for B1 and B2. Now, if we later change
+    #    the definitions for B1 or B2, the stored pointer DOESN'T
+    #    change. So, changing pattern definitions has NO EFFECT.
 
     ln = lnExpand(ln, '%s Sequence' % self.name)
     tmp = [None] * len(ln)
@@ -190,10 +184,9 @@ def seqsize(ln):
 
     gbl.seqCount = 0
 
-    """ Now set the sequence size for each track. The class call
-        will expand/contract existing patterns to match the new
-        size.
-    """
+    # Now set the sequence size for each track. The class call
+    # will expand/contract existing patterns to match the new
+    # size.
 
     if n != gbl.seqSize:
         gbl.seqSize = n
@@ -287,14 +280,7 @@ def trackSeqRnd(name, ln):
     self = gbl.tnames[name]
     arg = ln[0].upper()
 
-    if arg in ("TRUE", "ON", "1"):
-        self.seqRnd = 1
-
-    elif arg in ("FALSE", "OFF", "0"):
-        self.seqRnd = 0
-
-    else:
-        error("SeqRnd: '%s' is not a valid option" % arg)
+    self.seqRnd = getTF(arg, "%s SeqRnd" % (name))
 
     if MMA.debug.debug:
         if self.seqRnd:

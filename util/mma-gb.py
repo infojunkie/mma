@@ -593,7 +593,7 @@ class Application:
 
         b.delete(0,END)
         try:
-            infile=file(fileName)
+            infile=open(fileName, 'r')
         except:
             b.insert(END, "Can't access file %s. This is configuration error." % fileName)
         else:

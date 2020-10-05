@@ -25,6 +25,7 @@ This module contains functions for setting various path variables.
 """
 
 import os
+import tempfile
 
 from . import gbl
 from MMA.common import *
@@ -292,7 +293,7 @@ def createOutfileName(extension):
         outfile = gbl.outfile
 
     elif gbl.playFile:
-        outfile = "MMAtmp%s.mid" % os.getpid()
+        _, outfile = tempfile.mkstemp(prefix="MMA_", suffix=".mid")
         MMA.exits.files.append(outfile)
 
     else:

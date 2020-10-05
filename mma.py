@@ -1,4 +1,4 @@
-#!/usr/bin/python 
+#!/usr/bin/python3
 
 """
 The program "MMA - Musical Midi Accompaniment" and the associated

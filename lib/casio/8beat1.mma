@@ -17,8 +17,8 @@ Include stdpats
 ////////////////////////
 // Basic rhythm
 
-Begin Drum-OpenSudro
-    Tone OpenSudro
+Begin Drum-OpenSurdo
+    Tone OpenSurdo
     Volume m
     Sequence {2 0 80; 4 0 85}
 End
@@ -123,7 +123,7 @@ Groove 8Beat1
 
 SeqSize 2
 
-Drum-OpenSudro     Sequence -
+Drum-OpenSurdo     Sequence -
 Drum-ScratchPush   Sequence - 
 Drum-ScratchPull   Sequence z   D1
 Drum-KickDrum1     Sequence *   D1
@@ -151,7 +151,7 @@ DefGroove 8Beat1End   2 bar ending.
 Groove 8Beat1
 
 
-Drum-OpenSudro     Sequence  *   *   *  z
+Drum-OpenSurdo     Sequence  *   *   *  z
 Drum-ScratchPush   Sequence  *   *   *  z
 Drum-ScratchPull   Sequence  *   *   *  D1
 Drum-KickDrum1     Sequence  *   *   *  D1234

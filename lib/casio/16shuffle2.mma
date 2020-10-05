@@ -88,8 +88,8 @@ Begin Drum-Shaker
     Sequence {1 0 95; 2 0 103; 3 0 72; 4 0 107}
 End
 
-Begin Drum-OpenSudro
-    Tone OpenSudro
+Begin Drum-OpenSurdo
+    Tone OpenSurdo
     Volume m
     Sequence z    z     z    {4.7 0 56}
 End
@@ -150,7 +150,7 @@ Drum-Cabasa         Sequence  *      *    z     {D1234 Shift .5}
 Drum-ShortGuiro     Sequence  *      *    *     z
 Drum-LongGuiro      Sequence  *      *    *     z
 Drum-Shaker         Sequence  *      *    *     D8
-Drum-OpenSudro      Sequence  D3     D2   D1    *
+Drum-OpenSurdo      Sequence  D3     D2   D1    *
 
 
 Bass-9              Sequence  B1234  *    *     B13
@@ -184,7 +184,7 @@ Drum-Cabasa         Sequence  *        z
 Drum-ShortGuiro     Sequence  *        z
 Drum-LongGuiro      Sequence  *        D1
 Drum-Shaker         Sequence  D8       D1
-Drum-OpenSudro      Sequence  D3       D1
+Drum-OpenSurdo      Sequence  D3       D1
 
 Bass-9              Sequence  B1234    B1
 

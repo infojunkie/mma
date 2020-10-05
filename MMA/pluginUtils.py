@@ -76,7 +76,7 @@ def _getCallerModule():
         return None
         
     for module in sys.modules.values():
-        if module is None or not hasattr(module, "__file__"):
+        if module is None or not hasattr(module, "__file__") or module.__file__ is None:
             continue
         if module.__file__.rpartition(".")[0] != f.rpartition(".")[0]:
             continue
@@ -168,7 +168,6 @@ def sendCommands():
     ret = [l.split() for l in _P().COMMANDS]
     _P().COMMANDS = []
     
-    #print (ret)
 
     # The next line does the input stream push. Note that we are using
     # the current line number of the file for each line.

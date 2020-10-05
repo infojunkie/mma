@@ -46,18 +46,18 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html659"
+<LI><A ID="tex2html670"
   HREF="node25.html#SECTION002510000000000000000">Voice</A>
-<LI><A ID="tex2html660"
+<LI><A ID="tex2html671"
   HREF="node25.html#SECTION002520000000000000000">Patch</A>
 <UL>
-<LI><A ID="tex2html661"
+<LI><A ID="tex2html672"
   HREF="node25.html#SECTION002521000000000000000">Patch Set</A>
-<LI><A ID="tex2html662"
+<LI><A ID="tex2html673"
   HREF="node25.html#SECTION002522000000000000000">Patch Rename</A>
-<LI><A ID="tex2html663"
+<LI><A ID="tex2html674"
   HREF="node25.html#SECTION002523000000000000000">Patch List</A>
-<LI><A ID="tex2html664"
+<LI><A ID="tex2html675"
   HREF="node25.html#SECTION002524000000000000000">Ensuring It All Works</A>
 </UL></UL>
 <!--End of Table of Child-Links-->
@@ -74,12 +74,12 @@ Modern music keyboards and synthesizers are capable of producing a
 bewildering variety of sounds. Many consumer units priced well under
 $1000.00 contain several hundred or more unique voices. But, &ldquo;out of
 the box&rdquo; 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  supports the 128 &ldquo;General MIDI&rdquo;<A ID="tex2html112"
-  HREF="#foot16182"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> preset voices as well as &ldquo;extended&rdquo; voices (see
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  supports the 128 &ldquo;General MIDI&rdquo;<A ID="tex2html114"
+  HREF="#foot16418"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> preset voices as well as &ldquo;extended&rdquo; voices (see
 below). These voices are assigned the values 0 to 127. We refer to the
 various voices as &ldquo;tones&rdquo;, &ldquo;instruments&rdquo;, or
-&ldquo;patches&rdquo;.<A ID="tex2html113"
-  HREF="#foot16183"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+&ldquo;patches&rdquo;.<A ID="tex2html115"
+  HREF="#foot16419"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 
 <H1><A ID="SECTION002510000000000000000"></A>  <A ID="set-voice"></A>
@@ -119,6 +119,31 @@ same V<SMALL>OICE</SMALL> or &ldquo;drum kit&rdquo;. In most cases, it is recomm
 that you use the V<SMALL>OICE</SMALL> command <SPAN  CLASS="textit">only</SPAN> in the generic track
 &ldquo;Drum&rdquo;. At this point, 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  doesn't enforce this recommendation.
+
+<P>
+When setting a V<SMALL>OICE</SMALL> for a D<SMALL>RUM</SMALL> track, you can also use
+the known mnemonic name from the table
+<A HREF="node36.html#sec-drumkitnames">here</A>. However, please note
+that in order to avoid possible name conflicts you <SPAN  CLASS="textit">must</SPAN> append
+&ldquo;Kit&rdquo; to the name. The following two examples produce the same
+result:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Voice JazzKit  </B> 
+   
+	    </td></tr>
+      </Table>
+
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Voice  32  </B> 
+   
+	    </td></tr>
+      </Table>
 
 <P>
 You can specify a different V<SMALL>OICE</SMALL> for each bar in a sequence.
@@ -214,7 +239,7 @@ value is the Patch Number, the second is a value for Controller 0. The
 third value, if present, is the setting for Controller 32.
 
 <P>
-My Casio Wk-3000 lists Bank-53, Program-27 as "Rotary Guitar". It's easy to use
+My Casio Wk-3000 lists Bank-53, Program-27 as &ldquo;Rotary Guitar&rdquo;. It's easy to use
 this voice directly in a V<SMALL>OICE</SMALL> command:
 
 <P>
@@ -336,8 +361,8 @@ command:
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>include casio-wk3000<A ID="tex2html114"
-  HREF="#foot16343"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></B> 
+    <B>include casio-wk3000<A ID="tex2html116"
+  HREF="#foot16594"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></B> 
    
 	    </td></tr>
       </Table>
@@ -349,7 +374,7 @@ files exist for the popular &ldquo;Band in a Box&rdquo; program from PGMusic.
 There files may be subject to copyright, so use them with respect.
 None of these patch files are included in this distribution, but many
 are freely available on the internet. For a start you might want to
-look at <kbd><A ID="tex2html115"
+look at <kbd><A ID="tex2html117"
   HREF="http://www.pgmusic.com/support_miscellaneous.htm">http://www.pgmusic.com/support_miscellaneous.htm</A></kbd>. These
 files cannot be read by 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , so we have included a little
@@ -611,23 +636,23 @@ the various voices will be changed.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot16182">... MIDI&rdquo;</A><A
- HREF="node25.html#tex2html112"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DT><A ID="foot16418">... MIDI&rdquo;</A><A
+ HREF="node25.html#tex2html114"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>The General
   MIDI or GM standard was developed by the MIDI Manufactures
   Association.
 
 </DD>
-<DT><A ID="foot16183">...
+<DT><A ID="foot16419">...
 &ldquo;patches&rdquo;.</A><A
- HREF="node25.html#tex2html113"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+ HREF="node25.html#tex2html115"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>&ldquo;Patch&rdquo; a bit of a historical term dating back
   to the times when synthesizers cost a lot of money and used bits of
   wire and cable to &ldquo;patch&rdquo; different oscillators, filters, etc.   together.
 
 </DD>
-<DT><A ID="foot16343">... casio-wk3000</A><A
- HREF="node25.html#tex2html114"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DT><A ID="foot16594">... casio-wk3000</A><A
+ HREF="node25.html#tex2html116"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>Refer to I<SMALL>NCLUDE</SMALL> <A HREF="node33.html#sec-include">(here)</A> for details on file placement.
 
 </DD>

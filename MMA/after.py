@@ -23,6 +23,8 @@ Bob van der Poel <bob@mellowood.ca>
 After storage, setting and command insertion.
 
 """
+import tempfile
+import os
 
 from . import gbl
 from MMA.common import *
@@ -30,19 +32,21 @@ import MMA.debug
 
 class AfterData:
     def __init__(self):
-        self.bar = None
-        self.cmd = None
-        self.repeat = None
-        self.count = None
-        self.lineno = -1
-        self.id = None
-
-afterData = []
+        self.bar = None        # calculated to a tickoffset
+        self.cmd = None        # what to do
+        self.repeat = None     # number of times to do this
+        self.count = None      # number of bars to wait before doing
+        self.lineno = -1       # done in init. Used to set line in pushback
+        self.id = None         # a name used by the remove function
+        self.finished = False  # flag. If true this event is done
+        
+afterData = []          # stack of after events
+afterDataFinished = 0   # counter of dead events
 
 def create(ln):
     """ Set an After event. """
 
-    global afterData
+    global afterData, afterDataFinished 
 
     dat = AfterData()
     selected = []
@@ -77,15 +81,20 @@ def create(ln):
             dat.bar = opt + gbl.barNum 
             selected.append('Count')
 
-        elif cmd == 'ID':   # set a string id for this event. 
-            dat.id = opt.upper()
+        elif cmd == 'ID':         # set a string id for this event. 
+            dat.id = opt.upper()  # duplicates are fine
 
         elif cmd == 'REMOVE':  # delete all saved items with id==opt.
-            t=len(afterData)
-            afterData = [ x for x in afterData if x.id != opt.upper() ]
+            t = False
+            for a in afterData:
+                if not a.finished and a.id == opt.upper():
+                    a.finished = True
+                    afterDataFinished += 1
+                    t = True
+
             if len(opts) > 1 or ln:
                 warning("After: Remove is ignoring other options/cmds in line.")
-            if len(afterData) == t:
+            if not t:
                 warning("After: No events with ID=%s found to delete." % opt)
             return   # ignore any other commands
 
@@ -97,7 +106,8 @@ def create(ln):
         error("After: No command given. It's needed.")
 
     if len(selected) == 0:
-        error("After: need one of 'Count', 'Bar', or 'Repeat'.")
+        error("After: need one of 'Count', 'Bar', or 'Repeat'. "
+              "Options must be listed before the command!")
 
     if len(selected) > 1:
         error("After: Options conflict; can't combine %s." % ' & '.join(selected))
@@ -108,32 +118,90 @@ def create(ln):
     if dat.bar == 'EOF':
          gbl.inpath.pushEOFline(dat.cmd)
     else:
-        afterData.append(dat)
+        afterData.append(dat)  # our stack (actually a list of events)
 
     if MMA.debug.debug:
         dPrint("After: Added event '%s' at bar %s." % (' '.join(dat.cmd), dat.bar))
 
-def check():
+        
+def check(recurse=False):
     """ Before reading any input, we check to see if any AFTER events have been
-        created and if we need to process them now. 
+        created and if we need to process them now. Called from parse loop.
     """
 
-    global afterData
-    stuff = []
-    elns = []
+    global afterData, afterDataFinished
 
-    nn = gbl.barNum
+    if not needed():   # do a fast stack scan, and (maybe) clean the stack
+        return
+    
+    barNum = gbl.barNum   # just a copied pointer
+    
+    # Gather all the AFTER events for this point
+    # in the MMA file for pushback
+    
+    stuff = []  # MMA commands
+    elns = []   # and line numbers
+    
     for dat in afterData:
-        if dat.bar == nn:
+        if not dat.finished and dat.bar == barNum:
             stuff.append(dat.cmd)
             elns.append(dat.lineno)
+            
+            # while going though the list of AFTER events
+            # mark any ones that need to be repeated for
+            # a future point
             if dat.repeat:
                 dat.bar = gbl.barNum + dat.repeat
+            else:
+                dat.finished = True
+                afterDataFinished =+ 1
 
     if stuff:
-        # Push our AFTER command to input.
-        gbl.inpath.push(stuff, elns)
+        if recurse:
+            # note: we can't use tempfile.TemporaryFile 'cause
+            # parse.parseFile() needs a filename. Don't think of
+            # using stdin (1) since we might cobber existing reader.
+            _, name = tempfile.mkstemp(prefix="MMA_", suffix=".mma")
+            try:
+                fd = open(name, 'w')
+            except:
+                error("Trigger: Could not open temporary scratch file "
+                      "for recursion in repeat (*) section.")
+            for a in stuff:
+                fd.write( "%s\n" % ' '.join(a))
+            fd.close()
+            MMA.parse.parseFile(name)
+            try:
+                os.remove(name)
+            except:
+                pass
 
-        # delete any discarded AFTER events
-        afterData = [ x for x in afterData if x.bar != nn]
+        else:
+            # Push our AFTER command to input.
+            gbl.inpath.push(stuff, elns)
 
+
+
+def needed():
+    """ Check to see if it's time to handle an After. There can be
+        several different Afters on the same bar, this returns on
+        the first positive. Only called from the parse loop if we
+        are recursing (a * repeat).
+
+        Returns True/False
+    """
+
+    global afterData, afterDataFinished
+
+    # before doing the check, let's clean up our stack.
+    if afterDataFinished > 40 and afterDataFinished-1 > len(afterData)/2:
+        afterData = [ x for x in afterData if not x.finished ]
+        afterDataFinished = 0
+
+    # the actual check ... need to check each stacked event
+    # we exit on the first needy one found
+    for dat in afterData:
+        if not dat.finished and dat.bar == gbl.barNum:
+            return True
+        
+    return False

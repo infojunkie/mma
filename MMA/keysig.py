@@ -127,7 +127,8 @@ class KeySig:
 
             if f in ('B', '&'):
                 self.kSig = -self.kSig
-
+                midikey = -midikey
+                
             if mi:
                 z = minKy
             else:

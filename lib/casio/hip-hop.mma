@@ -15,8 +15,8 @@ Include stdpats
 
 // Basic rhythm
 
-Begin Drum-OpenSudro
-    Tone OpenSudro
+Begin Drum-OpenSurdo
+    Tone OpenSurdo
     Volume m
     Sequence {4.25 0 52} \
              {4.25 0 49; 4.75 0 49} \

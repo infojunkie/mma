@@ -152,7 +152,8 @@ DefGroove JazzGuitar1Sus       Sustained strings added to JazzGuitar1.
 Groove JazzGuitar2
 Chord-Sus Groove  JazzGuitarSus
 DefGroove JazzGuitar2Sus      Sustained strings added to JazzGuitar2.
-DefGroove JazzGuitar3
+
+Groove JazzGuitar3  
 Chord-Sus Groove  JazzGuitarSus
 DefGroove JazzGuitar3Sus      Sustained strings added to JazzGuitar3
 

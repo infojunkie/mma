@@ -84,6 +84,13 @@ def dochords():
 
         outfile.write( "\\insline{%s}{%s}\n" % (nm, chordlist[n][2]) )
 
+def dodrumkits(order):
+    """ Print a list of the known drumkits and values in LaTex. """
+    
+    for a in sorted(drumKits.keys()):
+        v = drumKits[a]
+        outfile.write( "\\insline{%s}{%s}\n" % (a, v))
+        
 ###############################
 # Main program
 
@@ -92,7 +99,10 @@ for a, f, o in ( ('m', docrtls, 'ctrlmidi.AUTO'),
                  ('m', dodrums, 'drumsmidi.AUTO'),
                  ('a', dodrums, 'drumsalpha.AUTO'),
                  ('m', doinsts, 'instmidi.AUTO'),
-                 ('a', doinsts, 'instalpha.AUTO') ):
+                 ('a', doinsts, 'instalpha.AUTO'),
+                 ('a', dodrumkits, 'drumkits.AUTO')
+                ):
+                 
         outfile = open(o, 'w')
         f(a)
         outfile.close()

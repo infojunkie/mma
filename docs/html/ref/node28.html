@@ -46,38 +46,46 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html665"
+<LI><A ID="tex2html676"
   HREF="node28.html#SECTION002810000000000000000">Translations</A>
 <UL>
-<LI><A ID="tex2html666"
+<LI><A ID="tex2html677"
   HREF="node28.html#SECTION002811000000000000000">VoiceTr</A>
-<LI><A ID="tex2html667"
+<LI><A ID="tex2html678"
   HREF="node28.html#SECTION002812000000000000000">ToneTr</A>
-<LI><A ID="tex2html668"
+<LI><A ID="tex2html679"
   HREF="node28.html#SECTION002813000000000000000">VoiceVolTr</A>
-<LI><A ID="tex2html669"
+<LI><A ID="tex2html680"
   HREF="node28.html#SECTION002814000000000000000">DrumVolTr</A>
 </UL>
 <BR>
-<LI><A ID="tex2html670"
+<LI><A ID="tex2html681"
   HREF="node28.html#SECTION002820000000000000000">Tweaks</A>
 <UL>
-<LI><A ID="tex2html671"
+<LI><A ID="tex2html682"
   HREF="node28.html#SECTION002821000000000000000">Default Voices</A>
+<LI><A ID="tex2html683"
+  HREF="node28.html#SECTION002822000000000000000">DrumKit</A>
+<LI><A ID="tex2html684"
+  HREF="node28.html#SECTION002823000000000000000">Diminished Chord Type</A>
+<LI><A ID="tex2html685"
+  HREF="node28.html#SECTION002824000000000000000">Plectrum Reset On Groove Change</A>
 </UL>
 <BR>
-<LI><A ID="tex2html672"
+<LI><A ID="tex2html686"
   HREF="node28.html#SECTION002830000000000000000">Xtra Options</A>
 <UL>
-<LI><A ID="tex2html673"
+<LI><A ID="tex2html687"
   HREF="node28.html#SECTION002831000000000000000">NoCredit</A>
-<LI><A ID="tex2html674"
+<LI><A ID="tex2html688"
   HREF="node28.html#SECTION002832000000000000000">Chords</A>
-<LI><A ID="tex2html675"
+<LI><A ID="tex2html689"
   HREF="node28.html#SECTION002833000000000000000">CheckFile</A>
+<LI><A ID="tex2html690"
+  HREF="node28.html#SECTION002834000000000000000">Grooves</A>
 </UL>
 <BR>
-<LI><A ID="tex2html676"
+<LI><A ID="tex2html691"
   HREF="node28.html#SECTION002840000000000000000">Debug</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -104,7 +112,7 @@ mainly that the standard says nothing about what a certain instrument
 should sound like, or the relative volumes between instruments. The GM
 extension helps a bit, but only a bit, by saying that certain
 instruments should be assigned certain program change values. This
-means that all GM synths will play a "Piano" if instrument 000 is
+means that all GM synths will play a &ldquo;Piano&rdquo; if instrument 000 is
 selected.
 
 <P>
@@ -594,8 +602,6 @@ valid:
 <H2><A ID="SECTION002821000000000000000">
 Default Voices</A>
 </H2>
-
-<P>
 <DL>
 <DT><STRONG>D<SMALL>EFAULT</SMALL>D<SMALL>RUM</SMALL> or D<SMALL>EFAULT</SMALL>T<SMALL>ONE</SMALL></STRONG></DT>
 <DD>Set the default (initial) voice to
@@ -662,8 +668,62 @@ and, assuming you have set up a P<SMALL>ATCH </SMALL>S<SMALL>ET</SMALL> (see
 	    </td></tr>
       </Table>
 
+</DD>
+</DL>
+
 <P>
-<A ID="tweak-dim"></A></DD>
+
+<H2><A ID="SECTION002822000000000000000"></A>
+<A ID="setdrumkit"></A>
+<BR>
+DrumKit
+</H2>
+This option sets the default D<SMALL>RUM</SMALL>K<SMALL>IT</SMALL> to use for this 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+file. For a list of the known mnemonic names, please refer
+<A HREF="node36.html#sec-drumkitnames">to the appendix</A>. For consistency with
+the V<SMALL>OICE</SMALL> command (see <A HREF="node25.html#set-voice">here</A>)
+you can append &ldquo;Kit&rdquo; to a name.
+
+<P>
+You can also use an integer value from 0 to 127.
+
+<P>
+Valid examples, all resulting in the same setting, include:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DrumKit Jazz  </B> 
+   
+	    </td></tr>
+      </Table>
+
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DrumKit JazzKit  </B> 
+   
+	    </td></tr>
+      </Table>
+
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DrumKit 32  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION002823000000000000000"></A>
+<A ID="tweak-dim"></A>
+<BR>
+Diminished Chord Type
+</H2>
+<DL>
 <DT><STRONG>Dim</STRONG></DT>
 <DD>Set the type of chord produced with the &ldquo;dim&rdquo; chordtype.
   By default a diminished chord is a &ldquo;dim7&rdquo;. However you can toggle
@@ -690,6 +750,33 @@ and, assuming you have set up a P<SMALL>ATCH </SMALL>S<SMALL>ET</SMALL> (see
 </DL>
 
 <P>
+
+<H2><A ID="SECTION002824000000000000000">
+Plectrum Reset On Groove Change</A>
+</H2>
+<DL>
+<DT><STRONG>PlectrumDoRest</STRONG></DT>
+<DD>By default a P<SMALL>LECTRUM</SMALL> track will not turn
+  off its sounding strings when a G<SMALL>ROOVE</SMALL> is changed. This can
+  be toggled with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks PlectrumDoRest=True  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Use <SPAN  CLASS="textit">False</SPAN> to restore the default.
+
+<P>
+</DD>
+</DL>
+
+<P>
 You can place several T<SMALL>WEAK</SMALL> commands on a single line; they are
 processed in order.
 
@@ -707,7 +794,7 @@ Xtra Options
 <P>
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has a number of options designed to help you in discovering the
-chords in your file; aid in debugging files; and massaging the form of
+chords in your file, aid in debugging files, and massaging the form of
 the final MIDI file. These options are all accessed from the command
 line in the format -<SMALL>X</SMALL>C<SMALL>OMMAND OPTIONS</SMALL>.
 
@@ -755,7 +842,7 @@ name listed and checks to see if
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>mma -x chords C B A q   </B> 
+    <B>$ mma -x chords C B A q   </B> 
    
 	    </td></tr>
       </Table>
@@ -799,7 +886,7 @@ displayed in the format:
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>mma -x checkfile test 
+    <B>$ mma -x checkfile test 
 <BR>
 Error: &lt;Line 143&gt;  Illegal/Unknown chord name: 'q' 
 <BR>
@@ -813,6 +900,78 @@ At the end of run, valid chords are listed in alphabetical order. This
 can be a great aid in seeing what chords are in the file (and seeing
 if any look &ldquo;odd&rdquo;). <SPAN  CLASS="textbf">This command does not verify other
   commands and syntax in the file.</SPAN>
+
+<P>
+
+<H2><A ID="SECTION002834000000000000000"></A>
+
+<A ID="sect-xtra-grooves"></A>
+<BR>
+Grooves
+</H2>
+
+<P>
+This  command will display all the
+G<SMALL>ROOVES</SMALL> known to 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . For this to work, the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  library
+database must be up-to-date via the -g (or -G) command line option.
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -x Grooves 
+<BR>
+alexis/hiphop:HIPHOP 
+<BR>
+alexis/hiphop:HIPHOPEND 
+<BR>
+alexis/hiphop:HIPHOPINTRO 
+<BR> .... many, many more! 
+<BR>
+zoom/trip:TRIP02 
+<BR>
+zoom/trip:TRIP03 
+<BR>
+zoom/trip:TRIP04   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+-<SMALL>X </SMALL>G<SMALL>ROOVES</SMALL> (from a terminal) will display each groove name
+found in alphabetical order. This list can be quite long, you you
+might want to spool it to a scratch file or use a pager like &ldquo;grep&rdquo;.
+
+<P>
+If an optional <SPAN  CLASS="textit">name</SPAN> is included, only those G<SMALL>ROOVES</SMALL>
+matching that name will be displayed.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -x Grooves trip
+<BR>
+casio/triphop:TRIPHOP
+<BR>
+casio/triphop:TRIPHOPEND
+<BR> .... lots more 
+<BR>
+zoom/trip:TRIP03 
+<BR>
+zoom/trip:TRIP04   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The names are listed in extended
+groove notation (<A HREF="node6.html#extended-groove">here</A>).
+These names can be easily cut/pasted into the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  -V option.
 
 <P>
 
