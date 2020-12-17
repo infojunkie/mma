@@ -1,20 +1,19 @@
 
-A stable release, version 19.08, of MMA--Musical MIDI Accompaniment
+A stable release, version 20.12, of MMA--Musical MIDI Accompaniment
 is available for downloading. In addition to a number of bug fixes,
 documentation reviews and optimizations, MMA now features:
 
  - A number of new macros
- - RPITCH command
+ - Change to PLECTRUM track behaviour
+ - TEMPO enhancements
+ - AFTER enhancements/fixes
+ - A number of command line additions (-xABC), (-Djs), etc
  - SUBROUTINES
- - FRETNOISE and SHAPE options for Plectrum tracks
- - Enhanced TIME options
- - PLUGINS
- - AFTER command
+ - Added environment variables
+ - Minor bug and documentation fixes
  - Other minor enhancements
- - 19.08 is a minor update from 19.07, but fixed some run-time crash
-   bugs and adds some minor features. Please upgrade!
-   
-Please read the file text/CHANGES-16 for a complete list of changes.
+
+Please read the file text/CHANGES-20 for a complete list of changes.
   
 MMA is a accompaniment generator -- it creates midi tracks
 for a soloist to perform with. User supplied files contain

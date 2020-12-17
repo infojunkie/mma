@@ -101,7 +101,7 @@ class Macros:
 
     def sysvar(self, s):
         """ Create an internal macro. """
-        
+
         # Check for system functions.
         
         m = re.match( r'([^\(]+)\((.*)\)$', s )

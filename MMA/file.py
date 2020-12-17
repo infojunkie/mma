@@ -32,11 +32,14 @@ PY3 = sys.version_info[0] == 3
 
 
 def fixfname(f):
-    """ Convert embedded space characters in filename to real spaces.
+    """ Convert embedded space characters in filename to real spaces and
+        expand ~ for user home directory.
 
         Originally this was done with .decode("string-escape") but that
         doesn't work with windows path names. So, now we just replace
         any \x20 sequences with single spaces.
+
+        
     """
 
     f = f.replace('\\x20', ' ')

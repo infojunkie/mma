@@ -116,7 +116,6 @@ Drum-Snare Sequence -
 
 DefGroove 60sRock1          Bridge version of 60sRock.
 
-
 /////// Sustained
 
 
@@ -137,6 +136,43 @@ DefGroove 60sRockSus    60s Rock with strings.
 Groove 60sRock1
 Chord-Sus Groove 60sRockSus
 DefGroove 60sRock1Sus   Alternate 60s Rock with strings.
+
+/////////////////////////
+/// Plus versions
+
+Groove 60sRock
+
+Begin Arpeggio
+	Voice $_Chord_Voice
+	Sequence  {A4; 1.5 8 90; 3.5 8 90} \
+              {A2; 1.5 4 90; 3.5 4 90} \
+              {A4 Shift .5} \
+              {A2; A4 Shift .5}
+    Harmony OpenBelow+OpenAbove
+	Articulate 130
+	Rvolume 0,20
+	Rskip 40
+    Range 2
+    SeqRnd ON
+    Direction Random
+	Volume mf
+	Octave 5
+End
+
+DefGroove 60sRockPlus   Adds some guitar noise
+
+Groove 60sRock1
+Arpeggio Groove 60sRockPlus
+DefGroove 60sRock1Plus Alternate version with more noise
+
+Groove 60sRockSus
+Arpeggio Groove 60sRockPlus
+DefGroove 60sRockSusPlus Sustained with noise
+
+Groove 60sRock1Sus
+Arpeggio Groove 60sRockPlus
+DefGroove 60sRock1SusPlus Alternate sustained with noise
+
 
 //////////////////////
 /// Intro

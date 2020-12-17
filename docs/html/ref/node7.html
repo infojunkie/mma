@@ -46,7 +46,7 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html531"
+<LI><A ID="tex2html532"
   HREF="node7.html#SECTION00710000000000000000">DupRiff</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -268,7 +268,7 @@ S<SMALL>OLO</SMALL> or M<SMALL>ELODY</SMALL> track. Please see <A HREF="node10.h
 The above examples show how to apply a temporary pattern to a single
 bar&mdash;the bar which follows the R<SMALL>IFF</SMALL> command.  But, you can
 &ldquo;stack&rdquo;<A ID="tex2html38"
-  HREF="#foot3922"><SUP><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> a number of patterns to be processed sequentially. Each
+  HREF="#foot3929"><SUP><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> a number of patterns to be processed sequentially. Each
 successive R<SMALL>IFF</SMALL> command adds a pattern to the stack; these
 patterns are then &ldquo;pulled&rdquo; from the stack as successive chord lines
 are processed.
@@ -424,9 +424,16 @@ optional keyword T<SMALL>O</SMALL> to duplicate the default action.
 	    </td></tr>
       </Table>
 
+<P>
+Note: The D<SMALL>UP</SMALL>R<SMALL>IFF</SMALL> command <SPAN  CLASS="textit">only</SPAN> copies the riff that
+     has already been read into memory. You will still need to apply
+     the octave, harmony, etc. If you have used the S<SMALL>TRETCH</SMALL>
+     command you will need to apply that as well.
+
+<P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot3922">...
+<DT><A ID="foot3929">...
 &ldquo;stack&rdquo;</A><A
  HREF="node7.html#tex2html38"><SUP><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>Actually a queue or FIFO (First In, First Out)

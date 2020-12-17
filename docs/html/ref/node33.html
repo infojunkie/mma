@@ -47,45 +47,45 @@
 
 <UL CLASS="ChildLinks">
 <LI><UL>
-<LI><A ID="tex2html723"
+<LI><A ID="tex2html725"
   HREF="node33.html#SECTION003301000000000000000">
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Modules</A>
-<LI><A ID="tex2html724"
-  HREF="node33.html#SECTION003302000000000000000">Special Characters In Filenames</A>
-<LI><A ID="tex2html725"
-  HREF="node33.html#SECTION003303000000000000000">Tildes In Filenames</A>
 <LI><A ID="tex2html726"
+  HREF="node33.html#SECTION003302000000000000000">Special Characters In Filenames</A>
+<LI><A ID="tex2html727"
+  HREF="node33.html#SECTION003303000000000000000">Tildes In Filenames</A>
+<LI><A ID="tex2html728"
   HREF="node33.html#SECTION003304000000000000000">Filenames and the Command Line</A>
 </UL>
 <BR>
-<LI><A ID="tex2html727"
-  HREF="node33.html#SECTION003310000000000000000">File Extensions</A>
-<LI><A ID="tex2html728"
-  HREF="node33.html#SECTION003320000000000000000">Eof</A>
 <LI><A ID="tex2html729"
-  HREF="node33.html#SECTION003330000000000000000">LibPath</A>
+  HREF="node33.html#SECTION003310000000000000000">File Extensions</A>
 <LI><A ID="tex2html730"
-  HREF="node33.html#SECTION003340000000000000000">MIDIPlayer</A>
+  HREF="node33.html#SECTION003320000000000000000">Eof</A>
 <LI><A ID="tex2html731"
-  HREF="node33.html#SECTION003350000000000000000">Groove Previews</A>
+  HREF="node33.html#SECTION003330000000000000000">LibPath</A>
 <LI><A ID="tex2html732"
-  HREF="node33.html#SECTION003360000000000000000">OutPath</A>
+  HREF="node33.html#SECTION003340000000000000000">MIDIPlayer</A>
 <LI><A ID="tex2html733"
-  HREF="node33.html#SECTION003370000000000000000">Include</A>
+  HREF="node33.html#SECTION003350000000000000000">Groove Previews</A>
 <LI><A ID="tex2html734"
-  HREF="node33.html#SECTION003380000000000000000">IncPath</A>
+  HREF="node33.html#SECTION003360000000000000000">OutPath</A>
 <LI><A ID="tex2html735"
-  HREF="node33.html#SECTION003390000000000000000">Use</A>
+  HREF="node33.html#SECTION003370000000000000000">Include</A>
 <LI><A ID="tex2html736"
-  HREF="node33.html#SECTION0033100000000000000000">MmaStart</A>
+  HREF="node33.html#SECTION003380000000000000000">IncPath</A>
 <LI><A ID="tex2html737"
-  HREF="node33.html#SECTION0033110000000000000000">MmaEnd</A>
+  HREF="node33.html#SECTION003390000000000000000">Use</A>
 <LI><A ID="tex2html738"
-  HREF="node33.html#SECTION0033120000000000000000">RC Files</A>
+  HREF="node33.html#SECTION0033100000000000000000">MmaStart</A>
 <LI><A ID="tex2html739"
+  HREF="node33.html#SECTION0033110000000000000000">MmaEnd</A>
+<LI><A ID="tex2html740"
+  HREF="node33.html#SECTION0033120000000000000000">RC Files</A>
+<LI><A ID="tex2html741"
   HREF="node33.html#SECTION0033130000000000000000">Library Files</A>
 <UL>
-<LI><A ID="tex2html740"
+<LI><A ID="tex2html742"
   HREF="node33.html#SECTION0033131000000000000000">Maintaining and Using Libraries</A>
 </UL></UL>
 <!--End of Table of Child-Links-->
@@ -105,9 +105,11 @@ read and processed.
 
 <P>
 
-<H2><A ID="SECTION003301000000000000000">
+<H2><A ID="SECTION003301000000000000000"></A>
+<A ID="sec-defaultpaths"></A>
+<BR>
 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Modules</A>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Modules
 </H2>
 First a few comments on the location of the 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Python modules.
@@ -171,7 +173,7 @@ likely for testing), a check is made to see the modules are present in
 the home of the 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  executable. This is stored in the Python system
 variable sys.path[0].<A ID="tex2html131"
-  HREF="#foot20423"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+  HREF="#foot20541"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 Additionally it is possible to place the modules in your python-site
 directory. If, when initializing itself, 
@@ -199,7 +201,7 @@ In all the following sections we refer to various forms of
 &ldquo;filename&rdquo; and &ldquo;path&rdquo;. 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  parses files and uses various forms
 of &ldquo;whitespace&rdquo;<A ID="tex2html132"
-  HREF="#foot20058"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> to separate different parts of
+  HREF="#foot20174"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> to separate different parts of
 commands. This means that you cannot, easily, include space characters
 in a filename embedded in a 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  source file. But, you can, if
@@ -704,7 +706,7 @@ the preview with some command line options. Note that each of these
 options can be placed anywhere on the line in any order. Nothing in
 the options (except chord names) is case sensitive. Each of the
 commands must have an <SPAN  CLASS="textbf">=</SPAN> and contain no spaces:<A ID="tex2html134"
-  HREF="#foot20188"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+  HREF="#foot20304"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
 <P>
 <DL>
 <DT><STRONG>Count</STRONG></DT>
@@ -929,7 +931,7 @@ path you can do something like:
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>SetLibPath&nbsp;/mymma/incs $_IncPath  </B> 
+    <B>SetIncPath&nbsp;/mymma/incs $_IncPath  </B> 
    
 	    </td></tr>
       </Table>
@@ -1216,8 +1218,13 @@ order):
 
 <P>
 </LI>
+<LI>~<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/.config/mma/mmarc</SPAN></SPAN> &mdash; a file in the user's home
+  configuration directory.
+
+<P>
+</LI>
 <LI>~<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/.mmarc</SPAN></SPAN> &mdash; this is an &ldquo;invisible&rdquo;
-  file in the users home directory.
+  file in the user's home directory.
 
 <P>
 </LI>
@@ -1352,7 +1359,7 @@ If you are writing G<SMALL>ROOVE</SMALL>s with the intention of adding them to
 the standard library you should ensure that none of the names you
 choose duplicate existing names already used in the same
 directory.<A ID="tex2html135"
-  HREF="#foot20431"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+  HREF="#foot20549"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
 <P>
 If you are creating a set of alternate grooves to duplicate the
 existing library you might do the following:
@@ -1401,7 +1408,7 @@ existing library you might do the following:
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  about your new file(s) and G<SMALL>ROOVES</SMALL> by
   updating the 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  database with the -g or -G<A ID="tex2html136"
-  HREF="#foot20381"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> command line options. If you elect this route,
+  HREF="#foot20499"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> command line options. If you elect this route,
   remember that the order for the paths in L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> is
   important. If the filename or groove names duplicate material in the
   <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdlib</SPAN></SPAN> you may be better off forcing the include by doing a
@@ -1500,27 +1507,27 @@ grooves.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot20423">... sys.path[0].</A><A
+<DT><A ID="foot20541">... sys.path[0].</A><A
  HREF="node33.html#tex2html131"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>The system variable sys.path[] is a
   list. The first entry is not necessarily the same as <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">&ldquo;.&rdquo;</SPAN></SPAN>.
 
 </DD>
-<DT><A ID="foot20058">... &ldquo;whitespace&rdquo;</A><A
+<DT><A ID="foot20174">... &ldquo;whitespace&rdquo;</A><A
  HREF="node33.html#tex2html132"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>Whitespace is defined by Python to include
   space characters, tabs, etc. Again, refer to the Python
   documentation if you need details.
 
 </DD>
-<DT><A ID="foot20188">... spaces:</A><A
+<DT><A ID="foot20304">... spaces:</A><A
  HREF="node33.html#tex2html134"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>The
 reason for the &ldquo;=&rdquo; and the other restrictions are mainly to protect
 your arguments from the underlying shell.
 
 </DD>
-<DT><A ID="foot20431">...
+<DT><A ID="foot20549">...
 directory.</A><A
  HREF="node33.html#tex2html135"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>When you update the database with the 
@@ -1531,7 +1538,7 @@ directory.</A><A
   much noise to be useful.
 
 </DD>
-<DT><A ID="foot20381">... -G</A><A
+<DT><A ID="foot20499">... -G</A><A
  HREF="node33.html#tex2html136"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>-G
     forcefully deletes the existing database files to ensure a

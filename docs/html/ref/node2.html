@@ -46,11 +46,11 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html488"
-  HREF="node2.html#SECTION00210000000000000000">Command Line Options</A>
 <LI><A ID="tex2html489"
-  HREF="node2.html#SECTION00220000000000000000">Lines and Spaces</A>
+  HREF="node2.html#SECTION00210000000000000000">Command Line Options</A>
 <LI><A ID="tex2html490"
+  HREF="node2.html#SECTION00220000000000000000">Lines and Spaces</A>
+<LI><A ID="tex2html491"
   HREF="node2.html#SECTION00230000000000000000">Programming Comments</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -79,7 +79,7 @@ name followed by the required options. For example,
 
 <P>
 processes the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test</SPAN></SPAN><A ID="tex2html13"
-  HREF="#foot907"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> and creates
+  HREF="#foot912"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> and creates
 the MIDI file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test.mid</SPAN></SPAN>.
 
 <P>
@@ -153,7 +153,7 @@ The following command line options are available:
 <DD>Enable LOTS of debugging messages. This option is mainly
     designed for program development and may not be useful to
     users.<A ID="tex2html15"
-  HREF="#foot909"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+  HREF="#foot914"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
 <P>
 </DD>
 <DT><STRONG>-e</STRONG></DT>
@@ -411,7 +411,7 @@ The current installation of
     current L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>. All files <SPAN  CLASS="textit">must</SPAN> have a &ldquo;.mma&rdquo;
     extension. Any directory containing a file named <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN>
     will be ignored.<A ID="tex2html17"
-  HREF="#foot912"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> Note, that
+  HREF="#foot917"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> Note, that
     <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> consists of all uppercase letters and is usually
     an empty file.
 
@@ -566,6 +566,12 @@ The current installation of
 
 <P>
 </DD>
+<DT><STRONG>-xPrint <SPAN  CLASS="textit">VAR</SPAN></STRONG></DT>
+<DD>Lists the value of system variables at
+    initialization. Details <A HREF="node28.html#sect-xtra-print">here</A>.
+
+<P>
+</DD>
 </DL>
 A number of the above command line options are also available from the
 C<SMALL>MD</SMALL>L<SMALL>INE</SMALL> option detailed <A HREF="node30.html#sect-cmdline">here</A>.
@@ -603,7 +609,7 @@ Programming Comments</A>
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is designed to read and write files (including a file piped to
 it via stdin). However, it is not a filter.<A ID="tex2html18"
-  HREF="#foot916"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
+  HREF="#foot921"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
 <P>
 As noted earlier in this manual, 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has been written entirely in
@@ -622,7 +628,7 @@ tweaking some of the more time intensive Python loops.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot907">...</A><A
+<DT><A ID="foot912">...</A><A
  HREF="node2.html#tex2html13"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>Actually, the file
   <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test</SPAN></SPAN> or <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test.mma</SPAN></SPAN> is processed. Please read section
@@ -638,7 +644,7 @@ tweaking some of the more time intensive Python loops.
       debugging.
 
 </DD>
-<DT><A ID="foot909">... users.</A><A
+<DT><A ID="foot914">... users.</A><A
  HREF="node2.html#tex2html15"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD> A number of the debugging commands can also be
       set dynamically in a song. See the debug section
@@ -651,14 +657,14 @@ tweaking some of the more time intensive Python loops.
       10 minutes.
 
 </DD>
-<DT><A ID="foot912">... ignored.</A><A
+<DT><A ID="foot917">... ignored.</A><A
  HREF="node2.html#tex2html17"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>Sub-directories in a directory with a
       <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> <SPAN  CLASS="textit">are</SPAN> processed ... they need
       additional <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> entires to ignore.
 
 </DD>
-<DT><A ID="foot916">... filter.</A><A
+<DT><A ID="foot921">... filter.</A><A
  HREF="node2.html#tex2html18"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
 <DD>It is possible
   that filter mode for output could be added to 

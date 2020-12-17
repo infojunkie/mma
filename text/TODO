@@ -1,4 +1,8 @@
 
+Enhance lyrics to support multiple <>s.
+
+Setup mma-gb to read a mmarc file. Get mma to report the path?
+
 Add repeat line to solo option (just like we do for lyrics).
 
 Chord-name meta-data might do with some additional settings: merge in

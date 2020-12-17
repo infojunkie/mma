@@ -272,6 +272,7 @@ def docDump():
 
     elif gbl.createDocs == 5:    # JSON
         doc = []
+        print("JSON")
         for l in defs:
             groove = {
                  "groove": l[0],

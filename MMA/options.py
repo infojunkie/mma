@@ -311,7 +311,7 @@ def usage(msg=''):
         " -G    create Groove dependency database",
         " -i <file> specify init (mmarc) file",
         " -I <plugin> print docs for plugin if available",
-        " -II   skip premissions test for plugins (Dangerous!)",
+        " -II   skip permissions test for plugins (Dangerous!)",
         " -L    show order of bars processed",
         " -m <x> set Maxbars (default == 500)",
         " -M <x> set SMF to 0 or 1",

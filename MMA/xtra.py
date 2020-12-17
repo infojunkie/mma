@@ -33,7 +33,6 @@ from MMA.lyric import lyric
 import MMA.paths 
 import MMA.auto
     
-
 def checkChords(clist):
     """ Take a list of chords passed on the command line and check them
         for validity.
@@ -148,10 +147,26 @@ def listGrooves(arg):
         print (a)
         
     sys.exit(0)
+
+def printVars():
+    from MMA.macro import macros
+
+    print(args)
+    for a in args:
+        if a[0]=='$':  # strip off option leading $
+            a=a[1:]
+        a=a.upper()
+        if a[0] == '_':   # system var
+            ex = macros.sysvar(a[1:])
+        else:
+            error("Only system variables (with a leading _) are defined, not %s." % a)
+
+        print("$%s = %s" % (a, ex))
+    sys.exit(0)
     
 def xoption(opt, args):
     """ Xtra, seldom used, options """
-    
+
     opt = opt.upper()
 
     if opt == 'NOCREDIT':
@@ -173,7 +188,23 @@ def xoption(opt, args):
 
     elif opt == "GROOVES":
         listGrooves(args)
-        
+
+    elif opt == "PRINT":
+        from MMA.macro import macros
+
+        for a in args:
+            if a[0]=='$':  # strip off option leading $
+                a=a[1:]
+            a=a.upper()
+
+            if a[0] == '_':   # system var
+                ex = macros.sysvar(a[1:])
+            else:
+                error("Only system variables (with a leading _) are defined, not %s." % a)
+
+            print("$%s = %s" % (a, ex))
+        sys.exit(0)
+
     else:
-        error("'%s' in an unknown -x option" % opt)
+        error("'%s' is an unknown -x option" % opt)
              
