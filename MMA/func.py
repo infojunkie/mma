@@ -170,7 +170,8 @@ def callFunction(l):
             else:
                 d = funcList[fname].defaults[i+s]
                 if d is None:
-                    error("Call: '%s' has no default for '%s'." % (fname, p))
+                    #error("Call: '%s' has no default for '%s'." % (fname, p))
+                    d="UNDEFINED"
                 callParams.append(d)
 
     if len(params) != len(callParams):

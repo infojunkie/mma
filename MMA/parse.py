@@ -859,10 +859,7 @@ def trackDupRoot(name, ln):
 def trackChordLimit(name, ln):
     """ Set (unset) ChordLimit for track. """
 
-    if len(ln) != 1:
-        error("Use: %s ChordLimit <value>" % name)
-
-    gbl.tnames[name].setChordLimit(ln[0])
+    gbl.tnames[name].setChordLimit(ln)
 
 
 def trackRange(name, ln):

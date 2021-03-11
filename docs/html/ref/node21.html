@@ -46,38 +46,38 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html616"
+<LI><A ID="tex2html620"
   HREF="node21.html#SECTION002110000000000000000">Variables</A>
 <UL>
-<LI><A ID="tex2html617"
-  HREF="node21.html#SECTION002111000000000000000">Set</A>
-<LI><A ID="tex2html618"
-  HREF="node21.html#SECTION002112000000000000000">NewSet</A>
-<LI><A ID="tex2html619"
-  HREF="node21.html#SECTION002113000000000000000">Mset</A>
-<LI><A ID="tex2html620"
-  HREF="node21.html#SECTION002114000000000000000">RndSet</A>
 <LI><A ID="tex2html621"
-  HREF="node21.html#SECTION002115000000000000000">UnSet VariableName</A>
+  HREF="node21.html#SECTION002111000000000000000">Set</A>
 <LI><A ID="tex2html622"
-  HREF="node21.html#SECTION002116000000000000000">ShowVars</A>
+  HREF="node21.html#SECTION002112000000000000000">NewSet</A>
 <LI><A ID="tex2html623"
-  HREF="node21.html#SECTION002117000000000000000">Inc and Dec</A>
+  HREF="node21.html#SECTION002113000000000000000">Mset</A>
 <LI><A ID="tex2html624"
-  HREF="node21.html#SECTION002118000000000000000">VExpand On or Off</A>
+  HREF="node21.html#SECTION002114000000000000000">RndSet</A>
 <LI><A ID="tex2html625"
+  HREF="node21.html#SECTION002115000000000000000">UnSet VariableName</A>
+<LI><A ID="tex2html626"
+  HREF="node21.html#SECTION002116000000000000000">ShowVars</A>
+<LI><A ID="tex2html627"
+  HREF="node21.html#SECTION002117000000000000000">Inc and Dec</A>
+<LI><A ID="tex2html628"
+  HREF="node21.html#SECTION002118000000000000000">VExpand On or Off</A>
+<LI><A ID="tex2html629"
   HREF="node21.html#SECTION002119000000000000000">StackValue</A>
 </UL>
 <BR>
-<LI><A ID="tex2html626"
-  HREF="node21.html#SECTION002120000000000000000">Predefined Variables</A>
-<LI><A ID="tex2html627"
-  HREF="node21.html#SECTION002130000000000000000">Indexing and Slicing</A>
-<LI><A ID="tex2html628"
-  HREF="node21.html#SECTION002140000000000000000">Mathematical Expressions</A>
-<LI><A ID="tex2html629"
-  HREF="node21.html#SECTION002150000000000000000">Conditionals</A>
 <LI><A ID="tex2html630"
+  HREF="node21.html#SECTION002120000000000000000">Predefined Variables</A>
+<LI><A ID="tex2html631"
+  HREF="node21.html#SECTION002130000000000000000">Indexing and Slicing</A>
+<LI><A ID="tex2html632"
+  HREF="node21.html#SECTION002140000000000000000">Mathematical Expressions</A>
+<LI><A ID="tex2html633"
+  HREF="node21.html#SECTION002150000000000000000">Conditionals</A>
+<LI><A ID="tex2html634"
   HREF="node21.html#SECTION002160000000000000000">Goto</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -149,9 +149,9 @@ Vexpand ON/Off   </B>
 All variable names are case-insensitive. Any characters can be used in
 a variable name. The only exceptions are that a variable name cannot
 start with a &ldquo;$&rdquo; or a &ldquo;_&rdquo; (an underscore&mdash;this is reserved for
-internal variables, see below) <SPAN  CLASS="textit">and</SPAN> names cannot contain a
-&ldquo;[&rdquo; or &ldquo;]&rdquo; character (brace characters are reserved for
-indexing, <A HREF="#slicing">details here</A>).
+internal variables, see below) <SPAN  CLASS="textit">and</SPAN> names cannot contain a &ldquo;[&rdquo;
+or &ldquo;]&rdquo; character (brace characters are reserved for indexing,
+<A HREF="#slicing">details here</A>).
 
 <P>
 Variables are set and manipulated by using their names. Variables are
@@ -174,9 +174,9 @@ The first line creates the variable &ldquo;Silly&rdquo;; the second creates a
 bar of music with the chords &ldquo;Am / Bm /&rdquo;.
 
 <P>
-<SPAN  CLASS="textit">Note that the &ldquo;$&rdquo; must be the first item on a line or follow a
-space character. The variable name must be terminated by a space or
-the end of a line.</SPAN> For example, the following will NOT work:
+<SPAN  CLASS="textit">Note that the &ldquo;$&rdquo; must be the first item on a line or follow
+  a space character. The variable name must be terminated by a space
+  or the end of a line.</SPAN> For example, the following will NOT work:
 
 <P>
 
@@ -184,7 +184,7 @@ the end of a line.</SPAN> For example, the following will NOT work:
         <tr><td>
     <B>Set Silly 4a;b;c;d; 
 <BR>
-1 Am {$Silly }   //  <em><Font color=Red>
+1 Am {$Silly } //  <em><Font color=Red>
 	¡¡Wrong!!
     <Font color=Black > </em>  needs space before the $  </B> 
    
@@ -198,9 +198,10 @@ Nor will:
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>1 Am { $Silly}  //  <em><Font color=Red>
+    <B>1 Am { $Silly} //  <em><Font color=Red>
 	¡¡Wrong!!
-    <Font color=Black > </em>  needs space at the end of the name  </B> 
+    <Font color=Black > </em>  needs space at the end of the
+  name  </B> 
    
 	    </td></tr>
       </Table>
@@ -314,7 +315,7 @@ have identical results.
 <H2><A ID="SECTION002113000000000000000"></A> <A ID="sec-mset"></A>
 <BR>
 Mset
-</H2>     
+</H2>   
 
 <P>
 This command is quite similar to S<SMALL>ET</SMALL>, but M<SMALL>SET</SMALL> expects
@@ -353,10 +354,10 @@ command will print the <SPAN  CLASS="textit">first</SPAN> line of the variable a
 remainder will be reinserted into the input stream for interpretation.
 
 <P>
-Variables are <SPAN  CLASS="textit">not</SPAN> expanded when creating an M<SMALL>SET</SMALL>
-macro (lines are read verbatim from the input path)&mdash;this makes
-M<SMALL>SET</SMALL> subtly different from S<SMALL>ET</SMALL>. Variables <SPAN  CLASS="textit">are</SPAN>
-expanded when the macro is executed.
+Variables are <SPAN  CLASS="textit">not</SPAN> expanded when creating an M<SMALL>SET</SMALL> macro
+(lines are read verbatim from the input path)&mdash;this makes M<SMALL>SET</SMALL>
+subtly different from S<SMALL>ET</SMALL>. Variables <SPAN  CLASS="textit">are</SPAN> expanded when
+the macro is executed.
 
 <P>
 Special code in 
@@ -472,7 +473,7 @@ ShowVars</A>
 
 <P>
 Mainly used for debugging, this command displays the names of the
-defined variables and their contents.  The display will preface each
+defined variables and their contents. The display will preface each
 variable name with a &ldquo;$&rdquo;. Note that internal 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variables are
 not displayed with this command.
@@ -610,13 +611,13 @@ the same line will now be &ldquo;1 Am / G /&rdquo;.
 <P>
 Most of 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's internal commands <SPAN  CLASS="textit">can</SPAN> be redefined with
-variables. However, you really shouldn't use this feature.  It's been
+variables. However, you really shouldn't use this feature. It's been
 left for two reasons: it might be useful, and, it's hard to disable.
 
 <P>
 Not all commands can be redefined. The following examples will work,
-however <SPAN  CLASS="textit">in most cases we
-recommend that you do not redefine 
+however <SPAN  CLASS="textit">in most cases we recommend that you do not redefine
+  
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  commands</SPAN>.
 
 <P>
@@ -728,10 +729,10 @@ Predefined Variables
 <P>
 For your convenience 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tracks a number of internal settings and
-you can access these values with special macros.<A ID="tex2html86"
-  HREF="#foot12249"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>  All of these &ldquo;system&rdquo; variables are
-prefaced with a single underscore. For example, the current tempo can be
-retrieved using the $_TEMPO variable.
+you can access these values with special macros.<A ID="tex2html87"
+  HREF="#foot12411"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> All of these &ldquo;system&rdquo; variables are
+prefaced with a single underscore. For example, the current tempo can
+be retrieved using the $_TEMPO variable.
 
 <P>
 There are two categories of system variables. The first are the simple
@@ -759,7 +760,8 @@ values for global settings:
 <DT><STRONG>&nbsp;&nbsp;$_CTabs</STRONG></DT>
 <DD>List of the time-set chord tabs. The positions in
   this list indicate the offsets used for chord placement on a chord
-  data line. The values are set with TIME and TIMESIG changes.
+  data line. The values are set with TIME and TIMESIG
+  changes.
 
 <P>
 </DD>
@@ -785,7 +787,8 @@ values for global settings:
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_FileName</STRONG></DT>
 <DD>The name of the file being processed as entered
-  on the command line (returns an empty string if input is from STDIN).
+  on the command line (returns an empty string if input is from
+  STDIN).
 
 <P>
 </DD>
@@ -794,26 +797,24 @@ values for global settings:
   being processed. This is not necessarily the same as the
   $_FileName macro since the current file might be a library file.
   An empty string is returned if input is from STDIN. If 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  added a
-  &ldquo;.mma&rdquo; suffix to the filename that will be included. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  added
+  a &ldquo;.mma&rdquo; suffix to the filename that will be included.
 
 <P>
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_Env(n)</STRONG></DT>
 <DD>Returns the value of an environment variable. For
-  example:
-  
+  example: 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
     <B>$_Env(PATH)  </B> 
    
 	    </td></tr>
       </Table>
-
-  will return the current setting of the shell PATH variable. If the
-  variable is not defined or if it has no value an empty string will
-  be returned. The case of the argument must match that of the
-  variable in the shell.
+ will return the current setting of the
+  shell PATH variable. If the variable is not defined or if it has no
+  value an empty string will be returned. The case of the argument
+  must match that of the variable in the shell.
 
 <P>
 </DD>
@@ -824,7 +825,8 @@ values for global settings:
 <P>
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_Groovelist</STRONG></DT>
-<DD>List of all currently defined G<SMALL>ROOVE</SMALL> names.
+<DD>List of all currently defined G<SMALL>ROOVE</SMALL>
+  names.
 
 <P>
 </DD>
@@ -905,31 +907,31 @@ Debug $_LastDebug   </B>
 <P>
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_MIDIPlayer</STRONG></DT>
-<DD>Current M<SMALL>IDI</SMALL>P<SMALL>LAYER</SMALL> setting, including options.
+<DD>Current M<SMALL>IDI</SMALL>P<SMALL>LAYER</SMALL> setting, including
+  options.
 
 <P>
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_NoteLen(n)</STRONG></DT>
 <DD>Returns value of the duration in MIDI ticks of
   &ldquo;n&rdquo;. Note: No spaces are permitted. Examples:
-    
+  
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
     <B>$_NoteLen(8.)  </B> 
    
 	    </td></tr>
       </Table>
-
-  returns 144T, the duration of a dotted eight note,
-    
+ returns 144T, the duration of a dotted eight
+  note, 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
     <B>$_NoteLen(5:4+16)  </B> 
    
 	    </td></tr>
       </Table>
-
-   returns 86T, the duration of a 5:4 tuplet plus a 16th.
+ returns 86T, the duration of a 5:4
+  tuplet plus a 16th.
 
 <P>
 </DD>
@@ -955,8 +957,8 @@ Debug $_LastDebug   </B>
 <P>
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_Seq</STRONG></DT>
-<DD>Current S<SMALL>EQ</SMALL> point (0 to
-  S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL>). Useful in debugging.
+<DD>Current S<SMALL>EQ</SMALL> point (0 to S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL>).
+  Useful in debugging.
 
 <P>
 </DD>
@@ -1028,7 +1030,8 @@ Debug $_LastDebug   </B>
 <P>
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_Tracklist</STRONG></DT>
-<DD>List of all currently defined T<SMALL>RACK</SMALL> names.
+<DD>List of all currently defined T<SMALL>RACK</SMALL>
+  names.
 
 <P>
 </DD>
@@ -1151,7 +1154,8 @@ The following are the available &ldquo;TrackName&rdquo; macros:
 <DD>(all options)
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Plugins</STRONG></DT>
-<DD>(track registered plugins, the same for all tracks)
+<DD>(track registered plugins, the same
+  for all tracks)
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Range</STRONG></DT>
 <DD>
@@ -1254,8 +1258,8 @@ summary:
 
 <P>
 <table width="90%"><tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[2]</SPAN> - selects the 3rd item in the list,</td></tr>
-<tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[1:2]</SPAN> - selects the 2nd to 3rd item (which means only the
-  2nd),</td></tr>
+<tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[1:2]</SPAN> - selects the 2nd to 3rd item (which means only
+  the 2nd),</td></tr>
 <tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[0:2]</SPAN> - selects items 1 and 2,</td></tr>
 <tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[-1]</SPAN> - selects the last item.
 </td></tr></table>
@@ -1271,29 +1275,29 @@ mind:
 <P>
 
 <UL>
-<LI>For simple variables which contain only one element
-  (e.g., $_Tempo) any index other than &ldquo;[0]&rdquo;, &ldquo;[-1]&rdquo;, etc. will
-  return an empty string.
+<LI>For simple variables which contain only one element (e.g.,
+  $_Tempo) any index other than &ldquo;[0]&rdquo;, &ldquo;[-1]&rdquo;<A ID="tex2html88"
+  HREF="#foot12476"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>, etc. will return an empty string.
 
 <P>
 </LI>
-<LI>Variables containing multiple values (e.g., $_Bass_Volume) are
-  treated as list. Slicing and indexing is useful to extract a single
-  value.
+<LI>Variables containing multiple values (e.g., $_Bass_Volume)
+  are treated as list. Slicing and indexing is useful to extract a
+  single value.
 
 <P>
 </LI>
-<LI>Variables created with M<SMALL>SET</SMALL> are treated a list of
-  lines. Slicing returns multiple (or single) lines. This can be
-  useful in selecting only a portion of a previously created variable.
+<LI>Variables created with M<SMALL>SET</SMALL> are treated a list of lines.
+  Slicing returns multiple (or single) lines. This can be useful in
+  selecting only a portion of a previously created variable.
 
 <P>
 </LI>
 <LI>Using an empty &ldquo;[]&rdquo; will return the number of elements in the
-  variable.<A ID="tex2html87"
-  HREF="#foot12450"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> This can be useful in writing S<SMALL>UB</SMALL>R<SMALL>OUTINES</SMALL> where you
-  need to know the number of arguments which have been passed. For
-  example:
+  variable.<A ID="tex2html89"
+  HREF="#foot12618"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> This can be useful in writing
+  S<SMALL>UB</SMALL>R<SMALL>OUTINES</SMALL> where you need to know the number of arguments
+  which have been passed. For example:
 
 <P>
 
@@ -1311,10 +1315,14 @@ Call Count Am Bm Cm Dm   </B>
       </Table>
 
 <P>
+Using an empty &ldquo;[]&rdquo; on a variable which does <SPAN  CLASS="textit">not</SPAN> exist does
+  not generate and error; instead, a &ldquo;-1&rdquo; is returned.
+
+<P>
 </LI>
 <LI>The &ldquo;[]&rdquo; must follow the variable <SPAN  CLASS="textit">without</SPAN> any space
-characters. The expression inside the &ldquo;[<SPAN  CLASS="textit">value[s]</SPAN>]&rdquo; must not contain any
-spaces.
+  characters. The expression inside the &ldquo;[<SPAN  CLASS="textit">value[s]</SPAN>]&rdquo; must not
+  contain any spaces.
 
 <P>
 </LI>
@@ -1372,9 +1380,9 @@ Mathematical Expressions
 <P>
 Anywhere you can use a variable (user defined or built-in) you can
 also use a mathematical expression. Expressions delimited in a
-$(...) set are passed to the underlying Python interpreter, parsed
-and expanded. Included in an expression can be any combination of
-values, operators, and 
+$(...) set are passed to the underlying Python interpreter,
+parsed and expanded. Included in an expression can be any combination
+of values, operators, and 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variables.
 
 <P>
@@ -1417,8 +1425,8 @@ evaluated by Python.
 
 <P>
 You can even use this feature to modify values stored in
-lists.<A ID="tex2html88"
-  HREF="#foot12451"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> A bit complex, but well worthwhile! In the following
+lists.<A ID="tex2html90"
+  HREF="#foot12619"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> A bit complex, but well worthwhile! In the following
 example we add &ldquo;10&rdquo; to the current A<SMALL>RTICULATE</SMALL> setting. It's
 split into three lines to make it clearer:
 
@@ -1547,8 +1555,8 @@ the functions:
 </PRE>
 
 <P>
-the miscellaneous functions:<A ID="tex2html89"
-  HREF="#foot12357"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+the miscellaneous functions:<A ID="tex2html91"
+  HREF="#foot12521"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
 <P>
 <PRE>
     for, in, str(), .join(), .split(), randint()
@@ -1594,27 +1602,39 @@ Conditionals</A>
 
 <P>
 One of the most important reasons to have variables in 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is to use
-them in conditionals. In 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is to
+use them in conditionals. In 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  a conditional consists of a line
 starting with an I<SMALL>F</SMALL> directive, a test, a series of lines to
 process (depending upon the result of the test), and a closing
-E<SMALL>ND</SMALL>I<SMALL>F</SMALL> or I<SMALL>F</SMALL>E<SMALL>ND</SMALL><A ID="tex2html90"
-  HREF="#foot12452"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>  directive. An optional E<SMALL>LSE</SMALL> statement may be included.
+E<SMALL>ND</SMALL>I<SMALL>F</SMALL> or I<SMALL>F</SMALL>E<SMALL>ND</SMALL><A ID="tex2html92"
+  HREF="#foot12620"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> directive. An optional E<SMALL>LSE</SMALL> statement may be included.
 
 <P>
 The first set of tests are unary (they take no arguments):
 
 <P>
 <DL>
-<DT><STRONG>Def VariableName</STRONG></DT>
+<DT><STRONG>Def <SPAN  CLASS="textit">VariableName</SPAN></STRONG></DT>
 <DD>Returns true if the variable has been defined.
 
 <P>
 </DD>
-<DT><STRONG>Ndef VariableName</STRONG></DT>
+<DT><STRONG>Ndef <SPAN  CLASS="textit">VariableName</SPAN></STRONG></DT>
 <DD>Returns true if the variable has not been
   defined.
+
+<P>
+</DD>
+<DT><STRONG>IsEmpty <SPAN  CLASS="textit">VariableName</SPAN></STRONG></DT>
+<DD>Returns true if the variable exists, but
+  has no value/content.
+
+<P>
+</DD>
+<DT><STRONG>IsNotEmpty <SPAN  CLASS="textit">VariableName</SPAN></STRONG></DT>
+<DD>Returns true if the variable exists and
+  has a value or content.
 
 <P>
 </DD>
@@ -1662,7 +1682,7 @@ or mnemonic as detailed in the following table) and two arguments.
 <TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">LE</SPAN></TH>
 <TD ALIGN="CENTER"><SPAN  CLASS="textbf">&lt;=</SPAN></TD>
 <TD ALIGN="LEFT">True if <SPAN  CLASS="textit">Str1</SPAN> is less than or equal to
-  <SPAN  CLASS="textit">Str2</SPAN></TD>
+                                        <SPAN  CLASS="textit">Str2</SPAN></TD>
 </TR>
 <TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">EQ</SPAN></TH>
 <TD ALIGN="CENTER"><SPAN  CLASS="textbf">==</SPAN></TD>
@@ -1679,15 +1699,16 @@ or mnemonic as detailed in the following table) and two arguments.
 <TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">GE</SPAN></TH>
 <TD ALIGN="CENTER"><SPAN  CLASS="textbf">&gt;=</SPAN></TD>
 <TD ALIGN="LEFT">True if <SPAN  CLASS="textit">Str1</SPAN> is greater than or
-  equal to <SPAN  CLASS="textit">Str2</SPAN></TD>
+                                            equal to <SPAN  CLASS="textit">Str2</SPAN></TD>
 </TR>
 </TABLE>
 
 <P>
 In the above tests you have several choices in specifying <SPAN  CLASS="textit">Str1</SPAN>
 and <SPAN  CLASS="textit">Str2</SPAN>. At some point, when 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does the actual comparison,
-two strings or numeric values are expected. So, you really could do:
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does the actual
+comparison, two strings or numeric values are expected. So, you really
+could do:
 
 <P>
 
@@ -1775,9 +1796,9 @@ example, if you have the strings &ldquo;22&rdquo; and &rdquo;3&rdquo; and compar
 strings, &ldquo;3&rdquo; is greater than &ldquo;22&rdquo;; however, if you compare them as
 values then 3 is less than 22. The rule in 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is quite simple: If
-both strings can be converted to a value, a numeric comparison is done;
-otherwise they are compared as strings.<A ID="tex2html91"
-  HREF="#foot12420"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
+both strings can be converted to a value, a numeric comparison is
+done; otherwise they are compared as strings.<A ID="tex2html93"
+  HREF="#foot12588"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
 <P>
 This lets you do consistent comparisons in situations like:
 
@@ -1856,8 +1877,8 @@ Goto</A>
 
 <P>
 The G<SMALL>OTO</SMALL> command redirects the execution order of your script
-to the point at which a L<SMALL>ABEL</SMALL> or line number has been
-defined. There are really two parts to this:
+to the point at which a L<SMALL>ABEL</SMALL> or line number has been defined.
+There are really two parts to this:
 
 <P>
 
@@ -1992,40 +2013,47 @@ directory.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot12249">... macros.</A><A
- HREF="node21.html#tex2html86"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DT><A ID="foot12411">... macros.</A><A
+ HREF="node21.html#tex2html87"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>The values
   are dynamically created and reflect the current settings, and may
   not be exactly the same as the value you originally set due to
   internal roundings, etc.
 
 </DD>
-<DT><A ID="foot12450">... variable.</A><A
- HREF="node21.html#tex2html87"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DT><A ID="foot12476">... &ldquo;[-1]&rdquo;</A><A
+ HREF="node21.html#tex2html88"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Please
+    refer to the Python documentation for lots and lots of details on
+    slice notation.
+
+</DD>
+<DT><A ID="foot12618">... variable.</A><A
+ HREF="node21.html#tex2html89"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>This is not a standard Python convention, but can
     be handy in 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
 
 </DD>
-<DT><A ID="foot12451">...
+<DT><A ID="foot12619">...
 lists.</A><A
- HREF="node21.html#tex2html88"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+ HREF="node21.html#tex2html90"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>this was written before the introduction of slices,
   (<A HREF="#slicing">details here</A>). Slices make this
   much easier, but let's leave the hard stuff in just to show what can
   be done.
 
 </DD>
-<DT><A ID="foot12357">... functions:</A><A
- HREF="node21.html#tex2html89"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DT><A ID="foot12521">... functions:</A><A
+ HREF="node21.html#tex2html91"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>It is possible that the
     following functions could be used to do &ldquo;bad&rdquo; things. If you see
     code using these commands from a suspect source you should be
     careful.
 
 </DD>
-<DT><A ID="foot12452">...I<SMALL>F</SMALL>E<SMALL>ND</SMALL></A><A
- HREF="node21.html#tex2html90"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DT><A ID="foot12620">...I<SMALL>F</SMALL>E<SMALL>ND</SMALL></A><A
+ HREF="node21.html#tex2html92"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
 <DD>
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's author probably suffers
   from mild dyslexia and can't remember if the command is IfEnd or
@@ -2033,10 +2061,10 @@ lists.</A><A
   you.
 
 </DD>
-<DT><A ID="foot12420">... strings.</A><A
- HREF="node21.html#tex2html91"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
-<DD>For this comparison
-  float values are used. Rounding errors can cause equality
+<DT><A ID="foot12588">... strings.</A><A
+ HREF="node21.html#tex2html93"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
+<DD>For this
+  comparison float values are used. Rounding errors can cause equality
   comparisons to fail.
 
 </DD>

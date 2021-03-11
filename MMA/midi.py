@@ -21,7 +21,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 Bob van der Poel <bob@mellowood.ca>
 """
 
-
 from   MMA.midiM import intToWord, intTo3Byte, intToLong, intToVarNumber, intTo14, packBytes
 import MMA.midiC
 import MMA.debug
@@ -646,12 +645,12 @@ class Mtrk:
 
         tr = self.miditrk
 
+        # note: timing test verifies if/then is slightly faster try/except here
+        # that's because the else case is used most.
         if offset in tr:
             tr[offset].append(event)
         else:
             tr[offset] = [event]
-
-
 
 def stripRange():
     """ Strip out range limited data. Only of -B/b option. """

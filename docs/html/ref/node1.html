@@ -46,33 +46,35 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html478"
+<LI><A ID="tex2html481"
   HREF="node1.html#SECTION00110000000000000000">License, Version and Legalities</A>
-<LI><A ID="tex2html479"
+<LI><A ID="tex2html482"
   HREF="node1.html#SECTION00120000000000000000">About this Manual</A>
 <UL>
-<LI><A ID="tex2html480"
-  HREF="node1.html#SECTION00121000000000000000">Typographic Conventions</A>
-<LI><A ID="tex2html481"
-  HREF="node1.html#SECTION00122000000000000000"><SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> and HTML</A>
-<LI><A ID="tex2html482"
-  HREF="node1.html#SECTION00123000000000000000">Other Documentation</A>
 <LI><A ID="tex2html483"
+  HREF="node1.html#SECTION00121000000000000000">Typographic Conventions</A>
+<LI><A ID="tex2html484"
+  HREF="node1.html#SECTION00122000000000000000"><SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> and HTML</A>
+<LI><A ID="tex2html485"
+  HREF="node1.html#SECTION00123000000000000000">Other Documentation</A>
+<LI><A ID="tex2html486"
   HREF="node1.html#SECTION00124000000000000000">Music Notation</A>
 </UL>
 <BR>
-<LI><A ID="tex2html484"
+<LI><A ID="tex2html487"
   HREF="node1.html#SECTION00130000000000000000">Installing 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> </A>
-<LI><A ID="tex2html485"
+<LI><A ID="tex2html488"
   HREF="node1.html#SECTION00140000000000000000">Running 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> </A>
-<LI><A ID="tex2html486"
+<LI><A ID="tex2html489"
   HREF="node1.html#SECTION00150000000000000000">Comments</A>
-<LI><A ID="tex2html487"
+<LI><A ID="tex2html490"
   HREF="node1.html#SECTION00160000000000000000">Theory Of Operation</A>
-<LI><A ID="tex2html488"
-  HREF="node1.html#SECTION00170000000000000000">Case Sensitivity</A>
+<LI><A ID="tex2html491"
+  HREF="node1.html#SECTION00170000000000000000">MIDI File Format</A>
+<LI><A ID="tex2html492"
+  HREF="node1.html#SECTION00180000000000000000">Case Sensitivity</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
@@ -153,7 +155,7 @@ The current version of this package is maintained at: <kbd><A ID="tex2html3"
   HREF="http://www.mellowood.ca/mma/">http://www.mellowood.ca/mma/</A></kbd>.
 
 <P>
-This document reflects version 20.12
+This document reflects version 20.12.1
  of 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
 
@@ -366,7 +368,7 @@ create input files. Don't use a word processor!
 
 <UL>
 <LI>The executable Python script, <SPAN  CLASS="texttt">mma</SPAN>,<A ID="tex2html7"
-  HREF="#foot413"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> must somewhere in your
+  HREF="#foot425"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> must somewhere in your
   path. For users running Windows or Mac, please check 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  website
   for details on how to install on these systems. As distributed the
@@ -450,7 +452,7 @@ To create a MIDI file you need to:
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  understands. This includes the chord
   structure of the song, the rhythm to use, the tempo, etc. The file
   can be created with any suitable text editor.<A ID="tex2html9"
-  HREF="#foot414"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+  HREF="#foot426"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
 <P>
 </LI>
 <LI>Process the input file. From a command line the instruction:
@@ -662,7 +664,7 @@ incorporate them into your song with a simple two word command.
 <P>
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is bar based.<A ID="tex2html12"
-  HREF="#foot416"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> This
+  HREF="#foot428"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> This
 means that 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  processes your song one bar at a time. The music
 specification lines all assume that you are specifying a single bar of
@@ -680,6 +682,43 @@ created by using the G<SMALL>OTO</SMALL> command).
 <P>
 
 <H1><A ID="SECTION00170000000000000000">
+MIDI File Format</A>
+</H1>
+
+<P>
+The files generated are standard MIDI. A few points of interest:
+
+<P>
+
+<UL>
+<LI>By default the generated files are &ldquo;type 2&rdquo;. You can change
+  this to &ldquo;type 1&rdquo; using the SMF option (see
+  <A HREF="node24.html#midismf">here</A>).
+
+<P>
+</LI>
+<LI>Each of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's tracks are generated as a separate MIDI track.
+
+<P>
+</LI>
+<LI>A comment advertising the creator of the file is inserted into
+  to the META data. Details <A HREF="node28.html#xtra-nocredit">here</A>.
+
+<P>
+</LI>
+<LI>The length of the generated file in seconds in saved in a META
+  text field labeled &ldquo;DURATION:&rdquo;. A custom MIDI file player could
+  use this to easily view the length of the file. This data is placed in
+  the beginning of the MIDI file, before the individual music tracks.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION00180000000000000000">
 Case Sensitivity</A>
 </H1>
 
@@ -764,14 +803,14 @@ MIDI</A><A
   for a user manual the programmer's view is not the best.
 
 </DD>
-<DT><A ID="foot413">...mma,</A><A
+<DT><A ID="foot425">...mma,</A><A
  HREF="node1.html#tex2html7"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>In the
     distribution this is <SPAN  CLASS="texttt">mma.py</SPAN>. It is renamed to save a few
     keystrokes when entering the command.
 
 </DD>
-<DT><A ID="foot414">... editor.</A><A
+<DT><A ID="foot426">... editor.</A><A
  HREF="node1.html#tex2html9"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is
@@ -796,7 +835,7 @@ MIDI</A><A
   notably &ldquo;C&rdquo;.
 
 </DD>
-<DT><A ID="foot416">... based.</A><A
+<DT><A ID="foot428">... based.</A><A
  HREF="node1.html#tex2html12"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A></DT>
 <DD>We really should use the term
   &ldquo;measure&rdquo; to indicate the musical data which, on sheet music,

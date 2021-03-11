@@ -247,7 +247,7 @@ class Macros:
                 if n:
                     x.append("%s=%s" % (c, ','.join(n)))
             return ' '.join(x)
-        
+
         elif s == 'SEQRNDWEIGHT':
             return ' '.join([str(x) for x in MMA.seqrnd.seqRndWeight])
 
@@ -364,7 +364,7 @@ class Macros:
             return ' '.join([str(x) for x in t.invert])
 
         elif func == 'LIMIT':
-            return str(t.chordLimit)
+            return "%s mode=%s" % (t.chordLimit[0], t.chordLimit[1])
 
         elif func == 'MALLET':
             if t.vtype not in ("SOLO", "MELODY"):
@@ -592,6 +592,12 @@ class Macros:
                     elif s in self.vars:  # user var?
                         ex = self.vars[s]
 
+                    elif sliceVar == "":
+                        l = l[:i] + ["-1"] + l[i+1:]
+                        sub = 1
+                        sliceVar = None
+                        break
+                    
                     else:                 # unknown var...error
                         error("User variable '%s'  has not been defined" % s)
 
@@ -940,7 +946,7 @@ class Macros:
 
         # 1. do the unary options: DEF, NDEF
 
-        if action in ('DEF', 'NDEF'):
+        if action in ('DEF', 'NDEF', 'ISEMPTY', 'ISNOTEMPTY'):
             if len(ln) != 2:
                 error("Usage: IF %s VariableName" % action)
 
@@ -948,8 +954,22 @@ class Macros:
 
             if action == 'DEF':
                 compare = v in self.vars
+                
             elif action == 'NDEF':
                 compare = (v not in self.vars)
+                
+            elif action in ('ISEMPTY', 'ISNOTEMPTY'):
+                if v.startswith('_'):
+                    v = self.sysvar(v[1:])
+                elif v not in self.vars:
+                    error("Variable '%s' has not been created" % v)
+                else:
+                    v = self.vars[v]  # contents of user var
+                if action == 'ISEMPTY':
+                    compare = (v == '')
+                else:
+                    compare = (v != '')
+                    
             else:
                 error("Unreachable unary conditional")  # can't get here
 
@@ -985,7 +1005,7 @@ class Macros:
         else:
             error("Usage: IF <CONDITON> ...")
 
-        """ Go read until end of if block.
+        """ Go read until end of IF block.
             We shove the block back if the compare was true.
             Unless, the block is terminated by an ELSE ... then we need
             to read another block and push back one of the two.

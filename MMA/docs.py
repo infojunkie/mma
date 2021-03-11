@@ -279,7 +279,9 @@ def docDump():
                  "description": l[2],
                  "size": l[1],
             }
-            [groove['track'], groove['voice'], groove['sequence']] = l[3]
+            groove['tracks'] = [];
+            for c,v,s in l[3:]:
+                groove['tracks'].append({ "track": c, "voice": v, "sequence": s });
             doc.append(groove)
         print(json.dumps(doc, indent=1))
 

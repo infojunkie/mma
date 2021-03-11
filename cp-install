@@ -132,17 +132,21 @@ print("Copying includes to %s" % dest)
 shutil.copytree( "includes", dest+"/includes")
 
 ###########################################
+######## Copy the plugins
+
+print("Copying plugins to %s" % dest)
+shutil.copytree( "plugins", dest+"/plugins")
+
+###########################################
 ######## Copy the modules
 
 print("Copying python modules to %s" % dest)
-
 shutil.copytree( "MMA", dest+"/MMA")
 
 ###########################################
 ######## Copy the html docs
 
 print("Copying HTML documentation to %s" % dest)
-
 shutil.copytree( "docs", dest+"/docs")
 
 ###########################################

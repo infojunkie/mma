@@ -107,3 +107,27 @@ Added the env variable MMA_HOME. Read more about this is the
 
 Released 20.12 - December 8/2020
 ----------------------------------
+
+The ARPEGGIATE command now accepts the single word "Off" argument as a disabler.
+
+Fixed docs for the DefAlias command. Arguments were reveresed.
+
+Anded FROM option to SeqRndWeight. See docs.
+
+Updated cp-install so that the plugin directory is copied.
+
+JSON output for -Djs has been expanded a bit. Also fixed
+ the help screen: filename is needed.
+
+The docs for TWEAKS had a number of errors.
+
+Fixed Tweaks DefaultDrum command.
+
+Documented: Some time ago the duration of the generated file was added to the MIDI.
+ To document this and some other MIDI details a section "MIDI File Format" has been
+ added to the manual.
+
+RPITCH: Added "doen't work for Plectrum tracks" to the docs.
+
+SLICE NOTATION: When using a empty slice notation on a user variable (IE. $_Foo[])
+ a -1 will be returned if the variable does not exist.

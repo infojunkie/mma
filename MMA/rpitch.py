@@ -72,6 +72,10 @@ def setRPitch(name, ln):
     if self.vtype == 'DRUM':
         error("RPitch cannot be appied to a drum track %s." % self.name)
 
+    if self.vtype == 'PLECTRUM':
+        warning("RPitch is ignored by %s track." % self.name)
+        return
+    
     if not ln or len(ln) == 1 and ln[0].upper() in ("NONE", "OFF"):
         self.rPitch = None
 

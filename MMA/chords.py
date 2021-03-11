@@ -220,7 +220,11 @@ class ChordNotes:
                   ch.noteList == [0, 4, 7, 11, 15, 18]
                   ch.limit(4)
                   ch.noteList ==    [0, 4, 7, 11]
-
+                  
+                  DROP option deletes specific itervals first:
+                      chord  [0, 4, 7, 11, 15, 18]
+                      limit(5, Drop=1) - [4, 7, 11, 15, 18]
+                      limit(3, Drop=5) - [0, 4, 11]
 
     """
 
@@ -499,13 +503,28 @@ class ChordNotes:
 
 
 
-    def limit(self, n):
+    def limit(self, v, mode, force):
         """ Limit the number of notes in a chord. """
 
-        if n < self.noteListLen:
-            self.noteList =     self.noteList[:n]
+        #z = self.noteList[:] # orig notes
+        
+        # Look for a matching note from the scale in the chord
+        # By using remove() we only remove the 1st instance (a good thing)
+        # Note: on a 3 note chord this could make it into 2 note chord.
+        if mode and (v < self.noteListLen or force):
+            try:
+                self.noteList.remove(self.scaleList[mode-1])
+                self.noteListLen = len(self.noteList)
+            except ValueError:
+                pass
+
+        # Cut of right side to correct length
+        if v < self.noteListLen:
+            self.noteList = self.noteList[:v]
             self.noteListLen = len(self.noteList)
 
+        #print (f"Dropmode={mode} Force={force} Transform{z}->{self.noteList}")
+        
         return None
 
     def keycenter(self):

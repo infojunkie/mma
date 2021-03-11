@@ -46,15 +46,15 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html517"
-  HREF="node5.html#SECTION00510000000000000000">Defining Sequences</A>
-<LI><A ID="tex2html518"
-  HREF="node5.html#SECTION00520000000000000000">SeqClear</A>
-<LI><A ID="tex2html519"
-  HREF="node5.html#SECTION00530000000000000000">SeqRnd</A>
-<LI><A ID="tex2html520"
-  HREF="node5.html#SECTION00540000000000000000">SeqRndWeight</A>
 <LI><A ID="tex2html521"
+  HREF="node5.html#SECTION00510000000000000000">Defining Sequences</A>
+<LI><A ID="tex2html522"
+  HREF="node5.html#SECTION00520000000000000000">SeqClear</A>
+<LI><A ID="tex2html523"
+  HREF="node5.html#SECTION00530000000000000000">SeqRnd</A>
+<LI><A ID="tex2html524"
+  HREF="node5.html#SECTION00540000000000000000">SeqRndWeight</A>
+<LI><A ID="tex2html525"
   HREF="node5.html#SECTION00550000000000000000">SeqSize</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -63,11 +63,11 @@
 <H1><A ID="SECTION00500000000000000000"></A> <A ID="sec-seqs"></A>
 <BR>
 Sequences
-</H1>
+</H1> 
 
 <P>
-Patterns by themselves don't do much good. They have to be combined into
-sequences to be of any use to you or to 
+Patterns by themselves don't do much good. They have to be combined
+into sequences to be of any use to you or to 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
 
 <P>
@@ -77,8 +77,8 @@ Defining Sequences</A>
 </H1>
 
 <P>
-A S<SMALL>EQUENCE</SMALL> command sets the pattern(s) used in creating
-each track in your song:
+A S<SMALL>EQUENCE</SMALL> command sets the pattern(s) used in creating each
+track in your song:
 
 <P>
 
@@ -146,7 +146,7 @@ Arpeggio Sequence { 1 1 100 * 8 } { 1 1 80 * 4 }   </B>
 pattern. The Drum, Chord and Bass patterns repeat on every bar; the
 Drum-1 sequence repeats after 2 bars. Note how the Arpeggio pattern is
 defined at run-time.<A ID="tex2html33"
-  HREF="#foot2610"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+  HREF="#foot2646"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 If there are fewer patterns than S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL>, the sequence will be
 filled out to correct size. If the number of patterns used is greater
@@ -190,8 +190,8 @@ and decide to delete the Bass halfway though the song you could:
 <P>
 The special sequences, &ldquo;-&rdquo; or &ldquo;z&rdquo;, are also the equivalent of a
 rest or &ldquo;tacet&rdquo; sequence. For example, in defining a 4 bar sequence
-with a bass pattern on the first 3 bars and a walking bass on bar
-4 you might do something like:
+with a bass pattern on the first 3 bars and a walking bass on bar 4
+you might do something like:
 
 <P>
 
@@ -206,7 +206,7 @@ Walk Sequence z / / Walk4-4   </B>
 
 <P>
 If you already have a sequence defined<A ID="tex2html34"
-  HREF="#foot2512"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> you can repeat or copy the existing pattern by
+  HREF="#foot2538"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> you can repeat or copy the existing pattern by
 using a single &ldquo;*&rdquo; as the pattern name. This is useful when you are
 modifying an existing sequence.
 
@@ -242,9 +242,9 @@ interesting patterns and variations. This chapter should certainly
 give more detail and many more examples.
 
 <P>
-Seqeuence definitions can get quite long and may need multiple
-lines. You can do this by using &ldquo; \&rdquo; marked continuation lines. Or, to
-make it possible to have comments at the end of lines, 
+Sequence definitions can get quite long and may need multiple lines.
+You can do this by using &ldquo; \&rdquo; marked continuation lines. Or,
+to make it possible to have comments at the end of lines, 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will
 parse S<SMALL>EQUENCE</SMALL> lines and attempt to join lines together until a
 matching number of &ldquo;{&rdquo;s and &ldquo;}&rdquo;s are found. One caution: in
@@ -272,26 +272,26 @@ This will <SPAN  CLASS="textit">not work</SPAN>:
     <B>Chord Sequence {1 4 90 }  <em><Font color=Red>
 	¡¡Wrong!!
     <Font color=Black > </em> 
-<BR>      {1 1 90}   </B> 
+<BR>        {1 1 90}   </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
 In the second example 
-<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  reads the first &ldquo;{1 4 90}&rdquo; and figures
-that's the end of the sequence. When if finds the next line, it's
-totally confused.
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  reads the first &ldquo;{1 4 90}&rdquo; and
+figures that's the end of the sequence. When if finds the next line,
+it's totally confused.
 
 <P>
 The following commands help manipulate sequences in your creations:
 
 <P>
 
-<H1><A ID="SECTION00520000000000000000"></A>  <A ID="sec-seqclear"></A>
+<H1><A ID="SECTION00520000000000000000"></A> <A ID="sec-seqclear"></A>
 <BR>
 SeqClear
-</H1>
+</H1> 
 
 <P>
 This command clears all existing sequences from memory. It is useful
@@ -309,7 +309,8 @@ when defining a new sequence and you want to be sure that no
 
 <P>
 deletes all sequence information, with the important exception that
-S<SMALL>OLO</SMALL> and S<SMALL>TICKY</SMALL> (<A HREF="node6.html#sect-sticky">here</A>) tracks are ignored.
+S<SMALL>OLO</SMALL> and S<SMALL>TICKY</SMALL>
+(<A HREF="node6.html#sect-sticky">here</A>) tracks are ignored.
 
 <P>
 Alternately, the command:
@@ -341,7 +342,7 @@ If you use a sub-track:
 
 <P>
 only the sequence for that track is cleared.<A ID="tex2html35"
-  HREF="#foot2611"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+  HREF="#foot2647"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
 <P>
 In addition to clearing the sequence pattern, the following other
 settings are restored to a default condition:
@@ -381,7 +382,7 @@ settings are restored to a default condition:
 
 <P>
 </LI>
-<LI>Track RDuration, 
+<LI>Track RDuration,
 
 <P>
 </LI>
@@ -392,7 +393,7 @@ settings are restored to a default condition:
 </UL>
 
 <P>
-CAUTION: It is not possible to clear only  a track like D<SMALL>RUM</SMALL> or
+CAUTION: It is not possible to clear only a track like D<SMALL>RUM</SMALL> or
 C<SMALL>HORD</SMALL> using this command. The command
 
 <P>
@@ -423,8 +424,8 @@ the C<SMALL>HORD</SMALL> track use the &ldquo;-&rdquo; option.
 <P>
 
 <H1><A ID="SECTION00530000000000000000"></A>
-  
-   <A ID="seqrnd"></A>
+
+<A ID="seqrnd"></A>
 <BR>
 SeqRnd
 </H1>
@@ -779,36 +780,37 @@ Note that the drum sequences always &ldquo;line up&rdquo; with each other and
 the Chord and Bass sequences follow in the normal order.
 
 <P>
-The S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL> command will disable all sequence
-randomization. The S<SMALL>EQ</SMALL> command will disable &ldquo;global&rdquo; (for all
-tracks) randomization.
+The S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL> command will disable all sequence randomization.
+The S<SMALL>EQ</SMALL> command will disable &ldquo;global&rdquo; (for all tracks)
+randomization.
 
 <P>
 
 <H1><A ID="SECTION00540000000000000000"></A>
- 
- <A ID="seqrndweight"></A>
+
+<A ID="seqrndweight"></A>
 <BR>
 SeqRndWeight
 </H1>
 
 <P>
-When S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL> is enabled each sequence for the track (or globally) has an equal chance
-of being selected. There are times when you may want to change this behavior. For example,
-you might have a sequence like this:
+When S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL> is enabled each sequence for the track (or
+globally) has an equal chance of being selected. There are times when
+you may want to change this behavior. For example, you might have a
+sequence like this:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Chord Sequence C1  C2  C3  C4  </B> 
+    <B>Chord Sequence C1 C2 C3 C4  </B> 
    
 	    </td></tr>
       </Table>
 
 <P>
-and you feel that the patterns C1 and C2 need to be used twice as often as C3 and C4.
-Simple:
+and you feel that the patterns C1 and C2 need to be used twice as
+often as C3 and C4. Simple:
 
 <P>
 
@@ -820,18 +822,90 @@ Simple:
       </Table>
 
 <P>
-Think of the random selection occurring like selecting balls out of bag. The S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL>W<SMALL>EIGHT</SMALL>
-command &ldquo;fills up the bag&rdquo;. In the above case, there will be two C1 and C2 balls, one C3 and C4 ball&mdash;
+Think of the random selection occurring like selecting balls out of
+bag. The S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL>W<SMALL>EIGHT</SMALL> command &ldquo;fills up the bag&rdquo;. In the
+above case, there will be two C1 and C2 balls, one C3 and C4 ball&mdash;
 for a total of six balls.
 
 <P>
-This command can be used in both a track and global context.
+If you have a &ldquo;0&rdquo; in any spot that sequence will never be selected.
 
 <P>
-The effects are saved in G<SMALL>ROOVES</SMALL>.
+And alternate selection method uses the F<SMALL>ROM</SMALL> option. In
+this case the option is followed by a list of bar offsets, each
+representing a valid sequence point:
 
 <P>
-S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL> will reset both global and track contexts to the default (equal) condition.
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Seqsize 10
+<BR>
+SeqRndWeight From=1,4,9   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this example S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL> will only select sequences from 1, 4 and
+9. It is the same as:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqRndWeight 1 0 0 1 0 0 0 0 1 0  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In order to increase the odds for a certain point you can repeat it in
+the list.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqRndWeight From=1,4,4,4,4,9  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+is perfectly valid.
+
+<P>
+The values must be joined to the option name with a single comma and
+be separated by commas. No spaces are permitted. If you use the
+F<SMALL>ROM</SMALL> option you cannot use any other options.
+
+<P>
+
+<UL>
+<LI>This command can be used in both a track and global context.
+
+<P>
+</LI>
+<LI>The effects are saved in G<SMALL>ROOVES</SMALL>.
+
+<P>
+</LI>
+<LI>S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL> will reset both global and track contexts to the
+  default (equal) condition.
+
+<P>
+</LI>
+<LI>Changing the bar count by using S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL> will compress or
+  expand the weight table as required. Use the $_S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL>W<SMALL>EIGHT</SMALL>
+  variable for confirmation.
+
+<P>
+</LI>
+<LI>To reset the weights to default, use a single &ldquo;1&rdquo;; setting all
+  points to &ldquo;0&rdquo; is not permitted and will generate an error.
+</LI>
+</UL>
 
 <P>
 
@@ -869,7 +943,7 @@ until it is long enough.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot2610">... run-time.</A><A
+<DT><A ID="foot2646">... run-time.</A><A
  HREF="node5.html#tex2html33"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>If you run 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the &ldquo;-s&rdquo; option
@@ -878,14 +952,14 @@ until it is long enough.
   sequence.
 
 </DD>
-<DT><A ID="foot2512">... defined</A><A
+<DT><A ID="foot2538">... defined</A><A
  HREF="node5.html#tex2html34"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>In reality there is
   always a sequence defined for every track, but it might be a series
   of &ldquo;rest&rdquo; bars.
 
 </DD>
-<DT><A ID="foot2611">... cleared.</A><A
+<DT><A ID="foot2647">... cleared.</A><A
  HREF="node5.html#tex2html35"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>It is probably
   easier to use the command: 

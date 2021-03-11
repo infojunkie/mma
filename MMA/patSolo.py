@@ -197,6 +197,9 @@ class Melody(PC):
     def setArp(self, ln):
         """ Set the arpeggiate options. """
 
+        if len(ln)==1 and ln[0].upper()=='OFF':
+            ln[0] = "Rate=0"
+        
         notopt, ln = opt2pair(ln, 1)
 
         if notopt:

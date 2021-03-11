@@ -328,8 +328,8 @@ class Chord(PC):
 
             # Limit the chord notes. This works even if THERE IS A VOICINGMODE!
 
-            if self.chordLimit:
-                tb.chord.limit(self.chordLimit)
+            if self.chordLimit[0]:
+                tb.chord.limit(*self.chordLimit)
 
             # Compress chord into single octave if 'compress' is set
             # We do it here, before octave, transpose and invert!

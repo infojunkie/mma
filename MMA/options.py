@@ -302,7 +302,7 @@ def usage(msg=''):
         " -Dxl  eXtract Latex doc blocks from file",
         " -Dxh  eXtract HTML doc blocks from file",
         " -Dgh  extract HTML Groove doc",
-        " -Djs  extract JSON Groove information",
+        " -Djs  extract JSON Groove information from file",
         " -Dbo  extract text for browser app",
         " -Ds   extract sequence lists from file",
         " -e    show parsed/Expanded lines",

@@ -33,7 +33,7 @@ def setTweak(ln):
     """ Option tweaks. """
 
     import MMA.pat   # here to avoid a circular dep problem
-    from miditables import drumKits
+    from MMA.miditables import drumKits
    
 
     notopt, ln = opt2pair(ln)

@@ -292,28 +292,10 @@ def trackSeqRnd(name, ln):
 
 def trackSeqRndWeight(name, ln):
     """ Set rnd weight for track. """
-
-    if not ln:
-        error("Use: %s SeqRndWeight <weight factors>" % name)
-
-    self = gbl.tnames[name]
-
-
-    ln = lnExpand(ln, "%s SeqRndWeight" % self.name)
-    tmp = []
-
-    for n in ln:
-        n = stoi(n)
-        if n < 0:
-            error("SeqRndWeight: Values must be 0 or greater")
-        tmp.append(n)
-
-    self.seqRndWeight = seqBump(tmp)
-
-    if MMA.debug.debug:
-        dPrint("Set %s SeqRndWeight: %s" % 
-              (self.name, ' '.join([str(a) for a in self.seqRndWeight])))
-
+ 
+    tr = gbl.tnames[name]
+    tr.seqRndWeight = MMA.seqrnd.getweights(ln, "%s SeqRndWeight" % name)
+ 
 
 def trackRestart(name, ln):
     """ Restart track to almost-default condidions. """

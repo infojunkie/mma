@@ -95,8 +95,8 @@ class Arpeggio(PC):
             if direct == 'DOWN':
                 self.arpDirection = -1
 
-            if self.chordLimit:
-                tb.chord.limit(self.chordLimit)
+            if self.chordLimit[0]:
+                tb.chord.limit(*self.chordLimit)
 
             if self.compress[sc]:
                 tb.chord.compress()

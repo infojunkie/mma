@@ -46,32 +46,32 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html549"
+<LI><A ID="tex2html553"
   HREF="node10.html#SECTION001010000000000000000">Note Data Format</A>
 <UL>
-<LI><A ID="tex2html550"
-  HREF="node10.html#SECTION001011000000000000000">Chord Extensions</A>
-<LI><A ID="tex2html551"
-  HREF="node10.html#SECTION001012000000000000000">Accents</A>
-<LI><A ID="tex2html552"
-  HREF="node10.html#SECTION001013000000000000000">Long Notes</A>
-<LI><A ID="tex2html553"
-  HREF="node10.html#SECTION001014000000000000000">Using Defaults</A>
 <LI><A ID="tex2html554"
-  HREF="node10.html#SECTION001015000000000000000">Stretch</A>
+  HREF="node10.html#SECTION001011000000000000000">Chord Extensions</A>
 <LI><A ID="tex2html555"
+  HREF="node10.html#SECTION001012000000000000000">Accents</A>
+<LI><A ID="tex2html556"
+  HREF="node10.html#SECTION001013000000000000000">Long Notes</A>
+<LI><A ID="tex2html557"
+  HREF="node10.html#SECTION001014000000000000000">Using Defaults</A>
+<LI><A ID="tex2html558"
+  HREF="node10.html#SECTION001015000000000000000">Stretch</A>
+<LI><A ID="tex2html559"
   HREF="node10.html#SECTION001016000000000000000">Other Commands</A>
 </UL>
 <BR>
-<LI><A ID="tex2html556"
-  HREF="node10.html#SECTION001020000000000000000">AutoSoloTracks</A>
-<LI><A ID="tex2html557"
-  HREF="node10.html#SECTION001030000000000000000">Drum Solo Tracks</A>
-<LI><A ID="tex2html558"
-  HREF="node10.html#SECTION001040000000000000000">Arpeggiation</A>
-<LI><A ID="tex2html559"
-  HREF="node10.html#SECTION001050000000000000000">Sequence</A>
 <LI><A ID="tex2html560"
+  HREF="node10.html#SECTION001020000000000000000">AutoSoloTracks</A>
+<LI><A ID="tex2html561"
+  HREF="node10.html#SECTION001030000000000000000">Drum Solo Tracks</A>
+<LI><A ID="tex2html562"
+  HREF="node10.html#SECTION001040000000000000000">Arpeggiation</A>
+<LI><A ID="tex2html563"
+  HREF="node10.html#SECTION001050000000000000000">Sequence</A>
+<LI><A ID="tex2html564"
   HREF="node10.html#SECTION001060000000000000000">Voicing</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -287,7 +287,7 @@ The notes in a S<SMALL>OLO</SMALL> or M<SMALL>ELODY</SMALL> track are specified 
 series of &ldquo;chords&rdquo;. Each chord can be a single note, or several
 notes (all with the same duration). Each chord in the bar is delimited
 with a single semicolon.<A ID="tex2html48"
-  HREF="#foot5604"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> Please note
+  HREF="#foot5683"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> Please note
 the terminology used here! When we refer to a &ldquo;chord&rdquo; we are
 referring to the data a one point in the bar. It might be a single
 note, a number of notes, or a rest.
@@ -525,7 +525,7 @@ The G<SMALL>RACE</SMALL> extension can, optionally, have a &ldquo;offset
   grace note; the duration of the note is divided by the modifier. So,
   a 16th grace note would be played 24 MIDI ticks
   early.<A ID="tex2html50"
-  HREF="#foot5610"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> If
+  HREF="#foot5689"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> If
   you have multiple grace notes you can use increasing offset
   modifiers to stretch out the grace notes. For example, to sound
   three grace notes you could do:
@@ -735,7 +735,7 @@ their effect:
 <P>
 You can use any number of these accents in a set (however, more than 5
 becomes useless). Their effects are cummulative.<A ID="tex2html51"
-  HREF="#foot5429"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+  HREF="#foot5506"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
 <P>
 And example of the usage might be:
 
@@ -1265,7 +1265,7 @@ format.
 <DT><STRONG>Rate</STRONG></DT>
 <DD>The duration of each generated note. For example, &ldquo;16&rdquo;
   will use 16th notes; &ldquo;20t&rdquo; will use 20 MIDI ticks. If R<SMALL>ATE</SMALL>
-  is set to &ldquo;0&rdquo; or &ldquo;None&rdquo; the arpeggiator will be disabled.
+  is set to &ldquo;0&rdquo; or &ldquo;None&rdquo; the arpeggio will be disabled.
 
 <P>
 </DD>
@@ -1285,8 +1285,19 @@ format.
 </DL>
 
 <P>
-This command generates an error if the D<SMALL>RUM</SMALL>T<SMALL>YPE</SMALL> option has been
-set.
+
+<UL>
+<LI>This command generates an error if the D<SMALL>RUM</SMALL>T<SMALL>YPE</SMALL> option
+  has been set.
+
+<P>
+</LI>
+<LI>If &ldquo;Off&rdquo; is the only argument, the arpeggiator will be
+  disabled (same as &ldquo;rate=0&rdquo;).
+
+<P>
+</LI>
+</UL>
 
 <P>
 
@@ -1352,7 +1363,7 @@ Voicing</A>
 <P>
 These V<SMALL>OICING</SMALL> commands only apply to M<SMALL>ELODY</SMALL> and
 S<SMALL>OLO</SMALL> tracks.<A ID="tex2html52"
-  HREF="#foot5618"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> Each option is set
+  HREF="#foot5697"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> Each option is set
 as an OPTION=VALUE pair.
 
 <P>
@@ -1421,7 +1432,7 @@ generate a warning.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot5604">... semicolon.</A><A
+<DT><A ID="foot5683">... semicolon.</A><A
  HREF="node10.html#tex2html48"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>I have borrowed heavily from the
   notation program MUP for the syntax used here. For notation I highly
@@ -1431,20 +1442,20 @@ generate a warning.
   HREF="http://www.Arkkra.com/">http://www.Arkkra.com/</A></kbd>.
 
 </DD>
-<DT><A ID="foot5610">... early.</A><A
+<DT><A ID="foot5689">... early.</A><A
  HREF="node10.html#tex2html50"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>Using 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's 192 ticks for a quarter note, a 16th
     note gets 48 ticks. Divide that by the modifier (default is 2.
 
 </DD>
-<DT><A ID="foot5429">... cummulative.</A><A
+<DT><A ID="foot5506">... cummulative.</A><A
  HREF="node10.html#tex2html51"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>Each accent
   character changes the note articulation or volume by 20%.
 
 </DD>
-<DT><A ID="foot5618">... tracks.</A><A
+<DT><A ID="foot5697">... tracks.</A><A
  HREF="node10.html#tex2html52"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>For other voicing options, please see
   <A HREF="node14.html#chord-voicing">here</A>.

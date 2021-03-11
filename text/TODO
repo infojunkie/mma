@@ -1,7 +1,9 @@
 
-Enhance lyrics to support multiple <>s.
+RandomSeqRnd - add limit to seq option.
 
-Setup mma-gb to read a mmarc file. Get mma to report the path?
+Figure way to emulate things like accordion chords. Need to have different chord sets for different chords (ie, C7 has no 5th, dim missing b5).
+
+Enhance lyrics to support multiple <>s.
 
 Add repeat line to solo option (just like we do for lyrics).
 

@@ -323,18 +323,46 @@ class PC:
     def setChordLimit(self, ln):
         """ set/unset the chordLimit flag. """
 
-        n = stoi(ln, "%s Limit argument for must be a value" % self.name)
+        mode = 0
+        forceLen = 0
+        tname = self.name
+        
+        ln, options = opt2pair(ln, toupper=True)
+        for cmd, opt in options:
+            if cmd == 'DROP':
+                mode = stoi(opt, "Expecting integer value for %s DROP, not '%s'"
+                            % (tname, opt))
+                if mode<1 or mode>7:
+                    error("%s LIMIT Drop value must be 1..7, not '%s'."
+                          % (tname, mode))
 
-        if n < 0 or n > 8:
-            error("%s Limit %s out-of-range; must be 0 to 8" % (self.name, n))
+            elif cmd == 'FORCE':
+                forceLen = getTF(opt, "%s LIMIT FORCE expecting True/False, not '%s'"
+                                 % (tname, opt))
+                
+            else:
+                error("LIMIT: Option '%s' not known." % cmd)
+                
+        if len(ln) != 1:
+            error("%s LIMIT: Use <value 0-8> DROP=arg (too many args)."
+                  % tname)
 
-        self.chordLimit = n
+        n=ln[0].upper()
+        if n in ("OFF", "FALSE"):
+            n = 0
+        else:
+            n = stoi(n, "%s LIMIT argument for must be a value, not '%s'." % (tname, n))
+
+        if n != 0 and (n < 3 or n > 8):
+            error("%s LIMIT '%s' out-of-range; must be 0 or 3 to 8" % (self.name, n))
+
+        self.chordLimit = [n, mode, forceLen]
 
         if self.vtype not in ("CHORD", "ARPEGGIO"):
-            warning("%s Limit is ignored in %s tracks" % (self.name, self.vtype))
+            warning("%s LIMIT is ignored in %s tracks" % (tname, self.vtype))
 
         if MMA.debug.debug:
-            MMA.debug.trackSet(self.name, "Limit")
+            MMA.debug.trackSet(tname, "Limit")
 
     def setChannel(self, ln=None):
         """ Set the midi-channel number for a track.
@@ -1271,7 +1299,7 @@ class PC:
             'DUPROOT': copy.deepcopy(self.dupRoot),
             'HARMONY': (self.harmony[:], self.harmonyOnly[:], self.harmonyVolume[:]),
             'INVERT': copy.deepcopy(self.invert),
-            'LIMIT': self.chordLimit,
+            'LIMIT': self.chordLimit[:],
             'RANGE': self.chordRange[:],
             'OCTAVE': self.octave[:],
             'RSKIP': self.rSkip[:],
@@ -1392,7 +1420,7 @@ class PC:
             self.volume = [MMA.volume.vols['M']]
             self.compress = [0]
             self.dupRoot = [[]]
-            self.chordLimit = 0
+            self.chordLimit = [0,0]
             self.invert = [[]]
             self.lastChord = []
             self.accent = [[]]

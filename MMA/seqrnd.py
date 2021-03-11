@@ -40,7 +40,6 @@ seqRndWeight = [1]
 def setseq():
     """ Set up the seqrnd values, called from parse loop.
 
-
         returns:
            0...  a random sequence number,
            -1    signals that rndseq is not enabled.
@@ -52,12 +51,6 @@ def setseq():
            [1]  random selection, keeps all tracks in sync.
            [2]  randomize selected tracks.
 
-        The list seqRndWeight has at least the same number of entries in it
-        as there are in the sequence size. By default each will have
-        the same value of 1. A list of the valid sequence points is
-        generated (ie, if seqsize==4 tmp will be [0,1,2,3]). In addition
-        the weights of each entry in tmp[] is adjusted by the weights in
-        the seqrndweight[] list.
     """
 
     if seqRnd[0]:
@@ -71,17 +64,34 @@ def setseq():
     return (r, seqRnd[1:])
 
 
-def getrndseq(v):
+def getrndseq(weights):
+    """ Get a random sequence number. 
+
+        The list seqRndWeight has the same number of entries in it
+        as there are in the sequence size. By default each will have
+        the same value of 1. A list of the valid sequence points is
+        generated (ie, if seqsize==4 tmp will be [0,1,2,3]). In addition
+        the weights of each entry in tmp[] is adjusted by the weights in
+        the seqrndweight[] list.
+
+        FIXME?:in the future we might want to change the weighted
+               random choice we're doing by using random.choices()
+               from python 3.6+ which might be more efficient than
+               creating a list of weights.
+
+        Returns: a (weighted) random choice.
+
+    """
+    
     tmp = []
-    for x, i in enumerate(v):
+    for x, i in enumerate(weights):
         tmp.extend([x] * i)
-
-    if not len(tmp):
-        error("SeqRndWeight has generated an empty list")
-
-    return random.choice(tmp)
-
-
+    # We'll wrap this is a try/except but it's doubtful if needed.
+    try:
+        return random.choice(tmp)
+    except IndexError:
+        error("SeqRndWeight has generated an empty list.")
+        
 ## Main parser routines
 
 def setSeqRnd(ln):
@@ -124,23 +134,53 @@ def setSeqRnd(ln):
 
 
 def getweights(ln, msg):
-
+    """ Parse a rndweight line. Called from setRndWeight() and
+        trackSeqRndWeight() in sequence.py.
+    """
+    
     ln = lnExpand(ln, msg)
 
-    if not ln:
-        error("Use: %s <weight factors>" % msg)
+    ln, opt = opt2pair(ln, toupper=True)
 
-    tmp = []
-    for n in ln:
-        n = stoi(n)
-        if n < 0:
-            error("%s: Values must be 0 or greater" % msg)
-        tmp.append(n)
+    if opt:
+        if ln:
+            error("%s use only an option=values or individual values." % msg)
+            
+        for v, a in opt:
+            if v == "FROM":
+                tmp = [0] * gbl.seqSize
+                a = a.split(',')
+                for s in a:
+                    s = stoi(s, "%s FROM expecting integer, not '%s'." % (msg, s))
+                    if s<1 or s> gbl.seqSize:
+                        error("%s FROM must only have values "
+                              "in the sequence size (%s), not '%s'."
+                              % (msg, gbl.seqSize, s))
+                    tmp[s-1] +=1
+
+            else:
+                error("%s %s is not a valid option." % (msg, v))
+
+
+    else:
+        if not ln:
+            error("Use: %s <weight factors>" % msg)
+
+        tmp = []
+        for n in ln:
+            n = stoi(n, "%s expecting integer, not '%s'." % (msg, n))
+            if n < 0:
+                error("%s: Values must be 0 or greater" % msg)
+            tmp.append(n)
 
     tmp = seqBump(tmp)
 
+    # at least one bar in the sequence has to be active.
+    if not any(tmp):
+        error("%s Using all '0's is not permitted." % msg)
+    
     if MMA.debug.debug:
-        dPrint("%s: %s" % (msg, ' '.join([str(x) for x in tmp])))
+        dPrint("Set %s: %s" % (msg, ' '.join([str(x) for x in tmp])))
 
     return tmp
 
