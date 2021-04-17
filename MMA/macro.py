@@ -541,7 +541,7 @@ class Macros:
             sub = 0
 
             for i, s in enumerate(l):
-                  if s[0] == '$':
+                  if len(s) > 0 and s[0] == '$':
                     
                     s = s[1:].upper()
                     if not s:
@@ -602,7 +602,7 @@ class Macros:
                         error("User variable '%s'  has not been defined" % s)
 
                     if isinstance(ex, list):  # MSET variable
-                        if sliceVar != None:
+                        if sliceVar is not None:
                             ex = sliceVariable(ex, sliceVar)
                             sliceVar = None
 
@@ -615,7 +615,7 @@ class Macros:
 
                     else:                       # regular SET variable
                         ex = ex.split()
-                        if sliceVar != None:
+                        if sliceVar is not None:
                             ex = sliceVariable(ex, sliceVar)
                             sliceVar = None
 

@@ -228,7 +228,6 @@ def harmonize(hmode, note, chord):
 
     # Strip out duplicate notes from harmony list.
     #  Cute trick here ... just use set().
-#    print (note, chord, hnotes)
     return list(set(hnotes))
 
 

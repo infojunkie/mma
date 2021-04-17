@@ -160,7 +160,7 @@ settings of 101, 102, 103 ... 120. This will occur over 22 beats
 (5.5 bars * 4 beats) of music.
 
 <P>
-The duration can be set using beats by appending a single &ldquo;b&rdquo; to the
+The duration can be set using beats by appending a single &ldquo;B&rdquo; to the
 value:
 
 <P>
@@ -173,8 +173,8 @@ value:
       </Table>
 
 <P>
-is the same as the previous example. A &ldquo;m&rdquo; can be appended to the
-duration for consistency. 
+is the same as the previous example. For consistency a &ldquo;M&rdquo;
+(measures) or &ldquo;T&rdquo; (MIDI ticks) can be appended to the value.
 
 <P>
 Using the multiplier is handy if you are switching to &ldquo;double time&rdquo;:
@@ -213,9 +213,9 @@ option=value pairs:
 <table width="90%"><tr><td valign="top">&nbsp;<DL>
 <DT><STRONG>Offset</STRONG></DT>
 <DD>Sets an offset for the change. This can be given in
-    bars (the default) or beats. To specify beats append a single &ldquo;b&rdquo; to
-    the value. For consistency for can add a &ldquo;m&rdquo; for measures/bars.
-    Floating point values are permitted.
+    bars (the default) or beats. To specify beats append a single &ldquo;B&rdquo; to
+    the value. For consistency for can add a &ldquo;M&rdquo; for measures/bars
+    or &ldquo;T&rdquo; for MIDI ticks. Floating point values are permitted.
 
 <P>
 For example:
@@ -249,9 +249,9 @@ will insert the tempo (assuming 4 beats per bar) do so in 6 beats.
 <DT><STRONG>Restore</STRONG></DT>
 <DD>The <SMALL>RESTORE</SMALL> option will change the T<SMALL>EMPO</SMALL>
   back to the current setting in the specified number of bars. You
-  can end the option with a single &ldquo;b&rdquo; to indicate beats or,
-  optionally, a &ldquo;m&rdquo; for measures/bars. Floating point values are
-  permitted.
+  can end the option with a single &ldquo;B&rdquo; to indicate beats or,
+  optionally, a &ldquo;M&rdquo; for measures/bars or &ldquo;T&rdquo; for MIDI ticks.
+  Floating point values are permitted.
 
 <P>
 For example:
@@ -421,7 +421,7 @@ to set up for a waltz:
 This will set the beats per bar to 3, the time signature meta event to
 &ldquo;3/4&rdquo; and the chord tabs to 1,2,3. The following table shows the
 known time signatures, etc.<A ID="tex2html77"
-  HREF="#foot10067"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>.
+  HREF="#foot10071"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>.
 
 <P>
 <DIV class="CENTER">
@@ -614,6 +614,13 @@ files all do).
 The common time signatures &ldquo;common&rdquo; and &ldquo;cut&rdquo; are supported. They
 are translated by 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to <SPAN  CLASS="textbf">4/4</SPAN> and <SPAN  CLASS="textbf">2/2</SPAN>.
+
+<P>
+If you insert more than one time signature at the same location in
+your file only the last one will be inserted into the MIDI file. This
+could be useful if you are using a library file and don't like the
+time signature in that file ... just use the desired one right after
+the first U<SMALL>SE</SMALL> or G<SMALL>ROOVE</SMALL> command.
 
 <P>
 Important: <SPAN  CLASS="textit">this command does not have any effect on internal
@@ -1059,8 +1066,20 @@ Groove BigBand
 <P>
 
 <P>
-<SPAN  CLASS="textbf">Note:</SPAN> A number of the items discussed above are much easier
+
+<UL>
+<LI>A number of the items discussed above are much easier
 to handle with the T<SMALL>RUNCATE</SMALL> command, <A HREF="#truncate">here</A>.
+
+<P>
+</LI>
+<LI>The number of beats to move the current position can be specified in
+beats (the default, an optional &ldquo;B&rdquo; can be added), measures (append a
+&ldquo;M&rdquo;) or MIDI ticks (append a &ldquo;T&rdquo;).
+
+<P>
+</LI>
+</UL>
 
 <P>
 
@@ -1285,7 +1304,7 @@ thought. The symbol is also referred to as &ldquo;railroad tracks&rdquo;.
 <P>
 The idea is to stop the music on all tracks, pause briefly, and
 resume.<A ID="tex2html78"
-  HREF="#foot10083"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="#foot10087"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  provides the C<SMALL>UT</SMALL> command to help deal with this
@@ -1496,7 +1515,7 @@ If the offset is omitted, the current bar position will be used. This
 the same as using an offset value of 0.
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot10067">... etc.</A><A
+<DT><A ID="foot10071">... etc.</A><A
  HREF="node17.html#tex2html77"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>These are known to 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . There
@@ -1504,7 +1523,7 @@ the same as using an offset value of 0.
   them in <SPAN  CLASS="textit">Music Notation</SPAN>.
 
 </DD>
-<DT><A ID="foot10083">...
+<DT><A ID="foot10087">...
 resume.</A><A
  HREF="node17.html#tex2html78"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>The answer to the music theory question of whether

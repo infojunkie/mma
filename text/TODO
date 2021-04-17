@@ -1,4 +1,6 @@
 
+Fix time sig event bytes 3 and 4.
+
 RandomSeqRnd - add limit to seq option.
 
 Figure way to emulate things like accordion chords. Need to have different chord sets for different chords (ie, C7 has no 5th, dim missing b5).

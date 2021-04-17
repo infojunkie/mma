@@ -323,7 +323,7 @@ class Plectrum(PC):
                     pos = int(n)
                 except:
                     pos = None
-                if pos == None or pos < -127 or pos > 127:
+                if pos is None or pos < -127 or pos > 127:
                     error("%s: Shape requires values between -127 and 127, or '-' for a muted string" % (self.name))
                 self._chordShapes[chord].append(pos)
                 
@@ -605,7 +605,7 @@ class Plectrum(PC):
             fret.fretNo = fretNo
             fret.chordIndex = stringNo
             fret.duplicate = False
-            if fretNo == None:
+            if fretNo is None:
                 fret.pitch = openString
             else:
                 fret.pitch = self.adjustNote(openString + fretNo)
@@ -704,7 +704,7 @@ class Plectrum(PC):
                             dPrint("%s: Ignoring duplicate note %d." % (self.name, note))
                         continue
 
-                    if notes[stringNo].fretNo == None:
+                    if notes[stringNo].fretNo is None:
                         if MMA.debug.debug:
                             dPrint("%s: Ignoring muted note %d." % (self.name, note))
                         continue
@@ -779,12 +779,12 @@ class Plectrum(PC):
             msg = ["%s   %3d" % (self.name, openNote + capoFretNo)]
             finger = note - openNote
             for fretNo in range(printStart, 20):
-                if fretNo == 0 and notes[stringNo].fretNo == None and capoFretNo == 0:
+                if fretNo == 0 and notes[stringNo].fretNo is None and capoFretNo == 0:
                     msg.append("X")
                 elif fretNo == 0 and capoFretNo == 0:
                     msg.append("|")
                 elif fretNo == capoFretNo and chordBarreFretNo == 0:
-                    if notes[stringNo].fretNo == None:
+                    if notes[stringNo].fretNo is None:
                         msg.append("X")
                     else:
                         msg.append("$")
@@ -800,7 +800,7 @@ class Plectrum(PC):
                     msg.append("-")
 
             msg.append("%d" % (notes[stringNo].chordIndex))
-            if notes[stringNo].fretNo != None:
+            if notes[stringNo].fretNo is not None:
                 msg.append("  %d" % (note))
             if notes[stringNo].duplicate:
                 msg.append("  duplicate")

@@ -154,7 +154,7 @@ def getOffset(ticks, ranLow=None, ranHigh=None):
 
     p = gbl.tickOffset + int(ticks)     # int() cast is important!
 
-    if ranLow or ranHigh:
+    if ranLow is not None:
         r = randrange(ranLow, ranHigh+1)
         if ticks == 0 and r < 0:
             r = 0
@@ -184,10 +184,39 @@ def stof(s, errmsg=None):
         try:
             return int(s, 0)
         except ValueError:
-            if errmsg:
+            if errmsg is not None:
                 error(errmsg)
             else:
                 error("Expecting a  value, not %s" % s)
+
+def stotick(s, default='B', emsg=None):
+    """ Convert string to midi ticks. Will apply default M, B, or T if
+        not given to string ending in a digit.
+    """
+
+    # Parse out extension (M, B, T)
+    if s[-1].isdigit():
+        ext = default
+    else:
+        ext = s[-1].upper()
+        s = s[:-1]
+
+    # convert to value for measures, beats or ticks
+    try:
+        mult={'M': gbl.barLen, 'B': gbl.BperQ, 'T': 1}[ext]
+    except KeyError:
+        error("The extension '%s' is not valid. Use M, B or T." % ext)
+
+    # convert digits to value
+    try:
+        v = stof(s, emsg)
+    except ValueError:
+        if errmsg is not None:
+            error(errmsg)
+        else:
+            error("Expecting a  value with optional 'B', 'M' or 'T', not %s" % s)
+
+    return int(v * mult)  # return ticks as int
 
 
 def pextract(s, open, close, onlyone=None, insert=''):

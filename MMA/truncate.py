@@ -56,8 +56,8 @@ def setTruncate(ln):
 
     beats = stof(ln[0], "Truncate: Bar length must be value.")
 
-    if beats < 1 or beats >= gbl.QperBar:
-        error("Truncate: Range must be 1 to %s, not '%s'." % (gbl.QperBar, beats))
+    if beats <= 0 or beats >= gbl.QperBar:
+        error("Truncate: Range must be >0 and <=%s, not '%s'." % (gbl.QperBar, beats))
 
     length = int(beats * gbl.BperQ)
 

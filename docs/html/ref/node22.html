@@ -72,7 +72,7 @@ and usage is deliberately simple and limited ...we're really not
 trying to make 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  into a functional programming
 language.<A ID="tex2html94"
-  HREF="#foot13631"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+  HREF="#foot13648"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 
 <H1><A ID="SECTION002210000000000000000"></A>  <A ID="defcall"></A>
@@ -207,7 +207,7 @@ And call it with:
 
 <P>
 to generate a total of 14 bars of music.<A ID="tex2html95"
-  HREF="#foot13632"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> If you doubt that this is
+  HREF="#foot13649"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> If you doubt that this is
 working, call 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the -r option (see
 <A HREF="node2.html#running-r">here</A>).
@@ -289,6 +289,30 @@ body of the definition will override the parameter settings. It's
 probably best to adopt one method and stick with that in your code.</SPAN>
 
 <P>
+You can also assign NULL or empty values to a variable by using the
+D<SMALL>EFAULT</SMALL> command (you can't do this in the definition since
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is looking for a value after the &ldquo;=&rdquo;. An empty
+definition permits constructs like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall Copyright Name 
+<BR>&nbsp;&nbsp;Default Name 
+<BR>&nbsp;&nbsp;If IsEmpty Name 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;print This MIDI has no copyright 
+<BR>&nbsp;&nbsp;Else 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;print Adding copyright $Name to MIDI 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;MidiCopyright $Name 
+<BR>&nbsp;&nbsp;EndIf 
+<BR>
+EndDefCall     </B> 
+   
+	    </td></tr>
+      </Table>
+
 </LI>
 </OL>
 
@@ -598,7 +622,7 @@ This makes complex (as well as recursive) programming possible.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot13631">...
+<DT><A ID="foot13648">...
 language.</A><A
  HREF="node22.html#tex2html94"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>If you do solve the Towers of Hanoi using 
@@ -606,7 +630,7 @@ language.</A><A
   subroutines, please let us know.
 
 </DD>
-<DT><A ID="foot13632">... music.</A><A
+<DT><A ID="foot13649">... music.</A><A
  HREF="node22.html#tex2html95"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>In this case we are using the
 

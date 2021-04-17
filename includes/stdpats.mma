@@ -77,9 +77,10 @@ Begin Bass Define
     // A run down, 5th, 4rd, 3rd, 2nd (next bar play a root)
     B5to2   1 4 5 90; 2 4 4 85; 3 4 3 80; 4 4 2 75
 
-    Sus1   1 1 1 90 * 4
-    Sus3   1 1 3 90 * 4
-    Sus5   1 1 5 90 * 4
+    // Just a long note
+    Sus1   1 1 1 90 
+    Sus3   1 1 3 90 
+    Sus5   1 1 5 90 
 End
 
 // Define arpeggios just like scale runs. You can use DIRECTION

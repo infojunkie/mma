@@ -1865,14 +1865,13 @@ class PC:
                     gbl.mtrks[self.channel].addCtl(getOffset(i[0]), i[1])
                 self.midiSent = 1
 
-        """ Special for TRUNCATE. If bar(s) are being truncated patterns
-            need to be resized to fit the new size. (Note: SOLO patterns
-            are not touched since they are not yet compiled. They will error 
-            if they are too long!!)
-            We use the 'side' and 'length' settings to figure out where
-            to start/end slicing the pattern.
-            NOTE: use a deepcopy of the pattern!
-        """
+        # Special for TRUNCATE. If bar(s) are being truncated patterns
+        # need to be resized to fit the new size. (Note: SOLO patterns
+        # are not touched since they are not yet compiled. They will error 
+        # if they are too long!!)
+        # We use the 'side' and 'length' settings to figure out where
+        # to start/end slicing the pattern.
+        # NOTE: use a deepcopy of the pattern!
 
         if MMA.truncate.length and self.vtype not in ("SOLO", "MELODY"):
             new = []

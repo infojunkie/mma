@@ -49,6 +49,7 @@ def midiinc(ln):
     report = False
     istart = 0          # istart/end are in ticks
     iend = 0xffffff     # but are set in options in Beats
+    insertOffset = 0          # where in the current stream to insert (like BeatAdjust)
     verbose = False
     octAdjust = 0
     velAdjust = 100
@@ -81,27 +82,20 @@ def midiinc(ln):
                 error("MidiInc: 'Transpose' must be -24 to 24, not %s" % opt)
 
         elif cmd == 'START':
-            if opt[-1].upper() == 'M':   # measures
-                istart = int(stof(opt[:-1]) * gbl.barLen)
-            elif opt[-1].upper() == 'T':  # ticks
-                istart = int(stof(opt[:-1]))
-            else:  # must be digits, stof() catches errors
-                istart = int((stof(opt)-1) * gbl.BperQ)
-
+            istart = stotick(opt, 'B', "MidiInc Start: '%s' is not recognized." % opt)
             if istart < 0:
                 error("MidiInc: 'Start' must be > 0.")
 
         elif cmd == 'END':
-            if opt[-1].upper() == 'M':
-                iend = int((stof(opt[:-1])-1) * gbl.barLen)
-            elif opt[-1].upper() == 'T':
-                iend = int(stof(opt[:-1]))
-            else:
-                iend = int((stof(opt)-1) * gbl.BperQ)
-
+            iend = stotick(opt, 'B', "MidiInc End: '%s' is not recognized." % opt)
             if iend < 0:
                 error("MidiInc: 'End' must be > 0.")
 
+        elif cmd == 'OFFSET':
+            insertOffset = stotick(opt, 'B', "MidiInc Offset: '%s' is not recognized." % opt)
+            if gbl.tickOffset + insertOffset < 0:
+                error("MidiInc: 'Offset' cannot point before start.")
+                
         elif cmd == 'TEXT':
             doText = getTF(opt, "MidiInc 'Text'")
 
@@ -247,10 +241,10 @@ def midiinc(ln):
         error("MidiInc: Range invalid, start=%s, end=%s" % (istart, iend))
 
     if MMA.debug.debug:
-        dPrint("MidiInc: file=%s, Volume=%s, Octave=%s, Transpose=%s, Lyric=%s, " 
-            "Text=%s, Range=%s..%s StripSilence=%s Verbose=%s" 
+        dPrint("MidiInc: File=%s, Volume=%s, Octave=%s, Transpose=%s, Lyric=%s, " 
+            "Text=%s, Range=%sT..%sT StripSilence=%sT Offset=%sT Verbose=%s" 
             % (filename, velAdjust, octAdjust, transpose, doLyric, doText,
-               istart, iend, stripSilence, verbose))
+               istart, iend, stripSilence, insertOffset, verbose))
         msg = []
         for t, ch, riffmode, riffprint in channels:
             o = ''
@@ -296,7 +290,7 @@ def midiinc(ln):
         for tm, tx in mf.textEvents:
             delta = tm-mf.firstNote
             if delta >= istart and delta <= iend:
-                gbl.mtrks[0].addText(gbl.tickOffset + delta, tx)
+                gbl.mtrks[0].addText(gbl.tickOffset + insertOffset + delta, tx)
                 inst += 1
             else:
                 disc += 1
@@ -312,7 +306,7 @@ def midiinc(ln):
         for tm, tx in mf.lyricEvents:
             delta = tm-mf.firstNote
             if delta >= istart and delta <= iend:
-                gbl.mtrks[0].addLyric(gbl.tickOffset + delta, tx)
+                gbl.mtrks[0].addLyric(gbl.tickOffset + insertOffset + delta, tx)
                 inst += 1
             else:
                 disc += 1
@@ -346,31 +340,32 @@ def midiinc(ln):
 
         t.clearPending()
         if t.voice[0] != t.ssvoice:
-            gbl.mtrks[t.channel].addProgChange(gbl.tickOffset, t.voice[0], t.ssvoice)
+            gbl.mtrks[t.channel].addProgChange(gbl.tickOffset + insertOffset,
+                                               t.voice[0], t.ssvoice)
 
         channel = t.channel
         track = gbl.mtrks[channel]
 
-        if verbose:
-                print("Parsing imported file. Channel=%s Track=%s MIDI Channel=%s" 
-                    % (ch, tr, channel))
-                if len(mf.events[ch]):
-                    print(" Total events: %s; Event range: %s %s; Start/End Range: %s %s" 
-                    % (len(mf.events[ch]), mf.events[ch][0][0], 
-                       mf.events[ch][-1][0], istart, iend))
-                else:
-                    print("No events in Channel %s" % ch)
+        if verbose or 1:
+            print("Parsing imported file. Channel=%s Track=%s MIDI Channel=%s" 
+                  % (ch, tr, channel))
+            if len(mf.events[ch]):
+                print(" Total events: %s; Event range: %sT %sT; Start/End Range: %sT %sT" 
+                      % (len(mf.events[ch]), mf.events[ch][0][0], 
+                        mf.events[ch][-1][0], istart, iend))
+            else:
+                print("No events in Channel %s" % ch)
 
         
         # If we're processing midi voice changes (ignorePC=False) and there
         # are events BEFORE the first note, we need to insert
-        # them before the notes. We put them all at the current midi offset.
+        # them before the notes. We put them all at the start offset.
         if ignorePC==False:
             for ev in mf.events[ch]:
                 if ev[0] > mf.firstNote:
                     break
                 if ev[1] >> 4 == 0xc:
-                    track.addToTrack(gbl.tickOffset,
+                    track.addToTrack(gbl.tickOffset + insertOffset,
                                      packBytes(ev[1] | channel-1, *ev[2:]))
                     inst += 1
                     disc -= 1
@@ -391,7 +386,7 @@ def midiinc(ln):
                     riff.append([offset, pitch, velocity])
 
                 else:
-                    offset = gbl.tickOffset + (delta-istart)
+                    offset = gbl.tickOffset + insertOffset + (delta-istart)
                     # add note on/off, key pressure, etc.
                     track.addToTrack(offset, packBytes(ev[1] | channel-1, *ev[2:]))
 

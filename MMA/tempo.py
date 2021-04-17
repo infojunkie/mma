@@ -31,6 +31,11 @@ from MMA.parseCL import setChordTabs
 import MMA.debug
 import MMA.midi
 
+# this is a TIME option to compensate for tempos with an
+# non-4 in the denominator. Needs to be reset for every
+# TIME change.
+
+
 ######################################
 # Tempo/timing
 
@@ -68,6 +73,7 @@ def setTime(ln):
         it has to be greater than 0.
     """
 
+    
     tabList = []
     defaultTabs = (1,2,3,4,5,6,7,8,9,10,11,12)
     sigSet = False
@@ -83,6 +89,7 @@ def setTime(ln):
                 error("Time: Tabs must not contain duplicates, %s" % tabList)
             if tabList[0] != 1:
                 error("Time: First tab must be 1, not %s." % tabList[0])
+
         else:
             error("TIME: Unknown option '%s'." % cmd)
 
@@ -106,7 +113,8 @@ def setTime(ln):
         sigSet = True
     else:
         if '/' in n:  # unknown time sig
-            error("Time: Unknown timesignature '%s'. You may need to set TIME and TIMESIG separately." % n)
+            error("Time: Unknown timesignature '%s'. You may need "
+                  "to set TIME and TIMESIG separately." % n)
         n = stof(n)
 
         if n < 1 or n > 12:
@@ -152,32 +160,6 @@ def tempo(ln):
 
         Note: All tempo stuff is inserted into the meta track.
     """
-        
-    def stoBeats(opt):
-        """ Convert string to fp value. Trailing 'B' or 'M' indicates
-            beats or measures. By default assumes MEASURES.
-            Returns: number of beats
-        """
-
-        o = opt
-        z = o[-1:].upper()
-        if z.isdigit():
-            mult = gbl.QperBar
-        elif z == 'M':
-            mult = gbl.QperBar
-            o = o[:-1]
-        elif z == 'B':
-            mult = 1
-            o = o[:-1]
-            
-        else:
-            error("Tempo: expecting a value with optional 'B' or 'M', not '%s'" % opt)
-
-        t = mult * stof(o)
-        if t < 0:
-            error("Tempo: expecting a positive value, not '%s', derived from '%s'" % (t, opt))
-            
-        return int(t)
 
     startOffset = 0
     restore = 0
@@ -189,10 +171,17 @@ def tempo(ln):
 
     for cmd, opt in opts:
         if cmd == 'OFFSET':
-            startOffset = stoBeats(opt)
+            startOffset = stotick(opt, 'B', "TEMPO Offset: '%s' is not recognized."
+                                  % opt) // gbl.BperQ
+            if startOffset < 0:
+                error("TEMPO Offset: Must be => 0, not '%s'" % startOffset)
 
         elif cmd == 'RESTORE':
-            restore = int( (stoBeats(opt) * gbl.BperQ)) + gbl.tickOffset
+            restore = stotick(opt, 'B', "TEMPO Restore: '%s' is not recognized."
+                                  % opt) + gbl.tickOffset
+            print(restore, opt, gbl.tickOffset)
+            if restore < 0:
+                error("TEMPO Restore: Must be => 0, not '%s'" % restore)
 
         else:
            error("Tempo '%s' is an unknown command." % cmd)
@@ -214,14 +203,14 @@ def tempo(ln):
 
     else:
         v = stof(ln[0], "Tempo: Expecting rate, not '%s'" % ln[0])
-
+        
     if v <= 1:
         error("Tempo: Value must be greater than 1.")
 
     # is this immediate or over time?
 
     if len(ln) == 1:
-        gbl.tempo = int(v)
+        gbl.tempo = int(v) 
 
         gbl.mtrks[0].addTempo(gbl.tickOffset + startOffset, gbl.tempo)
         lastChange = gbl.tickOffset + startOffset
@@ -230,7 +219,9 @@ def tempo(ln):
             dPrint("Tempo: Set to %s, offset=%s beats" % (gbl.tempo, startOffset/gbl.BperQ))
 
     else:              # Do a tempo change over bar count
-        numbeats = stoBeats(ln[1])
+        numbeats = stotick(ln[1], 'B', "TEMPO Offset: '%s' is not recognized."
+                                  % ln[1]) // gbl.BperQ
+
         if numbeats < 1:
             error("Tempo: Beat count must be greater than 0")
 
@@ -288,15 +279,12 @@ def beatAdjust(ln):
     if len(ln) != 1:
         error("BeatAdjust: Expecting single value.")
 
-    adj = stof(ln[0], "BeatAdjust: Expecting a value (not %s)." % ln[0])
-
-    gbl.tickOffset += int(adj * gbl.BperQ)
-
-    gbl.totTime += adj / gbl.tempo   # adjust total time
+    adj = stotick(ln[0], 'B', "BeatAdjust: Expecting a value (not %s)." % ln[0])
+    gbl.tickOffset += adj
+    gbl.totTime += (adj / gbl.BperQ) / gbl.tempo   # adjust total time
 
     if MMA.debug.debug:
-        dPrint("BeatAdjust: inserted %s at bar %s." % (adj, gbl.barNum + 1))
-
+        dPrint("BeatAdjust: inserted %s ticks at bar %s." % (adj, gbl.barNum + 1))
 
 def cut(ln):
     """ Insert a all-note-off into ALL tracks. """

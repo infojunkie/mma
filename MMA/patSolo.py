@@ -683,7 +683,7 @@ class Melody(PC):
             pitch = None
             count = 0
             for n in nn:
-                if n.isgrace or n.pitch==None:
+                if n.isgrace or n.pitch is None:
                     continue
                 pitch = n.pitch
                 duration = n.duration

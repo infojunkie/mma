@@ -50,9 +50,13 @@ class TimeSig:
     def create(self, nn, dd):
         """ Set timesig. If no change from last value, ignore. """
 
-        if self.lastsig != (nn, dd):
-            gbl.mtrks[0].addTimeSig(gbl.tickOffset, nn, dd, 48, 8)
-            self.lastsig = (nn, dd)
+        if self.lastsig == (nn, dd):
+            return
+
+        cc = 48  # apparently clocks per beat, don't understand so just use default
+        bb = 8   # number of 32nd notes in quarter. Is it ever not 8?
+        gbl.mtrks[0].addTimeSig(gbl.tickOffset, nn, dd, cc, bb)
+        self.lastsig = (nn, dd)
 
 
     def setSig(self, ln):
@@ -75,14 +79,10 @@ class TimeSig:
         if nn < 1 or nn > 126:
             error("Timesig: Numerator must be 1..126")
 
-        denominators = {'1':0, '2':1, '4':2, '8':3, '16':4, '32':5, '64':6 }
-        dd = ln[1]
-
-        if dd in denominators:
-            dd = denominators[dd]
-
-        else:
-            error("Timesig: Denominator must be 1, 2, 4, 8, 16, 32 or 64, not '%s'." % dd)
+        try:
+            dd = {'1':0, '2':1, '4':2, '8':3, '16':4, '32':5, '64':6, '128':7 }[ln[1]]
+        except:
+            error("Timesig: Denominator must be 1, 2, 4, 8, 16, 32, 64 or 128ot '%s'." % ln[1])
 
         self.create(nn, dd)
 

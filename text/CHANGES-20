@@ -131,3 +131,34 @@ RPITCH: Added "doen't work for Plectrum tracks" to the docs.
 
 SLICE NOTATION: When using a empty slice notation on a user variable (IE. $_Foo[])
  a -1 will be returned if the variable does not exist.
+
+Released  20.12.1  January 23, 2021
+------------------------------------
+
+Documented change in subroutines with UNDEFINED value.
+
+Bank 0.0 (controllers 0 and 32) were not being initialized properly.
+ Thanks Thomas for the patch.
+
+Changed Truncate to accept values <1 and >0.
+
+Added code to MMAmidi.addNoteOnToTrack() to check for NoteOff following a
+ new NoteOn event. This only applies to Plectrum tracks when Rtime is set.
+
+Checked and edited code for None conditionals .. they should always use
+ "is" or "is not", never equality operands.
+
+MidiInc:
+ - added an OFFSET option. Saves using BeatAdjust to move import.
+ - changed the math for calculating "end" and "start" values which
+   were one-off depending on measure or beat values.
+ - added optional 'b' specifier for "start" and "end".
+ - fixed some of the reporting to show tick values with a 'T' appended.
+ 
+BeatAdjust: adjustment can be given in beats (default), measures or ticks by
+ appending a 'T', 'B' or 'M'.
+
+Settings for TEMPO Offset, Restore and the number of beats to do the
+ change can now be specified in beats (default), measures (append 'M')
+ or MIDI ticks (append 'T').
+

@@ -193,7 +193,7 @@ DefGroove EasySwing42Fill   Add arpeggios to 4-2 pattern.
 
 Groove EasySwingWalk
 Plectrum Groove EasySwing42
-DefGroove EasySwing42Walk    A 4-2 pattern with a walking bass.
+DefGroove EasySwing42Walk    A 4-2 pattern with 4 beat walking bass
 
 Chord-Sus Groove EasySwingSus
 DefGroove EasySwing42WalkSus  The 4-2 pattern with walking bass and \

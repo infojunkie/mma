@@ -64,6 +64,9 @@ def decodeVoice(n):
 def voice2tup(x):
     """ Convert integer into 3 byte tuple: Voice, LSB, MSB. """
 
+    if x == -1:
+        return (-1, -1, -1) # TSO added to ensure bank 0/0 is setup first time
+    
     if x > 0xffff:
         msb = x >> 16
         x &= 0xffff

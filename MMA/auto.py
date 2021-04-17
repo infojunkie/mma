@@ -295,7 +295,7 @@ def findGroove(targ):
         dirfile, targ = targ.split(':', 1)
         dirpath = MMA.paths.findLibFile(dirfile)
         targ = targ.upper()
-        if dirpath == None:
+        if dirpath is None:
             error("The file '%s' does not exist in libraries." % dirfile)
             
         # user is by-passing the default libs ... just pass the file/groovename back

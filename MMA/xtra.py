@@ -65,7 +65,7 @@ def checkFile(l):
     while 1:
         curline = inpath.read()
         
-        if curline == None:
+        if curline is None:
             break
 
         # If we want to support macros, begin/end, etc. insert it all

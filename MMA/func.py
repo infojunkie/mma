@@ -103,10 +103,12 @@ def defCall(l):
             else:
                 break
         if cmd == "DEFAULT":
-            if len(ln) < 3:
-                error("Default: Requires two arguments.")
+            if len(ln) < 2:
+                error("Default: Requires at least one argument.")
             a = '$'+ln[1].strip().upper()
-            d = ' '.join(ln[2:])
+            d = ''
+            if len(ln) >= 2:
+                d = ' '.join(ln[2:])
             try:
                 i = params.index(a)
             except:

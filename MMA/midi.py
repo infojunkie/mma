@@ -605,12 +605,25 @@ class Mtrk:
         # Start offsets
 
         onOffset = getOffset(boffset, startRnd, endRnd)
+        onEvent = packBytes((0x90 | self.channel, note, v))
+
+        # this avoids situations where the new note is placed
+        # before a NoteOff event. This could be due to a bad
+        # sequence specification or, more likely, due to
+        # RTIME setting the start point of this note before
+        # the current beat in a tight sequence.
+        f = self.lastOffEvent[note]
+        if f is not None and f >= onOffset:
+            offEvent = packBytes(onEvent[:-1], 0)
+            if offEvent in self.miditrk[f]:
+                self.miditrk[f].remove(offEvent)
 
         # ON/OFF events (off is on with v = 0)
 
-        onEvent = packBytes((0x90 | self.channel, note, v))
 
         self.addToTrack(onOffset, onEvent, MIDI_NOTE)
+        if v==0:
+            self.lastOffEvent[note] = onOffset
         return onOffset
 
     def addToTrack(self, offset, event, evType=None):

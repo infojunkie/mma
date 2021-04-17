@@ -474,24 +474,17 @@ def trackWheel(name, ln):
 
     for o, v in opts:
         if o == 'OFFSET':
-            if v.endswith('M'):
-                mul = gbl.QperBar
-                v = v[:-1]
-            else:
-                mul = 1
-            startOffset = gbl.tickOffset + (int(stof(v) * mul * gbl.BperQ))
+            startOffset = stotick(v, 'B', "MidiWheel Offset: '%s' is not recognized." % v) \
+                + gbl.tickOffset
             if startOffset < 0:
-                error("%s MidiWheel Offset: start is before song start." % name)
+                error("%s MidiWheel Offset: current pointer is '%s ticks' so start "
+                      "'%s ticks' is before song start." % (name, gbl.tickOffset, startOffset))
 
+        # No idea why 'Count' is valid?
         elif o == 'DURATION' or o == 'COUNT':
-            if v.endswith('M'):
-                mul = gbl.QperBar
-                v = v[:-1]
-            else:
-                mul = 1
-            duration = int(stof(v) * mul * gbl.BperQ)
+            duration = stotick(v, 'B', "MidiWheel Duration: '%s' is not recognized." % v)
             if duration <= 0:
-                error("%s MidiWheel: Duration must be > 0, not '%s'." %
+                error("%s MidiWheel Duration: Must be > 0, not '%s Ticks'." %
                       (name, duration))
 
         elif o == 'SET':
@@ -644,13 +637,12 @@ def trackPan(name, ln):
 
 
     if len(ln) == 3:
-        if ln[2].upper().endswith('M'):
-            beats = int(stof(ln[2][:-1]) * gbl.QperBar)
-        else:
-            beats = stof(ln[2])
+        beats = stotick(ln[2], 'B', "MidiPan Duration: '%s' is not recognized."
+                        % ln[2]) // gbl.BperQ
         if beats < 1:
             error("MidiPan %s: Beat/Measure value must be positive count, "
                   "not '%s'." % (name,beats))
+
         initPan = getv(ln[0])
         newPan = getv(ln[1])
     else:
