@@ -46,35 +46,37 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html481"
+<LI><A ID="tex2html483"
   HREF="node1.html#SECTION00110000000000000000">License, Version and Legalities</A>
-<LI><A ID="tex2html482"
+<LI><A ID="tex2html484"
   HREF="node1.html#SECTION00120000000000000000">About this Manual</A>
 <UL>
-<LI><A ID="tex2html483"
-  HREF="node1.html#SECTION00121000000000000000">Typographic Conventions</A>
-<LI><A ID="tex2html484"
-  HREF="node1.html#SECTION00122000000000000000"><SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> and HTML</A>
 <LI><A ID="tex2html485"
-  HREF="node1.html#SECTION00123000000000000000">Other Documentation</A>
+  HREF="node1.html#SECTION00121000000000000000">Typographic Conventions</A>
 <LI><A ID="tex2html486"
+  HREF="node1.html#SECTION00122000000000000000"><SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> and HTML</A>
+<LI><A ID="tex2html487"
+  HREF="node1.html#SECTION00123000000000000000">Other Documentation</A>
+<LI><A ID="tex2html488"
   HREF="node1.html#SECTION00124000000000000000">Music Notation</A>
 </UL>
 <BR>
-<LI><A ID="tex2html487"
+<LI><A ID="tex2html489"
   HREF="node1.html#SECTION00130000000000000000">Installing 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> </A>
-<LI><A ID="tex2html488"
+<LI><A ID="tex2html490"
   HREF="node1.html#SECTION00140000000000000000">Running 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> </A>
-<LI><A ID="tex2html489"
-  HREF="node1.html#SECTION00150000000000000000">Comments</A>
-<LI><A ID="tex2html490"
-  HREF="node1.html#SECTION00160000000000000000">Theory Of Operation</A>
 <LI><A ID="tex2html491"
-  HREF="node1.html#SECTION00170000000000000000">MIDI File Format</A>
+  HREF="node1.html#SECTION00150000000000000000">Comments</A>
 <LI><A ID="tex2html492"
+  HREF="node1.html#SECTION00160000000000000000">Theory Of Operation</A>
+<LI><A ID="tex2html493"
+  HREF="node1.html#SECTION00170000000000000000">MIDI File Format</A>
+<LI><A ID="tex2html494"
   HREF="node1.html#SECTION00180000000000000000">Case Sensitivity</A>
+<LI><A ID="tex2html495"
+  HREF="node1.html#SECTION00190000000000000000">Script Conventions</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
@@ -155,7 +157,7 @@ The current version of this package is maintained at: <kbd><A ID="tex2html3"
   HREF="http://www.mellowood.ca/mma/">http://www.mellowood.ca/mma/</A></kbd>.
 
 <P>
-This document reflects version 20.12.2
+This document reflects version 20.12.3
  of 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
 
@@ -368,7 +370,7 @@ create input files. Don't use a word processor!
 
 <UL>
 <LI>The executable Python script, <SPAN  CLASS="texttt">mma</SPAN>,<A ID="tex2html7"
-  HREF="#foot425"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> must somewhere in your
+  HREF="#foot428"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> must somewhere in your
   path. For users running Windows or Mac, please check 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  website
   for details on how to install on these systems. As distributed the
@@ -452,7 +454,7 @@ To create a MIDI file you need to:
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  understands. This includes the chord
   structure of the song, the rhythm to use, the tempo, etc. The file
   can be created with any suitable text editor.<A ID="tex2html9"
-  HREF="#foot426"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+  HREF="#foot429"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
 <P>
 </LI>
 <LI>Process the input file. From a command line the instruction:
@@ -664,7 +666,7 @@ incorporate them into your song with a simple two word command.
 <P>
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is bar based.<A ID="tex2html12"
-  HREF="#foot428"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> This
+  HREF="#foot431"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> This
 means that 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  processes your song one bar at a time. The music
 specification lines all assume that you are specifying a single bar of
@@ -776,6 +778,44 @@ are in mixed case; this is detailed in <A HREF="node8.html#sec-music">Musical
 <A HREF="node33.html#sec-paths">Paths and Filenames</A>.
 
 <P>
+
+<H1><A ID="SECTION00190000000000000000">
+Script Conventions</A>
+</H1>
+
+<P>
+A number of the commands available to 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  have builtin options. This
+section attempts to summarize conventions which may or may not be
+noted in the relevant sections of the manual. In most cases, this list
+highlights seldom used items:
+
+<P>
+<DL>
+<DT><STRONG>True and False</STRONG></DT>
+<DD>When a function relies on a &ldquo;TRUE&rdquo; or
+    &ldquo;FALSE&rdquo; setting, you can also use &ldquo;ON&rdquo;, &ldquo;OFF&rdquo; or &ldquo;1&rdquo;,
+    &ldquo;0&rdquo; for the identical result. There are a few exceptions and
+    they are noted in the option's description.
+
+<P>
+</DD>
+<DT><STRONG>Option Pairs</STRONG></DT>
+<DD>Many option settings rely on a function which
+    parses off options in the format &ldquo;Option=Value&rdquo;. Unless otherwise
+    noted, the options can be placed anywhere in the command line. In
+    a few cases the options must be placed at the start of the line
+    so that more option pairs can be passed to a future command.
+
+<P>
+In all cases, the text &ldquo;&ndash;&rdquo; (two minus signs) will terminate the
+    scan for more options.
+
+<P>
+</DD>
+</DL>
+
+<P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
 <DT><A ID="foot225">...,</A><A
@@ -803,14 +843,14 @@ MIDI</A><A
   for a user manual the programmer's view is not the best.
 
 </DD>
-<DT><A ID="foot425">...mma,</A><A
+<DT><A ID="foot428">...mma,</A><A
  HREF="node1.html#tex2html7"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>In the
     distribution this is <SPAN  CLASS="texttt">mma.py</SPAN>. It is renamed to save a few
     keystrokes when entering the command.
 
 </DD>
-<DT><A ID="foot426">... editor.</A><A
+<DT><A ID="foot429">... editor.</A><A
  HREF="node1.html#tex2html9"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is
@@ -835,7 +875,7 @@ MIDI</A><A
   notably &ldquo;C&rdquo;.
 
 </DD>
-<DT><A ID="foot428">... based.</A><A
+<DT><A ID="foot431">... based.</A><A
  HREF="node1.html#tex2html12"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A></DT>
 <DD>We really should use the term
   &ldquo;measure&rdquo; to indicate the musical data which, on sheet music,

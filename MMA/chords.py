@@ -647,7 +647,56 @@ class ChordNotes:
         return None
 
 
+    def drop2(self):
+        """ Take the 2nd note of the chord from the top and
+            lower it by one octave.
+        """
 
+        try:    # just in case some future chords are not long enuf (assume 2+)
+            self.noteList[-2] -= 12
+        except:
+            pass
+        return None
+
+    def drop2key(self):
+        """ Drop2 plus key rotate. """
+        
+        self.drop2()
+        self.keycenter()
+        return None
+        
+    def drop3(self):
+        """ Take the 3rd note of the chord from the top
+            and lower it by one octave.
+        """
+
+        try: # just in case some future chords are not long enuf (assume 3+)
+            self.noteList[-3] -= 12
+        except:
+            pass
+        return None
+
+    def drop3key(self):
+        " Drop3 and key rotate. """
+
+        self.drop3()
+        self.keycenter()
+        return None
+    
+    def drop23(self):
+        """ Combined Drop2 and Drop3. """
+        
+        self.drop2()
+        self.drop3()
+        return None
+
+    def drop23key(self):
+        """ Drop2/3 and key rotate. """
+
+        self.drop23()
+        self.keycenter()
+        return None
+    
 ######## End of Chord class #####
 
 

@@ -320,6 +320,9 @@ def opt2pair(ln, toupper=False, notoptstop=False):
     for v, a in enumerate(ln):
         if toupper:
             a = a.upper()
+        if a == '--':   # Just in case user needs opt=val passed
+            newln.extend(ln[v+1:])  # Drop/ignore '--'
+            break
         try:
             o, v = a.split('=', 1)
             opts.append((o, v))

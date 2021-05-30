@@ -110,9 +110,9 @@ Released 20.12 - December 8/2020
 
 The ARPEGGIATE command now accepts the single word "Off" argument as a disabler.
 
-Fixed docs for the DefAlias command. Arguments were reveresed.
+Fixed docs for the DefAlias command. Arguments were reversed.
 
-Anded FROM option to SeqRndWeight. See docs.
+Added FROM option to SeqRndWeight. See docs.
 
 Updated cp-install so that the plugin directory is copied.
 
@@ -161,4 +161,23 @@ BeatAdjust: adjustment can be given in beats (default), measures or ticks by
 Settings for TEMPO Offset, Restore and the number of beats to do the
  change can now be specified in beats (default), measures (append 'M')
  or MIDI ticks (append 'T').
+
+Released  20.12.2  April 4, 2021
+------------------------------------
+
+Voicing: Added chord voicing Drop2, Drop3, Drop23, Drop2Key,
+ Drop3Key and Drop23Key.
+
+AllGrooves: Changed the "Nowarn" option to require an "=true/false".
+ Added "Verbose, "Skip" and "Only" options.
+
+Bass patterns: added 'S' to '#' option. Added offset values 8 to 14 to
+ make visualization of 'jazz' chords a bit easier.
+
+DOCS: expanded section in "Defining Patterns" to make the use of an offset
+ in the range 0..1 a bit more useful and clear.
+
+Released  20.12.3  May 23, 2021
+------------------------------------
+
 

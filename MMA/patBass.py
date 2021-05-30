@@ -52,35 +52,42 @@ class Bass(PC):
 
         a.offset = self.setBarOffset(ev[0])
         a.duration = MMA.notelen.getNoteLen(ev[1])
-
-        offset = ev[2]
-        n = offset[0]
-        if n in "1234567":
-            a.noteoffset = int(n) - 1
-        else:
-            error("Note offset in Bass must be '1'...'7', not '%s'" % n)
-
-        n = offset[1:2]
-        if n == "#":
-            a.accidental = 1
-            ptr = 2
-        elif n == 'B' or n == '&':
-            a.accidental = -1
-            ptr = 2
-        else:
-            a.accidental = 0
-            ptr = 1
-
         a.addoctave = 0
 
-        for n in ev[2][ptr:]:
+        # parse the offset (field 3) ... n[n][#s&b+-]
+        offset = ev[2]
+        point = 0
+
+        while(offset[point:point+1].isdigit()):  # grab digit(s) >1
+            point += 1
+        n = int(offset[0:point])
+        if n < 1:
+            error("Note offset in Bass must be greater that 0, not '%s'." % n)
+        while n > 7:
+            n -= 7
+            a.addoctave += 12
+        a.noteoffset = n - 1
+
+        emsg = offset[point:]
+        n = offset[point:point+1]     # grab accidental
+        if n == '#' or n == 'S': 
+            a.accidental = 1
+            point += 1
+        elif n == 'B' or n == '&':
+            a.accidental = -1
+            point += 1
+        else:
+            a.accidental = 0
+
+        for n in ev[2][point:]:       # octave modifiers
             if n == '+':
                 a.addoctave += 12
             elif n == '-':
                 a.addoctave -= 12
             else:
-                error("Only '- + # b &' are permitted after a noteoffset, not '%s'" % n)
+                error("Only '- + # b &' are permitted after a noteoffset, not '%s'" % emsg)
 
+        # and, finally, the volume
         a.vol = stoi(ev[3], "Note volume in Bass definition not int")
 
         return a

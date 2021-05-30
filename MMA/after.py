@@ -52,7 +52,6 @@ def create(ln):
     selected = []
 
     ln, opts = opt2pair(ln, toupper=False, notoptstop=True)
-
     for cmd, opt in opts:
         cmd = cmd.upper()
         if cmd == 'BAR':

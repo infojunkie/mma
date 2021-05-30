@@ -422,16 +422,49 @@ def allgrooves(ln):
     if not ln:
         error("AllGrooves: requires arguments.")
 
+    noWarn = False
+    verbose = False
+    skip = []
+    only = []
+    
     stackGroove.push()  # save the current groove into a temp slot
 
-    # Disable the warning messages ... use with caution.
-    if len(ln)>1 and ln[0].upper() == "NOWARN":
-        startNoWarn = MMA.debug.noWarn
-        MMA.debug.noWarn = 1
-        noWarn = True
-        ln = ln[1:]
-    else:
-        noWarn = False
+    # Parse off options (nowarn, skip, only)
+    # We need to differentiate between AllGroove options and Groove options
+    # so we force AllGroove options to be at beginning.
+
+    ln, opt = opt2pair(ln, toupper=True, notoptstop=True)
+    if opt:
+        for o, v in opt:
+
+            # Disable the warning messages ... use with caution.
+            # NOTE: we don't bother checking for FALSE
+            if o == 'NOWARN':
+                if getTF(v) == True:
+                    startNoWarn = MMA.debug.noWarn
+                    MMA.debug.noWarn = 1
+                    noWarn = True
+
+            elif o == 'VERBOSE':   # report which affected
+                verbose = getTF(v)
+
+            # Restrict to listed grooves
+            elif o == 'ONLY':
+                if not v in glist:
+                    error("AllGrooves ONLY: The groove '%s' does not exist." % v)
+                only.append(v)
+
+            # Skip over listed grooves
+            elif o == 'SKIP':
+                if not v in glist:
+                    error("AllGrooves SKIP: The groove '%s' does not exist." % v)
+                skip.append(v)
+
+            else:
+                error("AllGrooves does not have a %s option." % o)
+
+    if skip and only:
+        error("AllGrooves can not have both ONLY and SKIP options.")
         
     action = ln[0].upper()   # either a command or a trackname
     if len(ln) > 1:
@@ -453,6 +486,14 @@ def allgrooves(ln):
     gbl.inAllGrooves = True
 
     for g in glist:   # do command for each groove in memory
+        if skip and g in skip:
+            continue
+        if only and g not in only:
+            continue
+
+        if verbose:
+            print("AllGrooves: Modifying '%s'." % g)
+            
         grooveDo(g)   # activate the groove
 
         if action in sfuncs:        # test for non-track command and exe.

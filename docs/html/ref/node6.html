@@ -46,28 +46,33 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html526"
+<LI><A ID="tex2html529"
   HREF="node6.html#SECTION00610000000000000000">Creating A Groove</A>
-<LI><A ID="tex2html527"
+<LI><A ID="tex2html530"
   HREF="node6.html#SECTION00620000000000000000">Using A Groove</A>
 <UL>
-<LI><A ID="tex2html528"
+<LI><A ID="tex2html531"
   HREF="node6.html#SECTION00621000000000000000">Extended Groove Notation</A>
-<LI><A ID="tex2html529"
+<LI><A ID="tex2html532"
   HREF="node6.html#SECTION00622000000000000000">Groove Search Summary</A>
-<LI><A ID="tex2html530"
+<LI><A ID="tex2html533"
   HREF="node6.html#SECTION00623000000000000000">Overlay Grooves</A>
 </UL>
 <BR>
-<LI><A ID="tex2html531"
-  HREF="node6.html#SECTION00630000000000000000">Groove Aliases</A>
-<LI><A ID="tex2html532"
-  HREF="node6.html#SECTION00640000000000000000">AllGrooves</A>
-<LI><A ID="tex2html533"
-  HREF="node6.html#SECTION00650000000000000000">Deleting Grooves</A>
 <LI><A ID="tex2html534"
-  HREF="node6.html#SECTION00660000000000000000">Sticky</A>
+  HREF="node6.html#SECTION00630000000000000000">Groove Aliases</A>
 <LI><A ID="tex2html535"
+  HREF="node6.html#SECTION00640000000000000000">AllGrooves</A>
+<UL>
+<LI><A ID="tex2html536"
+  HREF="node6.html#SECTION00641000000000000000">Options</A>
+</UL>
+<BR>
+<LI><A ID="tex2html537"
+  HREF="node6.html#SECTION00650000000000000000">Deleting Grooves</A>
+<LI><A ID="tex2html538"
+  HREF="node6.html#SECTION00660000000000000000">Sticky</A>
+<LI><A ID="tex2html539"
   HREF="node6.html#SECTION00670000000000000000">Library Issues</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -125,7 +130,7 @@ command:
 A groove name can include any character, including digits and
 punctuation. However, it cannot include a space character (used as a
 delimiter), a colon &ldquo;:&rdquo; or a '/'.<A ID="tex2html36"
-  HREF="#foot3035"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+  HREF="#foot3066"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 In normal operation the documentation strings are ignored. However,
 when 
@@ -398,7 +403,7 @@ list which changes the G<SMALL>ROOVE</SMALL> after each bar the sequence
 number is reset after each bar ... with one exception: if the same
 G<SMALL>ROOVE</SMALL> is being used for two or more bars the sequence will not
 be reset.<A ID="tex2html37"
-  HREF="#foot3286"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+  HREF="#foot3325"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
 <P>
 Another way to select G<SMALL>ROOVE</SMALL>s is to use a list of grooves with
 a leading value. In its simplest form the leading value will just
@@ -996,7 +1001,8 @@ Everything after A<SMALL>LL</SMALL>G<SMALL>ROOVES</SMALL> is interpreted as a le
       </Table>
 
 <P>
-sets the O<SMALL>CTAVE</SMALL> to 5 for track Chord (and only Chord, not Chord-Foo etc) in all grooves.
+sets the O<SMALL>CTAVE</SMALL> to 5 for track Chord (and only Chord, not
+  Chord-Foo, etc.) in all grooves.
 
 <P>
 Note: this is different from the A<SMALL>LL</SMALL>T<SMALL>RACKS</SMALL><A HREF="node30.html#alltracks">,
@@ -1050,6 +1056,73 @@ Groove Rhumba  </B>
 In both cases you'll end up with the original G<SMALL>ROOVE</SMALL> settings.
 
 <P>
+
+<H2><A ID="SECTION00641000000000000000">
+Options</A>
+</H2>
+
+<P>
+The A<SMALL>LL</SMALL>G<SMALL>ROOVES</SMALL> can take options in the &ldquo;Option=Value&rdquo; format.
+Please note that options must be at the start of the line. The first
+non-option pair (or a &ldquo;&ndash;&rdquo;) will terminate the scan for options.
+
+<P>
+<DL>
+<DT><STRONG>NoWarn=True/False</STRONG></DT>
+<DD>You can disable <SPAN  CLASS="textit">all</SPAN> warning messages which might
+  be displayed when using A<SMALL>LL</SMALL>G<SMALL>ROOVE</SMALL> by using the command
+  modifier N<SMALL>O</SMALL>W<SMALL>ARN=</SMALL>T<SMALL>RUE</SMALL> as an argument. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AllGrooves Bass Sequence B11  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will display a warning message (it's not recommended to change all
+  sequence definitions like this), but:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AllGrooves NoWarn=True Bass Sequence B11  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will complile cleanly. We recommend you get your file working
+  properly <SPAN  CLASS="textit">before</SPAN> adding this modifier.
+
+<P>
+</DD>
+<DT><STRONG>Verbose=True/False</STRONG></DT>
+<DD>Print the names of the affected grooves.
+
+<P>
+</DD>
+<DT><STRONG>Only=A[,B..]</STRONG></DT>
+<DD>Specify a list of grooves to apply the command.
+  Only the grooves in memory <SPAN  CLASS="textit">and</SPAN> listed will be affected. You
+  cannot use this option in conjunction with the S<SMALL>KIP</SMALL> option.
+
+<P>
+</DD>
+<DT><STRONG>Skip=A[,B..]</STRONG></DT>
+<DD>All the grooves in memory will be affected with
+  the exception of the grooves specified. You cannot use this option
+  in conjunction with the O<SMALL>NLY</SMALL> option.
+
+<P>
+</DD>
+</DL>
+
+<P>
 A few notes:
 
 <P>
@@ -1063,9 +1136,9 @@ A few notes:
 </LI>
 <LI>The in memory grooves can all have different sequence sizes.
   Special code inhibits the printing of warning messages when you use
-  a too long list of commands. For example, &ldquo;AllGrooves Chord Octave 3 4 5
-  6&rdquo; will not generate a warning with a groove with a sequence size
-  of 2, it will just be truncated.
+  a too-long list (of sequence points) of commands. For example,
+  &ldquo;AllGrooves Chord Octave 3 4 5 6&rdquo; will not generate a warning with
+  a groove with a sequence size of 2, it will just be truncated.
 
 <P>
 </LI>
@@ -1087,38 +1160,6 @@ will insert 2 additional beats for each G<SMALL>ROOVE</SMALL> you have. So,
   you intended. T<SMALL>EMPO</SMALL> and other commands will cause similar
   problems. Actually, B<SMALL>EAT</SMALL>A<SMALL>DJUST</SMALL> is not permitted in
   A<SMALL>LL</SMALL>G<SMALL>ROOVES</SMALL>, but it's a cool example.
-
-<P>
-</LI>
-<LI>You can disable <SPAN  CLASS="textit">all</SPAN> warning messages with might be
-  displayed when applying this command by using the command modifier
-  N<SMALL>O</SMALL>W<SMALL>ARN</SMALL> as the first argument. For example:
-
-<P>
-
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>AllGrooves Bass Sequence B11  </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-will display a warning message (it's not recommended to change all
-  sequence definitions like this), but:
-
-<P>
-
-      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
-        <tr><td>
-    <B>AllGrooves NoWarn Bass Sequence B11  </B> 
-   
-	    </td></tr>
-      </Table>
-
-<P>
-will complile cleanly. We recommend you get your file working
-  properly <SPAN  CLASS="textit">before</SPAN> adding this modifier.
 
 <P>
 </LI>
@@ -1296,13 +1337,13 @@ are easily avoided by using the extended groove notation, detailed above.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot3035">... '/'.</A><A
+<DT><A ID="foot3066">... '/'.</A><A
  HREF="node6.html#tex2html36"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>The '/' and ':' are used
   in extended names.
 
 </DD>
-<DT><A ID="foot3286">... reset.</A><A
+<DT><A ID="foot3325">... reset.</A><A
  HREF="node6.html#tex2html37"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>Actually, 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  checks to see the next

@@ -120,6 +120,8 @@ DefGroove R&B    Basic Rythmn and Blues.
 
 /// Sustained, take out rhythmic organ
 
+Groove R&B
+
 Begin Chord-Organ
 	 Sequence L2
 	 Volume p
@@ -159,6 +161,33 @@ Groove R&BPlus
 Chord-Organ Groove R&BSus 
 
 DefGroove R&BSusPlus  Sustained with picking.
+
+/////////////////////////////////////
+/// A one bar fill ... just lots of piano
+
+Groove R&B
+
+Begin Chord
+    Sequence {C1234 Shift .5}
+    Articulate 50
+End
+
+Begin Bass-Guitar
+	Sequence  { B13 * 4 }
+	Rskip 0
+	Accent 
+	Volume +10%
+End
+
+Begin Drum-Clap
+	Sequence  D1234
+	Volume m
+	Rskip 0
+	Rvolume 20
+End
+
+
+DefGroove R&BFill   Simple one bar fill
 
 
 /////////////////////////////////////////////

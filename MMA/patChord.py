@@ -88,7 +88,9 @@ class Chord(PC):
         for mode, val in ln:
             if mode == 'MODE':
                 valid = ("-", "OPTIMAL", "NONE", "ROOT", "COMPRESSED",
-                         "INVERT", "KEY", "KEY2", "ROOTKEY")
+                         "INVERT", "KEY", "KEY2", "ROOTKEY", "DROP2",
+                         "DROP2KEY", "DROP3", "DROP3KEY", "DROP23",
+                         "DROP23KEY" )
 
                 if not val in valid:
                     error("Valid Voicing Modes are: %s" % " ".join(valid))
@@ -291,6 +293,24 @@ class Chord(PC):
                 chord.invert(-1)
             chord.compress()
 
+        elif vmode == "DROP2":
+            chord.drop2()
+
+        elif vmode == "DROP2KEY":
+            chord.drop2key()
+            
+        elif vmode == "DROP3":
+            chord.drop3()
+            
+        elif vmode == "DROP3KEY":
+            chord.drop3key()
+            
+        elif vmode == "DROP23":
+            chord.drop23()
+            
+        elif vmode == "DROP23KEY":
+            chord.drop23key()
+            
         self.lastChord = chord.noteList[:]
 
         return vMove

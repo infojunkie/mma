@@ -46,32 +46,32 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html578"
+<LI><A ID="tex2html582"
   HREF="node14.html#SECTION001410000000000000000">Voicing</A>
 <UL>
-<LI><A ID="tex2html579"
+<LI><A ID="tex2html583"
   HREF="node14.html#SECTION001411000000000000000">Voicing Mode</A>
 </UL>
 <BR>
-<LI><A ID="tex2html580"
-  HREF="node14.html#SECTION001420000000000000000">ChordAdjust</A>
-<LI><A ID="tex2html581"
-  HREF="node14.html#SECTION001430000000000000000">Compress</A>
-<LI><A ID="tex2html582"
-  HREF="node14.html#SECTION001440000000000000000">DupRoot</A>
-<LI><A ID="tex2html583"
-  HREF="node14.html#SECTION001450000000000000000">Invert</A>
 <LI><A ID="tex2html584"
-  HREF="node14.html#SECTION001460000000000000000">Limit</A>
+  HREF="node14.html#SECTION001420000000000000000">ChordAdjust</A>
 <LI><A ID="tex2html585"
-  HREF="node14.html#SECTION001470000000000000000">NoteSpan</A>
+  HREF="node14.html#SECTION001430000000000000000">Compress</A>
 <LI><A ID="tex2html586"
-  HREF="node14.html#SECTION001480000000000000000">Range</A>
+  HREF="node14.html#SECTION001440000000000000000">DupRoot</A>
 <LI><A ID="tex2html587"
-  HREF="node14.html#SECTION001490000000000000000">DefChord</A>
+  HREF="node14.html#SECTION001450000000000000000">Invert</A>
 <LI><A ID="tex2html588"
-  HREF="node14.html#SECTION0014100000000000000000">PrintChord</A>
+  HREF="node14.html#SECTION001460000000000000000">Limit</A>
 <LI><A ID="tex2html589"
+  HREF="node14.html#SECTION001470000000000000000">NoteSpan</A>
+<LI><A ID="tex2html590"
+  HREF="node14.html#SECTION001480000000000000000">Range</A>
+<LI><A ID="tex2html591"
+  HREF="node14.html#SECTION001490000000000000000">DefChord</A>
+<LI><A ID="tex2html592"
+  HREF="node14.html#SECTION0014100000000000000000">PrintChord</A>
+<LI><A ID="tex2html593"
   HREF="node14.html#SECTION0014110000000000000000">Notes</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -86,7 +86,7 @@ Chord Voicing
 <P>
 In music, a chord is simply defined as two more notes played
 simultaneously<A ID="tex2html62"
-  HREF="#foot7903"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>. Now,
+  HREF="#foot7964"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>. Now,
 this doesn't mean that you can play just any two or three notes and
 get a chord which sounds nice&mdash;but whatever you do get will be a
 chord of some type. And, to further confuse the unwary, different
@@ -193,7 +193,7 @@ other chord tracks (e.g., sustained strings).
 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has a variety of sophisticated, intelligent
 algorithms<A ID="tex2html63"
-  HREF="#foot8184"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> to deal with voicing.
+  HREF="#foot8252"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> to deal with voicing.
 
 <P>
 As a general rule you should not use the I<SMALL>NVERT</SMALL> and
@@ -394,6 +394,48 @@ would cause a movement (randomly up or down) in 20% of the bars.
 
 <P>
 </DD>
+<DT><STRONG>DROP2, DROP2KEY</STRONG></DT>
+<DD>In this mode the chord is played in root position with
+  the second note from the top of the chord is lowered by one octave.
+  The alternate D<SMALL>ROP2</SMALL>K<SMALL>EY</SMALL> will further cluster the notes around
+  the root note of the key signature.
+
+<P>
+</DD>
+<DT><STRONG>DROP3, DROP3KEY</STRONG></DT>
+<DD>In this mode the chord is played in root position with
+  the third note of the chord from the top is lowered by one octave.
+  The alternate D<SMALL>ROP3</SMALL>K<SMALL>EY</SMALL> clusters notes around the key signature.
+
+<P>
+</DD>
+<DT><STRONG>DROP23, DROP23KEY</STRONG></DT>
+<DD>In this mode the chord is played in root position with
+  the second and third notes of the chord, from the top, lowered by one octave.
+  The alternate D<SMALL>ROP23</SMALL>K<SMALL>EY</SMALL> clusters notes around the key signature.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       The various &ldquo;drop&rdquo; voicings are standard for jazz piano and
+    guitar players. Normally a player will not apply this option to a
+    chord which has less than 4 notes. Simple triads (three note chords)
+    like major or minor would have the third or root lowered by one
+    full octave with a Drop2/3  ... and this may not be
+    what you are expecting. In addition, note that the Drop2/3 will be
+    applied after any chord inversions (and this is expected by
+    &ldquo;real&rdquo; players).
+	
+           </td></tr>
+        </Table>
+
+<P>
+<DL>
 <DT><STRONG>ROOTKEY</STRONG></DT>
 <DD>Compress the notes in the chord into a single octave
   and force all notes to be above the root of the key signature.
@@ -757,7 +799,7 @@ will add notes 1 and 2 octaves below the root of the chord and
 
 <P>
 will add notes 1 below, and 1 and 2 above.<A ID="tex2html64"
-  HREF="#foot8037"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> <SPAN  CLASS="textit">Note:</SPAN> no spaces are
+  HREF="#foot8105"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> <SPAN  CLASS="textit">Note:</SPAN> no spaces are
 in the comma separated list (spaces indicate the next bar in the
 sequence).
 
@@ -765,7 +807,7 @@ sequence).
 The volume used for the generated note(s) is the average of the
 non-zero notes in the chord adjusted by the H<SMALL>ARMONY</SMALL>V<SMALL>OLUME</SMALL>
 setting for the current track.<A ID="tex2html65"
-  HREF="#foot8186"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+  HREF="#foot8255"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
 <P>
 Different values can be used in each bar of the sequence.
 
@@ -838,7 +880,7 @@ chord becomes E, G and C. The second inversion is G, C and E.
 to be to the left or right, and the number of shifts is not limited.
 So, you could shift a chord up several octaves by using large invert
 values.<A ID="tex2html66"
-  HREF="#foot8188"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+  HREF="#foot8257"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
 <P>
 Inversions can be different in each bar of a sequence. For example
 example:
@@ -994,7 +1036,7 @@ In this case
 with a length greater than three and prune any remaining notes from
 large chords (ie, a &ldquo;13&rdquo;) and force the total number of notes to
 three.<A ID="tex2html67"
-  HREF="#foot8086"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
+  HREF="#foot8154"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
 <P>
 The D<SMALL>ROP</SMALL> argument must be in the range of 1 to 7 and represents
 a single note in the corresponding scale for that chord. For example,
@@ -1067,7 +1109,7 @@ NoteSpan
 <P>
 Many instruments have a limited range. For example, the bass section
 of an accordion is limited to a single octave.<A ID="tex2html68"
-  HREF="#foot8108"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A> To emulate these sounds it is a simple matter of
+  HREF="#foot8176"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A> To emulate these sounds it is a simple matter of
 limiting 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's output to match the instrument. For example, in the
 &ldquo;frenchwaltz&rdquo; file you will find the directive:
@@ -1143,7 +1185,7 @@ example:
 
 <P>
 will create a scale of 2 notes.<A ID="tex2html69"
-  HREF="#foot8129"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> And,
+  HREF="#foot8197"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> And,
 
 <P>
 
@@ -1165,9 +1207,9 @@ Partial scales are useful in generating special effects.
 
 <P>
 A<SMALL>RPEGGIO</SMALL>: Normally, arpeggios use a single octave.<A ID="tex2html70"
-  HREF="#foot8136"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A> The R<SMALL>ANGE</SMALL> command specifies the
+  HREF="#foot8204"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A> The R<SMALL>ANGE</SMALL> command specifies the
 number of octaves<A ID="tex2html71"
-  HREF="#foot8189"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A> to use. A fractional value can be used; the
+  HREF="#foot8258"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A> to use. A fractional value can be used; the
 exact result depends on the number of notes in the current chord.
 
 <P>
@@ -1434,7 +1476,7 @@ made &ldquo;behind your back&rdquo;.
 </UL>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot7903">...
+<DT><A ID="foot7964">...
 simultaneously</A><A
  HREF="node14.html#tex2html62"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>Some will argue that two notes do not make a
@@ -1442,7 +1484,7 @@ simultaneously</A><A
   is for: mindless, needless arguments about trivial details.
 
 </DD>
-<DT><A ID="foot8184">...
+<DT><A ID="foot8252">...
 algorithms</A><A
  HREF="node14.html#tex2html63"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>Great thanks are due to Alain Brenzikofer who not
@@ -1450,21 +1492,21 @@ algorithms</A><A
   wrote a great deal of the actual code.
 
 </DD>
-<DT><A ID="foot8037">... above.</A><A
+<DT><A ID="foot8105">... above.</A><A
  HREF="node14.html#tex2html64"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>Adding too many
   root tones in varying octaves can create harmonic overtone problems
   (in other words, it can sound crappy).
 
 </DD>
-<DT><A ID="foot8186">... track.</A><A
+<DT><A ID="foot8255">... track.</A><A
  HREF="node14.html#tex2html65"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>By default the
   H<SMALL>ARMONY</SMALL>V<SMALL>OLUME</SMALL> is 80%. You probably do not want the added
   note(s) to be louder, but experiment!
 
 </DD>
-<DT><A ID="foot8188">...
+<DT><A ID="foot8257">...
 values.</A><A
  HREF="node14.html#tex2html66"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>The term &ldquo;shift&rdquo; is used here, but that's not quite
@@ -1476,35 +1518,35 @@ values.</A><A
   to &ldquo;12, 4, 7&rdquo;.
 
 </DD>
-<DT><A ID="foot8086">...
+<DT><A ID="foot8154">...
 three.</A><A
  HREF="node14.html#tex2html67"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
 <DD>Most accordions with a Stradella bass play three note chords
   and drop the fifth for seventh and diminished chords.
 
 </DD>
-<DT><A ID="foot8108">... octave.</A><A
+<DT><A ID="foot8176">... octave.</A><A
  HREF="node14.html#tex2html68"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
 <DD>Some
   accordions have &ldquo;freebass&rdquo; switches which overcomes this, but that
   is the exception.
 
 </DD>
-<DT><A ID="foot8129">... notes.</A><A
+<DT><A ID="foot8197">... notes.</A><A
  HREF="node14.html#tex2html69"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A></DT>
 <DD>Simple math here: take the
   number of notes in a scale (7) and multiply by .3. Take the integer
   result as the number of notes.
 
 </DD>
-<DT><A ID="foot8136">... octave.</A><A
+<DT><A ID="foot8204">... octave.</A><A
  HREF="node14.html#tex2html70"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A></DT>
 <DD>Not
   quite true: they use whatever notes are in the chord, which might
   exceed an octave span.
 
 </DD>
-<DT><A ID="foot8189">... octaves</A><A
+<DT><A ID="foot8258">... octaves</A><A
  HREF="node14.html#tex2html71"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A></DT>
 <DD>Again, not quite true: the command just
   duplicates the arpeggio notes the number of times specified in the

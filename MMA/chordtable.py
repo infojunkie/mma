@@ -28,11 +28,11 @@ Generating chords is easy in MIDI since we just need to
 add/subtract constants, based on yet another table.
 
 CAUTION, if you add to this table make sure there are at least
-3 notes in each chord! Don't make any chord longer than 8 notes
-(The pattern define sets volumes for only 8).
+3 notes in each chord! 
 
 There is a corresponding scale set for each chord. These are
-used by bass and scale patterns.
+used by bass and scale patterns. All scales MUST be 7 notes long ...
+duplicate notes if needed to make the scale exactly 7 notes.
 
 Each chord needs an English doc string. This is extracted by the
 -Dn option to print a table of chordnames for inclusion in the
