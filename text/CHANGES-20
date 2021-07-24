@@ -180,4 +180,13 @@ DOCS: expanded section in "Defining Patterns" to make the use of an offset
 Released  20.12.3  May 23, 2021
 ------------------------------------
 
+Fixed bug in AGAIN. Note to programmers: don't use
+ the wrong variable when checking validity!
 
+Fixed a couple of debug outputs to properly print drum tone values
+ instead of instrument names.
+
+Added EXISTS, ISDIR and ISFILE tests to see if a file exist, etc.
+
+Added the -xCSplit and -xTSplit to split midi output to channels or
+ tracks. PLEASE read the docs in the "Xtra Options" section for details.

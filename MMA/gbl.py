@@ -22,7 +22,7 @@ Bob van der Poel <bob@mellowood.ca>
 
 """
 
-version = "20.12.3"        # Version -- May/2021
+version = "20.12.4"        # Version -- July/2021
 
 """ A few globals are actually set in the calling stub, mma.py. This is
     done to make future ports and platform specific settings a bit easier.
@@ -144,6 +144,7 @@ createDocs     =     0
 maxBars        =     500
 makeGrvDefs    =     0
 
+#splitOutput    =     None  # xtra sets to 'TRACKS' or 'CHANNELS'
 playFile       =     0       # set if we want to call a player
 
 # set if an exception is catching unknown chords

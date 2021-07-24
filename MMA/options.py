@@ -261,6 +261,14 @@ def opts(l=None):
     if internal:
         return
 
+    # a few sanity checks
+
+    #if  MMA.writeMid.splitOutput:
+    #    if gbl.playFile:
+    #        error("The -P (play) option is not compatible with channel/track splitting.")
+    #    if gbl.infile == 1:
+    #        error("The '-' (read from stdin) is not compatible with channel/track splitting.")
+            
     # we have processed all the args. Should just have a filename left
 
     if len(args) > 1:
@@ -283,7 +291,7 @@ def opts(l=None):
             if not(MMA.debug.noOutput):
                 error("Input from STDIN specified. Use -f to set an output filename.")
 
-
+    
 def usage(msg=''):
     """ Usage message. """
 
@@ -329,6 +337,8 @@ def usage(msg=''):
         " -xCHORDS=<chord list> test listed chords for validity",
         " -xNOCREDIT disable MMA credits in Midi Meta track",
         " -xCHECKFILE=<filename> check chords in file",
+        " -xTSplit  create midi for each track",
+        " -xCSplit  create MIDI for each channel",
         " -0    create sync at start of all channel tracks",
         " -1    create sync at end of all channel tracks",
         " -     a single hyphen signals to use STDIN instead of a file"]

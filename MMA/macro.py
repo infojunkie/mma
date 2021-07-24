@@ -47,13 +47,13 @@ import MMA.ornament
 import MMA.rpitch
 import MMA.chords
 import MMA.debug
+import MMA.lyric
 from MMA.safe_eval import safeEnv, safeEval
 from . import gbl
 
 from   MMA.notelen import getNoteLen
 from   MMA.keysig import keySig
 from   MMA.timesig import timeSig
-from   MMA.lyric import lyric
 from   MMA.common import *
 
 
@@ -282,7 +282,7 @@ class Macros:
             return str(gbl.lineno)
 
         elif s == 'LYRIC':
-            return lyric.setting()
+            return MMA.lyric.lyric.setting()
 
         # Some time/date macros. Useful for generating copyright strings
 
@@ -950,14 +950,14 @@ class Macros:
             if len(ln) != 2:
                 error("Usage: IF %s VariableName" % action)
 
-            v = ln[1].upper()
+            v = ln[1].upper()  # everyone expects upper() except for EXISTS
 
             if action == 'DEF':
                 compare = v in self.vars
                 
             elif action == 'NDEF':
                 compare = (v not in self.vars)
-                
+
             elif action in ('ISEMPTY', 'ISNOTEMPTY'):
                 if v.startswith('_'):
                     v = self.sysvar(v[1:])
@@ -969,10 +969,19 @@ class Macros:
                     compare = (v == '')
                 else:
                     compare = (v != '')
-                    
-            else:
-                error("Unreachable unary conditional")  # can't get here
+             
+        # 2. FIle operations
 
+        elif action in ('EXISTS', 'ISDIR', 'ISFILE'):
+            if action == 'EXISTS':   # does file exist?
+                compare = path.exists(path.expanduser(ln[1]))
+                
+            if action == 'ISDIR':   # does file exist and is it a directory
+                compare = path.isdir(path.expanduser(ln[1]))
+                
+            if action == 'ISFILE':   # does file exist and is it a file
+                compare = path.isfile(path.expanduser(ln[1]))
+ 
         # 2. Binary ops: EQ, NE, etc.
 
         elif action in ('LT', '<', 'LE', '<=', 'EQ', '==', 'GE', '>=', 'GT', '>', 'NE', '!='):

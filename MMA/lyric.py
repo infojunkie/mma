@@ -149,18 +149,12 @@ class Lyric:
                     dPrint("Lyric: Verse number set to %s" % self.versenum)
 
             elif o == 'CHORDS':
-                if v in ('1', 'ON'):
-                    self.dupchords = 1
-                    if MMA.debug.debug:
+                self.dupchords = getTF(v, "Lyric Chords")
+                if MMA.debug.debug:
+                    if self.dupchords:
                         dPrint("Lyric: Chords are duplicated as lyrics.")
-
-                elif v in ('0', 'OFF'):
-                    self.dupchords = 0
-                    if MMA.debug.debug:
+                    else:
                         dPrint("Lyric: Chords are NOT duplicated as lyrics.")
-
-                else:
-                    error("Lyric: CHORDS expecting 'ON' or 'OFF', not %s'" % v)
 
             elif o == 'TRANSPOSE':
                 addTrans = False
@@ -203,7 +197,8 @@ class Lyric:
                     dPrint(msg)
 
             elif o == 'KARMODE':
-                if v in ('ON', '1'):
+                k = getTF(v, "Lyric Kar")
+                if k:
                     self.karmode = 1
                     if not hasattr(self, 'setkar'):
                         self.setkar = 1
@@ -227,17 +222,12 @@ class Lyric:
                         # change extension to .kar
                         MMA.paths.createOutfileName('.kar')
  
-                elif v in ('OFF', '0'):
-                    self.karmode = 0
-                else:
-                    error("Lyric Kar: expecting On, 1, Off or 0, not '%s'." % v)
-
                 if MMA.debug.debug:
-                    msg = "Lyric: Karmode",
+                    msg = "Lyric: Karmode "
                     if self.karmode:
-                        msg += "enabled."
+                        msg += "ENABLED."
                     else:
-                        msg += "disabled."
+                        msg += "DISABLED."
                     dPrint(msg)
 
             else:
@@ -301,7 +291,7 @@ class Lyric:
 
         ln, lyrics = pextract(ln, '[', ']')
 
-        # If the CHORDS=ON option is set, make a copy of the chords and
+        # If the CHORDS=TRUE option is set, make a copy of the chords and
         # insert as lyric. This permits illegal chord lines, but they will
         # be caught by the parser. NOTE: Also discards [] or SET lyrics.
 

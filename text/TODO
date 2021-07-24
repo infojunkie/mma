@@ -1,5 +1,6 @@
 
-Fix time sig event bytes 3 and 4.
+Fix time sig event bytes 3 and 4. ??? Not sure what they should really be or
+  if it matters?
 
 RandomSeqRnd - add limit to seq option.
 
@@ -46,10 +47,6 @@ Add a multi-line allgroove command ... using begin/end is slow.
 
 
 Enhance the html groove docs to <play> a sample for a clicked groove.
-
-It might be useful to have a "if file exists" test. Useful for
-   conditional includes and things like that. Deciding what path to
-   use might be a problem (current path, groove library, include)???
 
 The -b/-B options do NOT work if the section includes any BEATADJUST
    commands.

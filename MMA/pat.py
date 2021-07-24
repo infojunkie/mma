@@ -923,8 +923,12 @@ class PC:
                     % (t1, ', '.join(a), v1, self.name))
 
         if MMA.debug.debug:
-            dPrint("Set %s Voice to: %s" % 
-                  (self.name, ' '.join([MMA.midiC.valueToInst(i) for i in self.voice])))
+            if self.vtype == 'DRUM':
+               dPrint("Set %s Tone to: %s" % 
+                      (self.name, ' '.join([MMA.midiC.valueToDrum(i) for i in self.voice])))
+            else:
+                dPrint("Set %s Voice to: %s" % 
+                       (self.name, ' '.join([MMA.midiC.valueToInst(i) for i in self.voice])))
 
 
     def setMidiClear(self, ln):
@@ -1767,8 +1771,12 @@ class PC:
                     pass
 
             if MMA.debug.debug:
-                dPrint("%s Voice '%s' inserted at %s" % 
-                    (self.name, MMA.midiC.valueToInst(v), gbl.tickOffset))
+                if self.vtype == 'DRUM':
+                    dPrint("%s Tone '%s' inserted at %s" % 
+                           (self.name, MMA.midiC.valueToDrum(v) , gbl.tickOffset))
+                else:
+                    dPrint("%s Voice '%s' inserted at %s" % 
+                           (self.name, MMA.midiC.valueToInst(v) , gbl.tickOffset))
 
         """ Our 2nd stab at MIDIVOICE. This time any sequences
             with offsets >0 are sent. AND the smidiVoice and midiSent

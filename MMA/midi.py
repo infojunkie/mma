@@ -76,7 +76,7 @@ def setSplitChannels(ln):
 def writeTracks(out):
     """ Write the accumulated MIDI tracks to file. """
 
-    keys = list(gbl.mtrks.keys())
+    keys = list(gbl.mtrks.keys())   # a list of channels. Should rename?
     keys.sort()
 
     """ For type 0 MIDI files all data is contained in 1 track.
@@ -98,6 +98,7 @@ def writeTracks(out):
     # Write header
 
     tcount = len(keys)
+
     out.write(mkHeader(tcount, gbl.BperQ, gbl.midiFileType))
 
     if gbl.barRange:   # compensate for -B/-b options
@@ -106,9 +107,11 @@ def writeTracks(out):
     # Write data chunks for each track
 
     for n in keys:
+        # Call special function to split a track (set by MidiSplit)
         if n in splitChannels and gbl.midiFileType:
-            tcount += writeSplitTrack(n, out)
+            tcount += writeSplitTrack(n, out)   
         else:
+            # use normal function
             gbl.mtrks[n].writeMidiTrack(out)
 
     """ We may have changed the track count! So, we need to
@@ -126,12 +129,12 @@ def writeTracks(out):
 def writeSplitTrack(channel, out):
     """ Split a track. In drum tracks this puts different instruments
         into individual tracks (useful!); for instrument tracks it puts
-        each pitch into a track (probably not useful).
+       each pitch into a track (probably not useful).
     """
 
     tr = gbl.mtrks[channel].miditrk   # track to split
 
-    # A dict to store the split midi tracks. We'll end out with
+    # A dict to store the split midi tracks. We'll end up with
     # a track for each pitch which appears in the track and
     # a track (labeled -1) to store every other-than-note-on/off data.
 

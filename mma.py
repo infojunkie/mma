@@ -87,13 +87,16 @@ for d in dirlist:
         if not d in sys.path:
             sys.path.insert(0, d)
         MMAdir = d
-        try:
-            import MMA.main
-            sys.exit(0)
-        except ImportError:
-            print("Found MMA directory in '%s'. Unable to execute MMA.main.py." % MMAdir)
-            sys.exit(1)
 
+        try:
+            import MMA.main    # this runs the program
+            sys.exit(0)        # and ends the session
+            # everything below here indicates a fatal error
+            
+        except ImportError:
+            print("Found MMA directory in '%s'. Unable to execute 'MMA.main'." % MMAdir)
+            sys.exit(1)
+            
 # we get here failing to find a MMA directory.
 
 print("Unable to find the modules needed for MMA. Please check your installation.")

@@ -4,6 +4,7 @@
 Tempo 132
 Time 4
 Seqsize 4
+Keysig c
 
 Begin Chord
   Voice Piano1
@@ -12,7 +13,7 @@ Begin Chord
   Sequence {1 2 90; 3 2 90}
 End
 
-// This could be a SOLO track, but we're used MELODY
+// This could be a SOLO track, but we're using MELODY
 // so it can included in a groove.
 Begin Melody-AltoSax
   Voice AltoSax

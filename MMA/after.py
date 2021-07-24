@@ -129,11 +129,8 @@ def check(recurse=False):
     """
 
     global afterData, afterDataFinished
-
     if not needed():   # do a fast stack scan, and (maybe) clean the stack
         return
-    
-    barNum = gbl.barNum   # just a copied pointer
     
     # Gather all the AFTER events for this point
     # in the MMA file for pushback
@@ -142,7 +139,7 @@ def check(recurse=False):
     elns = []   # and line numbers
     
     for dat in afterData:
-        if not dat.finished and dat.bar == barNum:
+        if not dat.finished and dat.bar == gbl.barNum:
             stuff.append(dat.cmd)
             elns.append(dat.lineno)
             
@@ -200,6 +197,7 @@ def needed():
     # the actual check ... need to check each stacked event
     # we exit on the first needy one found
     for dat in afterData:
+#        print(dat.finished, dat.bar, gbl.barNum)
         if not dat.finished and dat.bar == gbl.barNum:
             return True
         

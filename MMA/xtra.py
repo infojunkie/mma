@@ -29,10 +29,11 @@ import sys
 
 from MMA.common import *
 from . import gbl
-from MMA.lyric import lyric
 import MMA.paths 
 import MMA.auto
-    
+import MMA.writeMid
+
+
 def checkChords(clist):
     """ Take a list of chords passed on the command line and check them
         for validity.
@@ -144,7 +145,7 @@ def listGrooves(arg):
                     matching.append("%s:%s" % (filename,x))
                 
     for a in sorted(matching):
-        print (a)
+        print(a)
         
     sys.exit(0)
 
@@ -205,6 +206,16 @@ def xoption(opt, args):
             print("$%s = %s" % (a, ex))
         sys.exit(0)
 
+    elif opt == "TSPLIT":
+        if MMA.writeMid.splitOutput:
+            warning("-xTSPLIT overwriting prior setting.")
+        MMA.writeMid.splitOutput = 'TRACKS'
+
+    elif opt == 'CSPLIT':
+        if MMA.writeMid.splitOutput:
+            warning("-xCSPLIT overwriting prior setting.")
+        MMA.writeMid.splitOutput = 'CHANNELS'
+        
     else:
         error("'%s' is an unknown -x option" % opt)
              

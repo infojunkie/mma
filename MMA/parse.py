@@ -65,10 +65,10 @@ import MMA.options
 import MMA.rpitch
 import MMA.regplug
 import MMA.after
+import MMA.lyric
 
 from MMA.timesig import timeSig
 from MMA.parseCL import parseChordLine
-from MMA.lyric import lyric
 from MMA.macro import macros
 from MMA.alloc import trackAlloc
 from MMA.keysig import keySig
@@ -235,7 +235,7 @@ def parse(inpath):
         # NOTE: lyric.extract() inserts previously created
         #       data from LYRICS SET and inserts the chord names
         #       if that flag is active.
-        l, lyrics = lyric.extract(l, rptcount)
+        l, lyrics = MMA.lyric.lyric.extract(l, rptcount)
         l = l.split()
 
         # At this point we have only chord info. A number
@@ -340,12 +340,16 @@ def parse(inpath):
             # chord to the midi file again. A real lyric is
             # just ignored ... 2 reasons: the lyric is mangled and
             # and it makes sense to only have it once!
-            if rpt and lyric.dupchords:
-                _,lyrics = lyric.extract(' '.join(l), 0)
+            if rptcount>1 and MMA.lyric.lyric.dupchords:
+                _,lyrics = MMA.lyric.lyric.extract(' '.join(l), 0)
 
-            if rpt and MMA.after.needed():
+            # The barNum and other pointers have been incremented
+            # and a bar of data has been processed. If we are repeating
+            # due to a "*" we do a AGAIN test. Without a rpt this would
+            # be done at the start of a data line. 
+            if rptcount>1 and  MMA.after.needed():
                 MMA.after.check(recurse=True)
-                
+
 ##################################################################
 
 def allTracks(ln):
@@ -1246,7 +1250,7 @@ simpleFuncs = {'ADJUSTVOLUME': MMA.volume.adjvolume,
                'INCLUDE': include,
                'KEYSIG': keySig.create,
                'LABEL': comment,
-               'LYRIC': lyric.option,
+               'LYRIC': MMA.lyric.lyric.option,
                'MIDIDEF': MMA.mdefine.mdefine,
                'MIDI': MMA.midifuncs.rawMidi,
                'MIDICOPYRIGHT': MMA.midifuncs.setMidiCopyright,
