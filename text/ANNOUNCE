@@ -1,18 +1,18 @@
 
-A stable release, version 20.12, of MMA--Musical MIDI Accompaniment
+A stable release, version 21.10, of MMA--Musical MIDI Accompaniment
 is available for downloading. In addition to a number of bug fixes,
 documentation reviews and optimizations, MMA now features:
 
- - A number of new macros
- - Change to PLECTRUM track behaviour
- - TEMPO enhancements
- - AFTER enhancements/fixes
- - A number of command line additions (-xABC), (-Djs), etc
- - SUBROUTINES
- - Added environment variables
- - Minor bug and documentation fixes
- - Other minor enhancements
-
+ - A number of -x options (GROOVES, PRINT variable, CSPLIT and TSPLIT
+    for output splitting).
+ - A -Djs option to print info from a groove file as JSON.
+ - A number of new harmony options.
+ - New environment variables MMA_PLUGPATH, MMA_INCPATH & MMA_LIBPATH.
+ - A number of documentation fixes.
+ - A number of new chord voicing options.
+ - More scripting options:  EXISTS, ISDIR and ISFILE.
+ - Lots of bug fixes.
+ 
 Please read the file text/CHANGES-20 for a complete list of changes.
   
 MMA is a accompaniment generator -- it creates midi tracks

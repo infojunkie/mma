@@ -148,7 +148,7 @@ def docDefine(ln):
         return
 
     des = ' '.join(ln[1:])  
-    if des[-1] != '.':  # Add a '.' to the end of all descriptions
+    if not des[-1] in ".!?": # Add a '.' to the end of all descriptions
         des += '.'
     l = [ln[0], gbl.seqSize, des]
     for a in sorted(gbl.tnames.keys()):

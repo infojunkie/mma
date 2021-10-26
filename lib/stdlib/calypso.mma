@@ -177,6 +177,17 @@ End
 
 DefGroove CalypsoIntro   Simple 4 bar intro.
 
+Groove CalypsoIntro
+SeqSize 8
+
+Chord         Sequence   *    *    *   C1234  *  *  *  C13
+
+Drum-LowBongo Sequence   *    *    *   D1     *  *  D13   D1
+Drum-LowConga Sequence   *    *    *   D2     *  *  D24   D12
+
+Walk Sequence  *  *  *  W13  *  *  *  W1234
+
+DefGroove Calypso8Intro  An expansion of CalypsoIntro to 8 bars
 
 ////////////////
 // A 1 bar ending. This uses all the same instruments

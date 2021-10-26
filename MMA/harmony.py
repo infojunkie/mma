@@ -172,8 +172,8 @@ def harmonize(hmode, note, chord):
             hnotes.append(note + (3 * 12))
 
         elif tp == 'TOP':
-            hnotes.append(note + chord[-1])
-        
+            hnotes.append( chord[-1])
+            
         elif tp in('TOPABOVE', 'TOP8ABOVE', 'TOP16ABOVE'):
             h = chord[-1]
             while h <= note:
@@ -229,7 +229,6 @@ def harmonize(hmode, note, chord):
     # Strip out duplicate notes from harmony list.
     #  Cute trick here ... just use set().
     return list(set(hnotes))
-
 
 # The following are used for the interval harmonies (2:Per4, etc)
 # Whole tone to half step conversion table

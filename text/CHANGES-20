@@ -171,7 +171,7 @@ Voicing: Added chord voicing Drop2, Drop3, Drop23, Drop2Key,
 AllGrooves: Changed the "Nowarn" option to require an "=true/false".
  Added "Verbose, "Skip" and "Only" options.
 
-Bass patterns: added 'S' to '#' option. Added offset values 8 to 14 to
+Bass patterns: added 'S' to '#'(sharp) option. Added offset values 8 to 14 to
  make visualization of 'jazz' chords a bit easier.
 
 DOCS: expanded section in "Defining Patterns" to make the use of an offset
@@ -190,3 +190,15 @@ Added EXISTS, ISDIR and ISFILE tests to see if a file exist, etc.
 
 Added the -xCSplit and -xTSplit to split midi output to channels or
  tracks. PLEASE read the docs in the "Xtra Options" section for details.
+
+
+Released  20.12.4  July 17, 2021
+------------------------------------
+
+The Harmony option "TOP" was borked, completely. Fixed.
+
+
+Released 21.09 September 29, 2021
+---------------------------------
+
+Further changes will be in the CHANGES-21 file.

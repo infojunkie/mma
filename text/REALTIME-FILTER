@@ -36,7 +36,7 @@ Not in order? Sure, think about what is going on. MMA reads the input
 file and figures out stuff about tempo, patterns, etc. Now, it has to
 handle each bar of the song. It does this by looping though each
 active track bar by bar. So, our first real-time problem is that the
-data for the a bar is not complete until all the tracks for a bar are
+data for a bar is not complete until all the tracks for a bar are
 processed.
 
 To add complexities to this, MMA also backtracks into previous
@@ -82,7 +82,7 @@ containing the MIDI information after each bar is generated. To do
 this one would need to disable a number of commands. Cut, BeatAdjust,
 Tempo (future) are just a few which come to mind.
 
-Finally, if we do get the about issues working ... what do we end up
+Finally, if we do get the above issues working ... what do we end up
 with? Something useful? I'm not convinced that any of the MIDI tools
 we normally use can take chunks of MIDI information and do anything
 useful with them. Most (all?) players read an entire SMF file, do some

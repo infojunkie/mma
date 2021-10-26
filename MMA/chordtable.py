@@ -157,7 +157,7 @@ chordlist = {
     
     'dim7(addM7)': ((C, Eb, Gb, A, B),
              (C, D, Eb, F, Gb, A, B),
-             "Diminished tirad with added Major 7th."),
+             "Diminished triad with added Major 7th."),
 
     'dim(b13)':  ((C, Eb, Gb, Bbb, Ab),
                  (C, D, Eb, F, Gb, Ab, Bbb),
@@ -169,7 +169,7 @@ chordlist = {
 
     '6':    ((C,    E,      G, A ),
              (C, D, E, F, G, A, B),
-             "Major tiad with added 6th."),
+             "Major triad with added 6th."),
 
     '6(add9)':    ((C,   E, G, D+12, A+12),
              (C, D, E, F, G, A, B),

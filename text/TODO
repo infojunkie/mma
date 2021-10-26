@@ -1,5 +1,5 @@
 
-Fix time sig event bytes 3 and 4. ??? Not sure what they should really be or
+Fix TimeSig event bytes 3 and 4. ??? Not sure what they should really be or
   if it matters?
 
 RandomSeqRnd - add limit to seq option.

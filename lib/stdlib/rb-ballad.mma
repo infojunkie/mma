@@ -125,7 +125,7 @@ DefGroove R&B-BalladSus     Change rhythmic organ to sustained chords.
 /////////////////////////////////////
 /// A one bar fill ... just lots of piano
 
-Groove R&B
+Groove R&B-Ballad
 
 Begin Chord
     Sequence {C1234 Shift .5}
@@ -150,7 +150,7 @@ End
 DefGroove R&B-BalladFill   Simple one bar fill
 
 /////////////////////////////////////////////
-//// Plus , 
+//// Plus 
 
 Groove R&B-Ballad
 

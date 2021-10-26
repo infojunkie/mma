@@ -64,7 +64,6 @@ End
 
 DefGroove Zydeco     Our basic cajan beat.
 
-
 Begin Chord-Acc
 	Voice Accordion
 	Sequence  {C1234; C2 Shift .5} / /  {1 2 90; 3 2 90}
