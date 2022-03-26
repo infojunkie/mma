@@ -1,4 +1,6 @@
-// Ayyub rhythm
+Begin Doc
+  Ayyub rhythms family
+End
 
 SeqClear
 SeqSize 1
@@ -41,4 +43,4 @@ Begin Chord
     Rskip 20
 End
 
-DefGroove Ayyub
+DefGroove Ayyub Basic ayyub rhythm

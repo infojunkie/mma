@@ -1,4 +1,6 @@
-// Saidi rhythm
+Begin Doc
+  Sa'idi rhythms family
+End
 
 SeqClear
 SeqSize 1
@@ -47,4 +49,4 @@ Begin Chord
     Rskip 20
 End
 
-DefGroove Saidi
+DefGroove Saidi Basic sa'idi rhythm

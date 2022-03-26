@@ -1,4 +1,6 @@
-// Sama'i rhythm
+Begin Doc
+  Sama'i rhythms family
+End
 
 SeqClear
 SeqSize 1
@@ -47,4 +49,4 @@ Begin Chord
     Rskip 20
 End
 
-DefGroove Samai
+DefGroove Samai Basic sama'i rhythm

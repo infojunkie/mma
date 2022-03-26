@@ -1,4 +1,6 @@
-// Maqsum rhythm
+Begin Doc
+  Maqsum rhythms family
+End
 
 SeqClear
 SeqSize 1
@@ -41,4 +43,4 @@ Begin Chord
     Rskip 20
 End
 
-DefGroove Maqsum
+DefGroove Maqsum Basic maqsum rhythm
