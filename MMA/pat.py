@@ -333,6 +333,8 @@ class PC:
                 mode = stoi(opt, "Expecting integer value for %s DROP, not '%s'"
                             % (tname, opt))
                 if mode<1 or mode>7:
+                    # We assume that you are smart enough to simply drop the '9',
+                    # '11', '13' from the chord if you don't want it :)
                     error("%s LIMIT Drop value must be 1..7, not '%s'."
                           % (tname, mode))
 

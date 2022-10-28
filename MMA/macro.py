@@ -30,6 +30,7 @@ import random
 import datetime
 import re
 import types
+import os
 from os import environ
 from os import path
 
@@ -48,6 +49,7 @@ import MMA.rpitch
 import MMA.chords
 import MMA.debug
 import MMA.lyric
+
 from MMA.safe_eval import safeEnv, safeEval
 from . import gbl
 
@@ -103,7 +105,7 @@ class Macros:
         """ Create an internal macro. """
 
         # Check for system functions.
-        
+
         m = re.match( r'([^\(]+)\((.*)\)$', s )
         if m:
             return self.sysfun( m.group(1), m.group(2) )
@@ -295,6 +297,12 @@ class Macros:
         elif s == 'DATETIME':
             return datetime.datetime.now().strftime("%H:%M:%S")
 
+        
+        # Some system info. Could be useful in generating path names?
+
+        elif s == 'PWD':
+            return os.getcwd()
+        
         # Track vars ... these are in format TRACKNAME_VAR
 
         a = s.rfind('_')
@@ -512,12 +520,13 @@ class Macros:
             error("Unknown system track variable %s" % s)
 
     def sysfun(self, func, arg):
+        print("In sysfun", func, arg)
         if func == 'NOTELEN':
             return "%sT" % getNoteLen(arg)
         
         elif func == 'ENV':
             return safeEnv(arg)
-        
+
         else:
             error("Unknown system function %s" % func)
 
@@ -633,6 +642,7 @@ class Macros:
             if not sub:
                 break
 
+        
         # all the mma internal and system macros are expanded. Now check for math.
 
         if gotmath:

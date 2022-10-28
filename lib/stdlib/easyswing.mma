@@ -142,6 +142,11 @@ Groove Easyswing
 Arpeggio Groove EasySwingFill
 DefGroove EasySwingWalkFill   Walking bass fill.
 
+Groove EasySwingSus
+Arpeggio Groove EasySwingFill
+DefGroove EasySwingSusFill   Sustained strings and fill.
+
+
 ////////////////////////////////////////////////////////
 ///// Easy Swing1  - Same, but with 1 chord per bar
 

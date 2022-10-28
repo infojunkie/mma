@@ -310,7 +310,7 @@ class Chord(PC):
             
         elif vmode == "DROP23KEY":
             chord.drop23key()
-            
+
         self.lastChord = chord.noteList[:]
 
         return vMove

@@ -200,7 +200,7 @@ def groove(ln):
                       % slot)
 
             l, slot = MMA.auto.findGroove(slotOrig)    # name of the lib file with groove
-            
+
             if l:
                 if MMA.debug.debug:
                     dPrint("Attempting to load groove '%s' from '%s'." % (slot, l))

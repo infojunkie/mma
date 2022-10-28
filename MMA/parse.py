@@ -561,8 +561,17 @@ def goto(ln):
 
 
 def eof(ln):
-        gbl.inpath.toEof()
+    """ Stop reading CURRENT file """
 
+    gbl.inpath.toEof()
+
+def forceError(ln):
+    """ Force an error. """
+
+    if len(ln)<1:
+        ln=["Unspecified cause."]
+    error('User error: ' + ' '.join(ln))
+    
 #######################################
 # File and I/O
 
@@ -1240,6 +1249,7 @@ simpleFuncs = {'ADJUSTVOLUME': MMA.volume.adjvolume,
                'ENDMSET': endmset,
                'ENDREPEAT': repeatend,
                'EOF': eof,
+               'ERROR': forceError,
                'FERMATA': MMA.tempo.fermata,
                'GOTO': goto,
                'GROOVE': MMA.grooves.groove,

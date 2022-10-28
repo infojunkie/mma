@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
 
-<!--Converted with LaTeX2HTML 2021 (Released January 1, 2021) -->
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
 <TITLE>Variables, Conditionals and Jumps</TITLE>
@@ -11,7 +11,7 @@
 
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 <META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2021">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
 
 <LINK REL="STYLESHEET" HREF="mma.css">
 
@@ -46,38 +46,38 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html627"
+<LI><A ID="tex2html630"
   HREF="node21.html#SECTION002110000000000000000">Variables</A>
 <UL>
-<LI><A ID="tex2html628"
-  HREF="node21.html#SECTION002111000000000000000">Set</A>
-<LI><A ID="tex2html629"
-  HREF="node21.html#SECTION002112000000000000000">NewSet</A>
-<LI><A ID="tex2html630"
-  HREF="node21.html#SECTION002113000000000000000">Mset</A>
 <LI><A ID="tex2html631"
-  HREF="node21.html#SECTION002114000000000000000">RndSet</A>
+  HREF="node21.html#SECTION002111000000000000000">Set</A>
 <LI><A ID="tex2html632"
-  HREF="node21.html#SECTION002115000000000000000">UnSet VariableName</A>
+  HREF="node21.html#SECTION002112000000000000000">NewSet</A>
 <LI><A ID="tex2html633"
-  HREF="node21.html#SECTION002116000000000000000">ShowVars</A>
+  HREF="node21.html#SECTION002113000000000000000">Mset</A>
 <LI><A ID="tex2html634"
-  HREF="node21.html#SECTION002117000000000000000">Inc and Dec</A>
+  HREF="node21.html#SECTION002114000000000000000">RndSet</A>
 <LI><A ID="tex2html635"
-  HREF="node21.html#SECTION002118000000000000000">VExpand On or Off</A>
+  HREF="node21.html#SECTION002115000000000000000">UnSet VariableName</A>
 <LI><A ID="tex2html636"
+  HREF="node21.html#SECTION002116000000000000000">ShowVars</A>
+<LI><A ID="tex2html637"
+  HREF="node21.html#SECTION002117000000000000000">Inc and Dec</A>
+<LI><A ID="tex2html638"
+  HREF="node21.html#SECTION002118000000000000000">VExpand On or Off</A>
+<LI><A ID="tex2html639"
   HREF="node21.html#SECTION002119000000000000000">StackValue</A>
 </UL>
 <BR>
-<LI><A ID="tex2html637"
-  HREF="node21.html#SECTION002120000000000000000">Predefined Variables</A>
-<LI><A ID="tex2html638"
-  HREF="node21.html#SECTION002130000000000000000">Indexing and Slicing</A>
-<LI><A ID="tex2html639"
-  HREF="node21.html#SECTION002140000000000000000">Mathematical Expressions</A>
 <LI><A ID="tex2html640"
-  HREF="node21.html#SECTION002150000000000000000">Conditionals</A>
+  HREF="node21.html#SECTION002120000000000000000">Predefined Variables</A>
 <LI><A ID="tex2html641"
+  HREF="node21.html#SECTION002130000000000000000">Indexing and Slicing</A>
+<LI><A ID="tex2html642"
+  HREF="node21.html#SECTION002140000000000000000">Mathematical Expressions</A>
+<LI><A ID="tex2html643"
+  HREF="node21.html#SECTION002150000000000000000">Conditionals</A>
+<LI><A ID="tex2html644"
   HREF="node21.html#SECTION002160000000000000000">Goto</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -729,8 +729,8 @@ Predefined Variables
 <P>
 For your convenience 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tracks a number of internal settings and
-you can access these values with special macros.<A ID="tex2html87"
-  HREF="#foot3784"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> All of these &ldquo;system&rdquo; variables are
+you can access these values with special macros.<A ID="tex2html90"
+  HREF="#foot3801"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> All of these &ldquo;system&rdquo; variables are
 prefaced with a single underscore. For example, the current tempo can
 be retrieved using the $_TEMPO variable.
 
@@ -942,6 +942,12 @@ Debug $_LastDebug   </B>
 </DD>
 <DT><STRONG>&nbsp;&nbsp;$_Plugins</STRONG></DT>
 <DD>A list of registered simple plugins.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_PWD</STRONG></DT>
+<DD>Returns the current system working directory (same as
+  the unix system command &ldquo;pwd&rdquo;).
 
 <P>
 </DD>
@@ -1276,8 +1282,8 @@ mind:
 
 <UL>
 <LI>For simple variables which contain only one element (e.g.,
-  $_Tempo) any index other than &ldquo;[0]&rdquo;, &ldquo;[-1]&rdquo;<A ID="tex2html88"
-  HREF="#foot3849"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>, etc. will return an empty string.
+  $_Tempo) any index other than &ldquo;[0]&rdquo;, &ldquo;[-1]&rdquo;<A ID="tex2html91"
+  HREF="#foot3866"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>, etc. will return an empty string.
 
 <P>
 </LI>
@@ -1294,8 +1300,8 @@ mind:
 <P>
 </LI>
 <LI>Using an empty &ldquo;[]&rdquo; will return the number of elements in the
-  variable.<A ID="tex2html89"
-  HREF="#foot9504"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> This can be useful in writing
+  variable.<A ID="tex2html92"
+  HREF="#foot9526"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> This can be useful in writing
   S<SMALL>UB</SMALL>R<SMALL>OUTINES</SMALL> where you need to know the number of arguments
   which have been passed. For example:
 
@@ -1425,8 +1431,8 @@ evaluated by Python.
 
 <P>
 You can even use this feature to modify values stored in
-lists.<A ID="tex2html90"
-  HREF="#foot9505"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> A bit complex, but well worthwhile! In the following
+lists.<A ID="tex2html93"
+  HREF="#foot9527"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> A bit complex, but well worthwhile! In the following
 example we add &ldquo;10&rdquo; to the current A<SMALL>RTICULATE</SMALL> setting. It's
 split into three lines to make it clearer:
 
@@ -1555,8 +1561,8 @@ the functions:
 </PRE>
 
 <P>
-the miscellaneous functions:<A ID="tex2html91"
-  HREF="#foot3894"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+the miscellaneous functions:<A ID="tex2html94"
+  HREF="#foot3911"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
 <P>
 <PRE>
     for, in, str(), .join(), .split(), randint()
@@ -1567,12 +1573,26 @@ and values and parentheses.
 
 <P>
 </LI>
+<LI>As a general rule, you cannot use alpha arguments in any functions.
+
+<P>
+</LI>
 <LI>For details on the use/format of the above please refer to the
   Python documentation.
 
 <P>
 </LI>
-<LI>$(...) expressions cannot be nested.
+<LI>$(...) expressions cannot be nested. However, you can use
+  nested functions such as:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Print $(ceil(log(44))   </B> 
+   
+	    </td></tr>
+      </Table>
 
 <P>
 </LI>
@@ -1607,8 +1627,8 @@ use them in conditionals. In
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  a conditional consists of a line
 starting with an I<SMALL>F</SMALL> directive, a test, a series of lines to
 process (depending upon the result of the test), and a closing
-E<SMALL>ND</SMALL>I<SMALL>F</SMALL> or I<SMALL>F</SMALL>E<SMALL>ND</SMALL><A ID="tex2html92"
-  HREF="#foot9506"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> directive. An optional E<SMALL>LSE</SMALL> statement may be included.
+E<SMALL>ND</SMALL>I<SMALL>F</SMALL> or I<SMALL>F</SMALL>E<SMALL>ND</SMALL><A ID="tex2html95"
+  HREF="#foot9528"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> directive. An optional E<SMALL>LSE</SMALL> statement may be included.
 
 <P>
 The first set of tests are unary (they take one argument):
@@ -1825,8 +1845,8 @@ strings, &ldquo;3&rdquo; is greater than &ldquo;22&rdquo;; however, if you compa
 values then 3 is less than 22. The rule in 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is quite simple: If
 both strings can be converted to a value, a numeric comparison is
-done; otherwise they are compared as strings.<A ID="tex2html93"
-  HREF="#foot3966"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
+done; otherwise they are compared as strings.<A ID="tex2html96"
+  HREF="#foot3984"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
 <P>
 This lets you do consistent comparisons in situations like:
 
@@ -2041,47 +2061,47 @@ directory.
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot3784">... macros.</A><A
- HREF="node21.html#tex2html87"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DT><A ID="foot3801">... macros.</A><A
+ HREF="node21.html#tex2html90"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>The values
   are dynamically created and reflect the current settings, and may
   not be exactly the same as the value you originally set due to
   internal roundings, etc.
 
 </DD>
-<DT><A ID="foot3849">... &ldquo;[-1]&rdquo;</A><A
- HREF="node21.html#tex2html88"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DT><A ID="foot3866">... &ldquo;[-1]&rdquo;</A><A
+ HREF="node21.html#tex2html91"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>Please
     refer to the Python documentation for lots and lots of details on
     slice notation.
 
 </DD>
-<DT><A ID="foot9504">... variable.</A><A
- HREF="node21.html#tex2html89"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DT><A ID="foot9526">... variable.</A><A
+ HREF="node21.html#tex2html92"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>This is not a standard Python convention, but can
     be handy in 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
 
 </DD>
-<DT><A ID="foot9505">...
+<DT><A ID="foot9527">...
 lists.</A><A
- HREF="node21.html#tex2html90"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+ HREF="node21.html#tex2html93"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>this was written before the introduction of slices,
   (<A HREF="#slicing">details here</A>). Slices make this
   much easier, but let's leave the hard stuff in just to show what can
   be done.
 
 </DD>
-<DT><A ID="foot3894">... functions:</A><A
- HREF="node21.html#tex2html91"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DT><A ID="foot3911">... functions:</A><A
+ HREF="node21.html#tex2html94"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>It is possible that the
     following functions could be used to do &ldquo;bad&rdquo; things. If you see
     code using these commands from a suspect source you should be
     careful.
 
 </DD>
-<DT><A ID="foot9506">...I<SMALL>F</SMALL>E<SMALL>ND</SMALL></A><A
- HREF="node21.html#tex2html92"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DT><A ID="foot9528">...I<SMALL>F</SMALL>E<SMALL>ND</SMALL></A><A
+ HREF="node21.html#tex2html95"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
 <DD>
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's author probably suffers
   from mild dyslexia and can't remember if the command is IfEnd or
@@ -2089,8 +2109,8 @@ lists.</A><A
   you.
 
 </DD>
-<DT><A ID="foot3966">... strings.</A><A
- HREF="node21.html#tex2html93"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
+<DT><A ID="foot3984">... strings.</A><A
+ HREF="node21.html#tex2html96"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
 <DD>For this
   comparison float values are used. Rounding errors can cause equality
   comparisons to fail.

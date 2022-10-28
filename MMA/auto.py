@@ -246,7 +246,9 @@ def loadDB(d):
 #################################################################
 
 def searchDB(targ, skip=None):
-    """ Scan the database for the desired groove name. """
+    """ Scan the database for the desired groove name.
+        Returns the directory and the target
+    """
     
     # Note the way we jump out the doubly nested loop.
     # Yes, this is pythonic and fast.
@@ -259,6 +261,7 @@ def searchDB(targ, skip=None):
     except StopIteration:
         return os.path.join(dir, filename), targ.upper()
 
+    # we get here if target not found in the database
     return ('', targ)
     
 def findGroove(targ):
@@ -331,8 +334,7 @@ def findGroove(targ):
         # Just lookup a normal groove load from a file. We scan
         # the database and search for the groove name (targ).
 
-
         targ = targ.upper()
         ret = searchDB(targ)
-   
+
     return ret

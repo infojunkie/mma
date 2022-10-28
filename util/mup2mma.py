@@ -124,6 +124,19 @@ for b in bars:
         out.write("Tempo %s\n\n" % b.split()[2])
         continue
 
+     # Parse line number from MUP
+    
+    if b.startswith('// #') or b.startswith('//# '):
+        bnum = b[4:]
+        continue
+
+    # strip out mid-line comments and
+    # just keep stuff to the left of //
+    if '//' in b:
+        b = b.split('//', 1)[0].strip()
+        if not b:
+            continue
+        
     # Parse out time sig from MUP
     
     ck = b.split("=")
@@ -155,11 +168,12 @@ for b in bars:
         else:
             error("Unknown time sig, %s" % b)
     
-    # Parse line number from MUP
     
-    if b.startswith('// #') or b.startswith('//# '):
-        bnum = b[4:]
-
+        
+    # mup accepts "(dblbar)repeatstart" (no space)
+    # but we don't like it!
+    b=b.replace("dblbar)r", "dblbar) r")
+    
     # Parse out melody, lyric and chords.
     #    Melody must be a line starting with "M:"
     #    Lyric must be a line starting with "L:"
@@ -167,7 +181,6 @@ for b in bars:
 
     key = b.split()[0]
             
-
     if key == 'M:' and doMelody:         
         melody = b.split(' ', 1)[1]
         
@@ -218,7 +231,7 @@ for b in bars:
     elif key in ('bar', 'repeatend', 'endbar', 'dblbar', '(dblbar)',
             'repeatstart', 'repeatboth' ):
 
-        out.write('%-4s' % bnum)
+        out.write('%-4s' % bnum) # no CR, chord will append to line number
         
         if not chordList:
             chordList = ['/'] 

@@ -56,20 +56,26 @@ class Bass(PC):
 
         # parse the offset (field 3) ... n[n][#s&b+-]
         offset = ev[2]
-        point = 0
 
-        while(offset[point:point+1].isdigit()):  # grab digit(s) >1
+        # move leading +/- to end of string (leading +/- is an option)
+        while offset[0:1] in ['-', '+']:
+            offset = offset[1:] + offset[:1]
+
+        # grab digit(s) for the offset into the scale (we use base 1)
+        point = 0
+        while(offset[point:point+1].isdigit()): 
             point += 1
-        n = int(offset[0:point])
+        n = int(offset[0:point])   # from 0..point are all "valid" digits
         if n < 1:
             error("Note offset in Bass must be greater that 0, not '%s'." % n)
         while n > 7:
             n -= 7
             a.addoctave += 12
         a.noteoffset = n - 1
-
+        
+        # grab accidental (#,S,s or &,B,b) .. no double sharp/flat
         emsg = offset[point:]
-        n = offset[point:point+1]     # grab accidental
+        n = offset[point:point+1]
         if n == '#' or n == 'S': 
             a.accidental = 1
             point += 1
@@ -79,7 +85,8 @@ class Bass(PC):
         else:
             a.accidental = 0
 
-        for n in ev[2][point:]:       # octave modifiers
+        # Trailing octave modifiers
+        for n in offset[point:]:
             if n == '+':
                 a.addoctave += 12
             elif n == '-':

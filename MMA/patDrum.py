@@ -76,6 +76,8 @@ class Drum(PC):
         """
 
         ln = lnExpand(ln, '%s Tone' % self.name)
+        if not len(ln):
+            error("Expecting argument for %s TONE." % self.name)
         tmp = []
 
         for n in ln:

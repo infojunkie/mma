@@ -70,7 +70,7 @@ Begin Bass Define
     B3      1 4 5 90               // 5th on 1
     B13     B1 ; 3 4 5 90          // Root on 1, 5th on 3
     B11     B1 ; B1 Shift 2        // Root on 1 and 3
-    B1234   B11; B3 Shift 1; B3 Shift 3    // Root, 5, Root, 5
+    B1234   B11; B3 Shift 1; B3 Shift 3   // Root, 5, Root, 5
 
     // A little run up. Plays root, 3rd, 4th and 4th (next bar play a 5th)
     B1to4   1 4 1 80; 2 4 2 85; 3 4 3 90; 4 4 4 100

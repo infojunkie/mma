@@ -47,7 +47,7 @@ End
 
 Begin Chord
     Voice      $_Bass_Voice
-    Articulate 70
+    Articulate 80
     Octave     5
     Volume     10
     RTime      5

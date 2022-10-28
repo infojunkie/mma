@@ -8,12 +8,12 @@ Here's the deal: When you create a track the ARTICULATE setting defaults to 90.
  this assumption.
 
 1. A MIDI note doesn't have a duration. It is a ON or OFF event. So, MMA
-   figures out a time in the file to set the note ON and a different
-   time to set the note OFF.
+   figures out a time (in really this is an offset in the file) in the file
+   to set the note ON and a different time to set the note OFF.
 
-2. It's not 192 ticks. The ARTICULATE setting will reduce this to
-   .7 * 192 = 134 ticks. Yes, this is perfectly fine. You really, really
-   don't want all your notes mushed together.
+2. It's not 192 ticks. The ARTICULATE setting (assuming the default of 90)
+   will reduce this to .9 * 192 = 172 ticks. Yes, this is perfectly fine.
+   You really, really don't want all your notes mushed together.
 
 Now, consider what happens when we change the ARTICULATE value to something
  larger that 100,
@@ -47,7 +47,7 @@ Workarounds:
    192 and 240. You'll just have one long note.
 
 2. If you are doing a SOLO shorten your notes. Either the duration or using
-   one of the accents (! works nicely).
+   one of the accents (the "!" accent works nicely).
 
 3. In a pattern sequence pay close attention to the pattern you are using!!!
 

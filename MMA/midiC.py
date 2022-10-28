@@ -35,7 +35,13 @@ def decodeVoice(n):
     voc = instToValue(n)
 
     if voc < 0 and n[0].isalpha():
-        error("Voice '%s' is not defined." % n)
+        t = drumToValue(n)
+        if not t < 0 and n[0].isalpha():
+            emsg = "(Note: %s is a valid DRUM tone.)" % n
+        else:
+            emsg = ''
+        error("Voice '%s' is not defined. %s" % (n, emsg))
+        
     if voc < 0:  # not a valid name, assume vv.msb(ctrl0).lsb(ctrl32) value
         nn = n.split('.')
         if len(nn) > 3 or len(nn) < 1:

@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
 
-<!--Converted with LaTeX2HTML 2021 (Released January 1, 2021) -->
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
 <HTML lang="en">
 <HEAD>
 <TITLE>Musical Data Format</TITLE>
@@ -11,7 +11,7 @@
 
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 <META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2021">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
 
 <LINK REL="STYLESHEET" HREF="mma.css">
 
@@ -46,19 +46,19 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html544"
-  HREF="node8.html#SECTION00810000000000000000">Bar Numbers</A>
-<LI><A ID="tex2html545"
-  HREF="node8.html#SECTION00820000000000000000">Bar Repeat</A>
-<LI><A ID="tex2html546"
-  HREF="node8.html#SECTION00830000000000000000">Chords</A>
 <LI><A ID="tex2html547"
-  HREF="node8.html#SECTION00840000000000000000">Rests (Muting)</A>
+  HREF="node8.html#SECTION00810000000000000000">Bar Numbers</A>
 <LI><A ID="tex2html548"
-  HREF="node8.html#SECTION00850000000000000000">Positioning</A>
+  HREF="node8.html#SECTION00820000000000000000">Bar Repeat</A>
 <LI><A ID="tex2html549"
-  HREF="node8.html#SECTION00860000000000000000">Case Sensitivity</A>
+  HREF="node8.html#SECTION00830000000000000000">Chords</A>
 <LI><A ID="tex2html550"
+  HREF="node8.html#SECTION00840000000000000000">Rests (Muting)</A>
+<LI><A ID="tex2html551"
+  HREF="node8.html#SECTION00850000000000000000">Positioning</A>
+<LI><A ID="tex2html552"
+  HREF="node8.html#SECTION00860000000000000000">Case Sensitivity</A>
+<LI><A ID="tex2html553"
   HREF="node8.html#SECTION00870000000000000000">Track Chords</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -172,8 +172,8 @@ Note that only a numeric item is permitted here.
 Get in the habit of using bar numbers. You'll thank yourself when a
 song seems to be missing a bar, or appears to have an extra one.
 Without the leading bar numbers it can be quite frustrating to match
-your input file to a piece of sheet music.<A ID="tex2html39"
-  HREF="#foot9414"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+your input file to a piece of sheet music.<A ID="tex2html42"
+  HREF="#foot9436"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 One important use of the leading bar number is for the -b command line
 option <A HREF="node2.html#b-option">detailed here</A>.
@@ -305,13 +305,25 @@ it all applies to &ldquo;-&rdquo; as well). So:
       </Table>
 
 <P>
-is the same as
+is the same as:
 
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
     <B>Cm Cm Dm Dm   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which is the same as:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Cm - Dm -   </B> 
    
 	    </td></tr>
       </Table>
@@ -600,6 +612,35 @@ would generate an error (the Cm is on beat 1, Dm on beat 2 and the
 
 <P>
 </LI>
+<LI>You cannot have a &ldquo;@&rdquo; position on a line by itself (unless you
+  are using something like &ldquo;C@1&rdquo;, which is probably silly). For
+  example, the line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Cm@3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will generate an error since 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  doesn't know what chord is at
+  the start of the line. Use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>/ Cm@3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
 </UL>
 
 <P>
@@ -793,8 +834,8 @@ Don't forget to turn off the track specific chords!
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot9414">... music.</A><A
- HREF="node8.html#tex2html39"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DT><A ID="foot9436">... music.</A><A
+ HREF="node8.html#tex2html42"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>If your line
   numbers get out of order you can use the supplied utility
   <SPAN  CLASS="textbf">mma-renum</SPAN> to renumber the comment lines. This utility is

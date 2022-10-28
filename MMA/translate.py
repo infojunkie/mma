@@ -142,7 +142,11 @@ class Dtable:
         v = MMA.midiC.drumToValue(name)
 
         if v < 0:
-            error("Drum Tone '%s' not defined." % name)
+            if MMA.midiC.instToValue(name) >= 0 and name[0].isalpha():
+                emsg = "(Note: %s is a valid TONE name.)" % name
+            else:
+                emsg = ''
+            error("Drum Tone '%s' not defined. %s" % (name, emsg))
 
         try:
             return self.table[v]

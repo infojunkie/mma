@@ -29,16 +29,22 @@ Bob van der Poel <bob@mellowood.ca>
 # running things blindly!
 
 import re
+
 from math import *
 from random import randint
 from os import environ
 from MMA.common import *
+import sys
 
 safeCmds = ['ceil', 'fabs', 'floor', 'exp', 'log', 'log10', 'pow',
             'sqrt', 'acos', 'asin', 'atan', 'atan2', 'cos', 'hypot',
             'sin', 'tan', 'degrees', 'radians', 'cosh', 'sinh',
             'int', 'in', '.join', 'str', '.split', 'for', 'randint' ]
 
+
+def pathjoin(*a):
+    from os import path
+    return path.join(*[x.strip() for x in a])
 
 def safeEnv(var):
     """ Return the value of an env variable. 
@@ -55,9 +61,20 @@ def safeEnv(var):
 def safeEval(expr):
     toks = re.split(r'([a-zA-Z_\.]+|.)', expr)
 
+    # We have split out the args passed to a string to evaluate.
+    # This is not ideal, but we are erring on the side of dumbness,
+    # to the point that ONLY numeric args to eval will be accepted.
+    # The safeCmds[] are all math functions, not string. If you attempt
+    # to pass a string which is not a legal function name
+    # an error will be generated. So, for a silly eg,
+    # something in MMA like "Print $( ceil( 1e+4))" will work ... but
+    # "Print $( ceil ( 1ee+4 )) will generate a Unknown Operator due
+    # to the 2 'e's, besides the fact that 1ee+4 is wrong anyway.
+    
     for t in toks:
         if len(t) > 1 and t not in safeCmds:
             error("Illegal/Unknown operator '%s' in $()." % t)
+
     try:
         return eval(expr)
     except:
