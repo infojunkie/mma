@@ -33,6 +33,7 @@ class Rpitch:
     def __init__(self):
         self.scale = 'CHROMATIC'
         self.rate = .25   # 25%, apply to all notes
+        self.beats = []  # list of beats to enable rnd
         self.offsets = []
         self.bars = []
 
@@ -47,14 +48,17 @@ def getOpts(self):
     scale = r.scale
     rate = int(r.rate * 100)
     bars = ','.join([str(a + 1) for a in r.bars])
-
+    if r.beats:
+        beats = ','.join([str((a+1)//gbl.BperQ) for a in r.beats])
+    else:
+        beats = ''
     offsets = r.offsets
     if not offsets:
         offsets = 'None'
     else:
         offsets = ','.join([str(a) for a in offsets])
 
-    return "Rate=%s ScaleType=%s Offsets=%s Bars=%s" % (rate, scale, offsets, bars)
+    return "Rate=%s ScaleType=%s Offsets=%s Bars=%s Beats=%s" % (rate, scale, offsets, bars, beats)
 
 def setRPitch(name, ln):
     """ Set the pitch modifer.
@@ -63,10 +67,13 @@ def setRPitch(name, ln):
                     Rate - a percentage to apply. Default = 100%
                     Offsets - value to use. The values are offsets
                        and are applied to the current note.
+                    Beats - the EXACT beats to limit rnd to.
+    
     """
 
     self = gbl.tnames[name]
-
+    self.rPitch = rp = Rpitch()
+    
     msg = "%s RPitch" % self.name
 
     if self.vtype == 'DRUM':
@@ -84,8 +91,6 @@ def setRPitch(name, ln):
 
         if ln:
             error("%s all settings must be Cmd=Opt pairs, not '%s'" % (msg, ln))
-
-        self.rPitch = rp = Rpitch()
 
         for o,c in opts:
             if o == 'SCALETYPE' or o == 'SCALE':
@@ -107,6 +112,15 @@ def setRPitch(name, ln):
                         l.append(a - 1)
                 rp.bars = l[:]
 
+            elif o == 'BEATS':
+                rp.beats = []
+                for t in c.split(','):
+                    v = stoi(t)
+                    if v < 1 or v > gbl.QperBar:
+                        error("%s Beat values must be in range 1 to %s, not '%s'." %
+                              (msg, gbl.QperBar, v))
+                    rp.beats.append((v - 1) * gbl.BperQ)  # save as tick offsets
+                          
             elif o == 'RATE':
                 v = stoi(c)
                 if v < 0:
@@ -141,25 +155,39 @@ def setRPitch(name, ln):
                 rp.offsets = l[:]
 
             else:
-                error("%s RPitch %s Unknown options." % o)
+                error("%s '%s' is an  unknown option." % (msg, o))
 
-
+    if not rp.offsets:
+        warning("%s No offsets have been set, command will have no effect." % msg)
+        
     if MMA.debug.debug:
          MMA.debug.trackSet(self.name, "RPitch")
 
-def doRpitch(self, note):
-    """ Apply rpitch setting to note. Returns modified note."""
+def doRpitch(self, position, note):
+    """ Apply rpitch setting to note. Returns modified note.
+        position -- current point in bar in ticks
+        note -- note value (0-127) to modify
+    """
 
     mode = self.rPitch.scale
     ch = self.rPitch.offsets
 
-    if random.random() > self.rPitch.rate or not ch:
+    if not ch:      # no offset table. User was warned
+        return note
+
+    # ..rate is stored as value .01 to .99 and random() returns in same range
+    if random.random() > self.rPitch.rate:
         return note
 
     # we have a bar list but the current bar isn't there, just return.
     if self.rPitch.bars and gbl.seqCount not in self.rPitch.bars:
         return note
 
+    # both beats and position are stored as tick values
+    if self.rPitch.beats and position not in self.rPitch.beats:
+        return note
+
+    # just add/sub a value. 'ch' is a list of chord/scale offsets to use
     if mode == 'CHROMATIC':
         note += random.choice(ch)
 
@@ -170,8 +198,7 @@ def doRpitch(self, note):
         elif mode == 'CHORD' and self.currentChord and self.currentChord.chord.noteList:
             notelist = list(self.currentChord.chord.noteList)
 
-        if notelist:
-
+        if notelist:  # will be a scale or chord list
             # select the offset to use from the offsets list
             change = random.choice(ch)
             if change < 0:
@@ -194,4 +221,5 @@ def doRpitch(self, note):
         note -= 12
     while note < 0:
         note += 12
+
     return note

@@ -105,6 +105,7 @@ def printChord(ln):
     that with C as a midpoint we shift left for G/A/B and right for D/E/F.
 
     Should the shifts take in account the current key signature?
+         (probably not, use chordAdjust option if a problem).
 """
 
 cdAdjust = {
@@ -122,10 +123,11 @@ cdAdjust = {
     'E#': 5, 'F' : 5,
     'F#': 6 }
 
+### DON'T WRITE TO THIS. IT'S USED TO RESTORE ORIGINAL!
 cdAdjustOrig = copy.copy(cdAdjust)
 
 def chordAdjust(ln):
-    """ Adjust the chord point up/down one octave. """
+    """ Adjust the selected chord point(s) up/down one octave. """
 
     global cdAdjust
 
@@ -137,25 +139,22 @@ def chordAdjust(ln):
     for a in args:
         if a.upper() == 'RESET':
             cdAdjust = copy.copy(cdAdjustOrig)
-        
+
         else:
             error("ChordAdjust: %s is not a valid argument." % a)
 
+
     for p, octave in ln:
-        octave = stoi(octave, "ChordAdjust: expecting integer, not '%s'" % octave)
+        octave = stoi(octave, "ChordAdjust: expecting integer (-1, 0 or 1), not '%s'" % octave)
         if octave not in (-1, 0, 1):
             error("ChordAdjust: '%s' is not a valid octave. Use 1, 0 or -1" % octave)
 
-        for pitch in p.split(','):
+        for pitch in p.upper().split(','):
             if pitch not in cdAdjust:
-                error("ChordAdjust: '%s' is not a valid pitch" % pitch)
+                error("ChordAdjust: '%s' is not a valid pitch. Chord names must be"
+                      " A..G and can be grouped in a list with ','s." % pitch)
 
-            if octave == 0:
-                cdAdjust[pitch] = cdAdjustOrig[pitch]
-            else:
-                cdAdjust[pitch] = cdAdjustOrig[pitch] + (octave * 12)
-       
-
+            cdAdjust[pitch] = cdAdjustOrig[pitch] + (octave * 12)
 
 ###############################
 # Chord creation/manipulation #
@@ -430,6 +429,7 @@ class ChordNotes:
                     slashPrinted.append(t)  # only print this chord/slash once
                 if not MMA.debug.rmShow:
                     warning(wmessage)
+            
 
         if polychord:
             ctable = ChordNotes(polychord)
@@ -452,7 +452,7 @@ class ChordNotes:
             if wmessage:
                 a += '   ' + wmessage
             dPrint(" %03s] %-09s -> %s%s" % (gbl.lineno, startingName, name, a))
-        
+
     def reset(self):
         """ Restores notes array to original, undoes mangling. """
 

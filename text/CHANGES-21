@@ -27,3 +27,15 @@ Changed the parser so that when setting the scale offset to use with bass
 The options chord voicing options drop23 and drop23key had been commented out
  in 21.09 and 21.09.1. No idea why or how ... but they are back.
 
+Released 12.09.2 - September 7/2022
+------------------------------------
+
+CHORDADJUST now accepts lower or upper case letters for the chord names.
+
+The 'z' notation for chord muting has been enhanced. You can now use the notation
+ "CHORDNAMEz+CBAWDSP" to specify which chords NOT to mute. To make things pretty
+ you can use a leading '-' to indicate "mute these tracks".
+
+Fixed crash when using an unknown option in RPitch.
+
+Added BEAT option to RPitch. This lets you specify which beats to apply the rnd to.

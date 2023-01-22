@@ -191,6 +191,44 @@ Chord          Sequence  C13    *    *     L1
 
 DefGroove   SonIntro    Boring, four bar introduction.
 
+//// A one bar fill. Useful in endings
+
+Groove Son
+SeqSize 1
+
+Drum-Claves	   Sequence   D134
+Drum-Sguiro    Sequence   D1
+Drum-Maraca    Sequence   D13
+Drum-HBongo    Sequence   D8
+Drum-LBongo    Sequence   D1
+Drum-HConga    Sequence   D13
+Drum-LConga    Sequence   D13
+Drum-Cymbal    Sequence   D13
+Drum-LowTom    Sequence   D13
+
+Bass           Sequence  B13
+Chord          Sequence  C13
+
+DefGroove SonFill  Basic beats on 1 & 3
+
+Groove Son
+SeqSize 1
+
+Drum-Claves	   Sequence   D34
+Drum-Sguiro    Sequence   D3
+Drum-Maraca    Sequence   D3
+Drum-HBongo    Sequence   D8
+Drum-LBongo    Sequence   D3
+Drum-HConga    Sequence   D34
+Drum-LConga    Sequence   D34
+Drum-Cymbal    Sequence   D3
+Drum-LowTom    Sequence   D3
+
+Bass           Sequence  {B1 shift 2}
+Chord          Sequence  C34
+
+DefGroove SonFill2  Pretty much the same fill, but here we emphasize the end of the bar
+
 ///// Ending
 
 Groove Son

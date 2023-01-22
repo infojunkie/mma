@@ -46,19 +46,19 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html547"
-  HREF="node8.html#SECTION00810000000000000000">Bar Numbers</A>
 <LI><A ID="tex2html548"
-  HREF="node8.html#SECTION00820000000000000000">Bar Repeat</A>
+  HREF="node8.html#SECTION00810000000000000000">Bar Numbers</A>
 <LI><A ID="tex2html549"
-  HREF="node8.html#SECTION00830000000000000000">Chords</A>
+  HREF="node8.html#SECTION00820000000000000000">Bar Repeat</A>
 <LI><A ID="tex2html550"
-  HREF="node8.html#SECTION00840000000000000000">Rests (Muting)</A>
+  HREF="node8.html#SECTION00830000000000000000">Chords</A>
 <LI><A ID="tex2html551"
-  HREF="node8.html#SECTION00850000000000000000">Positioning</A>
+  HREF="node8.html#SECTION00840000000000000000">Rests (Muting)</A>
 <LI><A ID="tex2html552"
-  HREF="node8.html#SECTION00860000000000000000">Case Sensitivity</A>
+  HREF="node8.html#SECTION00850000000000000000">Positioning</A>
 <LI><A ID="tex2html553"
+  HREF="node8.html#SECTION00860000000000000000">Case Sensitivity</A>
+<LI><A ID="tex2html554"
   HREF="node8.html#SECTION00870000000000000000">Track Chords</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -173,7 +173,7 @@ Get in the habit of using bar numbers. You'll thank yourself when a
 song seems to be missing a bar, or appears to have an extra one.
 Without the leading bar numbers it can be quite frustrating to match
 your input file to a piece of sheet music.<A ID="tex2html42"
-  HREF="#foot9436"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+  HREF="#foot9449"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
 <P>
 One important use of the leading bar number is for the -b command line
 option <A HREF="node2.html#b-option">detailed here</A>.
@@ -499,6 +499,43 @@ tracks for a beat or two, but this is used less frequently.
 One problem with the notation (and remember, it is a shortcut) is that
 you cannot specify <SPAN  CLASS="textit">which</SPAN> drum, chord, etc. track you wish to
 mute. To do that you should adjust the defined sequence.
+
+<P>
+At times you may wish to mute all tracks with one or more exceptions.
+In this case use a single &ldquo;+&rdquo; after the &ldquo;z&rdquo; followed by the track
+specifies <SPAN  CLASS="textit">not</SPAN> to mute. In this example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Fm / Emz+C   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+only the notes in the chord track will sound. All the others (Drum,
+Arpeggio, etc.) will be silent.
+
+<P>
+Further,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Fm / Emz+AD   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will silence the chord, bass, etc. tracks and sound the arpeggio and drums.
+
+<P>
+In addition to a leading &ldquo;+&rdquo; you can also use a leading &ldquo;-&rdquo; which
+is silently removed. This adds visual consistency to the use of this command. 
 
 <P>
 
@@ -834,7 +871,7 @@ Don't forget to turn off the track specific chords!
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot9436">... music.</A><A
+<DT><A ID="foot9449">... music.</A><A
  HREF="node8.html#tex2html42"><SUP><SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>If your line
   numbers get out of order you can use the supplied utility

@@ -2138,7 +2138,7 @@ class PC:
         sc = self.seq
 
         if self.rPitch:
-            note = MMA.rpitch.doRpitch(self, note)
+            note = MMA.rpitch.doRpitch(self, offset, note)
         rptr = self.mallet
         if rptr and duration > rptr:
             ll = self.getDur(rptr)

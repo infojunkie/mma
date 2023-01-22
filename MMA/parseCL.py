@@ -53,6 +53,10 @@ lastChord = None   # tracks last chord for "/ /" data lines.
 
 chordTabs = []  # initialized by MMA.main call to setTime()
 
+# these are the track names for muting
+muteTrackNames = 'CBAWDSRP'
+muteTrackNamesNoDrum = muteTrackNames.replace('D', '')
+
 def setChordTabs(l):
     """ Set the tab positions for chord parsing.
 
@@ -138,6 +142,7 @@ def parseChordLine(l):
         # following ugly stuff to figure out which tracks to mute. 'ch'
         # will be a chord name or 'z' when this is done.
 
+
         if 'z' in ch:
             if ch.count('z')>1:
                 error("Only one 'z' is permitted in the mute shortcut. '%s' is "
@@ -152,9 +157,9 @@ def parseChordLine(l):
                 c = 'z'        # dummy chord name to keep chordnotes() happy
 
                 if r == '!':    # 'z!' is fine, mute all
-                    r = 'DCAWBSRP'
+                    r = muteTrackNames
                 elif not r:     # 'z' is fine, mute all tracks except Drum
-                    r = 'CBAWSRP'
+                    r = muteTrackNamesNoDrum
                     
                 else:
                     if lastChord:
@@ -167,7 +172,7 @@ def parseChordLine(l):
                         if not c:
                             error("To use this shortcut to mute individual tracks "
                                   "the chord must be included. "
-                                  "Use CHORDz[DCAWBSRP] not '%s'" % ch)
+                                  "Use CHORDz[%s] not '%s'" % (ch, muteTrackNames))
 
 
             else:    # illegal CHORD + 'z' or 'z!'
@@ -180,26 +185,64 @@ def parseChordLine(l):
 
             ch = c   # this will be 'z' or the chord part
 
-            # Got a chord (real name or 'z') and tracks to mute
-            for v in r:
-                if v == 'C':
+            # A throwaway '-', indicating "these are the tracks to mute" is
+            # permitted for compatibility with the '+' option. If found, we just
+            # remove it.
+
+            if '-' in r:
+                if r.count('-') > 1 or r.count('+') or r[0] != '-':
+                    error("Track mute: Use of a '-' must be at start of line and "
+                          "cannot be used with '+' option.")
+                r=r[1:]
+            
+            # If the mute list is started with + we mute the tracks
+            # which are not in the supplied list.
+            if '+' in r:
+                if r.count('+') > 1 or r[0] != '+':
+                    error("Track mute: Only 1 + permitted. Must be first character.")
+                for a in r[1:]:
+                    if a not in muteTrackNames:
+                        error("Track mute: track name '%s' not in permitted list '%s'."
+                              % (a, muteTrackNames))
+                r = r[1:]
+                if 'C' not in r:
                     ctab.chordZ = 1
-                elif v == 'B':
+                if 'B' not in r:
                     ctab.bassZ = 1
-                elif v == 'A':
+                if 'A' not in r:
                     ctab.arpeggioZ = 1
-                elif v == 'W':
+                if 'W' not in r:
                     ctab.walkZ = 1
-                elif v == 'D':
+                if 'D' not in r:
                     ctab.drumZ = 1
-                elif v == 'S':
+                if 'S' not in r:
                     ctab.scaleZ = 1
-                elif v == 'R':
+                if 'R' not in r:
                     ctab.ariaZ = 1
-                elif v == 'P':
+                if 'P' not in r:
                     ctab.plectrumZ = 1
-                else:
-                    error("Unknown track '%s' for muting in '%s'" % (v, ch))
+
+            else: # mute only tracks in list ('-' or no option, default)
+                for v in r:
+                    if v == 'C':
+                        ctab.chordZ = 1
+                    elif v == 'B':
+                        ctab.bassZ = 1
+                    elif v == 'A':
+                        ctab.arpeggioZ = 1
+                    elif v == 'W':
+                        ctab.walkZ = 1
+                    elif v == 'D':
+                        ctab.drumZ = 1
+                    elif v == 'S':
+                        ctab.scaleZ = 1
+                    elif v == 'R':
+                        ctab.ariaZ = 1
+                    elif v == 'P':
+                        ctab.plectrumZ = 1
+                    else:
+                        error("Track mute: track name '%s' not in permitted list '%s'."
+                              % (v, muteTrackNames))
 
         ctab.chord = MMA.chords.ChordNotes(ch)  # Derive chord notes (or mute)
         ctable.append(ctab)
