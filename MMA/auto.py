@@ -113,7 +113,7 @@ def libUpdate():
         """
 
         dirfiles = os.listdir(lib)
-    
+
         if "MMAIGNORE" in dirfiles:
             print("Skipping: %s" % p)
             return
@@ -175,7 +175,7 @@ def libUpdate():
                       b"DO NOT EDIT!!!\n")
         pickle.dump(db, outpath, protocol=2)  # proto2 forces compat between py2 and py3
         outpath.close()
-        
+
         # check the database we just saved for duplicate entries.
 
         dbKeys = sorted(db.keys())
@@ -191,18 +191,18 @@ def libUpdate():
             idx += 1
 
     print("\nDatabase update complete."
-            "\n     Files processed: %s" 
+            "\n     Files processed: %s"
             "\n     Total number of grooves: %s\n" % (fileCount, grooveCount ))
-    
+
     if noAccess:
         error ("You probably need to be 'root' to properly update your libraries.")
-    
+
     if dupMessage:
         msg = ["Warning: Duplicate groove definitions found in:\n"]
         for a in dupMessage:
             msg.append(a)
         print(' '.join(msg))
-    
+
     sys.exit(0)
 
 
@@ -249,7 +249,7 @@ def searchDB(targ, skip=None):
     """ Scan the database for the desired groove name.
         Returns the directory and the target
     """
-    
+
     # Note the way we jump out the doubly nested loop.
     # Yes, this is pythonic and fast.
     try:
@@ -259,11 +259,14 @@ def searchDB(targ, skip=None):
                     raise StopIteration
 
     except StopIteration:
+        if (not(os.path.isabs(filename))):
+            return filename, targ.upper()
+
         return os.path.join(dir, filename), targ.upper()
 
     # we get here if target not found in the database
     return ('', targ)
-    
+
 def findGroove(targ):
     """ Try to auto-load a groove from the library.
 
@@ -300,18 +303,18 @@ def findGroove(targ):
         targ = targ.upper()
         if dirpath is None:
             error("The file '%s' does not exist in libraries." % dirfile)
-            
+
         # user is by-passing the default libs ... just pass the file/groovename back
         if dirfile.startswith('.') or os.path.isabs(dirfile):
             ret = (dirfile, targ)
-            
+
         # did the user shortcut the extended format by using DIR:groove (without a
         # filename. That's fine, search the database for the specifed dir.
         # Only problem is that if you have duplicate grooves defined in the
         # lib the first one found will be used.
         elif os.path.isdir(dirpath):
             ret = searchDB(targ, dirfile)
-                            
+
         else:
             # Does the library file exist at all? Check all the directories
             # set up from the expanded libPath. An example search
