@@ -44,14 +44,14 @@ masterMidiVolume = 0x3fff   # assume device is set to max volume
 def midiMarker(ln):
     """ Parse off midi marker. """
 
-    if len(ln) == 2:
+    if len(ln) >= 2:
         offset = stof(ln[0])
-        msg = ln[1]
+        msg = ' '.join(ln[1:])
     elif len(ln) == 1:
         offset = 0
         msg = ln[0]
     else:
-        error("Usage: MidiMark [offset] Label")
+        error("Usage: MidiMark [offset] label1 label2 ...")
 
     offset = int(gbl.tickOffset + (gbl.BperQ * offset))
     if offset < 0:
@@ -146,7 +146,7 @@ def setChPref(ln):
         gbl.midiChPrefs[n.upper()] = c
 
     if MMA.debug.debug:
-        dPrint("ChannelPref: %s" % 
+        dPrint("ChannelPref: %s" %
               ' '.join(["%s=%s" % (n, c) for n, c in gbl.midiChPrefs.items()]))
 
 
@@ -242,7 +242,7 @@ def doMidiTrackCresc(ln, dir, func):
     if step > ldur:
         step = ldur
     changer = ((v2 - v1 ) // (ldur // step))
-    
+
     v = v1
     t = 0
     for d in range(start, end, step):
@@ -324,7 +324,7 @@ def setChannelInit(ln):
         channelInit[c].append(ln)
 
     if MMA.debug.debug:
-        dPrint("ChannelInit: '%s' queued to channels %s" % 
+        dPrint("ChannelInit: '%s' queued to channels %s" %
             (' '.join(ln), ','.join([str(c) for c in channels])))
 
 
@@ -387,7 +387,7 @@ def doMidiCresc(name, ln, dir, func):
         # in a channelinit list or in the pending queue. So, we
         # force a channel, force init stuff and check the pending
         # buffer (from the end).
-        
+
         if not tptr.channel:
             tptr.setChannel()
         doChannelInit(tptr.channel, name)
@@ -603,10 +603,10 @@ def trackWheel(name, ln):
 
     if MMA.debug.debug:
         if not reset:
-            rset = "No RESET." 
+            rset = "No RESET."
         else:
             rset = ''
-        dPrint("MidiWheel %s: detuned %s to %s from %s to %s. %s" % 
+        dPrint("MidiWheel %s: detuned %s to %s from %s to %s. %s" %
             (name, startValue, endValue, startOffset, endOffset, rset))
 
 
@@ -680,7 +680,7 @@ def trackPan(name, ln):
 
     if MMA.debug.debug:
         if beats:
-            dPrint("Set %s MIDIPan from %s to %s over %s beats." % 
+            dPrint("Set %s MIDIPan from %s to %s over %s beats." %
                 (name, initPan, newPan, beats))
         else:
             dPrint("Set %s MIDIPan to %s" % (name, newPan))
