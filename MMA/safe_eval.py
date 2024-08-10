@@ -39,7 +39,7 @@ import sys
 safeCmds = ['ceil', 'fabs', 'floor', 'exp', 'log', 'log10', 'pow',
             'sqrt', 'acos', 'asin', 'atan', 'atan2', 'cos', 'hypot',
             'sin', 'tan', 'degrees', 'radians', 'cosh', 'sinh',
-            'int', 'in', '.join', 'str', '.split', 'for', 'randint' ]
+            'int', 'in', '.join', 'str', '.split', 'for', 'randint', 'round' ]
 
 
 def pathjoin(*a):
@@ -47,7 +47,7 @@ def pathjoin(*a):
     return path.join(*[x.strip() for x in a])
 
 def safeEnv(var):
-    """ Return the value of an env variable. 
+    """ Return the value of an env variable.
         On my system non-existant env vars register as None and
         vars set to '' return as '' ... so we convert them all to
         ''. MMA doesn't have a NoneType.
@@ -70,7 +70,7 @@ def safeEval(expr):
     # something in MMA like "Print $( ceil( 1e+4))" will work ... but
     # "Print $( ceil ( 1ee+4 )) will generate a Unknown Operator due
     # to the 2 'e's, besides the fact that 1ee+4 is wrong anyway.
-    
+
     for t in toks:
         if len(t) > 1 and t not in safeCmds:
             error("Illegal/Unknown operator '%s' in $()." % t)
