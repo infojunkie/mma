@@ -31,6 +31,8 @@ import MMA.grooves
 
 from . import gbl
 from   MMA.common import *
+from   MMA.timesig import timeSig
+from   MMA.midiC import instToValue, drumToValue
 
 
 def docDrumNames(order):
@@ -147,7 +149,7 @@ def docDefine(ln):
     if not gbl.createDocs:
         return
 
-    des = ' '.join(ln[1:])  
+    des = ' '.join(ln[1:])
     if not des[-1] in ".!?": # Add a '.' to the end of all descriptions
         des += '.'
     l = [ln[0], gbl.seqSize, des]
@@ -193,7 +195,7 @@ def docDump():
                         alias = "Alias: %s" % alias
                 else:
                     alias = ''
-                print("     \\instable{%s}{%s}{%s}{%s}{" % 
+                print("     \\instable{%s}{%s}{%s}{%s}{" %
                     (totex(l[0]), totex(l[2]), l[1], alias))
                 for c, v, s in l[3:]:  # we ignore the seqence data here
                     print("       \\insline{%s}{%s}" % (c.title(), totex(v[0])))
@@ -275,13 +277,15 @@ def docDump():
         print("JSON")
         for l in defs:
             groove = {
-                 "groove": l[0],
-                 "description": l[2],
-                 "size": l[1],
+                "groove": l[0],
+                "description": l[2],
+                "size": l[1],
+                "timeSignature": timeSig.getAscii(),
             }
-            groove['tracks'] = [];
+            groove['tracks'] = []
             for c,v,s in l[3:]:
-                groove['tracks'].append({ "track": c, "voice": v, "sequence": s });
+                m = [drumToValue(n) if c.startswith('DRUM') else instToValue(n) for n in v]
+                groove['tracks'].append({ "track": c, "voice": v, "midi": m, "sequence": s })
             doc.append(groove)
         print(json.dumps(doc, indent=1))
 
@@ -341,7 +345,7 @@ def htmlGraph(f):
     def docol(lab, data):
         if lab == '':
             return
-        
+
         if not isinstance(data, list):
             data = [data]
         print("  <td width=50%> ")
@@ -440,7 +444,7 @@ def htmlGraph(f):
                 strm.append( getAbsPair(z[0], z[1]))
         dorow("Strum", strm, v, vv)
         print("</Table>")
- 
+
         pointx = 2.5
         pointPerS = pointx * gbl.QperBar
         pointy = 5
@@ -462,7 +466,7 @@ def htmlGraph(f):
             if not s:
                 continue
             for p in s:
-                bwidth = p.duration * pointx * (trk.artic[a] / 100.) / gbl.BperQ 
+                bwidth = p.duration * pointx * (trk.artic[a] / 100.) / gbl.BperQ
                 if bwidth < .1:
                     bwidth = .1
                 offset = (p.offset * pointx) // gbl.BperQ + (a * pointPerS)
