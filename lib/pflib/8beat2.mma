@@ -72,7 +72,7 @@ End
 Begin Chord-Piano
      Sequence C123+ C13 C123+ C13
      Voice Piano2
-     Voicing Mode=Optimal 
+     Voicing Mode=Optimal
      Octave 5
      Volume mf
      Rtime 2
@@ -158,9 +158,9 @@ DefGroove 8beat2FA           8 Beat 2, Section A Fill-in
 
 Drum-HH Sequence D1234
 Drum-Snare Sequence DFill05A
-Drum-Hi-Tom Sequence DFill05B
-Drum-Medium-Tom Sequence DFill05C
-Drum-Floor-Tom Sequence DFill05D
+Drum-HiTom Sequence DFill05B
+Drum-MediumTom Sequence DFill05C
+Drum-FloorTom Sequence DFill05D
 Chord-Piano Sequence C1234
 
 DefGroove 8beat2FB           8 Beat 2, Section B Fill-in
@@ -180,7 +180,7 @@ Chord-Piano Sequence C1234 C1
 Plectrum-Guitar Sequence PD24 PD1
 
 Begin Drum-FloorTom
-     Sequence D1234-2 z 
+     Sequence D1234-2 z
      Volume m
      Tone LowTom1
      Rtime 2

@@ -72,7 +72,7 @@ End
 Begin Chord-Piano
      Sequence C1234-2 // C1234
      Voice Piano1
-     Voicing Mode=Optimal 
+     Voicing Mode=Optimal
      Octave 5
      Volume mf
      Rtime 2
@@ -157,9 +157,9 @@ DefGroove metal2FA           Metal 2, Section A Fill-in
 
 Drum-HH Sequence D1234
 Drum-Snare Sequence DFill07A
-Drum-Hi-Tom Sequence DFill07B
-Drum-Medium-Tom Sequence DFill07C
-Drum-Floor-Tom Sequence DFill07D
+Drum-HiTom Sequence DFill07B
+Drum-MediumTom Sequence DFill07C
+Drum-FloorTom Sequence DFill07D
 Bass Sequence B1234-2
 
 DefGroove metal2FB           Metal 2, Section B Fill-in
@@ -179,7 +179,7 @@ Chord-Piano Sequence C1234-3 C1
 Chord-Guitar Sequence G1234-3 -
 
 Begin Drum-FloorTom
-     Sequence D1234-3 z 
+     Sequence D1234-3 z
      Volume m
      Tone LowTom1
      Rtime 2
