@@ -72,7 +72,7 @@ End
 Begin Chord-Piano
      Sequence C1234
      Voice Piano2
-     Voicing Mode=Optimal 
+     Voicing Mode=Optimal
      Octave 5
      Volume mf
      Rtime 2
@@ -158,9 +158,9 @@ DefGroove slowrockFA         Slow rock Section A Fill-in
 
 Drum-HH Sequence D1234
 Drum-Snare Sequence DFill09A
-Drum-Hi-Tom Sequence DFill09B
-Drum-Medium-Tom Sequence -
-Drum-Floor-Tom Sequence DFill09D
+Drum-HiTom Sequence DFill09B
+Drum-MediumTom Sequence -
+Drum-FloorTom Sequence DFill09D
 Chord-Piano Sequence C1234-3
 
 DefGroove slowrockFB         Slow rock, Section B Fill-in
@@ -180,7 +180,7 @@ Chord-Piano Sequence C1234 C1
 Plectrum-Guitar Sequence PD24 PD1
 
 Begin Drum-FloorTom
-     Sequence D1234-3 z 
+     Sequence D1234-3 z
      Volume m
      Tone LowTom1
      Rtime 2

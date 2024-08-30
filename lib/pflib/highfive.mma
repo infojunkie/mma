@@ -33,7 +33,7 @@ Begin Drum-Cymbal
 End
 
 Begin Drum-Snare
-     Sequence D24+-5 D2+4+-5 D24+-5 D2+4+-5 
+     Sequence D24+-5 D2+4+-5 D24+-5 D2+4+-5
      Volume m
      Tone SnareDrum1
      Rtime 2
@@ -72,7 +72,7 @@ End
 Begin Chord-Piano
      Sequence C1234 // C13
      Voice Piano1
-     Voicing Mode=Optimal 
+     Voicing Mode=Optimal
      Octave 5
      Volume mf
      Rtime 2
@@ -157,9 +157,9 @@ DefGroove highfiveFA         High Five, Section A Fill-in
 // Metal 1, Section B, Fill-in ==================
 
 Drum-Snare Sequence DFill08A
-Drum-Hi-Tom Sequence DFill08B
-Drum-Medium-Tom Sequence DFill08C
-Drum-Floor-Tom Sequence DFill08D
+Drum-HiTom Sequence DFill08B
+Drum-MediumTom Sequence DFill08C
+Drum-FloorTom Sequence DFill08D
 Bass Sequence B1234
 
 DefGroove highfiveFB         High Five, Section B Fill-in
@@ -179,7 +179,7 @@ Chord-Piano Sequence C1234-2 C1
 Chord-Guitar Sequence G1234-2 z
 
 Begin Drum-FloorTom
-     Sequence D1234-5 z 
+     Sequence D1234-5 z
      Volume m
      Tone LowTom1
      Rtime 2
