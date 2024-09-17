@@ -28,11 +28,12 @@ import time
 
 import MMA.midiC
 import MMA.grooves
+import MMA.midiC
+import MMA.swing
 
 from . import gbl
 from   MMA.common import *
 from   MMA.timesig import timeSig
-from   MMA.midiC import instToValue, drumToValue
 
 
 def docDrumNames(order):
@@ -284,7 +285,7 @@ def docDump():
             }
             groove['tracks'] = []
             for c,v,s in l[3:]:
-                m = [drumToValue(n) if c.startswith('DRUM') else instToValue(n) for n in v]
+                m = [MMA.midiC.drumToValue(n) if c.startswith('DRUM') else MMA.midiC.instToValue(n) for n in v]
                 groove['tracks'].append({ "track": c, "voice": v, "midi": m, "sequence": s })
             doc.append(groove)
         print(json.dumps(doc, indent=1))
