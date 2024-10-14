@@ -165,7 +165,7 @@ def setMidiName(ln):
     """ Set global/meta track name. This will overwrite the song name set in main."""
 
     if not ln:
-        error("Use: TrackName text")
+        error("Use: MidiTName text")
 
     gbl.mtrks[0].addTrkName(0, ' '.join(ln))
 
@@ -785,10 +785,10 @@ def trackMidiClear(name, ln):
 def trackMidiName(name, ln):
     """ Set channel track name."""
 
-    if len(ln) != 1:
-        error("MidiTName %s: Use exactly one arg." % name)
+    if not ln:
+        error("Use: %s MidiTName text" % name)
 
-    gbl.tnames[name].midiPending.append(('TNAME', 0, ln[0]))
+    gbl.tnames[name].midiPending.append(('TNAME', 0, ' '.join(ln)))
 
     if MMA.debug.debug:
-        dPrint("Set %s MIDI Track Name to %s" % (name, ln[0]))
+        dPrint("Set %s MIDI Track Name to %s" % (name, ' '.join(ln)))
