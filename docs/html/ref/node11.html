@@ -1,17 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
 
-<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
 <HTML lang="en">
 <HEAD>
 <TITLE>Emulating plucked instruments: Plectrum Tracks</TITLE>
-<META NAME="description" CONTENT="Emulating plucked instruments: Plectrum Tracks">
-<META NAME="keywords" CONTENT="mma">
-<META NAME="resource-type" CONTENT="document">
-<META NAME="distribution" CONTENT="global">
 
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 <META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
 
 <LINK REL="STYLESHEET" HREF="mma.css">
 
@@ -46,19 +42,19 @@
 <A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A ID="tex2html576"
-  HREF="node11.html#SECTION001110000000000000000">Tuning</A>
 <LI><A ID="tex2html577"
-  HREF="node11.html#SECTION001120000000000000000">Capo</A>
+  HREF="node11.html#SECTION001110000000000000000">Tuning</A>
 <LI><A ID="tex2html578"
-  HREF="node11.html#SECTION001130000000000000000">Strum</A>
+  HREF="node11.html#SECTION001120000000000000000">Capo</A>
 <LI><A ID="tex2html579"
-  HREF="node11.html#SECTION001140000000000000000">Articulate</A>
+  HREF="node11.html#SECTION001130000000000000000">Strum</A>
 <LI><A ID="tex2html580"
-  HREF="node11.html#SECTION001150000000000000000">Patterns</A>
+  HREF="node11.html#SECTION001140000000000000000">Articulate</A>
 <LI><A ID="tex2html581"
-  HREF="node11.html#SECTION001160000000000000000">Shape</A>
+  HREF="node11.html#SECTION001150000000000000000">Patterns</A>
 <LI><A ID="tex2html582"
+  HREF="node11.html#SECTION001160000000000000000">Shape</A>
+<LI><A ID="tex2html583"
   HREF="node11.html#SECTION001170000000000000000">Fret Noise</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -72,7 +68,8 @@ Emulating plucked instruments: Plectrum Tracks
 
 <P>
 P<SMALL>LECTRUM</SMALL><A ID="tex2html56"
-  HREF="#foot9476"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>tracks are designed to let 
+  HREF="#foot9487"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+tracks are designed to let 
 <FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  create tracks that sound,
 remarkably, like real, strummed instruments (guitars, mandolins,
 banjos, etc).
@@ -97,7 +94,7 @@ information to enable/disable this option.
 <P>
 P<SMALL>LECTRUM</SMALL> tracks work with chord shapes. Guitar
 players<A ID="tex2html57"
-  HREF="#foot2025"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> will be very familiar with chord shapes, for
+  HREF="#foot2026"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> will be very familiar with chord shapes, for
 that is essentially what a guitar chord is. It is the placement of the
 fingers on the strings, and this defines the notes that will sound.
 For example, a simple E major chord is usually played using the
@@ -426,14 +423,16 @@ where:
   is the maximum volume, A value of zero is used to mute the string or
   strings. Guitarists often mute the strings with the side of their
   hand when strumming.<A ID="tex2html58"
-  HREF="#foot9478"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+  HREF="#foot9489"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+
 <P>
 </DD>
 </DL>
 
 <P>
 For a basic strumming guitar you might use:<A ID="tex2html59"
-  HREF="#foot9479"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+  HREF="#foot9490"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+
 <P>
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
@@ -632,7 +631,8 @@ want.
 <P>
 Negative values are permitted. Yes, that means you can make a guitar
 neck longer than it is.<A ID="tex2html60"
-  HREF="#foot2154"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+  HREF="#foot2155"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+
 <P>
 Notes:
 
@@ -647,6 +647,24 @@ Notes:
 </LI>
 <LI>The C<SMALL>APO</SMALL> setting is ignored for chords with a defined
   shape.
+
+<P>
+</LI>
+<LI>Shape definitions are remembered for the entire 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  session. You can delete
+  them in two ways:
+  
+<UL>
+<LI>Using the command without arguments, ie: P<SMALL>LECTRUM </SMALL>S<SMALL>HAPE</SMALL> will remove <SPAN  CLASS="textit">all</SPAN>
+    current shape definitions,
+</LI>
+<LI>Using the command with an existing chord name, ie: P<SMALL>LECTRUM </SMALL>S<SMALL>HAPE </SMALL>C<SMALL>M</SMALL>
+    will remove the data for the named chord.
+  
+</LI>
+</UL>
+  Since the effects of all 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  commands are cumulative, removing unneeded chord shapes may be useful.
 
 <P>
 </LI>
@@ -760,7 +778,7 @@ is described below:
 <DT><STRONG>Strings</STRONG></DT>
 <DD>The virtual strings to which the fret noise is applied
   are, by default, numbers 6, 5 and 3.<A ID="tex2html61"
-  HREF="#foot2174"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> You can reset this to any strings you wish. Use comma
+  HREF="#foot2182"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> You can reset this to any strings you wish. Use comma
   separated values. Any strings not set by this command will
   <SPAN  CLASS="textit">not</SPAN> have fret noise applied to them.
 
@@ -813,7 +831,8 @@ Some points to note:
   sequence for the first track's bars so that you have an empty first
   track; set the second track's sequence to compliment and set the
   fret noise, etc.<A ID="tex2html62"
-  HREF="#foot9480"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
+  HREF="#foot9491"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
+
 <P>
 </LI>
 <LI>Changing the number of strings or tuning (P<SMALL>LECTRUM
@@ -860,14 +879,14 @@ Some points to note:
 <P>
 <BR><HR><H4>Footnotes</H4>
 <DL>
-<DT><A ID="foot9476">...P<SMALL>LECTRUM</SMALL></A><A
+<DT><A ID="foot9487">...P<SMALL>LECTRUM</SMALL></A><A
  HREF="node11.html#tex2html56"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>The concept and code base for the Plectrum
   track was developed by Louis James Barman
   (<SPAN  CLASS="textbf">louisjbarman@googlemail.com</SPAN>). Send compliments to him!
 
 </DD>
-<DT><A ID="foot2025">...
+<DT><A ID="foot2026">...
 players</A><A
  HREF="node11.html#tex2html57"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
 <DD>The same principles apply to other fretted stringed
@@ -876,7 +895,7 @@ players</A><A
   name in its place.
 
 </DD>
-<DT><A ID="foot9478">... strumming.</A><A
+<DT><A ID="foot9489">... strumming.</A><A
  HREF="node11.html#tex2html58"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
 <DD>The P<SMALL>LECTRUM</SMALL> track differs from
     other 
@@ -886,28 +905,28 @@ players</A><A
     until another note is played on the same string.
 
 </DD>
-<DT><A ID="foot9479">... use:</A><A
+<DT><A ID="foot9490">... use:</A><A
  HREF="node11.html#tex2html59"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
 <DD>These examples
   use B<SMALL>EGIN</SMALL>/E<SMALL>ND</SMALL> shorthand notation. This is explained in
   the &ldquo;Begin/End Block&rdquo; chapter <A HREF="node31.html#sec-blocks">here</A>.
 
 </DD>
-<DT><A ID="foot2154">... is.</A><A
+<DT><A ID="foot2155">... is.</A><A
  HREF="node11.html#tex2html60"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
 <DD>Values must be in the range -127 to
   127. Note that even &ldquo;small&rdquo; values can push notes outside of the
   MIDI range, in which case they are normalized to still sound.
 
 </DD>
-<DT><A ID="foot2174">... 3.</A><A
+<DT><A ID="foot2182">... 3.</A><A
  HREF="node11.html#tex2html61"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
 <DD>This assumes a 6
     string guitar. If there are fewer strings the numbers will be
     different.
 
 </DD>
-<DT><A ID="foot9480">... etc.</A><A
+<DT><A ID="foot9491">... etc.</A><A
  HREF="node11.html#tex2html62"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
 <DD>This is a deliberate departure from the
     normal 

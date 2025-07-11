@@ -91,6 +91,8 @@ Begin Chord
 	Volume m
 	Octave 6
 	DupRoot -1
+    Strum 3
+    Direction Both
 	Sequence L2   L1   L2   {1 2 90; C3 Shift .5}
 End
 

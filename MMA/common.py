@@ -223,7 +223,7 @@ def pextract(s, open, close, onlyone=None, insert=''):
     """ Extract a parenthesized set of substrings.
 
         s        - original string
-        open    - substring start tag \ can be multiple character
+        open    - substring start tag / can be multiple character
         close   - substring end tag   / strings (ie. "<<" or "-->")
         onlyone - optional, if set only the first set is extracted
         insert  - optional, insert string where extraction

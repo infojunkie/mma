@@ -1,3 +1,5 @@
+In PLECTRUM tracks report problem with negative strum error/warnings only one time.
+
 
 Fix TimeSig event bytes 3 and 4. ??? Not sure what they should really be or
   if it matters?
