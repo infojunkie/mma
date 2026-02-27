@@ -17,7 +17,7 @@ Time 3
 Timesig 3 4
 Include stdpats34
 
-SeqSize 24
+SeqSize 4
 
 /// Bass is important. First version has a 2 bar pattern
 /// with a bass on beat 1. Alternates betweed root and 5.
@@ -64,7 +64,7 @@ Begin Walk
     Rskip   Beats=2,3 10  /// skip occassion hits on 2 and 3, never 1
 End
 
-DefGroove EEWaltzWalk  /// change the bass to 3 beat walk
+DefGroove EEWaltzWalk   change the bass to 3 beat walk
 
 //////////////////////////////////////////////////////////////////////
 ////  A plus version with solo
@@ -138,7 +138,7 @@ End
 Begin Bass
     Volume mf m mp p
 End
-DefGroove EEWaltzIntro   /// A 4 bar intro
+DefGroove EEWaltzIntro    A 4 bar intro
 
 //// Intro with a walking bass
 
@@ -150,7 +150,7 @@ Begin Walk
 End
 Plectrum Sequence  {1 4 90; 2 4 80; 3 4 70} / / {1 4 90;}
 
-DefGroove EEWaltzIntroWalk  /// A 4 bar intro with walking bass
+DefGroove EEWaltzIntroWalk   A 4 bar intro with walking bass
 
 /////////////////////////////////////////////////////////
 //// Ending

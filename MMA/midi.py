@@ -620,6 +620,12 @@ class Mtrk:
             offEvent = packBytes(onEvent[:-1], 0)
             if offEvent in self.miditrk[f]:
                 self.miditrk[f].remove(offEvent)
+                # Johan Vromans -- this fixes a minor problem so that
+                # a re-strike of a sounding note will generate a Off/On
+	        # sequence. Without this patch you MAY get clicks and overflows
+                # with long sustains.
+                if v > 0:
+                    self.addToTrack(onOffset, offEvent, MIDI_NOTE)
 
         # ON/OFF events (off is on with v = 0)
 
