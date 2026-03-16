@@ -1,0 +1,9 @@
+
+Changes file for the 2026 series
+
+Fixed minor issue with a click being heard in plectrum tracks. This has been fixed
+ by permitting a null Note-Off event.
+
+The subroutine, common.stoticks(), which is used to calculate beat/measure/tick offsets
+ in MidiWheel, MidiInc, and Tempo was buggered. It has been unbuggered.
+ 

@@ -776,7 +776,7 @@ class PC:
             warning("Invert is ignored in %s tracks" % self.vtype)
 
         self.invert = seqBump(tmp)
-
+        
         if MMA.debug.debug:
             MMA.debug.trackSet(self.name, "Invert")
 

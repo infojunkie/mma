@@ -209,9 +209,10 @@ option=value pairs:
 <table width="90%"><tr><td valign="top">&nbsp;<DL>
 <DT><STRONG>Offset</STRONG></DT>
 <DD>Sets an offset for the change. This can be given in
-    bars (the default) or beats. To specify beats append a single &ldquo;B&rdquo; to
-    the value. For consistency for can add a &ldquo;M&rdquo; for measures/bars
-    or &ldquo;T&rdquo; for MIDI ticks. Floating point values are permitted.
+    beats (the default), measures/bars or MIDI ticks. To specify bars
+    append a single &ldquo;M&rdquo; to the value or &ldquo;T&rdquo; for MIDI ticks.
+    For consistency you can add a &ldquo;B&rdquo; for beats. 
+    Floating point values are permitted.
 
 <P>
 For example:
@@ -220,7 +221,7 @@ For example:
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Tempo 120 Offset=2b  </B> 
+    <B>Tempo 120 Offset=2  </B> 
    
 	    </td></tr>
       </Table>
@@ -232,7 +233,7 @@ will insert the, possibly new tempo, in two beats, and:
 
       <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
         <tr><td>
-    <B>Tempo 120 Offset=1.5  </B> 
+    <B>Tempo 120 Offset=1.5M  </B> 
    
 	    </td></tr>
       </Table>
@@ -244,9 +245,9 @@ will insert the tempo (assuming 4 beats per bar) do so in 6 beats.
 </DD>
 <DT><STRONG>Restore</STRONG></DT>
 <DD>The <SMALL>RESTORE</SMALL> option will change the T<SMALL>EMPO</SMALL>
-  back to the current setting in the specified number of bars. You
-  can end the option with a single &ldquo;B&rdquo; to indicate beats or,
-  optionally, a &ldquo;M&rdquo; for measures/bars or &ldquo;T&rdquo; for MIDI ticks.
+  back to the current setting in the specified number of beats.
+  To specify bars/measures append a sings &ldquo;M&rdquo; or &ldquo;T&rdquo; for MIDI ticks.
+  For consistency can append a single &ldquo;B&rdquo; for beats (the default).
   Floating point values are permitted.
 
 <P>
@@ -263,7 +264,7 @@ For example:
 
 <P>
 will change the T<SMALL>EMPO</SMALL> to 120 BPM at the current position and
-  then restore it to the previous setting in two and half bars.
+  then restore it to the previous setting in two and half bars/measures.
 
 <P>
 </DD>

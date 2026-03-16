@@ -172,14 +172,12 @@ def tempo(ln):
     for cmd, opt in opts:
         if cmd == 'OFFSET':
             startOffset = stotick(opt, 'B', "TEMPO Offset: '%s' is not recognized."
-                                  % opt) // gbl.BperQ
+                                  % opt)
             if startOffset < 0:
                 error("TEMPO Offset: Must be => 0, not '%s'" % startOffset)
-
         elif cmd == 'RESTORE':
             restore = stotick(opt, 'B', "TEMPO Restore: '%s' is not recognized."
                                   % opt) + gbl.tickOffset
-            print(restore, opt, gbl.tickOffset)
             if restore < 0:
                 error("TEMPO Restore: Must be => 0, not '%s'" % restore)
 

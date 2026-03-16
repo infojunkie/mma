@@ -153,6 +153,26 @@ End
 
 DefGroove Ballad68Intro  This 4 bar intro with arpeggios.
 
+/// Chording intro
+
+Groove Ballad68
+
+Drum-Snare  Sequence  *   *   *   D1
+Drum-Kick   Sequence  *   *   *   D1
+Chord Sequence -
+
+Bass  Sequence        *    *  *   B13
+
+Begin Chord
+      Voice  OrchestralHarp
+      Volume mp
+      Articulate 90
+      Octave 5
+      Voicing Mode=Optimal
+      Sequence {1 8 100; 1.66 8 80; 2.33 8 80; 3 8 90; 3.66 8 80; 4.33 8 80} / /  {1 1. 130}
+End
+
+DefGroove Ballad68ChordIntro  This 4 bar intro with chords.
 
 ////////////////
 /// Ending
