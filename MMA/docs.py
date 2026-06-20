@@ -73,12 +73,12 @@ def docInstNames(order):
     n = zip(MMA.midiC.voiceNames, range(len(MMA.midiC.voiceNames)))
     if order == "a":
         for a, v in sorted(n):
-            a = a.replace('&', '\&')
+            a = a.replace('&', r'\&')
             print("\\insline{%s} {%s}" % (a, v))
 
     else:
         for a, v in n:
-            a = a.replace('&', '\&')
+            a = a.replace('&', r'\&')
             print("\\insline{%s} {%s}" % (v, a))
 
 
@@ -315,7 +315,7 @@ def totex(s):
         Also handles proper quotation style.
     """
 
-    s = s.replace("$", "\$")
+    s = s.replace("$", r"\$")
     s = s.replace("*", "$*$")
     s = s.replace("_", "\\_")
     #s = s.replace("\\", "\\\\")
