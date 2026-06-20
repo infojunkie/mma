@@ -107,9 +107,9 @@ chordlist = {
     'mM7':    ((C,    Eb,      G,      B ),
              (C, D, Eb, F, G, Ab, B),
              "Minor Triad plus Major 7th. You will also see this printed "
-             "as ``m(maj7)'', ``m+7'', ``min(maj7)'' and ``min$\sharp$7'' "
-             "(which \mma\ accepts); as well as the \mma\ \emph{invalid} "
-             "forms: ``-($\Delta$7)'', and ``min$\\natural$7''."),
+             r"as ``m(maj7)'', ``m+7'', ``min(maj7)'' and ``min$\sharp$7'' "
+             r"(which \mma\ accepts); as well as the \mma\ \emph{invalid} "
+             r"forms: ``-($\Delta$7)'', and ``min$\natural$7''."),
 
     'm+7b9':  ((C, Eb, Gs, Bb, Db+12),
                (C, Db, Eb, F, Gs, Ab, Bb),
@@ -488,7 +488,7 @@ chordlist = {
 aliases = (
     ('11#5',     '11+',      ''),
     ('aug9',     '9#5',      ''),
-    ('9+',       '9#5',      'Recommended notation is "+9" or "9\#5"'),
+    ('9+',       '9#5',      r'Recommended notation is "+9" or "9\#5"'),
     ('+9',       '9#5',      ''),
     ('+9M7',     'aug9M7',   ''),
     ('+M7',      'M7#5',     ''),

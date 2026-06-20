@@ -98,7 +98,7 @@ def user_data_dir(appname=None, appauthor=None, version=None, roaming=False):
 
 
 def site_data_dir(appname=None, appauthor=None, version=None, multipath=False):
-    """Return full path to the user-shared data dir for this application.
+    r"""Return full path to the user-shared data dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -164,7 +164,7 @@ def site_data_dir(appname=None, appauthor=None, version=None, multipath=False):
 
 
 def user_config_dir(appname=None, appauthor=None, version=None, roaming=False):
-    r"""Return full path to the user-specific config dir for this application.
+    """Return full path to the user-specific config dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -227,7 +227,7 @@ def site_config_dir(appname=None, appauthor=None, version=None, multipath=False)
         Unix:       /etc/xdg/<AppName> or $XDG_CONFIG_DIRS[i]/<AppName> for each value in
                     $XDG_CONFIG_DIRS
         Win *:      same as site_data_dir
-        Vista:      (Fail! "C:\ProgramData" is a hidden *system* directory on Vista.)
+        Vista:      (Fail! "C:\\ProgramData" is a hidden *system* directory on Vista.)
 
     For Unix, this is using the $XDG_CONFIG_DIRS[0] default, if multipath=False
 

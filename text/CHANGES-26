@@ -6,4 +6,9 @@ Fixed minor issue with a click being heard in plectrum tracks. This has been fix
 
 The subroutine, common.stoticks(), which is used to calculate beat/measure/tick offsets
  in MidiWheel, MidiInc, and Tempo was buggered. It has been unbuggered.
- 
+
+In Python 3.12 and later it was decided to have unrecognized embedded escape characters
+ (ie "\sSomething") in the code report as a SyntaxWarning. Code will run just like before,
+ and the warnings are only reported one time: when the code is converted to pyc files.
+ In some future version of Python the warnings will convert to errors. In MMA these
+ warnings only effect the chord documentation, but please shout if you find other errors. 

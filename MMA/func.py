@@ -65,7 +65,7 @@ def defCall(l):
     #                           join together with space delims (skip func name)
     #                           split up at ','
 
-    p = ' '.join(l[1:]).replace('\,', chr(255)).split(',')
+    p = ' '.join(l[1:]).replace(r'\,', chr(255)).split(',')
 
     # Convert the param names so they have a leading '$'. The '$'
     # is not permitted in a param name.
@@ -140,7 +140,7 @@ def callFunction(l):
         error("Call: '%s' has not been defined." % fname)
 
     # Convert any escaped '\,' into $ff ... see explanation in defCall()
-    p = ' '.join(l[1:]).replace('\,', chr(255)).split(',')
+    p = ' '.join(l[1:]).replace(r'\,', chr(255)).split(',')
 
     # Validate calling params
     params = funcList[fname].params

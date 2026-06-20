@@ -356,7 +356,7 @@ class Lyric:
         lyrics = lyrics.replace('     ', ' ')
 
         if self.karmode:
-            lyrics = lyrics.replace('\-', chr(1))
+            lyrics = lyrics.replace(r'\-', chr(1))
             lyrics = lyrics.replace('-', chr(0)+' ')
 
         if self.barsplit:
