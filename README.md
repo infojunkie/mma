@@ -79,6 +79,78 @@ The repository also works in place, without installing:
 ./mma.py -G
 ```
 
+## Building and publishing
+
+Built with [uv](https://docs.astral.sh/uv/) and hatchling. The distribution is
+named `musical-midi-accompaniment`; the command it installs is `mma`.
+
+### Build
+
+```
+uv build
+```
+
+Both artifacts land in `dist/`. `uv build` builds the sdist first and then
+builds the wheel *from that sdist*, so the sdist has to stay self-sufficient.
+
+The version lives in `MMA/gbl.py` and is read from there — bump it in that one
+place. It must be a valid [PEP 440](https://peps.python.org/pep-0440/) version,
+so no leading zeros: upstream writes `25.05.3`, this package publishes `25.5.3`.
+
+The `lib/`, `includes/` and `plugins/` directories sit beside the package in
+the repository but are mapped *into* the wheel as `MMA/lib` and friends, which
+is where the installed program looks for them. That mapping uses hatchling
+`sources` rather than `force-include`, because forced files bypass `exclude`
+and `.gitignore` — which would bake this machine's `.mmaDB` groove caches and
+their absolute paths into the published wheel.
+
+### Check the artifacts
+
+No credentials needed, and worth doing before every upload:
+
+```
+uv tool run twine check --strict dist/*
+uv venv /tmp/mma-check
+uv pip install --python /tmp/mma-check/bin/python --force-reinstall dist/*.whl
+/tmp/mma-check/bin/mma -v
+```
+
+Then run something real — a wheel can be structurally valid and still fail to
+find its libraries:
+
+```
+/tmp/mma-check/bin/mma -G
+/tmp/mma-check/bin/mma egs/simple/marine-hymn.mma -f /tmp/out.mid
+```
+
+and confirm no local junk got in:
+
+```
+unzip -l dist/*.whl | grep -E '\.mmaDB|__pycache__|docs/|egs/'
+```
+
+That should print nothing.
+
+### Publish
+
+```
+UV_PUBLISH_TOKEN=pypi-... uv publish
+```
+
+Try TestPyPI first. There is no built-in `testpypi` index, so name the upload
+endpoint explicitly:
+
+```
+UV_PUBLISH_TOKEN=pypi-... uv publish --publish-url https://test.pypi.org/legacy/ --dry-run
+UV_PUBLISH_TOKEN=pypi-... uv publish --publish-url https://test.pypi.org/legacy/
+```
+
+`--dry-run` lists what would be uploaded without uploading it. Both forms are
+safe to re-run: PyPI skips files it already has.
+
+From GitHub Actions, configure a trusted publisher on PyPI instead of storing a
+token, and run a bare `uv publish` with no credentials.
+
 ## License
 
 GPL-2.0-or-later. Copyright (C) 2002-2021 Bob van der Poel.
