@@ -47,6 +47,29 @@ mmaStart = []
 mmaEnd   = []
 mmaRC    = None
 
+def dataDir(name):
+    """ Locate one of MMA's data directories: lib, includes, plugins.
+
+        Three layouts are supported:
+          1. wheel     - the data sits inside the installed package
+                         (site-packages/MMA/lib)
+          2. checkout  - the data sits beside the package (repo/lib, MMA_HOME/lib)
+          3. parent    - the data sits one level above the package, which is
+                         where editable installs leave it
+
+        If nothing is found the MMAdir path is returned so that the existing
+        warning in init() still fires.
+    """
+    here = os.path.dirname(os.path.abspath(__file__))
+
+    for d in (os.path.join(gbl.MMAdir, name),
+              os.path.join(here, name),
+              os.path.join(os.path.dirname(here), name)):
+        if os.path.isdir(d):
+            return d
+
+    return os.path.join(gbl.MMAdir, name)
+
 def init():
     """ Called from main. In mma.py we checked for known directories and
         inserted the first found 'mma' directory into the sys.path list and
@@ -70,7 +93,7 @@ def init():
         t = t.split(os.pathsep)
     else:
         t = []
-    t.append(os.path.join(gbl.MMAdir, 'lib'))
+    t.append(dataDir('lib'))
     setLibPath(t, user=0)
     testpaths(libPath, "LIBRARY")
 
@@ -80,7 +103,7 @@ def init():
         t = t.split(os.pathsep)
     else:
         t = []
-    t.append(os.path.join(gbl.MMAdir, 'includes'))
+    t.append(dataDir('includes'))
     setIncPath(t)
     testpaths(incPath, "INCLUDE")
 
@@ -90,7 +113,7 @@ def init():
         t = t.split(os.pathsep)
     else:
         t = []
-    t.append(os.path.join(gbl.MMAdir, "plugins"))
+    t.append(dataDir('plugins'))
     setPlugPath(t)
     testpaths(plugPaths, "PLUGIN")
 

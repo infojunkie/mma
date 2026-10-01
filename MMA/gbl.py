@@ -22,7 +22,11 @@ Bob van der Poel <bob@mellowood.ca>
 
 """
 
-version = "25.05.3"        # Version -- June/2026
+version = "25.5.3"         # Version -- June/2026
+
+import os as _os
+import platform as _platform
+import sys as _sys
 
 """ A few globals are actually set in the calling stub, mma.py. This is
     done to make future ports and platform specific settings a bit easier.
@@ -33,9 +37,16 @@ version = "25.05.3"        # Version -- June/2026
 
     The above variables can be accessed from the rest of the mma modules in
     the form "gbl.MMAdir", etc.
+
+    The stub (mma.py, or MMA/cli.py for an installed mma) sets both of them as
+    attributes of __main__ before importing this module. Importing MMA as a
+    plain library has no such stub, so fall back to the directory holding this
+    package and the real platform name.
 """
 
-from __main__ import MMAdir, platform
+_stub = _sys.modules.get('__main__')
+MMAdir = getattr(_stub, 'MMAdir', None) or _os.path.dirname(_os.path.abspath(__file__))
+platform = getattr(_stub, 'platform', None) or _platform.system()
 
 """ mtrks is storage for the MIDI data as it is created.
     It is a dict of class Mtrk() instances. Keys are the

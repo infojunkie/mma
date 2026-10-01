@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "musical-midi-accompaniment"
+dynamic = ["version"]
+description = "MMA - Musical MIDI Accompaniment: generate MIDI backing tracks from a simple text notation"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "GPL-2.0-or-later"
+license-files = ["LICENSE"]
+authors = [{ name = "Bob van der Poel", email = "bob@mellowood.ca" }]
+maintainers = [{ name = "infojunkie" }]
+keywords = ["MIDI", "music", "accompaniment", "backing track", "arranger", "groove"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio :: MIDI",
+]
+dependencies = []
+
+[project.scripts]
+mma = "MMA.cli:main"
+
+[project.urls]
+Homepage = "https://www.mellowood.ca/mma/"
+Source = "https://github.com/infojunkie/mma"
+"MusicXML front-end" = "https://github.com/infojunkie/musicxml-midi"
+
+# The version lives in MMA/gbl.py and is read from there, so it stays in one
+# place. Upstream writes it as 25.05.3; it is kept PEP 440-normalized here so
+# that the wheel filename, METADATA and `mma -v` all agree.
+[tool.hatch.version]
+source = "regex"
+path = "MMA/gbl.py"
+pattern = '^version *= *"(?P<version>[^"]+)"'
+
+[tool.hatch.build.targets.wheel]
+include = ["/MMA", "/lib", "/includes", "/plugins"]
+exclude = [
+    ".mmaDB*",               # groove databases hold absolute paths - never ship
+    "/MMA/setup.py",         # stray copy of appdirs' own setup.py
+    "/MMA/test.py",          # scratch file
+    "/lib/browserDB",        # legacy mma-gb cache
+    "/lib/lib-files.tar.gz", # 2023 release tarball
+    "/lib/**/*.py",          # lib/alexis/rd.py, not used by MMA
+]
+# The data directories live beside the package in the repository but inside it
+# once installed. `sources` is used rather than `force-include` because forced
+# files bypass `exclude` and .gitignore entirely.
+sources = { "lib" = "MMA/lib", "includes" = "MMA/includes", "plugins" = "MMA/plugins" }
+# Remapping lib/ into MMA/lib adds a prefix to .py files, which hatchling's
+# editable path rejects; dev-mode-dirs takes a path that never consults sources.
+dev-mode-dirs = ["."]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/docs",
+    "/egs",
+    "/util",
+    "/dist",
+    ".mmaDB*",
+    "/MMA/setup.py",
+    "/MMA/test.py",
+]

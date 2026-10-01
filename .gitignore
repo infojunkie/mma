@@ -1,3 +1,10 @@
 .mmaDB
 *.pyc
 **/*.backup.*
+
+# packaging
+/dist/
+/build/
+*.egg-info/
+/.venv/
+/.hatch/
