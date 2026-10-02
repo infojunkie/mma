@@ -131,6 +131,36 @@ unzip -l dist/*.whl | grep -E '\.mmaDB|__pycache__|docs/|egs/'
 
 That should print nothing.
 
+### Install from a local build
+
+To get `mma` on your `PATH` without publishing, install the wheel with
+`uv tool`:
+
+```
+uv tool install dist/*.whl
+mma -G
+```
+
+This gives the command its own environment under `~/.local/share/uv/tools/`,
+which you own, so the one-time `mma -G` write succeeds. Reinstall after a
+rebuild with `--reinstall`, and remove it with
+`uv tool uninstall musical-midi-accompaniment`.
+
+For development, install the checkout itself so that edits to the Python
+modules and to `lib/` take effect immediately:
+
+```
+uv tool install --editable .
+```
+
+To use it from another project instead of as a standalone tool, install the
+wheel into that project's environment (run this from the MMA checkout, and
+point `--python` at the other project):
+
+```
+uv pip install --python /path/to/project/.venv/bin/python dist/*.whl
+```
+
 ### Publish
 
 ```
