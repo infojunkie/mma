@@ -27,7 +27,6 @@ This module is responsible for actually writing the MIDI tracks to a file.
 import os
 import sys
 import copy
-import subprocess
 
 import MMA.midi
 import MMA.lyric
@@ -90,7 +89,12 @@ def channelSplit(outfile):
     
 def trackSplit(outfile):
     """ Write midi files split by trackname. Recursively calls MMA. """
-    
+
+    # Imported here rather than at module level: environments without
+    # subprocess (a browser running under Pyodide, for instance) can still
+    # import MMA, they just can't re-invoke it as a subprocess.
+    import subprocess
+
     if len(sys.argv) > 3:
         error("Command line arguments are not permitted using '-xTsplit'.")
 

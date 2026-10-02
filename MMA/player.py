@@ -23,7 +23,6 @@ Bob van der Poel <bob@mellowood.ca>
 """
 
 import time
-import subprocess
 import re
 
 from MMA.common import *
@@ -90,6 +89,11 @@ def setMidiPlayer(ln):
 
 def playMidi(file):
     """ Play a midi file. """
+
+    # Imported here rather than at module level: environments without
+    # subprocess (a browser running under Pyodide, for instance) can still
+    # import MMA, they just can't play audio externally.
+    import subprocess
 
     pl = midiPlayer[0]
     opts = midiPlayer[1:]

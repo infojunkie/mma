@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MMA in the browser — Pyodide test</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 15px/1.5 system-ui, sans-serif; max-width: 62rem; margin: 2rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.35rem; margin-bottom: .25rem; }
+  p.hint { margin-top: 0; opacity: .75; font-size: .9em; }
+  textarea { width: 100%; box-sizing: border-box; font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .controls { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin: .75rem 0; }
+  button { padding: .4rem .9rem; font: inherit; }
+  button:disabled { opacity: .5; }
+  #status { opacity: .75; font-size: .9em; }
+  #log { background: #8881; padding: .6rem .75rem; margin: 0; min-height: 9rem; max-height: 20rem;
+         overflow: auto; white-space: pre-wrap; font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+</style>
+</head>
+<body>
+
+<h1>MMA in the browser</h1>
+<p class="hint">
+  Loads the locally built <code>musical-midi-accompaniment</code> wheel into
+  <a href="https://pyodide.org/">Pyodide</a>, runs it over the song below, and plays the
+  generated MIDI with <a href="https://github.com/spessasus/spessasynth_lib">spessasynth_lib</a>.
+</p>
+
+<textarea id="song" rows="16" spellcheck="false" aria-label="MMA source"></textarea>
+
+<div class="controls">
+  <button id="run" disabled>Convert to MIDI</button>
+  <button id="stop" disabled>Stop</button>
+  <span id="status">starting…</span>
+</div>
+
+<pre id="log"></pre>
+
+<script type="importmap">
+{
+  "imports": {
+    "spessasynth_lib": "/node_modules/spessasynth_lib/dist/index.js",
+    "spessasynth_core": "/node_modules/spessasynth_core/dist/index.js"
+  }
+}
+</script>
+<script type="module" src="./main.js"></script>
+
+</body>
+</html>

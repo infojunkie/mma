@@ -62,6 +62,7 @@ exclude = [
     "/docs",
     "/egs",
     "/util",
+    "/test",                 # browser test harness, not part of the package
     "/dist",
     ".mmaDB*",
     "/MMA/setup.py",
