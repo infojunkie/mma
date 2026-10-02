@@ -61,6 +61,51 @@ function within(root, rel) {
   return path === root || path.startsWith(root + sep) ? path : null;
 }
 
+/** Every bare module specifier in `source` (i.e. not relative and not a URL). */
+function bareSpecifiers(source) {
+  const found = new Set();
+  const re = /(?:from|import)\s*\(?\s*"([^"]+)"/g;
+  let m;
+  while ((m = re.exec(source))) {
+    const spec = m[1];
+    if (!/^[./]/.test(spec) && !/^[a-z][a-z0-9+.-]*:/i.test(spec)) found.add(spec);
+  }
+  return found;
+}
+
+/**
+ * Check the import map in index.html against what the mapped bundles actually
+ * import. A missing entry otherwise shows up only as a "Failed to resolve
+ * module specifier" error in the browser console, one dependency at a time.
+ */
+async function checkImportMap() {
+  const problems = [];
+  const html = await readFile(join(HERE, 'index.html'), 'utf8');
+  const block = html.match(/<script type="importmap">([\s\S]*?)<\/script>/);
+  if (!block) return ['no import map found in index.html'];
+
+  const map = JSON.parse(block[1]).imports ?? {};
+
+  for (const [specifier, target] of Object.entries(map)) {
+    const file = within(HERE, target);
+    if (!file) {
+      problems.push(`"${specifier}" maps outside the test directory`);
+      continue;
+    }
+    let source;
+    try {
+      source = await readFile(file, 'utf8');
+    } catch {
+      problems.push(`"${specifier}" -> ${target} is missing (run npm install)`);
+      continue;
+    }
+    for (const bare of bareSpecifiers(source)) {
+      if (!(bare in map)) problems.push(`"${specifier}" imports "${bare}", which the import map does not define`);
+    }
+  }
+  return problems;
+}
+
 async function newestWheel() {
   const wheels = (await readdir(join(REPO, 'dist')))
     .filter((f) => f.endsWith('.whl'))
@@ -109,8 +154,14 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, HOST, () => {
+server.listen(PORT, HOST, async () => {
   console.log(`MMA Pyodide test page: http://${HOST}:${PORT}/`);
   console.log(`  page:  ${HERE}`);
   console.log(`  wheel: ${join(REPO, 'dist')}`);
+
+  const problems = await checkImportMap();
+  if (problems.length) {
+    console.warn('\nThe page will fail to load - import map problems:');
+    for (const p of problems) console.warn(`  - ${p}`);
+  }
 });

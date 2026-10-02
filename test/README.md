@@ -37,6 +37,19 @@ binds to `127.0.0.1` only.
 Press **Convert to MIDI** to run and play. Edit the song and press it again to
 re-run; **Stop** pauses playback.
 
+## No bundler
+
+`index.html` carries an import map pointing the bare specifiers
+(`spessasynth_lib`, `spessasynth_core`, `stb-vorbis`) at the packages in
+`node_modules`, which is why the page needs no build step.
+
+A missing entry there fails only in the browser, as
+`Failed to resolve module specifier "..."`. So the server walks the mapped
+bundles at startup and prints any specifier they import that the map does not
+define, along with a target file that does not exist. If you update
+`spessasynth_lib` and the page stops loading, read the server output first — it
+will name what to add.
+
 ## Why the package needed a change
 
 `MMA/player.py` and `MMA/writeMid.py` used to `import subprocess` at module
