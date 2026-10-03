@@ -29,6 +29,13 @@ const portFlag = argv.indexOf('--port');
 const PORT = Number(portFlag === -1 ? (process.env.PORT ?? 8090) : argv[portFlag + 1]);
 const HOST = '127.0.0.1';
 
+// The parent repository's extra groove libraries (musicxml-midi/grooves). They
+// are not part of the wheel, so the page copies them in at boot and puts the
+// directory on MMA's library path.
+const groovesFlag = argv.indexOf('--grooves');
+const GROOVES = resolve(groovesFlag === -1 ? join(REPO, '..', 'grooves') : argv[groovesFlag + 1]);
+const GROOVES_URL = '/grooves/';
+
 const TYPES = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
@@ -48,6 +55,7 @@ const TYPES = {
 const MOUNTS = {
   '/node_modules/': join(HERE, 'node_modules'),
   '/dist/': join(REPO, 'dist'),
+  [GROOVES_URL]: GROOVES,
 };
 
 function send(res, code, body, type = 'text/plain; charset=utf-8') {
@@ -106,6 +114,21 @@ async function checkImportMap() {
   return problems;
 }
 
+/**
+ * The .mma files under GROOVES, as paths relative to it. The browser cannot
+ * walk a URL, so it needs this list to know what to fetch.
+ *
+ * Dotfiles are skipped, which also drops the .mmaDB databases sitting in that
+ * tree: they hold paths from whenever they were built and would only make MMA
+ * complain that the directories they name do not exist.
+ */
+async function grooveFiles() {
+  const entries = await readdir(GROOVES, { recursive: true });
+  return entries
+    .filter((p) => p.endsWith('.mma') && !p.split(sep).some((part) => part.startsWith('.')))
+    .sort();
+}
+
 async function newestWheel() {
   const wheels = (await readdir(join(REPO, 'dist')))
     .filter((f) => f.endsWith('.whl'))
@@ -121,6 +144,20 @@ const server = createServer(async (req, res) => {
     path = decodeURIComponent(new URL(req.url, `http://${req.headers.host}`).pathname);
   } catch {
     return send(res, 400, 'Bad request');
+  }
+
+  // Never serve dotfiles. The grooves tree contains .mmaDB databases holding
+  // absolute paths from whenever they were built; the page must not pick those
+  // up, and the listing endpoint skips them for the same reason.
+  if (path.split('/').some((part) => part.startsWith('.'))) return send(res, 404, 'Not found');
+
+  if (path === '/api/grooves') {
+    // Not an error when the directory is absent: the page runs fine without it.
+    try {
+      return send(res, 200, JSON.stringify({ available: true, dir: GROOVES, files: await grooveFiles() }), TYPES['.json']);
+    } catch {
+      return send(res, 200, JSON.stringify({ available: false, dir: GROOVES, files: [] }), TYPES['.json']);
+    }
   }
 
   if (path === '/api/wheel') {
@@ -156,8 +193,14 @@ const server = createServer(async (req, res) => {
 
 server.listen(PORT, HOST, async () => {
   console.log(`MMA Pyodide test page: http://${HOST}:${PORT}/`);
-  console.log(`  page:  ${HERE}`);
-  console.log(`  wheel: ${join(REPO, 'dist')}`);
+  console.log(`  page:    ${HERE}`);
+  console.log(`  wheel:   ${join(REPO, 'dist')}`);
+  try {
+    const files = await grooveFiles();
+    console.log(`  grooves: ${GROOVES} (${files.length} .mma files)`);
+  } catch {
+    console.log(`  grooves: ${GROOVES} (not found - the page will run without them)`);
+  }
 
   const problems = await checkImportMap();
   if (problems.length) {

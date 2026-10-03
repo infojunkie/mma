@@ -58,18 +58,47 @@ has no `subprocess`, so nothing imported at all. Each import now sits inside the
 one function that uses it, which leaves behaviour on a normal Python unchanged
 and makes the published wheel usable from any WASM or embedded interpreter.
 
-## Groove references in `sample.mma`
+## Grooves
 
-The sample names its library file explicitly:
+Two libraries are available to the page.
+
+**The wheel's own**, under `MMA/lib` — `stdlib`, `casio`, `zoom`, `pflib`,
+`yamaha`, `kara` and `alexis`, 281 `.mma` files in all. The page finds these
+automatically, exactly as an installed `mma` does.
+
+**The parent repository's** `musicxml-midi/grooves/`, which is *not* part of the
+wheel. The dev server publishes that directory at `/grooves/` and lists it at
+`/api/grooves`; the page fetches each `.mma` file at boot, writes it into
+Pyodide's filesystem, and puts that directory on MMA's library path
+(`MMA_LIBPATH`). So a song can reference them the same way the command line can
+once `mmarc` has `SetLibPath ./grooves $_LibPath`:
 
 ```
-Groove stdlib/swing:Swing
+Groove brazil/forro-miranda:Baiao-Miranda
 ```
 
-rather than the bare `Groove Swing`. The groove database (`.mmaDB`) is not
-shipped in the wheel — it records absolute paths — so bare names have nothing to
-resolve against until someone runs `mma -G`. Naming the file works with no
-database at all.
+Point it somewhere else with `node serve.mjs --grooves /path/to/grooves`. If the
+directory is missing the server says so and the page carries on without it —
+`sample.mma` does not depend on it.
+
+### Why the file has to be named
+
+Both examples above spell out the library file. The bare form, `Groove Swing`,
+needs the groove database that `mma -G` builds, and that is deliberately not
+shipped: its keys are absolute paths, so it is only valid in the location it was
+built in. Naming the file goes through the library search instead and works with
+no database at all.
+
+Anything from the parent's `grooves/` therefore needs the explicit form too,
+unless you run `mma -G` yourself. The `.mmaDB` files in that directory are
+stale — they name paths from whenever they were built — which is why the server
+skips dotfiles and refuses to serve them.
+
+### Watch the metre
+
+A groove file sets its own time signature. `forro-miranda.mma` opens with
+`Time 2` / `TimeSig 2/4`, so a song using `Baiao-Miranda` takes at most two
+chords per bar; four gives `Too many chords specified in line`.
 
 ## Known limits
 

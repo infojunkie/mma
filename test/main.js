@@ -17,6 +17,11 @@ const SOUNDFONT_URL = 'https://spessasus.github.io/SpessaSynth/soundfonts/Genera
 const SONG_PATH = '/tmp/sample.mma';
 const MIDI_PATH = '/tmp/sample.mid';
 
+// Where the parent repository's extra groove libraries are materialized. The
+// wheel ships MMA/lib but not those, so they are copied in at boot and this
+// directory is put on MMA's library path.
+const GROOVE_ROOT = '/tmp/grooves';
+
 const $ = (id) => document.getElementById(id);
 
 function log(text) {
@@ -92,8 +97,52 @@ async function boot() {
     pyodide.runPython(RUNNER);
     runMma = pyodide.globals.get('run_mma');
 
+    await loadGrooves();
+
     status('ready');
     $('run').disabled = false;
+}
+
+/**
+ * Copy the parent repository's grooves/ into the Pyodide filesystem and put it
+ * on MMA's library path, so songs can reference them the same way the command
+ * line does once that directory is configured:
+ *
+ *     Groove brazil/forro-miranda:Baiao-Miranda
+ *
+ * They are not in the wheel, so without this the page cannot see them. A
+ * missing directory is not an error - the bundled sample does not need it.
+ */
+async function loadGrooves() {
+    let listing;
+    try {
+        listing = await (await fetch('/api/grooves')).json();
+    } catch {
+        log('grooves: listing unavailable, continuing without them');
+        return;
+    }
+    if (!listing.available || !listing.files.length) {
+        log(`grooves: none found at ${listing.dir}, continuing without them`);
+        return;
+    }
+
+    let written = 0;
+    for (const rel of listing.files) {
+        // These paths come from our own server, but never write outside the root.
+        if (rel.startsWith('/') || rel.split('/').includes('..')) continue;
+        const text = await (await fetch('/grooves/' + rel)).text();
+        const path = `${GROOVE_ROOT}/${rel}`;
+        pyodide.FS.mkdirTree(path.slice(0, path.lastIndexOf('/')));
+        pyodide.FS.writeFile(path, text);
+        written += 1;
+    }
+
+    // MMA reads this when it initializes its library paths, which happens on
+    // every run, so setting it once here is enough. The wheel's own libraries
+    // are appended separately and stay available.
+    pyodide.runPython(`import os\nos.environ['MMA_LIBPATH'] = ${JSON.stringify(GROOVE_ROOT)}`);
+
+    log(`grooves: ${written} files from ${listing.dir}`);
 }
 
 /** Create the synthesizer, load the SoundFont, and cache it all. */
