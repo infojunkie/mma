@@ -1,0 +1,16 @@
+// MMA on Pyodide - sample song.
+//
+// Note the groove references below name the library file explicitly
+// ("stdlib/swing:Swing"). This is deliberate: the groove database
+// (.mmaDB) is not shipped in the wheel, and bare names like "Groove Swing"
+// need it. Naming the file works everywhere.
+
+Tempo 120
+Time 4/4
+
+Groove stdlib/swing:Swing
+C Am F G
+C Am F G
+
+Groove stdlib/swing:SwingEnd
+C

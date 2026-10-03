@@ -11,17 +11,18 @@ project.
 
 ## Installation
 
-```
-pip install musical-midi-accompaniment
-```
-
-or, with [uv](https://docs.astral.sh/uv/):
+Not published to PyPI: the `mma` name there belongs to a different, much older
+fork of upstream MMA, so `pip install mma` would get that one. Install from this
+repository instead:
 
 ```
-uv tool install musical-midi-accompaniment
+uv tool install git+https://github.com/infojunkie/mma
 ```
 
-This installs the `mma` command.
+This installs the `mma` command. To build and install a wheel yourself see
+[Install from a local build](#install-from-a-local-build), or
+[Running from a source checkout](#running-from-a-source-checkout) to skip
+installing altogether.
 
 ## After installing
 
@@ -82,7 +83,7 @@ The repository also works in place, without installing:
 ## Building and publishing
 
 Built with [uv](https://docs.astral.sh/uv/) and hatchling. The distribution is
-named `musical-midi-accompaniment`; the command it installs is `mma`.
+named `mma`; it installs a command of the same name.
 
 ### Build
 
@@ -144,7 +145,7 @@ mma -G
 This gives the command its own environment under `~/.local/share/uv/tools/`,
 which you own, so the one-time `mma -G` write succeeds. Reinstall after a
 rebuild with `--reinstall`, and remove it with
-`uv tool uninstall musical-midi-accompaniment`.
+`uv tool uninstall mma`.
 
 For development, install the checkout itself so that edits to the Python
 modules and to `lib/` take effect immediately:
@@ -162,6 +163,10 @@ uv pip install --python /path/to/project/.venv/bin/python dist/*.whl
 ```
 
 ### Publish
+
+Not currently done, and it would be rejected as things stand: the name `mma` is
+already taken on PyPI. Kept here for reference if the distribution is ever
+renamed.
 
 ```
 UV_PUBLISH_TOKEN=pypi-... uv publish

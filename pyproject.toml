@@ -3,7 +3,9 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
-name = "musical-midi-accompaniment"
+# Not published to PyPI. The name `mma` there belongs to a different, much
+# older fork of upstream MMA, so `pip install mma` gets that one, not this.
+name = "mma"
 dynamic = ["version"]
 description = "MMA - Musical MIDI Accompaniment: generate MIDI backing tracks from a simple text notation"
 readme = "README.md"
@@ -62,7 +64,7 @@ exclude = [
     "/docs",
     "/egs",
     "/util",
-    "/test",                 # browser test harness, not part of the package
+    "/web",                  # browser test page, not part of the package
     "/dist",
     ".mmaDB*",
     "/MMA/setup.py",
