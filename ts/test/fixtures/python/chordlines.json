@@ -1,0 +1,1292 @@
+{
+ "cases": [
+  {
+   "lines": [
+    [
+     "C"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C",
+      "chStart": 0,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "/",
+     "G",
+     "/"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C",
+      "chStart": 0,
+      "chEnd": 384,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     },
+     {
+      "name": "G",
+      "chStart": 384,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "G",
+       "chordType": "M",
+       "rootNote": -5,
+       "noteListLen": 3,
+       "noteList": [
+        -5,
+        -1,
+        2
+       ],
+       "bnoteList": [
+        -5,
+        -1,
+        2
+       ],
+       "scaleList": [
+        -5,
+        -3,
+        -1,
+        0,
+        2,
+        4,
+        6
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "-",
+     "-",
+     "-"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C",
+      "chStart": 0,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "/"
+    ]
+   ],
+   "bars": [],
+   "error": "No previous chord for '/' or '-' at line start"
+  },
+  {
+   "lines": [
+    [
+     "z"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "z",
+      "chStart": 0,
+      "chEnd": 768,
+      "chordZ": true,
+      "arpeggioZ": true,
+      "walkZ": true,
+      "drumZ": false,
+      "bassZ": true,
+      "scaleZ": true,
+      "ariaZ": true,
+      "plectrumZ": true,
+      "chord": {
+       "tonic": null,
+       "chordType": null,
+       "rootNote": null,
+       "noteListLen": 0,
+       "noteList": [],
+       "bnoteList": [],
+       "scaleList": []
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "z!"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "z!",
+      "chStart": 0,
+      "chEnd": 768,
+      "chordZ": true,
+      "arpeggioZ": true,
+      "walkZ": true,
+      "drumZ": true,
+      "bassZ": true,
+      "scaleZ": true,
+      "ariaZ": true,
+      "plectrumZ": true,
+      "chord": {
+       "tonic": null,
+       "chordType": null,
+       "rootNote": null,
+       "noteListLen": 0,
+       "noteList": [],
+       "bnoteList": [],
+       "scaleList": []
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "zB"
+    ]
+   ],
+   "bars": [],
+   "error": "Unable to find a chord for 'zB'. Try specifing the chord name."
+  },
+  {
+   "lines": [
+    [
+     "Cz"
+    ]
+   ],
+   "bars": [],
+   "error": "'Cz' is illegal. This notation is a shortcut, You must specify tracks if you use a chord."
+  },
+  {
+   "lines": [
+    [
+     "CzB"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "CzB",
+      "chStart": 0,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": true,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "z",
+     "C"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "z",
+      "chStart": 0,
+      "chEnd": 192,
+      "chordZ": true,
+      "arpeggioZ": true,
+      "walkZ": true,
+      "drumZ": false,
+      "bassZ": true,
+      "scaleZ": true,
+      "ariaZ": true,
+      "plectrumZ": true,
+      "chord": {
+       "tonic": null,
+       "chordType": null,
+       "rootNote": null,
+       "noteListLen": 0,
+       "noteList": [],
+       "bnoteList": [],
+       "scaleList": []
+      }
+     },
+     {
+      "name": "C",
+      "chStart": 192,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "Cm@3.2"
+    ]
+   ],
+   "bars": [],
+   "error": "The first chord must be at beat 1, not 3.1979166666666665."
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "Cm@3.2"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C",
+      "chStart": 0,
+      "chEnd": 422,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     },
+     {
+      "name": "Cm",
+      "chStart": 422,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "m",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        3,
+        7
+       ],
+       "bnoteList": [
+        0,
+        3,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        10
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C@2",
+     "F@4"
+    ]
+   ],
+   "bars": [],
+   "error": "The first chord must be at beat 1, not 2.0."
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "D@2",
+     "F@4"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C",
+      "chStart": 0,
+      "chEnd": 192,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     },
+     {
+      "name": "D",
+      "chStart": 192,
+      "chEnd": 576,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "D",
+       "chordType": "M",
+       "rootNote": 2,
+       "noteListLen": 3,
+       "noteList": [
+        2,
+        6,
+        9
+       ],
+       "bnoteList": [
+        2,
+        6,
+        9
+       ],
+       "scaleList": [
+        2,
+        4,
+        6,
+        7,
+        9,
+        11,
+        13
+       ]
+      }
+     },
+     {
+      "name": "F",
+      "chStart": 576,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "F",
+       "chordType": "M",
+       "rootNote": 5,
+       "noteListLen": 3,
+       "noteList": [
+        5,
+        9,
+        12
+       ],
+       "bnoteList": [
+        5,
+        9,
+        12
+       ],
+       "scaleList": [
+        5,
+        7,
+        9,
+        10,
+        12,
+        14,
+        16
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "C@2",
+     "F@4"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C",
+      "chStart": 0,
+      "chEnd": 576,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     },
+     {
+      "name": "F",
+      "chStart": 576,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "F",
+       "chordType": "M",
+       "rootNote": 5,
+       "noteListLen": 3,
+       "noteList": [
+        5,
+        9,
+        12
+       ],
+       "bnoteList": [
+        5,
+        9,
+        12
+       ],
+       "scaleList": [
+        5,
+        7,
+        9,
+        10,
+        12,
+        14,
+        16
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C7",
+     "F",
+     "G7"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C7",
+      "chStart": 0,
+      "chEnd": 192,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "7",
+       "rootNote": 0,
+       "noteListLen": 4,
+       "noteList": [
+        0,
+        4,
+        7,
+        10
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7,
+        10
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        10
+       ]
+      }
+     },
+     {
+      "name": "F",
+      "chStart": 192,
+      "chEnd": 384,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "F",
+       "chordType": "M",
+       "rootNote": 5,
+       "noteListLen": 3,
+       "noteList": [
+        5,
+        9,
+        12
+       ],
+       "bnoteList": [
+        5,
+        9,
+        12
+       ],
+       "scaleList": [
+        5,
+        7,
+        9,
+        10,
+        12,
+        14,
+        16
+       ]
+      }
+     },
+     {
+      "name": "G7",
+      "chStart": 384,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "G",
+       "chordType": "7",
+       "rootNote": -5,
+       "noteListLen": 4,
+       "noteList": [
+        -5,
+        -1,
+        2,
+        5
+       ],
+       "bnoteList": [
+        -5,
+        -1,
+        2,
+        5
+       ],
+       "scaleList": [
+        -5,
+        -3,
+        -1,
+        0,
+        2,
+        4,
+        5
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "D",
+     "E",
+     "F",
+     "G"
+    ]
+   ],
+   "bars": [],
+   "error": "Too many chords specified in line. Max is 4. For more chords use @ notation or change TIME TABS."
+  },
+  {
+   "lines": [
+    [
+     "C@4.5"
+    ]
+   ],
+   "bars": [],
+   "error": "The first chord must be at beat 1, not 4.5."
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "G@4.5"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C",
+      "chStart": 0,
+      "chEnd": 672,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     },
+     {
+      "name": "G",
+      "chStart": 672,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "G",
+       "chordType": "M",
+       "rootNote": -5,
+       "noteListLen": 3,
+       "noteList": [
+        -5,
+        -1,
+        2
+       ],
+       "bnoteList": [
+        -5,
+        -1,
+        2
+       ],
+       "scaleList": [
+        -5,
+        -3,
+        -1,
+        0,
+        2,
+        4,
+        6
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "G@4.5",
+     "A@4"
+    ]
+   ],
+   "bars": [],
+   "error": "Chord positions out of order"
+  },
+  {
+   "lines": [
+    [
+     "C@7"
+    ]
+   ],
+   "bars": [],
+   "error": "Beat after @ must be less than 5, not '7.0'."
+  },
+  {
+   "lines": [
+    [
+     "C@0.5"
+    ]
+   ],
+   "bars": [],
+   "error": "Beat after @ must be 1 or greater, not '0.5'."
+  },
+  {
+   "lines": [
+    [
+     "Cz",
+     "/"
+    ]
+   ],
+   "bars": [],
+   "error": "'Cz' is illegal. This notation is a shortcut, You must specify tracks if you use a chord."
+  },
+  {
+   "lines": [
+    [
+     "Cz",
+     "z"
+    ]
+   ],
+   "bars": [],
+   "error": "'Cz' is illegal. This notation is a shortcut, You must specify tracks if you use a chord."
+  },
+  {
+   "lines": [
+    [
+     "CzB",
+     "z"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "CzB",
+      "chStart": 0,
+      "chEnd": 192,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": true,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     },
+     {
+      "name": "z",
+      "chStart": 192,
+      "chEnd": 768,
+      "chordZ": true,
+      "arpeggioZ": true,
+      "walkZ": true,
+      "drumZ": false,
+      "bassZ": true,
+      "scaleZ": true,
+      "ariaZ": true,
+      "plectrumZ": true,
+      "chord": {
+       "tonic": null,
+       "chordType": null,
+       "rootNote": null,
+       "noteListLen": 0,
+       "noteList": [],
+       "bnoteList": [],
+       "scaleList": []
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C/",
+     "z"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C/",
+      "chStart": 0,
+      "chEnd": 192,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     },
+     {
+      "name": "z",
+      "chStart": 192,
+      "chEnd": 768,
+      "chordZ": true,
+      "arpeggioZ": true,
+      "walkZ": true,
+      "drumZ": false,
+      "bassZ": true,
+      "scaleZ": true,
+      "ariaZ": true,
+      "plectrumZ": true,
+      "chord": {
+       "tonic": null,
+       "chordType": null,
+       "rootNote": null,
+       "noteListLen": 0,
+       "noteList": [],
+       "bnoteList": [],
+       "scaleList": []
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "z",
+     "-",
+     "zD"
+    ]
+   ],
+   "bars": [],
+   "error": "Unable to find a chord for 'zD'. Try specifing the chord name."
+  },
+  {
+   "lines": [
+    [
+     "C",
+     "C",
+     "G"
+    ]
+   ],
+   "bars": [
+    [
+     {
+      "name": "C",
+      "chStart": 0,
+      "chEnd": 384,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "C",
+       "chordType": "M",
+       "rootNote": 0,
+       "noteListLen": 3,
+       "noteList": [
+        0,
+        4,
+        7
+       ],
+       "bnoteList": [
+        0,
+        4,
+        7
+       ],
+       "scaleList": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11
+       ]
+      }
+     },
+     {
+      "name": "G",
+      "chStart": 384,
+      "chEnd": 768,
+      "chordZ": false,
+      "arpeggioZ": false,
+      "walkZ": false,
+      "drumZ": false,
+      "bassZ": false,
+      "scaleZ": false,
+      "ariaZ": false,
+      "plectrumZ": false,
+      "chord": {
+       "tonic": "G",
+       "chordType": "M",
+       "rootNote": -5,
+       "noteListLen": 3,
+       "noteList": [
+        -5,
+        -1,
+        2
+       ],
+       "bnoteList": [
+        -5,
+        -1,
+        2
+       ],
+       "scaleList": [
+        -5,
+        -3,
+        -1,
+        0,
+        2,
+        4,
+        6
+       ]
+      }
+     }
+    ]
+   ],
+   "error": null
+  },
+  {
+   "lines": [
+    [
+     "@1",
+     "C"
+    ]
+   ],
+   "bars": [],
+   "error": "No previous chord for '/' or '-' at line start"
+  }
+ ]
+}

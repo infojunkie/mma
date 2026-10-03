@@ -1,0 +1,14 @@
+// M1 integration song: loads a groove from a library file via Use
+
+Time 4
+TimeSig 4 4
+Tempo 100
+KeySig F
+
+Use TestLib
+Groove TestGroove
+
+C
+Am
+F
+G7

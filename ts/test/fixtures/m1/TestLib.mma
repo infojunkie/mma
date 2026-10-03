@@ -1,0 +1,34 @@
+// M1 test groove library
+
+SeqClear
+Time 4
+Timesig 4 4
+
+Begin Chord Define
+    TLCH1   1 4 90 ; 3 4 90
+End
+
+Begin Bass Define
+    TLBA1   1 4 1 90
+End
+
+Begin Drum Define
+    TLDR1   1 4 100
+End
+
+Begin Chord
+    Sequence TLCH1
+    Voice Piano1
+End
+
+Begin Bass
+    Sequence TLBA1
+    Voice AcousticBass
+End
+
+Begin Drum
+    Sequence TLDR1
+    Tone LowTom1
+End
+
+DefGroove TestGroove   A simple test groove.

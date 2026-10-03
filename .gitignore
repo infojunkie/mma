@@ -1,3 +1,4 @@
 .mmaDB
 *.pyc
 **/*.backup.*
+/node_modules/

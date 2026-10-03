@@ -1,0 +1,41 @@
+// M1 vertical-slice integration song (self-contained, no external libs)
+
+Time 4
+TimeSig 4 4
+Tempo 120
+KeySig C
+
+Begin Chord Define
+    CH1   1 4 90 ; 2 4 70 ; 3 4 90 ; 4 4 70
+End
+
+Begin Bass Define
+    BA1   1 4 1 90 ; 3 4 5 80
+End
+
+Begin Drum Define
+    DR1   1 4 100 ; 3 4 80
+End
+
+SeqSize 1
+
+Begin Chord
+    Sequence CH1
+    Voice Piano1
+    Volume mp
+End
+
+Begin Bass
+    Sequence BA1
+    Voice AcousticBass
+End
+
+Begin Drum
+    Sequence DR1
+    Tone LowTom1
+End
+
+C
+F
+G7
+C

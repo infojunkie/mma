@@ -1,0 +1,1411 @@
+{
+  "defaults": {
+    "CHORD": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "UP"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "toneList": null,
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
+    },
+    "BASS": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "toneList": null,
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
+    },
+    "DRUM": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "toneList": [
+        38
+      ],
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
+    }
+  },
+  "bars": {
+    "chord_basic": {
+      "track": "CHORD",
+      "pattern": "1 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a",
+          "92345a",
+          "92375a"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "923700"
+        ]
+      ]
+    },
+    "chord_volumes": {
+      "track": "CHORD",
+      "pattern": "1 4 90 70 60",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a",
+          "923446",
+          "92373c",
+          "923b3c"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "923700",
+          "923b00"
+        ]
+      ]
+    },
+    "chord_two_bars": {
+      "track": "CHORD",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 3,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a",
+          "92345a",
+          "92375a"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "923700"
+        ],
+        [
+          384,
+          "923050",
+          "923450",
+          "923750"
+        ],
+        [
+          556,
+          "923000",
+          "923400",
+          "923700"
+        ],
+        [
+          768,
+          "92355a",
+          "92395a",
+          "923c5a"
+        ],
+        [
+          940,
+          "923500",
+          "923900",
+          "923c00"
+        ],
+        [
+          1152,
+          "923550",
+          "923950",
+          "923c50"
+        ],
+        [
+          1324,
+          "923500",
+          "923900",
+          "923c00"
+        ]
+      ]
+    },
+    "bass_basic": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ]
+      ]
+    },
+    "bass_notes": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5# 80",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 4,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          384,
+          "933850"
+        ],
+        [
+          556,
+          "933800"
+        ],
+        [
+          768,
+          "93355a"
+        ],
+        [
+          940,
+          "933500"
+        ],
+        [
+          1152,
+          "933d50"
+        ],
+        [
+          1324,
+          "933d00"
+        ]
+      ]
+    },
+    "drum_basic": {
+      "track": "DRUM",
+      "pattern": "1 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 10,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03044472756d",
+          "b92000",
+          "b90000",
+          "c900",
+          "99265a"
+        ],
+        [
+          172,
+          "992600"
+        ]
+      ]
+    },
+    "drum_beats": {
+      "track": "DRUM",
+      "pattern": "1 4 90; 2 4 60; 3 4 80; 4 4 100",
+      "chords": [
+        "C"
+      ],
+      "channel": 10,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03044472756d",
+          "b92000",
+          "b90000",
+          "c900",
+          "99265a"
+        ],
+        [
+          172,
+          "992600"
+        ],
+        [
+          192,
+          "99263c"
+        ],
+        [
+          364,
+          "992600"
+        ],
+        [
+          384,
+          "992650"
+        ],
+        [
+          556,
+          "992600"
+        ],
+        [
+          576,
+          "992664"
+        ],
+        [
+          748,
+          "992600"
+        ]
+      ]
+    },
+    "chord_strum": {
+      "track": "CHORD",
+      "pattern": "1 4 90 80 70",
+      "chords": [
+        "C7"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setStrum",
+          [
+            [
+              "20"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a"
+        ],
+        [
+          20,
+          "923450"
+        ],
+        [
+          40,
+          "923746"
+        ],
+        [
+          60,
+          "923a46"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "923700",
+          "923a00"
+        ]
+      ]
+    },
+    "chord_dup_root": {
+      "track": "CHORD",
+      "pattern": "1 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setDupRoot",
+          [
+            [
+              "1"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a",
+          "92345a",
+          "92375a",
+          "923c48"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "923700",
+          "923c00"
+        ]
+      ]
+    },
+    "chord_limit": {
+      "track": "CHORD",
+      "pattern": "1 4 90 80 70 60",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setChordLimit",
+          [
+            [
+              "4",
+              "DROP=1",
+              "FORCE=TRUE"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92345a",
+          "923750",
+          "923b46"
+        ],
+        [
+          172,
+          "923400",
+          "923700",
+          "923b00"
+        ]
+      ]
+    },
+    "chord_voicing_drop2": {
+      "track": "CHORD",
+      "pattern": "1 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setVoicing",
+          [
+            [
+              "MODE=DROP2"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a",
+          "92345a",
+          "922b5a",
+          "923b5a"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "922b00",
+          "923b00"
+        ]
+      ]
+    },
+    "chord_voicing_key": {
+      "track": "CHORD",
+      "pattern": "1 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setVoicing",
+          [
+            [
+              "MODE=KEY"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92302d",
+          "92345a",
+          "922b5a",
+          "922f5a"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "922b00",
+          "922f00"
+        ]
+      ]
+    },
+    "chord_accent": {
+      "track": "CHORD",
+      "pattern": "1 4 90; 3 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setAccent",
+          [
+            [
+              "1",
+              "10"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "923063",
+          "923463",
+          "923763"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "923700"
+        ],
+        [
+          384,
+          "92305a",
+          "92345a",
+          "92375a"
+        ],
+        [
+          556,
+          "923000",
+          "923400",
+          "923700"
+        ]
+      ]
+    },
+    "chord_artic_volume": {
+      "track": "CHORD",
+      "pattern": "1 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setArtic",
+          [
+            [
+              "50"
+            ]
+          ]
+        ],
+        [
+          "setVolume",
+          [
+            [
+              "p"
+            ]
+          ]
+        ],
+        [
+          "setOctave",
+          [
+            [
+              "3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "922439",
+          "922839",
+          "922b39"
+        ],
+        [
+          96,
+          "922400",
+          "922800",
+          "922b00"
+        ]
+      ]
+    },
+    "bass_modifiers": {
+      "track": "BASS",
+      "pattern": "1 4 2+ 90; 3 4 9b- 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "933e5a"
+        ],
+        [
+          172,
+          "933e00"
+        ],
+        [
+          384,
+          "933150"
+        ],
+        [
+          556,
+          "933100"
+        ]
+      ]
+    },
+    "bass_two_chords": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 1 90",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            3
+          ],
+          [
+            "F",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 4,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          384,
+          "93355a"
+        ],
+        [
+          556,
+          "933500"
+        ]
+      ]
+    },
+    "chord_two_chords": {
+      "track": "CHORD",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            3
+          ],
+          [
+            "G",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 3,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a",
+          "92345a",
+          "92375a"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "923700"
+        ],
+        [
+          384,
+          "922b50",
+          "922f50",
+          "923250"
+        ],
+        [
+          556,
+          "922b00",
+          "922f00",
+          "923200"
+        ]
+      ]
+    },
+    "bass_rskip_beats": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setRSkip",
+          [
+            [
+              "99",
+              "BEATS=3"
+            ]
+          ]
+        ]
+      ],
+      "seed": 1,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ]
+      ]
+    },
+    "bass_rvolume": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setRVolume",
+          [
+            [
+              "-20,20"
+            ]
+          ]
+        ]
+      ],
+      "seed": 2,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93304b"
+        ],
+        [
+          172,
+          "933000"
+        ]
+      ]
+    },
+    "chord_strum_random": {
+      "track": "CHORD",
+      "pattern": "1 4 90 80 70",
+      "chords": [
+        "C7"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setStrum",
+          [
+            [
+              "10,30"
+            ]
+          ]
+        ]
+      ],
+      "seed": 3,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a"
+        ],
+        [
+          28,
+          "923450"
+        ],
+        [
+          56,
+          "923746"
+        ],
+        [
+          84,
+          "923a46"
+        ],
+        [
+          172,
+          "923000",
+          "923400",
+          "923700",
+          "923a00"
+        ]
+      ]
+    },
+    "drum_artic": {
+      "track": "DRUM",
+      "pattern": "1 4 90; 3 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 10,
+      "setup": [
+        [
+          "setArtic",
+          [
+            [
+              "50"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03044472756d",
+          "b92000",
+          "b90000",
+          "c900",
+          "99265a"
+        ],
+        [
+          96,
+          "992600"
+        ],
+        [
+          384,
+          "99265a"
+        ],
+        [
+          480,
+          "992600"
+        ]
+      ]
+    },
+    "drum_swing": {
+      "track": "DRUM",
+      "pattern": "1 8 90; 2 8 80; 2+8 8 70",
+      "chords": [
+        "C"
+      ],
+      "channel": 10,
+      "setup": [],
+      "seed": null,
+      "swing": [
+        "ON",
+        "SKEW=60"
+      ],
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03044472756d",
+          "b92000",
+          "b90000",
+          "c900",
+          "99265a"
+        ],
+        [
+          103,
+          "992600"
+        ],
+        [
+          192,
+          "992650"
+        ],
+        [
+          295,
+          "992600"
+        ],
+        [
+          307,
+          "992646"
+        ],
+        [
+          376,
+          "992600"
+        ]
+      ]
+    },
+    "bass_cresc": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C",
+        "C",
+        "C",
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setCresc",
+          [
+            1,
+            [
+              "pp",
+              "4"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          768,
+          "93304c"
+        ],
+        [
+          940,
+          "933000"
+        ],
+        [
+          1536,
+          "93303e"
+        ],
+        [
+          1708,
+          "933000"
+        ],
+        [
+          2304,
+          "933031"
+        ],
+        [
+          2476,
+          "933000"
+        ]
+      ]
+    },
+    "bass_seqrnd": {
+      "track": "BASS",
+      "pattern": "",
+      "chords": [
+        "C",
+        "C",
+        "C",
+        "C"
+      ],
+      "channel": 4,
+      "setup": [],
+      "seed": 4,
+      "swing": null,
+      "patterns": [
+        "1 4 1 90",
+        "3 4 1 90"
+      ],
+      "seqrnd": true,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300"
+        ],
+        [
+          384,
+          "93305a"
+        ],
+        [
+          556,
+          "933000"
+        ],
+        [
+          768,
+          "93305a"
+        ],
+        [
+          940,
+          "933000"
+        ],
+        [
+          1920,
+          "93305a"
+        ],
+        [
+          2092,
+          "933000"
+        ],
+        [
+          2304,
+          "93305a"
+        ],
+        [
+          2476,
+          "933000"
+        ]
+      ]
+    },
+    "chord_direction_down": {
+      "track": "CHORD",
+      "pattern": "1 4 90 80 70",
+      "chords": [
+        "C7"
+      ],
+      "channel": 3,
+      "setup": [
+        [
+          "setStrum",
+          [
+            [
+              "20"
+            ]
+          ]
+        ],
+        [
+          "setDirection",
+          [
+            [
+              "DOWN"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "923a46"
+        ],
+        [
+          20,
+          "923746"
+        ],
+        [
+          40,
+          "923450"
+        ],
+        [
+          60,
+          "92305a"
+        ],
+        [
+          172,
+          "923a00",
+          "923700",
+          "923400",
+          "923000"
+        ]
+      ]
+    }
+  }
+}
