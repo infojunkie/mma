@@ -41,6 +41,13 @@ export const CORPUS: CorpusEntry[] = [
   { name: 'egs-misc-grooves', file: 'egs/misc/grooves.mma', prelude: 'RndSeed 1' },
   { name: 'egs-rndset-rndchords', file: 'egs/rndset/rndchords.mma', prelude: 'RndSeed 1' },
   { name: 'egs-scales', file: 'egs/scales/scales.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-arpeggiate-intro', file: 'egs/arpeggiate/intro.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-delay-round', file: 'egs/delay/round.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-harmony', file: 'egs/harmony/harmony.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-solo-drum-sequence', file: 'egs/solo/drum-sequence.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-solo-sequence', file: 'egs/solo/solo-sequence.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-mid2seq-style', file: 'egs/midi-inc/mid2seq/shes-just-my-style.mma', prelude: 'RndSeed 1' },
+
 
   { name: 'egs-voicing', file: 'egs/voicing/voicing.mma' },
 

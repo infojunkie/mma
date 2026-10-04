@@ -119,9 +119,24 @@ describe('Parser error messages', () => {
     );
   });
 
-  it('defers solo data with a clear message', async () => {
-    const ctx = makeCtx({ 'song.mma': 'C {1 4 60 90}\n' });
-    await expect(new Parser(ctx).parseFile('song.mma')).rejects.toThrowError(/Solo data .* not implemented/);
+  it('parses {solo} data from chord lines and validates its syntax', async () => {
+    const ctx = makeCtx({ 'song.mma': 'Time 4\nC {4c;}\n' });
+    await new Parser(ctx).parseFile('song.mma');
+    // The auto-solo track (SOLO) received the riff and played a note.
+    const solo = ctx.tnames.get('SOLO');
+    expect(solo).toBeDefined();
+    let notes = 0;
+    for (const tr of ctx.mtrks.tracks.values()) {
+      for (const evs of tr.miditrk.values()) {
+        for (const ev of evs) if (ev[0]! >= 0x90 && ev[0]! < 0xa0 && (ev[2] ?? 0) > 0) notes++;
+      }
+    }
+    expect(notes).toBeGreaterThan(0);
+
+    const bad = makeCtx({ 'song.mma': 'Time 4\nC {4c}\n' });
+    await expect(new Parser(bad).parseFile('song.mma')).rejects.toThrowError(
+      /All Solo strings must end with a ';'/,
+    );
   });
 
   it('defers lyrics with a clear message', async () => {
@@ -137,7 +152,7 @@ describe('Parser error messages', () => {
 
     const ctx2 = makeCtx({ 'song.mma': 'Chord Riff B1\n' });
     await expect(new Parser(ctx2).parseFile('song.mma')).rejects.toThrowError(
-      'RIFF is not implemented in this milestone (M1).',
+      'B1 is not an existing Chord pattern',
     );
   });
 

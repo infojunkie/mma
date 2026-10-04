@@ -34,6 +34,7 @@ import { adjVolume, setCrescendo, setSwell, setVolume } from '../directives/simp
 import { swingMode } from '../directives/simple/Swing';
 import {
   trackAccent,
+  trackArpeggiate,
   trackArtic,
   trackChannel,
   trackChordLimit,
@@ -41,6 +42,8 @@ import {
   trackCompress,
   trackDelay,
   trackDirection,
+  trackDrumType,
+  trackDupRiff,
   trackDupRoot,
   trackHarmony,
   trackHarmonyOnly,
@@ -56,9 +59,12 @@ import {
   trackOn,
   trackRange,
   trackRduration,
+  trackRestart,
+  trackRiff,
   trackRskip,
   trackRtime,
   trackSticky,
+  trackStretch,
   trackStrum,
   trackStrumAdd,
   trackSpan,
@@ -70,6 +76,7 @@ import {
   trackRvolume,
   trackScaletype,
 } from '../directives/track/Track';
+import { setAutoSolo } from '../model/tracks/SoloTrack';
 import { trackDefPattern, trackSeqClear, trackSeqRnd, trackSeqRndWeight, trackSequence } from '../directives/track/Patterns';
 
 export type SimpleHandler = (ctx: MMAContext, args: string[]) => void | Promise<void>;
@@ -189,6 +196,7 @@ export class DirectiveRegistry {
     register('CRESC', (c, a) => setCrescendo(c, 1, a));
     register('DECRESC', (c, a) => setCrescendo(c, -1, a));
     register('SWELL', (c, a) => setSwell(c, a));
+    register('AUTOSOLOTRACKS', (c, a) => setAutoSolo(c, a));
 
     // --- simple commands not in this milestone ----------------------------
     for (const name of [
@@ -257,12 +265,15 @@ export class DirectiveRegistry {
     reg('GROOVE', (c, t, a) => trackGroove(c, t, a));
 
     reg('ACCENT', trackAccent);
+    reg('ARPEGGIATE', trackArpeggiate);
     reg('ARTICULATE', trackArtic);
     reg('CHANNEL', trackChannel);
     reg('CHORDS', trackChords);
     reg('COMPRESS', trackCompress);
     reg('DELAY', trackDelay);
     reg('DIRECTION', trackDirection);
+    reg('DRUMTYPE', trackDrumType);
+    reg('DUPRIFF', trackDupRiff);
     reg('DUPROOT', trackDupRoot);
     reg('HARMONY', trackHarmony);
     reg('HARMONYONLY', trackHarmonyOnly);
@@ -279,16 +290,27 @@ export class DirectiveRegistry {
     reg('ON', trackOn);
     reg('RANGE', trackRange);
     reg('RDURATION', trackRduration);
+    reg('RESTART', trackRestart);
+    reg('RIFF', trackRiff);
     reg('RSKIP', trackRskip);
     reg('RTIME', trackRtime);
     reg('RVOLUME', trackRvolume);
     reg('SCALETYPE', trackScaletype);
+    reg('STRETCH', trackStretch);
     reg('NOTESPAN', trackSpan);
     reg('STRUM', trackStrum);
     reg('STRUMADD', trackStrumAdd);
     reg('STICKY', trackSticky);
     reg('TONE', trackTone);
     reg('UNIFY', trackUnify);
+    // MELODY/SOLO commands (parse.py trackFuncs).
+    reg('ARPEGGIATE', trackArpeggiate);
+    reg('DRUMTYPE', trackDrumType);
+    reg('STRETCH', trackStretch);
+    reg('RESTART', trackRestart);
+    reg('RIFF', trackRiff);
+    reg('DUPRIFF', trackDupRiff);
+
     // Port of parse.allTracks: apply a track command to all tracks of
     // the given types (default: the pattern tracks).
     register('ALLTRACKS', async (c, a) => {
@@ -321,8 +343,6 @@ export class DirectiveRegistry {
     reg('VOLUME', trackVolume);
 
     for (const name of [
-      'ARPEGGIATE',
-      'DUPRIFF',
       'MIDIVOLUME',
       'MIDICRESC',
       'MIDIDECRESC',
@@ -330,7 +350,6 @@ export class DirectiveRegistry {
       'CRESC',
       'CUT',
       'DECRESC',
-      'DRUMTYPE',
       'FORCEOUT',
       'FRETNOISE',
       'MIDICUE',
@@ -344,10 +363,7 @@ export class DirectiveRegistry {
       'TUNING',
       'CAPO',
       'SHAPE',
-      'RESTART',
-      'RIFF',
       'RPITCH',
-      'STRETCH',
       'SWELL',
       'TRIGGER',
       'MIDINOTE',

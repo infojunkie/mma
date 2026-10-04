@@ -208,7 +208,8 @@ export class BaseTrack {
    * SOLO/MELODY drum-type state.  Declared on the base class because the
    * parser's TrackApi contract exposes them (PC itself has no such fields).
    */
-  drumType = false;
+  /** Python's Melody.drumType default is None; setDrumType() sets true. */
+  drumType: boolean | null = null;
   drumTone = 0;
 
   /** Current sequence slot used by bar() (Python self.seq). */
@@ -1403,9 +1404,10 @@ export class BaseTrack {
   /**
    * Worker shared by definePattern() and setRiff(): convert "1 4 90; 2 4 90"
    * into a sorted list of PatternEvents, resolving track/pattern references
-   * and applying SHIFT / `*` modifiers.
+   * and applying SHIFT / `*` modifiers.  MELODY/SOLO override this and keep
+   * the pattern as a plain string.
    */
-  defPatRiff(ln: string | string[], upper = true): Pattern {
+  defPatRiff(ln: string | string[], upper = true): Pattern | string {
     let s = typeof ln === 'string' ? ln : ln.join(' ');
     if (upper) s = s.toUpperCase();
 
@@ -1463,11 +1465,11 @@ export class BaseTrack {
   }
 
   /** Format a pattern for display (debug / pshow). */
-  formatPattern(pat: Pattern | null): string {
+  formatPattern(pat: Pattern | string | null): string {
     if (!pat || !pat.length) return ' z ';
 
     const pp: string[] = [];
-    for (const p of pat) {
+    for (const p of pat as Pattern) {
       const s: string[] = [];
       s.push(gfmt(1 + p.offset / this.ctx.BperQ));
       if (this.vtype !== 'PLECTRUM') s.push(`${p.duration}t`);
@@ -1499,7 +1501,7 @@ export class BaseTrack {
   }
 
   /** Subclass hook: generate one bar of music. */
-  trackBar(_pattern: Pattern, _ctable: CTable[]): void {
+  trackBar(_pattern: Pattern | string, _ctable: CTable[]): void {
     this.ctx.rep.error(`Track class ${this.vtype} has no trackBar() (call Bob).`);
   }
 
@@ -1569,16 +1571,16 @@ export class BaseTrack {
     this.seq = this.seqRnd ? getRndSeq(this.ctx, this.seqRndWeight) : this.ctx.seqCount;
     const sc = this.seq;
 
-    // Get pattern for this sequence: a Riff, Pattern or trigger.
-    let pattern: Pattern | null;
+    // Get pattern for this sequence: a Riff, Pattern or trigger.  String
+    // patterns only exist on SOLO/MELODY tracks (their trackBar parses
+    // them note by note).
+    let pattern: Pattern | string | null;
     if (this.riff.length) {
-      const r = this.riff.shift()!;
-      // String riffs only exist on SOLO/MELODY tracks, which override bar().
-      pattern = Array.isArray(r) ? r : null;
+      pattern = this.riff.shift()!;
     } else {
       pattern = this.sequence[sc] ?? null;
       if (this.trigger.mode) {
-        pattern = makeTriggerSequence(this.ctx, this, ctable, pattern);
+        pattern = makeTriggerSequence(this.ctx, this, ctable, pattern as Pattern | null);
         if ((!pattern || !pattern.length) && this.trigger.override) {
           pattern = this.sequence[sc] ?? null;
         }
@@ -1617,7 +1619,7 @@ export class BaseTrack {
       const pstart = trackHooks.truncate.side;
       const pend = pstart + trackHooks.truncate.length;
       const out: Pattern = [];
-      for (const a of clonePattern(pattern!)) {
+      for (const a of clonePattern(pattern as Pattern)) {
         if (a.offset >= pstart && a.offset < pend) {
           a.offset -= pstart;
           out.push(a);

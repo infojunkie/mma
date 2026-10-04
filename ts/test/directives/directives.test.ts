@@ -74,8 +74,8 @@ describe('DirectiveRegistry tables', () => {
       'AFTER is not implemented in this milestone (M1).',
     );
     const track = { name: 'CHORD' } as never;
-    expect(() => parser.registry.track.get('RIFF')!(ctx, track, ['X'])).toThrowError(
-      'RIFF is not implemented in this milestone (M1).',
+    expect(() => parser.registry.track.get('ORNAMENT')!(ctx, track, ['X'])).toThrowError(
+      'ORNAMENT is not implemented in this milestone (M1).',
     );
   });
 

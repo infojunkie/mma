@@ -2,8 +2,8 @@
  * MMA - Musical MIDI Accompaniment, TypeScript port.
  *
  * Track engine public surface: the PC base class (BaseTrack), the ported
- * pattern tracks (BASS, CHORD, DRUM, ARPEGGIO, SCALE, WALK) and the
- * allocator (MMA/alloc.py).
+ * pattern tracks (BASS, CHORD, DRUM, ARPEGGIO, SCALE, WALK, MELODY, SOLO)
+ * and the allocator (MMA/alloc.py).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,9 @@ export { DrumTrack } from './DrumTrack';
 export { ArpeggioTrack } from './ArpeggioTrack';
 export { ScaleTrack } from './ScaleTrack';
 export { WalkTrack } from './WalkTrack';
+export { Melody, NoteEvent, accValues, defaultVelocity, type NoteMap } from './MelodyTrack';
+export { Solo, extractSolo, getAutoSoloTracks, setAutoSolo } from './SoloTrack';
+export { dtableGet } from './Translate';
 export { Voicing } from './Voicing';
 export { registerTrackClass, trackAlloc, trackClasses, type TrackCtor } from './alloc';
 export {

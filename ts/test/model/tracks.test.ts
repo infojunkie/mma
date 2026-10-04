@@ -19,6 +19,8 @@ import { ArpeggioTrack } from '../../src/model/tracks/ArpeggioTrack';
 import { BassTrack } from '../../src/model/tracks/BassTrack';
 import { ChordTrack } from '../../src/model/tracks/ChordTrack';
 import { DrumTrack } from '../../src/model/tracks/DrumTrack';
+import { Melody } from '../../src/model/tracks/MelodyTrack';
+import { Solo } from '../../src/model/tracks/SoloTrack';
 import { ScaleTrack } from '../../src/model/tracks/ScaleTrack';
 import { WalkTrack } from '../../src/model/tracks/WalkTrack';
 import { BaseTrack } from '../../src/model/tracks/BaseTrack';
@@ -27,12 +29,14 @@ import { SwingState } from '../../src/model/features/Swing';
 import { harmonize, intervalHarmony } from '../../src/model/features/Harmony';
 
 interface FixtureBar {
-  track: 'CHORD' | 'BASS' | 'DRUM' | 'ARPEGGIO' | 'SCALE' | 'WALK';
+  track: 'CHORD' | 'BASS' | 'DRUM' | 'ARPEGGIO' | 'SCALE' | 'WALK' | 'MELODY' | 'SOLO';
   pattern: string;
   chords: string[];
   /** Multiple chords per bar: [chord, start beat, end beat] per bar. */
   chordTabs?: Array<Array<[string, number, number]>>;
   channel: number;
+  /** False when run_bar_case() did not assign the channel (setDrumType does). */
+  presetChannel?: boolean;
   /** Track setup calls (Python method name + arguments) run before the bars. */
   setup: Array<[string, unknown[]]>;
   /** Optional multiple patterns (TEST1..TESTn) used for the sequence. */
@@ -131,6 +135,8 @@ function newTrack(ctx: MMAContext, vtype: string): BaseTrack {
   if (vtype === 'ARPEGGIO') return new ArpeggioTrack(ctx, vtype);
   if (vtype === 'SCALE') return new ScaleTrack(ctx, vtype);
   if (vtype === 'WALK') return new WalkTrack(ctx, vtype);
+  if (vtype === 'MELODY') return new Melody(ctx, vtype);
+  if (vtype === 'SOLO') return new Solo(ctx, vtype);
   throw new Error(`unknown fixture track ${vtype}`);
 }
 
@@ -159,7 +165,8 @@ function runBarCase(c: FixtureBar): Array<[number, ...string[]]> {
   if (c.seed !== null) ctx.rng.seed(c.seed);
   if (c.swing) applySwing(ctx, c.swing);
   const track = newTrack(ctx, c.track);
-  track.setChannel([String(c.channel)]);
+  // The drum-type case lets setDrumType() assign the channel itself.
+  if (c.presetChannel !== false) track.setChannel([String(c.channel)]);
   if (c.patterns) {
     c.patterns.forEach((p, i) => track.definePattern(`TEST${i + 1}`, p));
     track.sequence = c.patterns.map(
@@ -230,15 +237,20 @@ function trackDefaults(t: BaseTrack): Record<string, unknown> {
     spanStart: t.spanStart,
     strum: t.strum,
     strumAdd: t.strumAdd,
-    toneList: t.vtype === 'DRUM' ? t.toneList : null,
+    toneList: t.vtype === 'DRUM' || t.vtype === 'MELODY' || t.vtype === 'SOLO' ? t.toneList : null,
     unify: t.unify,
     voice: t.voice,
     volume: t.volume,
+    stretch: 'stretch' in t ? (t as Melody).stretch : null,
+    followChord: 'followChord' in t ? (t as Melody).followChord : null,
+    followKey: 'followKey' in t ? (t as Melody).followKey : null,
+    rootChord: 'rootChord' in t ? (t as Melody).rootChord : null,
+    drumType: 'drumType' in t ? (t as Melody).drumType : null,
   };
 }
 
 describe('track defaults after clearSequence', () => {
-  for (const vtype of ['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK']) {
+  for (const vtype of ['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK', 'MELODY', 'SOLO']) {
     it(`${vtype} matches the Python defaults`, () => {
       const ctx = makeContext();
       const track = newTrack(ctx, vtype);
@@ -254,9 +266,11 @@ describe('bar() output vs Python fixtures', () => {
     });
   }
 
-  it('covers all six ported track types', () => {
+  it('covers all eight ported track types', () => {
     const types = new Set(Object.values(fixture.bars).map((b) => b.track));
-    expect(types).toEqual(new Set(['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK']));
+    expect(types).toEqual(
+      new Set(['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK', 'MELODY', 'SOLO']),
+    );
   });
 });
 
@@ -447,10 +461,12 @@ describe('track allocation', () => {
     expect(trackAlloc(ctx, 'SCALE', true)).toBeInstanceOf(ScaleTrack);
   });
 
-  it('M2 stubs for unported track types still throw a descriptive error', () => {
+  it('allocates the ported SOLO/MELODY tracks and stubs the rest', () => {
     const ctx = makeContext();
-    expect(() => trackAlloc(ctx, 'SOLO', true)).toThrow(/M2.*SOLO/);
+    expect(trackAlloc(ctx, 'SOLO', true)).toBeDefined();
+    expect(trackAlloc(ctx, 'MELODY', true)).toBeDefined();
     expect(() => trackAlloc(ctx, 'PLECTRUM', true)).toThrow(/M2/);
+    expect(() => trackAlloc(ctx, 'ARIA', true)).toThrow(/M2/);
   });
 
   it('ChShare copies the channel and voice from the shared track', () => {

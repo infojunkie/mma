@@ -5,10 +5,10 @@
  * may be just a type (BASS) or type-name (BASS-FOO); the class is chosen
  * by the part before the first '-'.
  *
- * M1 ported BASS, CHORD and DRUM; M2 adds ARPEGGIO, SCALE and WALK.  The
- * remaining base names are registered with stub classes that raise a
- * descriptive M2 error, so a future milestone (or plugin) can replace
- * them via registerTrackClass() without touching this table.
+ * M1 ported BASS, CHORD and DRUM; M2 adds ARPEGGIO, SCALE, WALK, MELODY
+ * and SOLO.  The remaining base names are registered with stub classes
+ * that raise a descriptive M2 error, so a future milestone (or plugin)
+ * can replace them via registerTrackClass() without touching this table.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,9 @@ import { ArpeggioTrack } from './ArpeggioTrack';
 import { BassTrack } from './BassTrack';
 import { ChordTrack } from './ChordTrack';
 import { DrumTrack } from './DrumTrack';
+import { Melody } from './MelodyTrack';
 import { ScaleTrack } from './ScaleTrack';
+import { Solo } from './SoloTrack';
 import { WalkTrack } from './WalkTrack';
 
 export type TrackCtor = new (ctx: MMAContext, name: string) => BaseTrack;
@@ -49,8 +51,8 @@ export const trackClasses: Record<string, TrackCtor> = {
   ARPEGGIO: ArpeggioTrack,
   SCALE: ScaleTrack,
   WALK: WalkTrack,
-  MELODY: unportedTrack('MELODY', 'patSolo.py'),
-  SOLO: unportedTrack('SOLO', 'patSolo.py'),
+  MELODY: Melody,
+  SOLO: Solo,
   ARIA: unportedTrack('ARIA', 'patAria.py'),
   PLECTRUM: unportedTrack('PLECTRUM', 'patPlectrum.py'),
 };

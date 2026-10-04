@@ -63,6 +63,12 @@
       "seqRndWeight": [
         1
       ],
+      "toneList": null,
+      "stretch": null,
+      "followChord": null,
+      "followKey": null,
+      "rootChord": null,
+      "drumType": null,
       "sequence": [
         null
       ],
@@ -74,7 +80,6 @@
       "strumAdd": [
         0
       ],
-      "toneList": null,
       "unify": [
         0
       ],
@@ -148,6 +153,12 @@
       "seqRndWeight": [
         1
       ],
+      "toneList": null,
+      "stretch": null,
+      "followChord": null,
+      "followKey": null,
+      "rootChord": null,
+      "drumType": null,
       "sequence": [
         null
       ],
@@ -159,7 +170,6 @@
       "strumAdd": [
         0
       ],
-      "toneList": null,
       "unify": [
         0
       ],
@@ -233,6 +243,14 @@
       "seqRndWeight": [
         1
       ],
+      "toneList": [
+        38
+      ],
+      "stretch": null,
+      "followChord": null,
+      "followKey": null,
+      "rootChord": null,
+      "drumType": null,
       "sequence": [
         null
       ],
@@ -243,9 +261,6 @@
       ],
       "strumAdd": [
         0
-      ],
-      "toneList": [
-        38
       ],
       "unify": [
         0
@@ -320,6 +335,12 @@
       "seqRndWeight": [
         1
       ],
+      "toneList": null,
+      "stretch": null,
+      "followChord": null,
+      "followKey": null,
+      "rootChord": null,
+      "drumType": null,
       "sequence": [
         null
       ],
@@ -331,7 +352,6 @@
       "strumAdd": [
         0
       ],
-      "toneList": null,
       "unify": [
         0
       ],
@@ -405,6 +425,12 @@
       "seqRndWeight": [
         1
       ],
+      "toneList": null,
+      "stretch": null,
+      "followChord": null,
+      "followKey": null,
+      "rootChord": null,
+      "drumType": null,
       "sequence": [
         null
       ],
@@ -416,7 +442,6 @@
       "strumAdd": [
         0
       ],
-      "toneList": null,
       "unify": [
         0
       ],
@@ -490,6 +515,12 @@
       "seqRndWeight": [
         1
       ],
+      "toneList": null,
+      "stretch": null,
+      "followChord": null,
+      "followKey": null,
+      "rootChord": null,
+      "drumType": null,
       "sequence": [
         null
       ],
@@ -501,7 +532,190 @@
       "strumAdd": [
         0
       ],
-      "toneList": null,
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
+    },
+    "MELODY": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "toneList": [
+        38
+      ],
+      "stretch": 1,
+      "followChord": 0,
+      "followKey": 1,
+      "rootChord": 0,
+      "drumType": null,
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
+    },
+    "SOLO": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "toneList": [
+        38
+      ],
+      "stretch": 1,
+      "followChord": 0,
+      "followKey": 1,
+      "rootChord": 0,
+      "drumType": null,
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
       "unify": [
         0
       ],
@@ -521,6 +735,7 @@
         "C"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -552,6 +767,7 @@
         "Cmaj7"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -586,6 +802,7 @@
         "F"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -653,6 +870,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -681,6 +899,7 @@
         "F"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -732,6 +951,7 @@
         "C"
       ],
       "channel": 10,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -759,6 +979,7 @@
         "C"
       ],
       "channel": 10,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -810,6 +1031,7 @@
         "C7"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setStrum",
@@ -861,6 +1083,7 @@
         "C"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setDupRoot",
@@ -903,6 +1126,7 @@
         "Cmaj7"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setChordLimit",
@@ -945,6 +1169,7 @@
         "Cmaj7"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setVoicing",
@@ -987,6 +1212,7 @@
         "Cmaj7"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setVoicing",
@@ -1029,6 +1255,7 @@
         "C"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setAccent",
@@ -1082,6 +1309,7 @@
         "C"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setArtic",
@@ -1138,6 +1366,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -1185,6 +1414,7 @@
         ]
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -1230,6 +1460,7 @@
         ]
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -1271,6 +1502,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setRSkip",
@@ -1308,6 +1540,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setRVolume",
@@ -1344,6 +1577,7 @@
         "C7"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setStrum",
@@ -1395,6 +1629,7 @@
         "C"
       ],
       "channel": 10,
+      "presetChannel": true,
       "setup": [
         [
           "setArtic",
@@ -1439,6 +1674,7 @@
         "C"
       ],
       "channel": 10,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": [
@@ -1488,6 +1724,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setCresc",
@@ -1553,6 +1790,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [],
       "seed": 4,
       "swing": null,
@@ -1610,6 +1848,7 @@
         "C7"
       ],
       "channel": 3,
+      "presetChannel": true,
       "setup": [
         [
           "setStrum",
@@ -1669,6 +1908,7 @@
         "C"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -1696,6 +1936,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -1748,6 +1989,7 @@
         "F"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -1799,6 +2041,7 @@
         "C"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -1859,6 +2102,7 @@
         "C7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -1919,6 +2163,7 @@
         "C"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -1979,6 +2224,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setRange",
@@ -2023,6 +2269,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setRange",
@@ -2067,6 +2314,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setInvert",
@@ -2111,6 +2359,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setCompress",
@@ -2155,6 +2404,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setChordLimit",
@@ -2201,6 +2451,7 @@
         "C"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setOctave",
@@ -2253,6 +2504,7 @@
         "C"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setArtic",
@@ -2308,6 +2560,7 @@
         "C"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setRSkip",
@@ -2346,6 +2599,7 @@
         "F"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -2422,6 +2676,7 @@
         ]
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -2455,6 +2710,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -2482,6 +2738,7 @@
         "Cmaj7"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -2533,6 +2790,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setScaletype",
@@ -2593,6 +2851,7 @@
         "Cmaj7"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setScaletype",
@@ -2645,6 +2904,7 @@
         "Cm7"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setScaletype",
@@ -2697,6 +2957,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -2757,6 +3018,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -2817,6 +3079,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -2909,6 +3172,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -2969,6 +3233,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setRange",
@@ -3029,6 +3294,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setRange",
@@ -3082,6 +3348,7 @@
         "F"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -3165,6 +3432,7 @@
         "C/G"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -3200,6 +3468,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setOctave",
@@ -3252,6 +3521,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setArtic",
@@ -3315,6 +3585,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setRSkip",
@@ -3369,6 +3640,7 @@
         "F"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -3477,6 +3749,7 @@
         ]
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [],
       "seed": null,
       "swing": null,
@@ -3527,6 +3800,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setScaletype",
@@ -3588,6 +3862,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [],
       "seed": 11,
       "swing": null,
@@ -3615,6 +3890,7 @@
         "Cmaj7"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [],
       "seed": 12,
       "swing": null,
@@ -3666,6 +3942,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -3726,6 +4003,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -3786,6 +4064,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setDirection",
@@ -3847,6 +4126,7 @@
         "F"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [],
       "seed": 16,
       "swing": null,
@@ -3898,6 +4178,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setOctave",
@@ -3950,6 +4231,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setArtic",
@@ -4005,6 +4287,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setRSkip",
@@ -4043,6 +4326,7 @@
         "F"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "restart",
@@ -4111,6 +4395,7 @@
         ]
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [],
       "seed": 21,
       "swing": null,
@@ -4144,6 +4429,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4182,6 +4468,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4230,6 +4517,7 @@
         "Cmaj7"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4270,6 +4558,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4322,6 +4611,7 @@
         "Cmaj7"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4362,6 +4652,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4414,6 +4705,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4452,6 +4744,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4500,6 +4793,7 @@
         "Cmaj7"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4538,6 +4832,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4576,6 +4871,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4614,6 +4910,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4652,6 +4949,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4690,6 +4988,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4728,6 +5027,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4766,6 +5066,7 @@
         "Cmaj7"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4814,6 +5115,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmonyOnly",
@@ -4852,6 +5154,7 @@
         "C"
       ],
       "channel": 4,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4912,6 +5215,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -4960,6 +5264,7 @@
         "Cmaj7"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5012,6 +5317,7 @@
         "C"
       ],
       "channel": 7,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5060,6 +5366,7 @@
         "C"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5128,6 +5435,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5176,6 +5484,7 @@
         "C"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5224,6 +5533,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5294,6 +5604,7 @@
         "Cmaj7"
       ],
       "channel": 5,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmonyOnly",
@@ -5350,6 +5661,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5426,6 +5738,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5474,6 +5787,7 @@
         "Cmaj7"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5522,6 +5836,7 @@
         "Cmaj7"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmony",
@@ -5592,6 +5907,7 @@
         "C"
       ],
       "channel": 6,
+      "presetChannel": true,
       "setup": [
         [
           "setHarmonyOnly",
@@ -5642,6 +5958,971 @@
         [
           556,
           "953c00"
+        ]
+      ]
+    },
+    "melody_basic": {
+      "track": "MELODY",
+      "pattern": "4c; 4d; 4e; 4f;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          172,
+          "943000"
+        ],
+        [
+          192,
+          "94325a"
+        ],
+        [
+          364,
+          "943200"
+        ],
+        [
+          384,
+          "94345a"
+        ],
+        [
+          556,
+          "943400"
+        ],
+        [
+          576,
+          "94355a"
+        ],
+        [
+          748,
+          "943500"
+        ]
+      ]
+    },
+    "melody_rests_dots": {
+      "track": "MELODY",
+      "pattern": "4.c; 8r; 8; 4e;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          259,
+          "943000"
+        ],
+        [
+          480,
+          "94345a"
+        ],
+        [
+          652,
+          "943400"
+        ]
+      ]
+    },
+    "melody_accidentals": {
+      "track": "MELODY",
+      "pattern": "4c+; 4e-; 4g+; 4c;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "943c5a"
+        ],
+        [
+          172,
+          "943c00"
+        ],
+        [
+          192,
+          "94285a"
+        ],
+        [
+          364,
+          "942800"
+        ],
+        [
+          384,
+          "94435a"
+        ],
+        [
+          556,
+          "944300"
+        ],
+        [
+          576,
+          "94305a"
+        ],
+        [
+          748,
+          "943000"
+        ]
+      ]
+    },
+    "melody_note_names": {
+      "track": "MELODY",
+      "pattern": "8c; 8e; 8g; 8b; 8a; 8f; 8d; 8c;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          86,
+          "943000"
+        ],
+        [
+          96,
+          "94345a"
+        ],
+        [
+          182,
+          "943400"
+        ],
+        [
+          192,
+          "94375a"
+        ],
+        [
+          278,
+          "943700"
+        ],
+        [
+          288,
+          "943b5a"
+        ],
+        [
+          374,
+          "943b00"
+        ],
+        [
+          384,
+          "94395a"
+        ],
+        [
+          470,
+          "943900"
+        ],
+        [
+          480,
+          "94355a"
+        ],
+        [
+          566,
+          "943500"
+        ],
+        [
+          576,
+          "94325a"
+        ],
+        [
+          662,
+          "943200"
+        ],
+        [
+          672,
+          "94305a"
+        ],
+        [
+          758,
+          "943000"
+        ]
+      ]
+    },
+    "melody_chord_notes": {
+      "track": "MELODY",
+      "pattern": "2c,e,g; 2d,f,a;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a",
+          "94345a",
+          "94375a"
+        ],
+        [
+          345,
+          "943000",
+          "943400",
+          "943700"
+        ],
+        [
+          384,
+          "94325a",
+          "94355a",
+          "94395a"
+        ],
+        [
+          729,
+          "943200",
+          "943500",
+          "943900"
+        ]
+      ]
+    },
+    "melody_options": {
+      "track": "MELODY",
+      "pattern": "4c <VOLUME=FF>; 4d <ARTICULATE=50>; 4e <OFFSET=2>; 4f <GRACE=2>; 4g <mp>;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94307f"
+        ],
+        [
+          2,
+          "94347f"
+        ],
+        [
+          88,
+          "943400"
+        ],
+        [
+          98,
+          "94357f"
+        ],
+        [
+          172,
+          "943000"
+        ],
+        [
+          184,
+          "943500"
+        ],
+        [
+          192,
+          "94327f"
+        ],
+        [
+          194,
+          "94373e"
+        ],
+        [
+          278,
+          "943200"
+        ],
+        [
+          280,
+          "943700"
+        ]
+      ]
+    },
+    "melody_tilde": {
+      "track": "MELODY",
+      "pattern": "1+2.f~;",
+      "chords": [
+        "C",
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94355a"
+        ],
+        [
+          768,
+          "943500",
+          "94355a"
+        ],
+        [
+          1209
+        ],
+        [
+          1977,
+          "943500"
+        ]
+      ]
+    },
+    "melody_stretch": {
+      "track": "MELODY",
+      "pattern": "4c; 4d; 4e;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setStretch",
+          [
+            [
+              "150"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          259,
+          "943000"
+        ],
+        [
+          288,
+          "94325a"
+        ],
+        [
+          547,
+          "943200"
+        ],
+        [
+          576,
+          "94345a"
+        ],
+        [
+          835,
+          "943400"
+        ]
+      ]
+    },
+    "melody_follow_chord": {
+      "track": "MELODY",
+      "pattern": "4c; 4e; 4g; 4c;",
+      "chords": [
+        "C",
+        "F",
+        "G"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setVoicing",
+          [
+            [
+              "FOLLOWCHORD=ON",
+              "FOLLOWKEY=OFF",
+              "ROOT=C"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          172,
+          "943000"
+        ],
+        [
+          192,
+          "94345a"
+        ],
+        [
+          364,
+          "943400"
+        ],
+        [
+          384,
+          "94375a"
+        ],
+        [
+          556,
+          "943700"
+        ],
+        [
+          576,
+          "94305a"
+        ],
+        [
+          748,
+          "943000"
+        ],
+        [
+          768,
+          "94355a"
+        ],
+        [
+          940,
+          "943500"
+        ],
+        [
+          960,
+          "94395a"
+        ],
+        [
+          1132,
+          "943900"
+        ],
+        [
+          1152,
+          "943c5a"
+        ],
+        [
+          1324,
+          "943c00"
+        ],
+        [
+          1344,
+          "94355a"
+        ],
+        [
+          1516,
+          "943500"
+        ],
+        [
+          1536,
+          "942b5a"
+        ],
+        [
+          1708,
+          "942b00"
+        ],
+        [
+          1728,
+          "942f5a"
+        ],
+        [
+          1900,
+          "942f00"
+        ],
+        [
+          1920,
+          "94325a"
+        ],
+        [
+          2092,
+          "943200"
+        ],
+        [
+          2112,
+          "942b5a"
+        ],
+        [
+          2284,
+          "942b00"
+        ]
+      ]
+    },
+    "melody_follow_key": {
+      "track": "MELODY",
+      "pattern": "4c; 4e;",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setVoicing",
+          [
+            [
+              "FOLLOWCHORD=OFF",
+              "FOLLOWKEY=ON"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          172,
+          "943000"
+        ],
+        [
+          192,
+          "94345a"
+        ],
+        [
+          364,
+          "943400"
+        ],
+        [
+          768,
+          "94305a"
+        ],
+        [
+          940,
+          "943000"
+        ],
+        [
+          960,
+          "94345a"
+        ],
+        [
+          1132,
+          "943400"
+        ]
+      ]
+    },
+    "melody_harmony": {
+      "track": "MELODY",
+      "pattern": "4c; 4d;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "OPENABOVE"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a",
+          "943448"
+        ],
+        [
+          172,
+          "943000",
+          "943400"
+        ],
+        [
+          192,
+          "94325a",
+          "943448"
+        ],
+        [
+          364,
+          "943200",
+          "943400"
+        ]
+      ]
+    },
+    "melody_harmony_only": {
+      "track": "MELODY",
+      "pattern": "4c; 4d;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setHarmonyOnly",
+          [
+            [
+              "3ABOVE"
+            ]
+          ]
+        ],
+        [
+          "setHarmonyVolume",
+          [
+            [
+              "50"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03064d656c6f6479",
+          "b42000",
+          "b40000",
+          "c400",
+          "94342d",
+          "94372d"
+        ],
+        [
+          172,
+          "943400",
+          "943700"
+        ],
+        [
+          192,
+          "94342d",
+          "94372d"
+        ],
+        [
+          364,
+          "943400",
+          "943700"
+        ]
+      ]
+    },
+    "melody_drum_type": {
+      "track": "MELODY",
+      "pattern": "4 SnareDrum1; ; r ; OpenTriangle;",
+      "chords": [
+        "C"
+      ],
+      "channel": 10,
+      "presetChannel": false,
+      "setup": [
+        [
+          "setDrumType",
+          []
+        ],
+        [
+          "setTone",
+          [
+            [
+              "SnareDrum1"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "b92000",
+          "b90000",
+          "c900",
+          "99265a"
+        ],
+        [
+          172,
+          "992600"
+        ],
+        [
+          192,
+          "99265a"
+        ],
+        [
+          364,
+          "992600"
+        ],
+        [
+          576,
+          "99515a"
+        ],
+        [
+          748,
+          "995100"
+        ]
+      ]
+    },
+    "solo_basic": {
+      "track": "SOLO",
+      "pattern": "4c; 4d; 4e;",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0304536f6c6f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          172,
+          "943000"
+        ],
+        [
+          192,
+          "94325a"
+        ],
+        [
+          364,
+          "943200"
+        ],
+        [
+          384,
+          "94345a"
+        ],
+        [
+          556,
+          "943400"
+        ]
+      ]
+    },
+    "solo_multi_bar": {
+      "track": "SOLO",
+      "pattern": "8c; 8d; 8e; 8f; 8g; 8a; 8b; 8c;",
+      "chords": [
+        "C",
+        "G"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0304536f6c6f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          86,
+          "943000"
+        ],
+        [
+          96,
+          "94325a"
+        ],
+        [
+          182,
+          "943200"
+        ],
+        [
+          192,
+          "94345a"
+        ],
+        [
+          278,
+          "943400"
+        ],
+        [
+          288,
+          "94355a"
+        ],
+        [
+          374,
+          "943500"
+        ],
+        [
+          384,
+          "94375a"
+        ],
+        [
+          470,
+          "943700"
+        ],
+        [
+          480,
+          "94395a"
+        ],
+        [
+          566,
+          "943900"
+        ],
+        [
+          576,
+          "943b5a"
+        ],
+        [
+          662,
+          "943b00"
+        ],
+        [
+          672,
+          "94305a"
+        ],
+        [
+          758,
+          "943000"
+        ],
+        [
+          768,
+          "94305a"
+        ],
+        [
+          854,
+          "943000"
+        ],
+        [
+          864,
+          "94325a"
+        ],
+        [
+          950,
+          "943200"
+        ],
+        [
+          960,
+          "94345a"
+        ],
+        [
+          1046,
+          "943400"
+        ],
+        [
+          1056,
+          "94355a"
+        ],
+        [
+          1142,
+          "943500"
+        ],
+        [
+          1152,
+          "94375a"
+        ],
+        [
+          1238,
+          "943700"
+        ],
+        [
+          1248,
+          "94395a"
+        ],
+        [
+          1334,
+          "943900"
+        ],
+        [
+          1344,
+          "943b5a"
+        ],
+        [
+          1430,
+          "943b00"
+        ],
+        [
+          1440,
+          "94305a"
+        ],
+        [
+          1526,
+          "943000"
         ]
       ]
     }

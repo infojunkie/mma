@@ -191,6 +191,9 @@ export class MMAContext {
   /** Expand/contract a list to the current sequence size. */
   seqBump<T>(l: T[]): T[] {
     const out = [...l];
+    // Python's seqBump() would loop forever on an empty list; guard it so
+    // an uninitialised list is a no-op instead of hanging the engine.
+    if (out.length === 0) return out;
     while (out.length < this.seqSize) out.push(...out);
     return out.slice(0, this.seqSize);
   }

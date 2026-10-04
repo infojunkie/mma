@@ -73,16 +73,25 @@ async function trackCopyDo(ctx: MMAContext, name: string, ln: string[]): Promise
   }
 
   // Save the source into the shared scratch slot and restore it into the
-  // target (grooves.py: COPYGROOVE indirection).
-  if (source.vtype === 'SOLO') {
-    ctx.error(`Copy ${name}: Solo tracks cannot be copied in this TypeScript port yet (M3).`);
+  // target (grooves.py: COPYGROOVE indirection).  Solo tracks use the
+  // force methods since they normally do not save groove info.
+  const forcedSave = source as unknown as { forceSaveGroove?: (g: string) => void };
+  const forcedRestore = self as unknown as { forceRestoreGroove?: (g: string) => void };
+  if (source.vtype === 'SOLO' && gr) {
+    ctx.error(`Copy ${name}: Solo tracks cannot be copied from a groove, only from memory.`);
   }
-  source.saveGroove(COPY_GROOVE);
+  if (typeof forcedSave.forceSaveGroove === 'function') forcedSave.forceSaveGroove(COPY_GROOVE);
+  else source.saveGroove(COPY_GROOVE);
+
   const data = source.grooves.get(COPY_GROOVE);
   if (data) self.grooves.set(COPY_GROOVE, data);
   else ctx.error(`Copy ${name}: nothing to copy from '${cp}'.`);
 
   if (gr) ctx.grooves.pop(ctx);
 
-  self.restoreGroove(COPY_GROOVE);
+  if (typeof forcedRestore.forceRestoreGroove === 'function') {
+    forcedRestore.forceRestoreGroove(COPY_GROOVE);
+  } else {
+    self.restoreGroove(COPY_GROOVE);
+  }
 }

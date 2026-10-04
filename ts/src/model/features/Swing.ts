@@ -112,6 +112,78 @@ function getBeats(ctx: MMAContext, sw: SwingState): [number, number, number, num
   return [len8, len81!, len82!, onBeats, offBeats];
 }
 
+/** Note fields touched by swingSolo() (satisfied by patSolo's NoteEvent). */
+export interface SwingSoloNote {
+  duration: number | null;
+  velocity: number;
+  defvelocity: number;
+}
+
+/**
+ * Port of swing.swingSolo(): adjust an entire bar of solo note chords for
+ * swing mode.  Successive 8ths on/off the beat become a long/short pair;
+ * anything else is left alone.
+ *
+ * The Python code recomputes a sorted key list once and keeps using stale
+ * keys after moving offsets around; this port does the same.
+ */
+export function swingSolo<T extends SwingSoloNote>(
+  ctx: MMAContext,
+  sw: SwingState,
+  notes: Map<number, T[]>,
+): Map<number, T[]> {
+  const [len8, len81, len82, onBeats] = getBeats(ctx, sw);
+
+  const nl = [...notes.keys()].sort((a, b) => a - b);
+
+  for (let i = 0; i < nl.length - 1; i++) {
+    const beat0 = nl[i]!;
+    const beat1 = nl[i + 1]!;
+
+    // Successive note event offsets on 8th note positions.
+    if (!onBeats.includes(beat0) || beat1 !== beat0 + len8) continue;
+
+    const evs0 = notes.get(beat0);
+    const evs1 = notes.get(beat1);
+    // Python would raise KeyError for a moved/deleted key; keys are always
+    // present for the well-formed bars this runs on.
+    if (!evs0 || !evs1) continue;
+
+    // All notes must be 8ths (Python compares to set([len8])).
+    if (![...evs0, ...evs1].every((nev) => nev.duration === len8)) continue;
+
+    // Lengthen notes on-the-beat.
+    for (const nev of evs0) {
+      nev.duration = len81;
+      nev.velocity *= sw.accent1;
+      nev.defvelocity *= sw.accent1;
+    }
+
+    // If there is a delay for the first note, push the whole array.
+    if (sw.delay1) {
+      notes.set(beat0 + sw.delay1, evs0);
+      notes.delete(beat0);
+    }
+
+    // Shorten notes off-the-beat.
+    for (const nev of evs1) {
+      nev.duration = len82;
+      nev.velocity *= sw.accent2;
+      nev.defvelocity *= sw.accent2;
+    }
+
+    // Move notes off-the-beat to the proper offset.
+    const src = beat1;
+    const dest = beat0 + len81 + sw.delay2;
+    if (src !== dest) {
+      notes.set(dest, evs1);
+      notes.delete(src);
+    }
+  }
+
+  return notes;
+}
+
 /** Port of swing.pattern(): adjust a pattern list for swing timing. */
 export function swingPattern(ctx: MMAContext, sw: SwingState, plist: PatternEvent[], vtype: string): PatternEvent[] {
   const [len8, len81, len82, onBeats, offBeats] = getBeats(ctx, sw);

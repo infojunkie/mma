@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
     "grooves": "node scripts/build-grooves.mjs",
     "demo": "npm run build && npm run grooves && node scripts/serve.mjs",
     "test": "vitest run",

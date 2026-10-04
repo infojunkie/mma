@@ -95,6 +95,16 @@ export interface TrackApi {
   setSpan(start: number, end: number): void;
   setChannel(ln: string[]): void;
   formatPattern(pattern: unknown): string;
+  /** MELODY/SOLO only (patSolo.setDrumType). */
+  setDrumType(): void;
+  /** MELODY/SOLO only (patSolo.setStretch). */
+  setStretch(ln: string[]): void;
+  /** MELODY/SOLO only (patSolo.setArp). */
+  setArp(ln: string[]): void;
+  /** Define and set a riff (MELODY/SOLO keep it as a plain string). */
+  setRiff(ln: string | string[]): void;
+  /** Duplicate riffs from/to another track (MELODY/SOLO). */
+  dupRiff(ln: string[]): void;
 }
 
 /** Typed accessor for an allocated track. */

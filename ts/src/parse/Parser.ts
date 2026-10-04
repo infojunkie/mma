@@ -30,6 +30,7 @@ import { getTrack } from './TrackApi';
 import { trackAlloc } from './TrackAlloc';
 import '../model/tracks/index'; // side effect: register track classes
 import { trackHooks } from '../model/tracks/hooks';
+import { extractSolo } from '../model/tracks/SoloTrack';
 import { DebugState } from '../directives/simple/Debug';
 import { initialiseSwing, swingSettingsString } from '../directives/simple/Swing';
 import { setTime } from '../directives/simple/Tempo';
@@ -298,14 +299,16 @@ export class Parser {
         ctx.error(`Data plugin '${p}' is not implemented in this milestone (M4).`);
       }
 
+      // Extract solo(s) from the line: anything in {}s.  The solo data is
+      // pushed into RIFFs and discarded from the current line.
       const joined = l.join(' ');
-      if (/[{}]/.test(joined)) {
-        ctx.error('Solo data ({...}) is not implemented in this milestone (M2); use a chord with dot notation.');
-      }
-      if (/\[/.test(joined)) {
+      const noSolo = extractSolo(ctx, joined, rptcount);
+
+      // Set lyrics from [stuff] in the current line.
+      if (/\[/.test(noSolo)) {
         ctx.error('Lyrics ([...]) are not implemented in this milestone (M3).');
       }
-      l = joined.split(/\s+/).filter((w) => w !== '');
+      l = noSolo.split(/\s+/).filter((w) => w !== '');
 
       if (!l.length) {
         ctx.error(

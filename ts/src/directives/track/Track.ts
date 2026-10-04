@@ -182,6 +182,67 @@ export function trackChords(_ctx: MMAContext, track: TrackApi, ln: string[]): vo
   track.setChords(ln);
 }
 
+/** Port of parse.trackDrumType: MELODY/SOLO tracks only. */
+export function trackDrumType(ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  if (track.vtype !== 'SOLO' && track.vtype !== 'MELODY') {
+    ctx.error(`Only Solo and Melody tracks can be to DrumType, not '${track.name}'`);
+  }
+  if (ln.length) ctx.error('No parmeters permitted for DrumType command');
+
+  track.setDrumType();
+}
+
+/**
+ * Port of parse.trackStretch (track STRETCH).  Python catches the
+ * AttributeError raised when the track has no setStretch() method.
+ */
+export function trackStretch(ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  if (!ln.length) ctx.error(`Use: ${track.name} Stretch N`);
+
+  const g = track as unknown as { setStretch?: (l: string[]) => void };
+  if (typeof g.setStretch !== 'function') {
+    ctx.warning(
+      `Stretch: not permitted in ${track.vtype} tracks. Arg '${ln.join(' ')}' ignored.`,
+    );
+    return;
+  }
+  g.setStretch(ln);
+}
+
+/**
+ * Port of parse.trackArpeggiate: set up the solo/melody arpeggiator.
+ * Python catches the AttributeError for tracks without setArp().
+ */
+export function trackArpeggiate(ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  if (!ln.length) ctx.error(`Use: ${track.name} Arpeggiate N`);
+
+  const g = track as unknown as { setArp?: (l: string[]) => void };
+  if (typeof g.setArp !== 'function') {
+    ctx.warning(`Arpeggiate: not permitted in ${track.vtype} tracks. Arg '${ln.join(' ')}' ignored.`);
+    return;
+  }
+  g.setArp(ln);
+}
+
+/** Port of sequence.trackRestart. */
+export function trackRestart(ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  if (ln.length) ctx.error(`Use: '${track.name} Resart' with no args`);
+
+  track.restart();
+}
+
+/** Port of parse.trackRiff. */
+export function trackRiff(_ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  track.setRiff(ln.join(' '));
+}
+
+/** Port of parse.trackDupRiff. */
+export function trackDupRiff(ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  if (!ln.length) ctx.error(`${track.name} DupRiff: need at least one track to copy to.`);
+
+  track.dupRiff(ln);
+}
+
 /** Port of parse.trackSpan (track NOTESPAN / Span). */
 export function trackSpan(ctx: MMAContext, track: TrackApi, ln: string[]): void {
   if (ln.length !== 2) ctx.error(`Use: ${track.name} Start End`);

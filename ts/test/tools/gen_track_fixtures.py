@@ -41,6 +41,7 @@ from MMA.patArpeggio import Arpeggio  # noqa: E402
 from MMA.patScale import Scale  # noqa: E402
 from MMA.patWalk import Walk  # noqa: E402
 from MMA.patPlectrum import Plectrum  # noqa: E402
+from MMA.patSolo import Melody, Solo  # noqa: E402
 
 TRACKS = {
     "CHORD": Chord,
@@ -49,6 +50,8 @@ TRACKS = {
     "ARPEGGIO": Arpeggio,
     "SCALE": Scale,
     "WALK": Walk,
+    "MELODY": Melody,
+    "SOLO": Solo,
 }
 
 # PLECTRUM is only needed for the harmony-setter warning cases; it must not
@@ -139,6 +142,12 @@ DEFAULT_KEYS = [
     ("rVolume", lambda t: t.rVolume),
     ("seqRnd", lambda t: t.seqRnd),
     ("seqRndWeight", lambda t: t.seqRndWeight),
+    ("toneList", lambda t: getattr(t, "toneList", None)),
+    ("stretch", lambda t: getattr(t, "stretch", None)),
+    ("followChord", lambda t: getattr(t, "followChord", None)),
+    ("followKey", lambda t: getattr(t, "followKey", None)),
+    ("rootChord", lambda t: getattr(t, "rootChord", None)),
+    ("drumType", lambda t: getattr(t, "drumType", None)),
     ("sequence", lambda t: t.sequence),
     ("spanEnd", lambda t: t.spanEnd),
     ("spanStart", lambda t: t.spanStart),
@@ -167,7 +176,8 @@ def run_bar_case(vtype, pattern, channel, chord_names, setup=(), seed=None, swin
     if swing:
         MMA.swing.swingMode(swing)
     t = TRACKS[vtype](vtype)
-    t.setChannel(str(channel))
+    if channel is not None:
+        t.setChannel(str(channel))
 
     if patterns:
         for i, p in enumerate(patterns):
@@ -199,6 +209,7 @@ def run_bar_case(vtype, pattern, channel, chord_names, setup=(), seed=None, swin
         "pattern": pattern,
         "chords": chord_names,
         "channel": t.channel,
+        "presetChannel": channel is not None,
         "setup": [[m, list(a)] for m, a in setup],
         "seed": seed,
         "swing": swing,
@@ -218,7 +229,8 @@ def run_multi_chord_case(vtype, pattern, channel, bars, setup=(), seed=None):
     if seed is not None:
         random.seed(seed)
     t = TRACKS[vtype](vtype)
-    t.setChannel(str(channel))
+    if channel is not None:
+        t.setChannel(str(channel))
     t.definePattern("TEST", pattern)
     t.sequence = [pat.pats[(vtype, "TEST")]]
 
@@ -241,6 +253,7 @@ def run_multi_chord_case(vtype, pattern, channel, bars, setup=(), seed=None):
         "chords": [],
         "chordTabs": [[list(c) for c in bar] for bar in bars],
         "channel": t.channel,
+        "presetChannel": channel is not None,
         "setup": [[m, list(a)] for m, a in setup],
         "seed": seed,
         "swing": None,
@@ -637,6 +650,58 @@ def generate():
     out["bars"]["scale_harmony_only_volume"] = run_bar_case(
         "SCALE", "1 4 90; 2 4 80; 3 4 80", 6, ["C"],
         setup=[("setHarmonyOnly", (["RootAbove"],)), ("setHarmonyVolume", (["50"],))],
+    )
+
+    # ------------------------------------------------------ MELODY / SOLO
+    out["bars"]["melody_basic"] = run_bar_case("MELODY", "4c; 4d; 4e; 4f;", 5, ["C"])
+    out["bars"]["melody_rests_dots"] = run_bar_case("MELODY", "4.c; 8r; 8; 4e;", 5, ["C"])
+    out["bars"]["melody_accidentals"] = run_bar_case("MELODY", "4c+; 4e-; 4g+; 4c;", 5, ["C"])
+    out["bars"]["melody_note_names"] = run_bar_case("MELODY", "8c; 8e; 8g; 8b; 8a; 8f; 8d; 8c;", 5, ["C"])
+    out["bars"]["melody_chord_notes"] = run_bar_case("MELODY", "2c,e,g; 2d,f,a;", 5, ["C"])
+    out["bars"]["melody_options"] = run_bar_case(
+        "MELODY",
+        "4c <VOLUME=FF>; 4d <ARTICULATE=50>; 4e <OFFSET=2>; 4f <GRACE=2>; 4g <mp>;",
+        5,
+        ["C"],
+    )
+    out["bars"]["melody_tilde"] = run_bar_case("MELODY", "1+2.f~;", 5, ["C", "C"])
+    out["bars"]["melody_stretch"] = run_bar_case(
+        "MELODY", "4c; 4d; 4e;", 5, ["C"], setup=[("setStretch", (["150"],))]
+    )
+    out["bars"]["melody_follow_chord"] = run_bar_case(
+        "MELODY",
+        "4c; 4e; 4g; 4c;",
+        5,
+        ["C", "F", "G"],
+        setup=[("setVoicing", (["FOLLOWCHORD=ON", "FOLLOWKEY=OFF", "ROOT=C"],))],
+    )
+    out["bars"]["melody_follow_key"] = run_bar_case(
+        "MELODY",
+        "4c; 4e;",
+        5,
+        ["C", "F"],
+        setup=[("setVoicing", (["FOLLOWCHORD=OFF", "FOLLOWKEY=ON"],))],
+    )
+    out["bars"]["melody_harmony"] = run_bar_case(
+        "MELODY", "4c; 4d;", 5, ["C"], setup=[("setHarmony", (["OPENABOVE"],))]
+    )
+    out["bars"]["melody_harmony_only"] = run_bar_case(
+        "MELODY",
+        "4c; 4d;",
+        5,
+        ["C"],
+        setup=[("setHarmonyOnly", (["3ABOVE"],)), ("setHarmonyVolume", (["50"],))],
+    )
+    out["bars"]["melody_drum_type"] = run_bar_case(
+        "MELODY",
+        "4 SnareDrum1; ; r ; OpenTriangle;",
+        None,
+        ["C"],
+        setup=[("setDrumType", ()), ("setTone", (["SnareDrum1"],))],
+    )
+    out["bars"]["solo_basic"] = run_bar_case("SOLO", "4c; 4d; 4e;", 5, ["C"])
+    out["bars"]["solo_multi_bar"] = run_bar_case(
+        "SOLO", "8c; 8d; 8e; 8f; 8g; 8a; 8b; 8c;", 5, ["C", "G"]
     )
 
     # Harmony setters (state + warnings).  CHORD/DRUM ignore the setting

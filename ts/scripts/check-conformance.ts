@@ -16,6 +16,7 @@ import { BasicMIDI } from 'spessasynth_core';
 import { MMA } from '../src/api/MMA';
 import { MemoryResources } from '../src/io/MMAResources';
 import { loadM1Resources, loadLibraryResources } from '../test/helpers/resources';
+import { decodeMMAText } from '../src/io/decodeText';
 import { diffEvents, normalizeBasicMIDI } from '../test/helpers/midiNormalize';
 import { CORPUS } from '../test/fixtures/corpus';
 
@@ -28,15 +29,8 @@ async function main(): Promise<void> {
   const entries = CORPUS.filter((e) => names.length === 0 || names.includes(e.name));
 
   for (const entry of entries) {
-    let resources: MemoryResources;
-    let sourceRaw: string;
-    if (entry.file.startsWith('ts/test/fixtures/m1/')) {
-      resources = loadM1Resources();
-      sourceRaw = readFileSync(resolve(mmaRepo, entry.file.replace('ts/test/fixtures/m1/', join(tsDir, 'test/fixtures/m1/'))), 'utf-8');
-    } else {
-      resources = loadLibraryResources();
-      sourceRaw = readFileSync(resolve(mmaRepo, entry.file), 'utf-8');
-    }
+    const resources = entry.resources === 'm1' ? loadM1Resources() : loadLibraryResources();
+    const sourceRaw = decodeMMAText(readFileSync(resolve(mmaRepo, entry.file)));
     const golden = JSON.parse(readFileSync(join(tsDir, 'test/fixtures/golden', `${entry.name}.json`), 'utf-8')) as {
       midiEvents: import('../test/helpers/midiNormalize').NormalizedEvent[];
     };

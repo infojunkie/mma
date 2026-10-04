@@ -138,8 +138,10 @@ export class ChordNotes {
     if (!ctype) ctype = 'M';
 
     const def = env.chordList.get(ctype);
-    const adj = env.cdAdjust[tonic];
-    if (!def || adj === undefined) rep.error(`Illegal/Unknown chord name: '${name}'`);
+    const baseAdj = env.cdAdjust[tonic];
+    if (!def || baseAdj === undefined) rep.error(`Illegal/Unknown chord name: '${name}'`);
+    // Python: adj = cdAdjust[tonic] + octave (the +/- prefix shift).
+    const adj = baseAdj + octave;
 
     this.noteList = def.notes.map((x) => x + adj);
     this.bnoteList = [...this.noteList];
