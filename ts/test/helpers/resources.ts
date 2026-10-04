@@ -8,6 +8,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MemoryResources } from '../../src/io/MMAResources';
+import { decodeMMAText } from '../../src/io/decodeText';
 
 const here = (rel: string) => fileURLToPath(new URL(rel, import.meta.url));
 
@@ -17,7 +18,7 @@ export function loadM1Resources(): MemoryResources {
   const res = new MemoryResources();
   for (const name of readdirSync(dir)) {
     if (name.endsWith('.mma')) {
-      res.set(name, readFileSync(join(dir, name), 'utf-8'));
+      res.set(name, decodeMMAText(readFileSync(join(dir, name))));
     }
   }
   return res;
@@ -38,7 +39,7 @@ export function loadLibraryResources(): MemoryResources {
   for (const [prefix, root] of roots) {
     for (const file of walk(root)) {
       const id = [prefix, relative(root, file).split(sep).join('/')].join('/');
-      res.set(id, readFileSync(file, 'utf-8'));
+      res.set(id, decodeMMAText(readFileSync(file)));
     }
   }
   return res;

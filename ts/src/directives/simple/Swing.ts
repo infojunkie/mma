@@ -17,35 +17,33 @@
  */
 
 import type { MMAContext } from '../../engine/Context';
+import { SwingState } from '../../model/features/Swing';
 import { opt2pair, stoi } from '../../util/Common';
 
-export interface SwingSettings {
-  mode: number;
-  skew: string | null;
-  accent1: number;
-  accent2: number;
-  delay1: number;
-  delay2: number;
-  noteValue: number;
-}
+/**
+ * The swing settings live in the track layer's SwingState class so that
+ * both the directive and the pattern-definition code share one type.
+ */
+export type SwingSettings = SwingState;
 
-export function defaultSwingSettings(): SwingSettings {
-  return { mode: 0, skew: null, accent1: 1, accent2: 1, delay1: 0, delay2: 0, noteValue: 8 };
+export function defaultSwingSettings(): SwingState {
+  return new SwingState();
 }
 
 /**
  * Port of the swing.py module init (`swingMode(['Skew=66'])`).  Must be
  * called once per run before parsing; sets noteLenTable['81'/'82'].
  */
-export function initialiseSwing(ctx: MMAContext): SwingSettings {
-  const s = defaultSwingSettings();
+export function initialiseSwing(ctx: MMAContext): SwingState {
+  const s = new SwingState();
   ctx.swingMode = s;
-  swingMode(ctx, ['Skew=66']);
+  swingMode(ctx, ['Skew=66']); // swing.py module tail
   return s;
 }
 
-export function swingSettings(ctx: MMAContext): SwingSettings {
-  return (ctx.swingMode as SwingSettings | null) ?? defaultSwingSettings();
+export function swingSettings(ctx: MMAContext): SwingState {
+  const cur = ctx.swingMode;
+  return cur instanceof SwingState ? cur : defaultSwingSettings();
 }
 
 const EMSG =
@@ -56,7 +54,8 @@ export function swingMode(ctx: MMAContext, input: string[]): void {
   if (!input.length) ctx.error(EMSG);
 
   const cur = swingSettings(ctx);
-  const next: SwingSettings = { ...cur };
+  const next = new SwingState();
+  Object.assign(next, cur);
 
   const [ln, opts] = opt2pair(input, true);
 

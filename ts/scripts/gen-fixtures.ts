@@ -26,24 +26,7 @@ const tsDir = resolve(here, '..');
 const mmaRepo = resolve(tsDir, '..');
 const fixturesDir = join(tsDir, 'test', 'fixtures', 'golden');
 
-export interface CorpusEntry {
-  name: string;
-  /** Path relative to the mma repo root. */
-  file: string;
-  /** Extra CLI args for mma (placed before the song). */
-  args?: string[];
-  /** Lines prepended to the song (e.g. "RndSeed 1"). */
-  prelude?: string;
-  /** Working directory for the Python run, relative to the repo root. */
-  cwd?: string;
-}
-
-export const CORPUS: CorpusEntry[] = [
-  { name: 'marine-hymn', file: 'egs/simple/marine-hymn.mma' },
-  { name: 'bill-bailey', file: 'egs/simple/bill-bailey.mma' },
-  { name: 'm1-basic', file: 'ts/test/fixtures/m1/basic.mma' },
-  { name: 'm1-groove', file: 'ts/test/fixtures/m1/groove-test.mma', cwd: 'ts/test/fixtures/m1' },
-];
+import { CORPUS, type CorpusEntry } from '../test/fixtures/corpus';
 
 export interface GoldenFixture {
   name: string;
@@ -100,8 +83,18 @@ function main(): void {
   const entries = CORPUS.filter((e) => names.length === 0 || names.includes(e.name));
 
   let failures = 0;
+  const skipped: string[] = [];
   for (const entry of entries) {
-    const fixture = generate(entry);
+    let fixture: GoldenFixture;
+    try {
+      fixture = generate(entry);
+    } catch (e) {
+      // e.g. songs with no musical data: the Python CLI refuses to write
+      // a meta-only MIDI ("No data created"), so they cannot be compared.
+      skipped.push(entry.name);
+      console.error(`skipped ${entry.name}: ${(e as Error).message.split('\n')[0]}`);
+      continue;
+    }
     const outPath = join(fixturesDir, `${entry.name}.json`);
     if (mode === 'write') {
       writeFileSync(outPath, JSON.stringify(fixture));
@@ -114,6 +107,7 @@ function main(): void {
       }
     }
   }
+  if (skipped.length) console.error(`\nSkipped: ${skipped.join(', ')}`);
   if (failures > 0) process.exit(1);
 }
 

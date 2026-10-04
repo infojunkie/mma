@@ -1,0 +1,11 @@
+// Conformance fixture: stock groove BASICROCK from the shipped libraries.
+Time 4
+TimeSig 4 4
+Tempo 120
+KeySig C
+RndSeed 1
+Groove BASICROCK
+C
+Am
+F
+G7

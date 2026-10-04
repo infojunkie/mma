@@ -14,7 +14,9 @@
 
 import type { MMAContext } from '../engine/Context';
 import type { MacroExpander } from './MacroExpander';
-import type { TrackApi } from './TrackApi';
+import { getTrack, type TrackApi } from './TrackApi';
+import type { BaseTrack } from '../model/tracks/BaseTrack';
+import { trackCopy } from '../directives/track/Copy';
 import type { DebugState } from '../directives/simple/Debug';
 
 import { setDebug } from '../directives/simple/Debug';
@@ -68,7 +70,7 @@ import {
 import { trackDefPattern, trackSeqClear, trackSeqRnd, trackSeqRndWeight, trackSequence } from '../directives/track/Patterns';
 
 export type SimpleHandler = (ctx: MMAContext, args: string[]) => void | Promise<void>;
-export type TrackHandler = (ctx: MMAContext, track: TrackApi, args: string[]) => void;
+export type TrackHandler = (ctx: MMAContext, track: TrackApi, args: string[]) => void | Promise<void>;
 
 /** Services the registry needs from the Parser (file loading). */
 export interface DirectiveHost {
@@ -189,7 +191,6 @@ export class DirectiveRegistry {
     for (const name of [
       'AFTER',
       'ALLGROOVES',
-      'ALLTRACKS',
       'AUTHOR',
       'AUTOSOLOTRACKS',
       'CALL',
@@ -282,6 +283,33 @@ export class DirectiveRegistry {
     reg('STICKY', trackSticky);
     reg('TONE', trackTone);
     reg('UNIFY', trackUnify);
+    // Port of parse.allTracks: apply a track command to all tracks of
+    // the given types (default: the pattern tracks).
+    register('ALLTRACKS', async (c, a) => {
+      const types1 = ['BASS', 'CHORD', 'ARPEGGIO', 'SCALE', 'DRUM', 'WALK', 'PLECTRUM'];
+      const allTypes = [...types1, 'MELODY', 'SOLO', 'ARIA'];
+      if (!a.length) c.error('AllTracks: Requires arguments: [Track | Track-Name] command.');
+      let i = 0;
+      const ttypes: string[] = [];
+      while (i < a.length && allTypes.includes(a[i]!.toUpperCase())) {
+        ttypes.push(a[i]!.toUpperCase());
+        i += 1;
+      }
+      if (ttypes.length === 0) ttypes.push(...types1);
+      if (i >= a.length) c.error('AllTracks: A command is required after the Track or Track-Name.');
+      const cmd = a[i]!.toUpperCase();
+      const fn = this.track.get(cmd);
+      if (!fn) {
+        c.error(`AllTracks: command '${cmd}' doen't exist`);
+        return;
+      }
+      for (const t of c.tnames.values()) {
+        if (!ttypes.includes(t.vtype)) continue;
+        await fn(c, getTrack(c, t.name), a.slice(i + 1));
+      }
+    });
+
+    reg('COPY', (c, t, a) => trackCopy(c, t as unknown as BaseTrack, a));
     reg('VOICE', trackVoice);
     reg('VOICING', trackVoicing);
     reg('VOLUME', trackVolume);
@@ -293,7 +321,6 @@ export class DirectiveRegistry {
       'MIDICRESC',
       'MIDIDECRESC',
       'CHSHARE',
-      'COPY',
       'CRESC',
       'CUT',
       'DECRESC',

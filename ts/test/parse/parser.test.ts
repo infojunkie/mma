@@ -215,16 +215,14 @@ describe('Parser parses a real stdlib patterns file', () => {
     const here = fileURLToPath(new URL('.', import.meta.url));
     const text = readFileSync(`${here}../../../includes/stdpats.mma`, 'utf-8');
 
-    // SCALE/ARPEGGIO/WALK/PLECTRUM are M2 track stubs in the track layer;
-    // give them a pattern-only test class so the definitions can be stored.
+    // PLECTRUM is still an M2 track stub in the track layer; give it a
+    // pattern-only test class so its definitions can be stored.  SCALE,
+    // ARPEGGIO and WALK are real classes now and parse directly.
     class PatternTrack extends BaseTrack {
       override definePattern(name: string, ln: string[]): void {
         this.ctx.pats.set(this.vtype, name.toUpperCase(), ln.join(' '));
       }
     }
-    registerTrackType('SCALE', (ctx, name) => new PatternTrack(ctx, name, 'SCALE'));
-    registerTrackType('ARPEGGIO', (ctx, name) => new PatternTrack(ctx, name, 'ARPEGGIO'));
-    registerTrackType('WALK', (ctx, name) => new PatternTrack(ctx, name, 'WALK'));
     registerTrackType('PLECTRUM', (ctx, name) => new PatternTrack(ctx, name, 'PLECTRUM'));
 
     const ctx = makeCtx({ 'includes/stdpats.mma': text });
@@ -239,5 +237,47 @@ describe('Parser parses a real stdlib patterns file', () => {
     expect(ctx.pats.has('WALK', 'W1234')).toBe(true);
     // The final SwingMode restore must leave swing mode off again.
     expect((ctx.swingMode as { mode: number }).mode).toBe(0);
+  });
+});
+
+describe('Parser drives the ARPEGGIO/SCALE/WALK tracks', () => {
+  it('plays all three tracks end to end', async () => {
+    const ctx = makeCtx({
+      'song.mma': `
+Time 4
+Tempo 120
+KeySig C
+Begin Arpeggio Define
+  A1 1 4 90; 3 4 80
+End
+Begin Scale Define
+  S1 1 4 90; 2 4 80; 3 4 80; 4 4 80
+End
+Begin Walk Define
+  W1 1 4 90; 3 4 80
+End
+Begin Chord Define
+  C1 1 1 90
+End
+Arpeggio Sequence A1
+Scale Sequence S1
+Walk Sequence W1
+Chord Sequence C1
+1 C
+2 F
+`,
+    });
+    await new Parser(ctx).parseFile('song.mma');
+
+    expect(ctx.barNum).toBe(2);
+    for (const name of ['ARPEGGIO', 'SCALE', 'WALK', 'CHORD']) {
+      const track = ctx.tnames.get(name);
+      expect(track, `${name} track was allocated`).toBeDefined();
+      expect(
+        ctx.mtrks.tracks.get(track!.channel)!.miditrk.size,
+        `${name} produced MIDI events`,
+      ).toBeGreaterThan(0);
+    }
+    expect(ctx.mtrks.eventCount().perChannel.length).toBeGreaterThanOrEqual(4);
   });
 });

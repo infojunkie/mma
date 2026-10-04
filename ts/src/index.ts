@@ -1,7 +1,7 @@
 /**
  * MMA - Musical MIDI Accompaniment, TypeScript port.
  *
- * Core entry point (browser-safe: no Node builtins, no spessasynth_lib).
+ * Core entry point (browser-safe: no Node builtins).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +47,14 @@ export {
   normalizeResourceId,
   type MMAResources,
 } from './io/MMAResources';
-export { GrooveIndex, type GrooveIndexJson, type GrooveRef } from './groove/GrooveIndex';
+export { decodeMMAText } from './io/decodeText';
+export {
+  GrooveDatabase,
+  type GrooveDatabaseJson,
+  type GrooveDatabaseLoadOptions,
+  type GrooveEntry,
+  type GrooveRef,
+} from './groove/GrooveDatabase';
 
 export type {
   IMMAPlugin,

@@ -1,0 +1,53 @@
+// MMA demo song — 12 bar blues in F.
+// Self-contained: all patterns are defined here, so it plays even
+// without a groove database.
+
+Time 4
+TimeSig 4 4
+Tempo 132
+KeySig F
+
+Begin Chord Define
+    SHUFFLE   1 4 90 ; 2 4 65 ; 3 4 85 ; 4 4 65
+    STAB      1 4 100 ; 3 4 90
+End
+
+Begin Bass Define
+    WALK1     1 4 1 95 ; 2 4 3 80 ; 3 4 5 85 ; 4 4 6 75
+    ROOT      1 4 1 95 ; 3 4 5 85
+End
+
+Begin Drum Define
+    SHFL      1 4 100 ; 1 8 55 ; 2 8 70 ; 3 4 90 ; 3 8 55 ; 4 8 70
+End
+
+SeqSize 2
+
+Begin Chord
+    Sequence SHUFFLE STAB
+    Voice JazzGuitar
+    Volume mp
+End
+
+Begin Bass
+    Sequence WALK1 ROOT
+    Voice AcousticBass
+End
+
+Begin Drum
+    Sequence SHFL
+    Tone ClosedHiHat
+End
+
+F
+Bb
+F
+F
+Bb
+Bb
+F
+F
+C7
+Bb
+F
+C7

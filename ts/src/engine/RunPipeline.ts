@@ -13,11 +13,11 @@
  */
 
 import { MMAContext, type DebugFlags } from './Context';
-import { Parser, type GrooveIndexData } from '../parse/Parser';
+import { Parser } from '../parse/Parser';
 import { setChordTabs } from '../parse/ChordLineParser';
 import { SourceReader } from '../io/SourceReader';
-import { MemoryResources, type MMAResources } from '../io/MMAResources';
-import { GrooveIndex } from '../groove/GrooveIndex';
+import { CompositeResources, MemoryResources, type MMAResources } from '../io/MMAResources';
+import type { GrooveDatabase } from '../groove/GrooveDatabase';
 import type { MMASource } from '../api/Results';
 import type { MMAOptions } from '../api/Options';
 import type { IMMAPlugin } from '../plugin/IMMAPlugin';
@@ -25,8 +25,8 @@ import type { IMMAPlugin } from '../plugin/IMMAPlugin';
 export interface MMAConfig {
   /** Resource loader for includes and groove libraries. */
   resources?: MMAResources;
-  /** Pre-built groove index, or its JSON form. */
-  grooveIndex?: GrooveIndex | GrooveIndexData;
+  /** On-demand groove database (adds its resources and index). */
+  grooveDatabase?: GrooveDatabase;
   /** Search roots for `Include`/`Use` (default includes/, lib/stdlib, lib). */
   includePaths?: string[];
   libPaths?: string[];
@@ -64,19 +64,17 @@ export function createRun(
   });
   if (options.warnings !== undefined) ctx.rep.warningsEnabled = options.warnings;
 
-  const resources = config.resources ?? new MemoryResources();
+  const db = config.grooveDatabase;
+  // The database doubles as the resource loader for groove files.
+  const resources = config.resources
+    ? db
+      ? new CompositeResources([config.resources, db])
+      : config.resources
+    : (db ?? new MemoryResources());
   ctx.resources = resources;
 
-  const grooveIndex =
-    config.grooveIndex instanceof GrooveIndex
-      ? {
-          grooves: Object.fromEntries(config.grooveIndex.list().map((g) => [g.name, { file: g.file }])),
-          files: undefined,
-        }
-      : config.grooveIndex;
-
   const parser = new Parser(ctx, {
-    grooveIndex,
+    grooveDatabase: config.grooveDatabase,
     includePaths: config.includePaths,
     libPaths: config.libPaths,
   });

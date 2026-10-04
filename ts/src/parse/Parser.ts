@@ -18,6 +18,8 @@
  */
 
 import type { MMAContext } from '../engine/Context';
+import type { GrooveDatabase } from '../groove/GrooveDatabase';
+import { findGrooveNames } from '../groove/scanGrooves';
 import type { TrackApi } from './TrackApi';
 import { SourceReader } from '../io/SourceReader';
 import { normalizeResourceId, type MMAResources } from '../io/MMAResources';
@@ -34,15 +36,9 @@ import { setTime } from '../directives/simple/Tempo';
 import { setseq } from '../directives/simple/Sequence';
 import { stoi } from '../util/Common';
 
-/** Subset of the groove index written by scripts/build-groove-index.mjs. */
-export interface GrooveIndexData {
-  grooves?: Record<string, { file: string }>;
-  files?: Record<string, string[]>;
-}
-
 export interface ParserOptions {
-  /** Groove name -> file index used for Groove auto-load. */
-  grooveIndex?: GrooveIndexData;
+  /** Groove database used for `Groove` auto-loading. */
+  grooveDatabase?: GrooveDatabase;
   /** Search roots for INCLUDE; default ['includes']. */
   includePaths?: string[];
   /** Search roots for USE/groove autoload; default ['lib/stdlib', 'lib']. */
@@ -61,14 +57,14 @@ export class Parser {
   private barLabel = '';
   private readonly includePaths: string[];
   private readonly libPaths: string[];
-  private readonly grooveIndex?: GrooveIndexData;
+  private readonly grooveDatabase?: GrooveDatabase;
   private grooveFileCache = new Map<string, string | null>();
 
   constructor(ctx: MMAContext, options: ParserOptions = {}) {
     this.ctx = ctx;
     this.includePaths = options.includePaths ?? ['includes'];
     this.libPaths = options.libPaths ?? ['lib/stdlib', 'lib'];
-    this.grooveIndex = options.grooveIndex;
+    this.grooveDatabase = options.grooveDatabase;
 
     this.debugState = new DebugState(ctx);
     initialiseSwing(ctx);
@@ -149,6 +145,9 @@ export class Parser {
     await this.parse(reader);
 
     ctx.inpath = prev;
+    // SourceReader sets ctx.infile on construction; restore it with the
+    // reader so errors after an Include point at the right file.
+    ctx.infile = prev?.fname ?? '';
     this.fileDepth -= 1;
     ctx.dPrint(`File '${id}' closed.`);
   }
@@ -174,18 +173,25 @@ export class Parser {
   private async findGroove(name: string): Promise<{ file: string; groove: string } | null> {
     const key = name.toUpperCase();
 
-    if (this.grooveIndex?.grooves) {
-      const hit = this.grooveIndex.grooves[key];
-      if (hit) return { file: hit.file, groove: key };
-      return null;
-    }
+    const hit = this.grooveDatabase?.lookup(key);
+    if (hit) return { file: hit.file, groove: key };
+    // A miss falls through to scanning the resources once: this covers
+    // files that were added to a database without an index entry, and
+    // resource-only configurations (no database at all).
 
     const cached = this.grooveFileCache.get(key);
     if (cached !== undefined) return cached === null ? null : { file: cached, groove: key };
     this.grooveFileCache.set(key, null); // avoid rescanning on repeated misses
 
     const res = this.resources();
-    const ids = (await res.list('')).filter((id) => id.toLowerCase().endsWith(MMA_EXT));
+    // Python expands libPath with stdlib first (paths.expandLib), then the
+    // remaining library directories; resource-only setups must match that
+    // or a groove name defined in several libraries resolves differently.
+    const rank = (id: string): number =>
+      id.startsWith('lib/stdlib/') ? 0 : id.startsWith('lib/') ? 1 : 2;
+    const ids = (await res.list(''))
+      .filter((id) => id.toLowerCase().endsWith(MMA_EXT))
+      .sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
     for (const id of ids) {
       let text: string;
       try {
@@ -256,7 +262,7 @@ export class Parser {
 
         const trackFn = this.registry.track.get(action);
         if (trackFn) {
-          trackFn(ctx, getTrack(ctx, name), l.slice(2));
+          await trackFn(ctx, getTrack(ctx, name), l.slice(2));
           continue;
         }
         if (this.registry.simple.has(action)) {
@@ -365,14 +371,4 @@ function isDigits(s: string): boolean {
   return /^[\p{Nd}]+$/u.test(s);
 }
 
-/** Strip comments and collect DefGroove names (mirrors the index builder). */
-export function findGrooveNames(text: string): string[] {
-  const names: string[] = [];
-  for (const line of text.split(/\r?\n/)) {
-    const tokens = line.trim().split(/\s+/);
-    if (tokens.length >= 2 && tokens[0]!.toUpperCase() === 'DEFGROOVE') {
-      names.push(tokens[1]!.toUpperCase());
-    }
-  }
-  return names;
-}
+export { findGrooveNames };

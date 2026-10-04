@@ -15,15 +15,18 @@ import { MMAContext } from '../../src/engine/Context';
 import { CTable } from '../../src/model/CTable';
 import { ChordNotes, type ChordEnv } from '../../src/model/ChordNotes';
 import type { Pattern } from '../../src/model/PatternEvent';
+import { ArpeggioTrack } from '../../src/model/tracks/ArpeggioTrack';
 import { BassTrack } from '../../src/model/tracks/BassTrack';
 import { ChordTrack } from '../../src/model/tracks/ChordTrack';
 import { DrumTrack } from '../../src/model/tracks/DrumTrack';
+import { ScaleTrack } from '../../src/model/tracks/ScaleTrack';
+import { WalkTrack } from '../../src/model/tracks/WalkTrack';
 import type { BaseTrack } from '../../src/model/tracks/BaseTrack';
 import { trackAlloc } from '../../src/model/tracks/alloc';
 import { SwingState } from '../../src/model/features/Swing';
 
 interface FixtureBar {
-  track: 'CHORD' | 'BASS' | 'DRUM';
+  track: 'CHORD' | 'BASS' | 'DRUM' | 'ARPEGGIO' | 'SCALE' | 'WALK';
   pattern: string;
   chords: string[];
   /** Multiple chords per bar: [chord, start beat, end beat] per bar. */
@@ -98,6 +101,9 @@ function newTrack(ctx: MMAContext, vtype: string): BaseTrack {
   if (vtype === 'CHORD') return new ChordTrack(ctx, vtype);
   if (vtype === 'BASS') return new BassTrack(ctx, vtype);
   if (vtype === 'DRUM') return new DrumTrack(ctx, vtype);
+  if (vtype === 'ARPEGGIO') return new ArpeggioTrack(ctx, vtype);
+  if (vtype === 'SCALE') return new ScaleTrack(ctx, vtype);
+  if (vtype === 'WALK') return new WalkTrack(ctx, vtype);
   throw new Error(`unknown fixture track ${vtype}`);
 }
 
@@ -108,8 +114,8 @@ function applySwing(ctx: MMAContext, ln: string[]): void {
     const up = opt.toUpperCase();
     if (up === 'ON' || opt === '1') sw.mode = 1;
     else if (up.startsWith('SKEW=')) {
-      sw.skew = Number(up.slice(5));
-      const a = Math.trunc((sw.skew * ctx.BperQ) / 100);
+      sw.skew = up.slice(5); // Python keeps the raw option string
+      const a = Math.trunc((Number(sw.skew) * ctx.BperQ) / 100);
       ctx.noteLenTable['81'] = a;
       ctx.noteLenTable['82'] = ctx.BperQ - a;
     } else {
@@ -205,7 +211,7 @@ function trackDefaults(t: BaseTrack): Record<string, unknown> {
 }
 
 describe('track defaults after clearSequence', () => {
-  for (const vtype of ['CHORD', 'BASS', 'DRUM']) {
+  for (const vtype of ['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK']) {
     it(`${vtype} matches the Python defaults`, () => {
       const ctx = makeContext();
       const track = newTrack(ctx, vtype);
@@ -221,9 +227,9 @@ describe('bar() output vs Python fixtures', () => {
     });
   }
 
-  it('covers all three M1 track types', () => {
+  it('covers all six ported track types', () => {
     const types = new Set(Object.values(fixture.bars).map((b) => b.track));
-    expect(types).toEqual(new Set(['CHORD', 'BASS', 'DRUM']));
+    expect(types).toEqual(new Set(['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK']));
   });
 });
 
@@ -407,10 +413,17 @@ describe('track allocation', () => {
     expect(() => trackAlloc(ctx, 'NOPE', true)).toThrow(/no track class/);
   });
 
-  it('M2 stubs for unported track types throw a descriptive error', () => {
+  it('allocates the M2 tracks with their real classes', () => {
     const ctx = makeContext();
-    expect(() => trackAlloc(ctx, 'WALK', true)).toThrow(/M2.*WALK/);
-    expect(() => trackAlloc(ctx, 'ARPEGGIO', true)).toThrow(/M2/);
+    expect(trackAlloc(ctx, 'WALK', true)).toBeInstanceOf(WalkTrack);
+    expect(trackAlloc(ctx, 'ARPEGGIO', true)).toBeInstanceOf(ArpeggioTrack);
+    expect(trackAlloc(ctx, 'SCALE', true)).toBeInstanceOf(ScaleTrack);
+  });
+
+  it('M2 stubs for unported track types still throw a descriptive error', () => {
+    const ctx = makeContext();
+    expect(() => trackAlloc(ctx, 'SOLO', true)).toThrow(/M2.*SOLO/);
+    expect(() => trackAlloc(ctx, 'PLECTRUM', true)).toThrow(/M2/);
   });
 
   it('ChShare copies the channel and voice from the shared track', () => {
@@ -490,6 +503,94 @@ describe('pattern definition', () => {
     ctx.seqSize = 3;
     track.setChords(['{C}', '/', '{F}']);
     expect(track.chord).toEqual([['C'], ['C'], ['F']]);
+  });
+});
+
+describe('ARPEGGIO / SCALE / WALK track state', () => {
+  it('arpeggio restart resets the run position only', () => {
+    const ctx = makeContext();
+    const track = new ArpeggioTrack(ctx, 'ARPEGGIO');
+    track.arpOffset = 5;
+    track.arpDirection = -1;
+    track.lastRange = 2;
+    track.lastDirection = 'UP';
+    track.restart();
+    expect(track.arpOffset).toBe(-1);
+    expect(track.arpDirection).toBe(1);
+    // Python's restart() assigns to locals for these two (no self.), so
+    // the previous values survive; reproduced deliberately.
+    expect(track.lastRange).toBe(2);
+    expect(track.lastDirection).toBe('UP');
+  });
+
+  it('scale setScaletype validates and stores the scale types', () => {
+    const ctx = makeContext();
+    ctx.seqSize = 2;
+    const track = new ScaleTrack(ctx, 'SCALE');
+    track.setScaletype(['chromatic', 'chord']);
+    expect(track.scaleType).toEqual(['CHROMATIC', 'CHORD']);
+    expect(() => track.setScaletype(['NOPE'])).toThrow(/Only Chromatic/);
+  });
+
+  it('scale setDirection resets the run state', () => {
+    const ctx = makeContext();
+    const track = new ScaleTrack(ctx, 'SCALE');
+    track.lastNote = 60;
+    track.scaleLastChord = 'CM';
+    track.setDirection(['DOWN']);
+    expect(track.direction).toEqual(['DOWN']);
+    expect(track.lastNote).toBe(-1);
+    expect(track.scaleLastChord).toBeNull();
+  });
+
+  it('scale restart clears all run state', () => {
+    const ctx = makeContext();
+    const track = new ScaleTrack(ctx, 'SCALE');
+    track.lastNote = 60;
+    track.scaleLastChord = 'CM';
+    track.lastStype = 'SCALE';
+    track.lastDirect = 1;
+    track.lastRange = 2;
+    track.sOffset = 3;
+    track.notes = [1, 2, 3];
+    track.dirfact = -1;
+    track.restart();
+    expect(track.lastNote).toBe(-1);
+    expect(track.scaleLastChord).toBeNull();
+    expect(track.lastStype).toBeNull();
+    expect(track.lastDirect).toBe(1);
+    expect(track.lastRange).toBe(0);
+    expect(track.sOffset).toBe(0);
+    expect(track.notes).toBeNull();
+    expect(track.dirfact).toBe(1);
+  });
+
+  it('walk restart resets the direction pointer', () => {
+    const ctx = makeContext();
+    const track = new WalkTrack(ctx, 'WALK');
+    track.walkChoice = 4;
+    track.restart();
+    expect(track.walkChoice).toBe(0);
+  });
+
+  it('HARMONY on the M2 tracks needs the unported harmony module', () => {
+    for (const vtype of ['ARPEGGIO', 'SCALE', 'WALK']) {
+      const ctx = makeContext();
+      const track = newTrack(ctx, vtype);
+      track.definePattern('P1', '1 4 90');
+      track.sequence = [ctx.pats.get(vtype, 'P1') as Pattern];
+      (track as unknown as { harmony: unknown[] }).harmony = [3];
+      expect(() => track.bar([makeCTable(ctx, 'C')])).toThrow(/M2.*harmony/);
+    }
+  });
+
+  it('ORNAMENT playback on SCALE needs the unported ornament module', () => {
+    const ctx = makeContext();
+    const track = new ScaleTrack(ctx, 'SCALE');
+    track.definePattern('P1', '1 4 90');
+    track.sequence = [ctx.pats.get('SCALE', 'P1') as Pattern];
+    track.ornaments.type = 'GRACE';
+    expect(() => track.bar([makeCTable(ctx, 'C')])).toThrow(/M2.*ornament/);
   });
 });
 

@@ -20,7 +20,7 @@ import type { PatternEvent } from '../PatternEvent';
 /** Port of the tuple returned by MMA/swing.py gsettings(). */
 export interface SwingSnapshot {
   mode: number;
-  skew: number | null;
+  skew: string | null;
   accent1: number;
   accent2: number;
   delay1: number;
@@ -32,7 +32,7 @@ export interface SwingSnapshot {
 
 export class SwingState {
   mode = 0;
-  skew: number | null = null;
+  skew: string | null = null;
   accent1 = 1;
   accent2 = 1;
   delay1 = 0;
@@ -71,6 +71,15 @@ export class SwingState {
 /** The active swing state, or null when SwingMode has never been set. */
 export function getSwing(ctx: MMAContext): SwingState | null {
   return ctx.swingMode instanceof SwingState ? ctx.swingMode : null;
+}
+
+/** The active swing state, created on first use (never null). */
+export function swingState(ctx: MMAContext): SwingState {
+  const cur = ctx.swingMode;
+  if (cur instanceof SwingState) return cur;
+  const s = new SwingState();
+  ctx.swingMode = s;
+  return s;
 }
 
 /** Port of swing.getBeats(). Returns [len8, len81, len82, onBeats, offBeats]. */

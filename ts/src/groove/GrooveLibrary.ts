@@ -3,7 +3,7 @@
  *
  * Port of MMA/grooves.py: in-memory groove definitions, aliases and
  * selection.  Groove .mma files are parsed on demand through the
- * resource loader (see GrooveIndex for name -> file resolution).
+ * resource loader (see GrooveDatabase for name -> file resolution).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,6 +12,7 @@
  */
 
 import type { MMAContext } from '../engine/Context';
+import { swingState, type SwingSnapshot } from '../model/features/Swing';
 
 export interface GrooveSettings {
   SEQSIZE: number;
@@ -30,7 +31,7 @@ export interface Groove {
   settings: GrooveSettings;
 }
 
-/** Hook used to autoload groove files (wired to GrooveIndex + resources). */
+/** Hook used to autoload groove files (wired to GrooveDatabase + resources). */
 export type GrooveFinder = (name: string) => Promise<{ file: string; groove: string } | null>;
 /** Hook that parses a groove library file inline (wired to the Parser). */
 export type GrooveFileParser = (file: string) => Promise<void>;
@@ -76,7 +77,7 @@ export class GrooveLibrary {
         BARLEN: ctx.barLen,
         SEQRND: [...ctx.seqRnd],
         TIMESIG: ctx.timeSig.get(),
-        SWINGMODE: ctx.swingMode,
+        SWINGMODE: swingState(ctx).gsettings(ctx.noteLenTable),
         VRATIO: [ctx.volume.vTRatio, ctx.volume.vMRatio],
         CTABS: [...ctx.chordTabs],
       },
@@ -99,7 +100,9 @@ export class GrooveLibrary {
     let args = [...ln];
     const tmpList: string[] = [];
     let wh: number | null = null;
-    if (/^\d/.test(args[0]!)) {
+    // Python uses str.isdigit(): the whole token must be digits, so
+    // groove names like "50sRockIntro" are names, not selection counts.
+    if (/^\d+$/.test(args[0]!)) {
       wh = parseInt(args[0]!, 10);
       if (wh < 1) ctx.error(`Groove selection must be > 0, not '${wh}'`);
       args = args.slice(1);
@@ -169,7 +172,7 @@ export class GrooveLibrary {
     ctx.barLen = s.BARLEN;
     ctx.seqRnd = [...s.SEQRND];
     ctx.timeSig.create(s.TIMESIG[0] ?? 4, s.TIMESIG[1] ?? 2);
-    ctx.swingMode = s.SWINGMODE;
+    swingState(ctx).grestore(s.SWINGMODE as SwingSnapshot, ctx.noteLenTable);
     ctx.volume.vTRatio = s.VRATIO[0];
     ctx.volume.vMRatio = s.VRATIO[1];
     ctx.chordTabs = [...s.CTABS];

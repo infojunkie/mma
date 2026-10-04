@@ -1,6 +1,6 @@
 {
   "name": "@music-i18n/mma",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Musical MIDI Accompaniment — browser-first TypeScript library",
   "type": "module",
   "license": "GPL-3.0-only",
@@ -11,23 +11,18 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./player": {
-      "types": "./dist/player.d.ts",
-      "import": "./dist/player.js"
-    },
-    "./assets/index.json": "./assets/grooves.index.json",
-    "./assets/*": "./assets/*"
+    }
   },
   "files": [
     "dist",
-    "assets",
+    "!dist/**/*.map",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
     "build": "tsup",
-    "assets": "node scripts/prepare-assets.mjs",
+    "grooves": "node scripts/build-grooves.mjs",
+    "demo": "npm run build && npm run grooves && node scripts/serve.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
@@ -35,20 +30,11 @@
   "dependencies": {
     "spessasynth_core": "^4.3.22"
   },
-  "peerDependencies": {
-    "spessasynth_lib": "^4.3.14"
-  },
-  "peerDependenciesMeta": {
-    "spessasynth_lib": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@types/node": "^22.10.0",
-    "spessasynth_lib": "^4.3.14",
     "tsup": "^8.3.5",
     "tsx": "^4.23.15",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "vitest": "^5.0.3"
   }
 }

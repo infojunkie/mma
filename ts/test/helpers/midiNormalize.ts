@@ -117,13 +117,17 @@ function decodeBytes(bytes: Uint8Array): string {
 }
 
 function sortEvents(events: NormalizedEvent[]): NormalizedEvent[] {
+  // Total order: identical records may tie, distinct ones must not (a
+  // partial order makes positional comparison depend on insertion order).
+  const chan = (c: NormalizedEvent['channel']): number => (c === 'meta' ? -1 : c);
   return events.sort(
     (a, b) =>
       a.tick - b.tick ||
-      String(a.channel).localeCompare(String(b.channel)) ||
+      chan(a.channel) - chan(b.channel) ||
       a.kind.localeCompare(b.kind) ||
       a.d1 - b.d1 ||
-      a.d2 - b.d2,
+      a.d2 - b.d2 ||
+      (a.text ?? '').localeCompare(b.text ?? ''),
   );
 }
 

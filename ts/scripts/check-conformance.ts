@@ -17,7 +17,7 @@ import { MMA } from '../src/api/MMA';
 import { MemoryResources } from '../src/io/MMAResources';
 import { loadM1Resources, loadLibraryResources } from '../test/helpers/resources';
 import { diffEvents, normalizeBasicMIDI } from '../test/helpers/midiNormalize';
-import { CORPUS } from './gen-fixtures';
+import { CORPUS } from '../test/fixtures/corpus';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const tsDir = resolve(here, '..');
@@ -29,22 +29,23 @@ async function main(): Promise<void> {
 
   for (const entry of entries) {
     let resources: MemoryResources;
-    let source: string;
+    let sourceRaw: string;
     if (entry.file.startsWith('ts/test/fixtures/m1/')) {
       resources = loadM1Resources();
-      source = readFileSync(resolve(mmaRepo, entry.file.replace('ts/test/fixtures/m1/', join(tsDir, 'test/fixtures/m1/'))), 'utf-8');
+      sourceRaw = readFileSync(resolve(mmaRepo, entry.file.replace('ts/test/fixtures/m1/', join(tsDir, 'test/fixtures/m1/'))), 'utf-8');
     } else {
       resources = loadLibraryResources();
-      source = readFileSync(resolve(mmaRepo, entry.file), 'utf-8');
+      sourceRaw = readFileSync(resolve(mmaRepo, entry.file), 'utf-8');
     }
     const golden = JSON.parse(readFileSync(join(tsDir, 'test/fixtures/golden', `${entry.name}.json`), 'utf-8')) as {
       midiEvents: import('../test/helpers/midiNormalize').NormalizedEvent[];
     };
+    const source = entry.prelude ? `${entry.prelude}\n${sourceRaw}` : sourceRaw;
 
     try {
       const result = await new MMA({ resources }).toMIDI(source, { noCredit: true });
       const actual = normalizeBasicMIDI(BasicMIDI.fromArrayBuffer(result.bytes));
-      const diff = diffEvents(golden.midiEvents, actual, { ignoreKinds: ['trackName'] });
+      const diff = diffEvents(golden.midiEvents, actual);
       if (!diff) {
         console.log(`PASS ${entry.name}: ${actual.length} events`);
       } else {

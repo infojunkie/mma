@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { MMAContext } from '../../src/engine/Context';
 import { MemoryResources } from '../../src/io/MMAResources';
+import { GrooveDatabase } from '../../src/groove/GrooveDatabase';
 import { Parser } from '../../src/parse/Parser';
 import { trackAlloc } from '../../src/parse/TrackAlloc';
 import { getTrack } from '../../src/parse/TrackApi';
@@ -450,7 +451,9 @@ describe('additional M1 behaviours', () => {
       'song.mma': 'Groove ZZ\nC\n',
       'lib/x.mma': 'Begin Chord Define\n  PZ 1 1 90\nEnd\nDefGroove ZZ\n',
     });
-    const parser = new Parser(ctx, { grooveIndex: { grooves: { ZZ: { file: 'lib/x.mma' } } } });
+    const parser = new Parser(ctx, {
+      grooveDatabase: GrooveDatabase.fromJson({ version: 1, grooves: { ZZ: { file: 'lib/x.mma' } } }),
+    });
     await parser.parseFile('song.mma');
     expect(ctx.grooves.currentGroove).toBe('ZZ');
     expect(ctx.pats.has('CHORD', 'PZ')).toBe(true);

@@ -26,7 +26,7 @@ async function renderAndCompare(name: string, source: string, resources: MemoryR
 
   const parsed = BasicMIDI.fromArrayBuffer(result.bytes);
   const actual = normalizeBasicMIDI(parsed);
-  const diff = diffEvents(golden.midiEvents, actual, { ignoreKinds: ['trackName'] });
+  const diff = diffEvents(golden.midiEvents, actual);
   expect(diff, diff ?? '').toBeNull();
 }
 

@@ -256,6 +256,261 @@
       "volume": [
         1.0
       ]
+    },
+    "ARPEGGIO": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "toneList": null,
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
+    },
+    "SCALE": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "toneList": null,
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
+    },
+    "WALK": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "toneList": null,
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
     }
   },
   "bars": {
@@ -1404,6 +1659,2481 @@
           "923700",
           "923400",
           "923000"
+        ]
+      ]
+    },
+    "arp_basic": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ]
+      ]
+    },
+    "arp_beats": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 70",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ],
+        [
+          192,
+          "943750"
+        ],
+        [
+          364,
+          "943700"
+        ],
+        [
+          384,
+          "943b50"
+        ],
+        [
+          556,
+          "943b00"
+        ],
+        [
+          576,
+          "943746"
+        ],
+        [
+          748,
+          "943700"
+        ]
+      ]
+    },
+    "arp_two_bars": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 5,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ],
+        [
+          384,
+          "943750"
+        ],
+        [
+          556,
+          "943700"
+        ],
+        [
+          768,
+          "94395a"
+        ],
+        [
+          940,
+          "943900"
+        ],
+        [
+          1152,
+          "943550"
+        ],
+        [
+          1324,
+          "943500"
+        ]
+      ]
+    },
+    "arp_up": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "UP"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94305a"
+        ],
+        [
+          172,
+          "943000"
+        ],
+        [
+          192,
+          "943450"
+        ],
+        [
+          364,
+          "943400"
+        ],
+        [
+          384,
+          "943750"
+        ],
+        [
+          556,
+          "943700"
+        ],
+        [
+          576,
+          "943050"
+        ],
+        [
+          748,
+          "943000"
+        ]
+      ]
+    },
+    "arp_down": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "DOWN"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "943a5a"
+        ],
+        [
+          172,
+          "943a00"
+        ],
+        [
+          192,
+          "943750"
+        ],
+        [
+          364,
+          "943700"
+        ],
+        [
+          384,
+          "943450"
+        ],
+        [
+          556,
+          "943400"
+        ],
+        [
+          576,
+          "943050"
+        ],
+        [
+          748,
+          "943000"
+        ]
+      ]
+    },
+    "arp_random": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "RANDOM"
+            ]
+          ]
+        ]
+      ],
+      "seed": 5,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94375a"
+        ],
+        [
+          172,
+          "943700"
+        ],
+        [
+          192,
+          "943750"
+        ],
+        [
+          364,
+          "943700"
+        ],
+        [
+          384,
+          "943750"
+        ],
+        [
+          556,
+          "943700"
+        ],
+        [
+          576,
+          "943450"
+        ],
+        [
+          748,
+          "943400"
+        ]
+      ]
+    },
+    "arp_range_2": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setRange",
+          [
+            [
+              "2"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ],
+        [
+          384,
+          "943750"
+        ],
+        [
+          556,
+          "943700"
+        ]
+      ]
+    },
+    "arp_range_fraction": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setRange",
+          [
+            [
+              "1.5"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ],
+        [
+          384,
+          "943750"
+        ],
+        [
+          556,
+          "943700"
+        ]
+      ]
+    },
+    "arp_invert": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setInvert",
+          [
+            [
+              "1"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ],
+        [
+          384,
+          "943750"
+        ],
+        [
+          556,
+          "943700"
+        ]
+      ]
+    },
+    "arp_compress": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setCompress",
+          [
+            [
+              "TRUE"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ],
+        [
+          384,
+          "943750"
+        ],
+        [
+          556,
+          "943700"
+        ]
+      ]
+    },
+    "arp_limit": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setChordLimit",
+          [
+            [
+              "4",
+              "DROP=1",
+              "FORCE=TRUE"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94375a"
+        ],
+        [
+          172,
+          "943700"
+        ],
+        [
+          384,
+          "943b50"
+        ],
+        [
+          556,
+          "943b00"
+        ]
+      ]
+    },
+    "arp_octave_volume": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setOctave",
+          [
+            [
+              "5"
+            ]
+          ]
+        ],
+        [
+          "setVolume",
+          [
+            [
+              "pp"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "944031"
+        ],
+        [
+          172,
+          "944000"
+        ],
+        [
+          384,
+          "94432c"
+        ],
+        [
+          556,
+          "944300"
+        ]
+      ]
+    },
+    "arp_artic_rtime": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setArtic",
+          [
+            [
+              "50"
+            ]
+          ]
+        ],
+        [
+          "setRTime",
+          [
+            [
+              "-10,10"
+            ]
+          ]
+        ]
+      ],
+      "seed": 6,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400"
+        ],
+        [
+          8,
+          "94345a"
+        ],
+        [
+          104,
+          "943400"
+        ],
+        [
+          376,
+          "943750"
+        ],
+        [
+          472,
+          "943700"
+        ]
+      ]
+    },
+    "arp_rskip": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setRSkip",
+          [
+            [
+              "99",
+              "BEATS=3"
+            ]
+          ]
+        ]
+      ],
+      "seed": 7,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ]
+      ]
+    },
+    "arp_restart": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "DOWN"
+            ]
+          ]
+        ],
+        [
+          "restart",
+          []
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94375a"
+        ],
+        [
+          172,
+          "943700"
+        ],
+        [
+          384,
+          "943450"
+        ],
+        [
+          556,
+          "943400"
+        ],
+        [
+          768,
+          "94355a"
+        ],
+        [
+          940,
+          "943500"
+        ],
+        [
+          1152,
+          "943c50"
+        ],
+        [
+          1324,
+          "943c00"
+        ]
+      ]
+    },
+    "arp_two_chords": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            3
+          ],
+          [
+            "F",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 5,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a"
+        ],
+        [
+          172,
+          "943400"
+        ],
+        [
+          384,
+          "943c50"
+        ],
+        [
+          556,
+          "943c00"
+        ]
+      ]
+    },
+    "scale_basic": {
+      "track": "SCALE",
+      "pattern": "1 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          691,
+          "953000"
+        ]
+      ]
+    },
+    "scale_beats": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 70",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 6,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953250"
+        ],
+        [
+          364,
+          "953200"
+        ],
+        [
+          384,
+          "953450"
+        ],
+        [
+          556,
+          "953400"
+        ],
+        [
+          576,
+          "953546"
+        ],
+        [
+          748,
+          "953500"
+        ]
+      ]
+    },
+    "scale_chromatic": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "CHROMATIC"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953150"
+        ],
+        [
+          364,
+          "953100"
+        ],
+        [
+          384,
+          "953250"
+        ],
+        [
+          556,
+          "953200"
+        ],
+        [
+          576,
+          "953350"
+        ],
+        [
+          748,
+          "953300"
+        ]
+      ]
+    },
+    "scale_chord_type": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "CHORD"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953450"
+        ],
+        [
+          364,
+          "953400"
+        ],
+        [
+          384,
+          "953750"
+        ],
+        [
+          556,
+          "953700"
+        ]
+      ]
+    },
+    "scale_type_scale": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80",
+      "chords": [
+        "Cm7"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "SCALE"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953250"
+        ],
+        [
+          364,
+          "953200"
+        ],
+        [
+          384,
+          "953350"
+        ],
+        [
+          556,
+          "953300"
+        ]
+      ]
+    },
+    "scale_up": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "UP"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953250"
+        ],
+        [
+          364,
+          "953200"
+        ],
+        [
+          384,
+          "953450"
+        ],
+        [
+          556,
+          "953400"
+        ],
+        [
+          576,
+          "953550"
+        ],
+        [
+          748,
+          "953500"
+        ]
+      ]
+    },
+    "scale_down": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "DOWN"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "953b5a"
+        ],
+        [
+          172,
+          "953b00"
+        ],
+        [
+          192,
+          "953950"
+        ],
+        [
+          364,
+          "953900"
+        ],
+        [
+          384,
+          "953750"
+        ],
+        [
+          556,
+          "953700"
+        ],
+        [
+          576,
+          "953550"
+        ],
+        [
+          748,
+          "953500"
+        ]
+      ]
+    },
+    "scale_both": {
+      "track": "SCALE",
+      "pattern": "1 8 90; 1+8 8 80; 2 8 80; 2+8 8 70; 3 8 80; 3+8 8 80; 4 8 80; 4+8 8 70",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "BOTH"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          86,
+          "953000"
+        ],
+        [
+          96,
+          "953250"
+        ],
+        [
+          182,
+          "953200"
+        ],
+        [
+          192,
+          "953450"
+        ],
+        [
+          278,
+          "953400"
+        ],
+        [
+          288,
+          "953546"
+        ],
+        [
+          374,
+          "953500"
+        ],
+        [
+          384,
+          "953750"
+        ],
+        [
+          470,
+          "953700"
+        ],
+        [
+          480,
+          "953950"
+        ],
+        [
+          566,
+          "953900"
+        ],
+        [
+          576,
+          "953b50"
+        ],
+        [
+          662,
+          "953b00"
+        ],
+        [
+          672,
+          "953946"
+        ],
+        [
+          758,
+          "953900"
+        ]
+      ]
+    },
+    "scale_random": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "RANDOM"
+            ]
+          ]
+        ]
+      ],
+      "seed": 8,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95325a"
+        ],
+        [
+          172,
+          "953200"
+        ],
+        [
+          192,
+          "953550"
+        ],
+        [
+          364,
+          "953500"
+        ],
+        [
+          384,
+          "953250"
+        ],
+        [
+          556,
+          "953200"
+        ],
+        [
+          576,
+          "953050"
+        ],
+        [
+          748,
+          "953000"
+        ]
+      ]
+    },
+    "scale_range_2": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setRange",
+          [
+            [
+              "2"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953250"
+        ],
+        [
+          364,
+          "953200"
+        ],
+        [
+          384,
+          "953450"
+        ],
+        [
+          556,
+          "953400"
+        ],
+        [
+          576,
+          "953550"
+        ],
+        [
+          748,
+          "953500"
+        ]
+      ]
+    },
+    "scale_range_fraction": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setRange",
+          [
+            [
+              "1.5"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953250"
+        ],
+        [
+          364,
+          "953200"
+        ],
+        [
+          384,
+          "953450"
+        ],
+        [
+          556,
+          "953400"
+        ]
+      ]
+    },
+    "scale_two_bars": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 6,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953250"
+        ],
+        [
+          364,
+          "953200"
+        ],
+        [
+          384,
+          "953450"
+        ],
+        [
+          556,
+          "953400"
+        ],
+        [
+          576,
+          "953550"
+        ],
+        [
+          748,
+          "953500"
+        ],
+        [
+          768,
+          "95355a"
+        ],
+        [
+          940,
+          "953500"
+        ],
+        [
+          960,
+          "953750"
+        ],
+        [
+          1132,
+          "953700"
+        ],
+        [
+          1152,
+          "953950"
+        ],
+        [
+          1324,
+          "953900"
+        ],
+        [
+          1344,
+          "953a50"
+        ],
+        [
+          1516,
+          "953a00"
+        ]
+      ]
+    },
+    "scale_slash": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C/G"
+      ],
+      "channel": 6,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95375a"
+        ],
+        [
+          172,
+          "953700"
+        ],
+        [
+          384,
+          "953950"
+        ],
+        [
+          556,
+          "953900"
+        ]
+      ]
+    },
+    "scale_octave_voice": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setOctave",
+          [
+            [
+              "5"
+            ]
+          ]
+        ],
+        [
+          "setVoice",
+          [
+            [
+              "Flute"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c549",
+          "953c5a"
+        ],
+        [
+          172,
+          "953c00"
+        ],
+        [
+          384,
+          "953e50"
+        ],
+        [
+          556,
+          "953e00"
+        ]
+      ]
+    },
+    "scale_artic_rtime_volume": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setArtic",
+          [
+            [
+              "50"
+            ]
+          ]
+        ],
+        [
+          "setRTime",
+          [
+            [
+              "-10,10"
+            ]
+          ]
+        ],
+        [
+          "setVolume",
+          [
+            [
+              "p"
+            ]
+          ]
+        ]
+      ],
+      "seed": 9,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500"
+        ],
+        [
+          4,
+          "953039"
+        ],
+        [
+          100,
+          "953000"
+        ],
+        [
+          393,
+          "953233"
+        ],
+        [
+          489,
+          "953200"
+        ]
+      ]
+    },
+    "scale_rskip": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setRSkip",
+          [
+            [
+              "99",
+              "BEATS=2"
+            ]
+          ]
+        ]
+      ],
+      "seed": 10,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          384,
+          "953450"
+        ],
+        [
+          556,
+          "953400"
+        ],
+        [
+          576,
+          "953550"
+        ],
+        [
+          748,
+          "953500"
+        ]
+      ]
+    },
+    "scale_restart": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "DOWN"
+            ]
+          ]
+        ],
+        [
+          "restart",
+          []
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "953b5a"
+        ],
+        [
+          172,
+          "953b00"
+        ],
+        [
+          192,
+          "953950"
+        ],
+        [
+          364,
+          "953900"
+        ],
+        [
+          384,
+          "953750"
+        ],
+        [
+          556,
+          "953700"
+        ],
+        [
+          576,
+          "953550"
+        ],
+        [
+          748,
+          "953500"
+        ],
+        [
+          768,
+          "95355a"
+        ],
+        [
+          940,
+          "953500"
+        ],
+        [
+          960,
+          "954050"
+        ],
+        [
+          1132,
+          "954000"
+        ],
+        [
+          1152,
+          "953e50"
+        ],
+        [
+          1324,
+          "953e00"
+        ],
+        [
+          1344,
+          "953c50"
+        ],
+        [
+          1516,
+          "953c00"
+        ]
+      ]
+    },
+    "scale_two_chords": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            3
+          ],
+          [
+            "G",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 6,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          192,
+          "953250"
+        ],
+        [
+          364,
+          "953200"
+        ],
+        [
+          384,
+          "953250"
+        ],
+        [
+          556,
+          "953200"
+        ],
+        [
+          576,
+          "953450"
+        ],
+        [
+          748,
+          "953400"
+        ]
+      ]
+    },
+    "scale_seqtypes": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C",
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "CHROMATIC",
+              "SCALE"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          172,
+          "953000"
+        ],
+        [
+          384,
+          "953150"
+        ],
+        [
+          556,
+          "953100"
+        ],
+        [
+          768,
+          "95325a"
+        ],
+        [
+          940,
+          "953200"
+        ],
+        [
+          1152,
+          "953450"
+        ],
+        [
+          1324,
+          "953400"
+        ]
+      ]
+    },
+    "walk_basic": {
+      "track": "WALK",
+      "pattern": "1 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [],
+      "seed": 11,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a"
+        ],
+        [
+          172,
+          "963000"
+        ]
+      ]
+    },
+    "walk_beats": {
+      "track": "WALK",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 70",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 7,
+      "setup": [],
+      "seed": 12,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a"
+        ],
+        [
+          172,
+          "963000"
+        ],
+        [
+          192,
+          "963450"
+        ],
+        [
+          364,
+          "963400"
+        ],
+        [
+          384,
+          "963450"
+        ],
+        [
+          556,
+          "963400"
+        ],
+        [
+          576,
+          "963246"
+        ],
+        [
+          748,
+          "963200"
+        ]
+      ]
+    },
+    "walk_up": {
+      "track": "WALK",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "UP"
+            ]
+          ]
+        ]
+      ],
+      "seed": 13,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a"
+        ],
+        [
+          172,
+          "963000"
+        ],
+        [
+          192,
+          "963250"
+        ],
+        [
+          364,
+          "963200"
+        ],
+        [
+          384,
+          "963450"
+        ],
+        [
+          556,
+          "963400"
+        ],
+        [
+          576,
+          "963550"
+        ],
+        [
+          748,
+          "963500"
+        ]
+      ]
+    },
+    "walk_down": {
+      "track": "WALK",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "DOWN"
+            ]
+          ]
+        ]
+      ],
+      "seed": 14,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96395a"
+        ],
+        [
+          172,
+          "963900"
+        ],
+        [
+          192,
+          "963750"
+        ],
+        [
+          364,
+          "963700"
+        ],
+        [
+          384,
+          "963550"
+        ],
+        [
+          556,
+          "963500"
+        ],
+        [
+          576,
+          "963450"
+        ],
+        [
+          748,
+          "963400"
+        ]
+      ]
+    },
+    "walk_random": {
+      "track": "WALK",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "RANDOM"
+            ]
+          ]
+        ]
+      ],
+      "seed": 15,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a"
+        ],
+        [
+          172,
+          "963000"
+        ],
+        [
+          192,
+          "963050"
+        ],
+        [
+          364,
+          "963000"
+        ],
+        [
+          384,
+          "963050"
+        ],
+        [
+          556,
+          "963000"
+        ],
+        [
+          576,
+          "963050"
+        ],
+        [
+          748,
+          "963000"
+        ]
+      ]
+    },
+    "walk_two_bars": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 7,
+      "setup": [],
+      "seed": 16,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a"
+        ],
+        [
+          172,
+          "963000"
+        ],
+        [
+          384,
+          "963250"
+        ],
+        [
+          556,
+          "963200"
+        ],
+        [
+          768,
+          "963a5a"
+        ],
+        [
+          940,
+          "963a00"
+        ],
+        [
+          1152,
+          "963c50"
+        ],
+        [
+          1324,
+          "963c00"
+        ]
+      ]
+    },
+    "walk_octave_volume": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setOctave",
+          [
+            [
+              "5"
+            ]
+          ]
+        ],
+        [
+          "setVolume",
+          [
+            [
+              "pp"
+            ]
+          ]
+        ]
+      ],
+      "seed": 17,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "963c31"
+        ],
+        [
+          172,
+          "963c00"
+        ],
+        [
+          384,
+          "96402c"
+        ],
+        [
+          556,
+          "964000"
+        ]
+      ]
+    },
+    "walk_artic_rtime": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setArtic",
+          [
+            [
+              "50"
+            ]
+          ]
+        ],
+        [
+          "setRTime",
+          [
+            [
+              "-10,10"
+            ]
+          ]
+        ]
+      ],
+      "seed": 18,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600"
+        ],
+        [
+          4,
+          "96305a"
+        ],
+        [
+          100,
+          "963000"
+        ],
+        [
+          381,
+          "963050"
+        ],
+        [
+          477,
+          "963000"
+        ]
+      ]
+    },
+    "walk_rskip": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setRSkip",
+          [
+            [
+              "99",
+              "BEATS=3"
+            ]
+          ]
+        ]
+      ],
+      "seed": 19,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a"
+        ],
+        [
+          172,
+          "963000"
+        ]
+      ]
+    },
+    "walk_restart": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "restart",
+          []
+        ]
+      ],
+      "seed": 20,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a"
+        ],
+        [
+          172,
+          "963000"
+        ],
+        [
+          384,
+          "963450"
+        ],
+        [
+          556,
+          "963400"
+        ],
+        [
+          768,
+          "963a5a"
+        ],
+        [
+          940,
+          "963a00"
+        ],
+        [
+          1152,
+          "963c50"
+        ],
+        [
+          1324,
+          "963c00"
+        ]
+      ]
+    },
+    "walk_two_chords": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            3
+          ],
+          [
+            "F",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 7,
+      "setup": [],
+      "seed": 21,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a"
+        ],
+        [
+          172,
+          "963000"
+        ],
+        [
+          384,
+          "963750"
+        ],
+        [
+          556,
+          "963700"
         ]
       ]
     }

@@ -36,8 +36,18 @@ from MMA.parseCL import CTable  # noqa: E402
 from MMA.patChord import Chord  # noqa: E402
 from MMA.patBass import Bass  # noqa: E402
 from MMA.patDrum import Drum  # noqa: E402
+from MMA.patArpeggio import Arpeggio  # noqa: E402
+from MMA.patScale import Scale  # noqa: E402
+from MMA.patWalk import Walk  # noqa: E402
 
-TRACKS = {"CHORD": Chord, "BASS": Bass, "DRUM": Drum}
+TRACKS = {
+    "CHORD": Chord,
+    "BASS": Bass,
+    "DRUM": Drum,
+    "ARPEGGIO": Arpeggio,
+    "SCALE": Scale,
+    "WALK": Walk,
+}
 
 
 def reset_gbl():
@@ -174,13 +184,15 @@ def run_bar_case(vtype, pattern, channel, chord_names, setup=(), seed=None, swin
     }
 
 
-def run_multi_chord_case(vtype, pattern, channel, bars, setup=()):
+def run_multi_chord_case(vtype, pattern, channel, bars, setup=(), seed=None):
     """Like run_bar_case() but each bar holds several chords.
 
     `bars` is a list of bars; each bar is a list of (chord, start beat,
     start of the next chord) tuples - a simplified parseChordLine output.
     """
     reset_gbl()
+    if seed is not None:
+        random.seed(seed)
     t = TRACKS[vtype](vtype)
     t.setChannel(str(channel))
     t.definePattern("TEST", pattern)
@@ -207,7 +219,7 @@ def run_multi_chord_case(vtype, pattern, channel, bars, setup=()):
         "chordTabs": [[list(c) for c in bar] for bar in bars],
         "channel": t.channel,
         "setup": [[m, list(a)] for m, a in setup],
-        "seed": None,
+        "seed": seed,
         "swing": None,
         "events": dump_channel(t.channel),
     }
@@ -287,6 +299,178 @@ def generate():
     out["bars"]["chord_direction_down"] = run_bar_case(
         "CHORD", "1 4 90 80 70", 3, ["C7"],
         setup=[("setStrum", (["20"],)), ("setDirection", (["DOWN"],))],
+    )
+
+    # ---------------------------------------------------------------- ARP
+    out["bars"]["arp_basic"] = run_bar_case("ARPEGGIO", "1 4 90", 5, ["C"])
+    out["bars"]["arp_beats"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 2 4 80; 3 4 80; 4 4 70", 5, ["Cmaj7"]
+    )
+    out["bars"]["arp_two_bars"] = run_bar_case("ARPEGGIO", "1 4 90; 3 4 80", 5, ["C", "F"])
+    out["bars"]["arp_up"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 5, ["C"],
+        setup=[("setDirection", (["UP"],))],
+    )
+    out["bars"]["arp_down"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 5, ["C7"],
+        setup=[("setDirection", (["DOWN"],))],
+    )
+    out["bars"]["arp_random"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 5, ["C"],
+        setup=[("setDirection", (["RANDOM"],))], seed=5,
+    )
+    out["bars"]["arp_range_2"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["Cmaj7"],
+        setup=[("setRange", (["2"],))],
+    )
+    out["bars"]["arp_range_fraction"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["Cmaj7"],
+        setup=[("setRange", (["1.5"],))],
+    )
+    out["bars"]["arp_invert"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["Cmaj7"],
+        setup=[("setInvert", (["1"],))],
+    )
+    out["bars"]["arp_compress"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["Cmaj7"],
+        setup=[("setCompress", (["TRUE"],))],
+    )
+    out["bars"]["arp_limit"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["Cmaj7"],
+        setup=[("setChordLimit", (["4", "DROP=1", "FORCE=TRUE"],))],
+    )
+    out["bars"]["arp_octave_volume"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["C"],
+        setup=[("setOctave", (["5"],)), ("setVolume", (["pp"],))],
+    )
+    out["bars"]["arp_artic_rtime"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["C"],
+        setup=[("setArtic", (["50"],)), ("setRTime", (["-10,10"],))], seed=6,
+    )
+    out["bars"]["arp_rskip"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["C"],
+        setup=[("setRSkip", (["99", "BEATS=3"],))], seed=7,
+    )
+    out["bars"]["arp_restart"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["C", "F"],
+        setup=[("setDirection", (["DOWN"],)), ("restart", ())],
+    )
+    out["bars"]["arp_two_chords"] = run_multi_chord_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, [[("C", 1, 3), ("F", 3, 5)]]
+    )
+
+    # -------------------------------------------------------------- SCALE
+    out["bars"]["scale_basic"] = run_bar_case("SCALE", "1 1 90", 6, ["C"])
+    out["bars"]["scale_beats"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 70", 6, ["Cmaj7"]
+    )
+    out["bars"]["scale_chromatic"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C"],
+        setup=[("setScaletype", (["CHROMATIC"],))],
+    )
+    out["bars"]["scale_chord_type"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80", 6, ["Cmaj7"],
+        setup=[("setScaletype", (["CHORD"],))],
+    )
+    out["bars"]["scale_type_scale"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80", 6, ["Cm7"],
+        setup=[("setScaletype", (["SCALE"],))],
+    )
+    out["bars"]["scale_up"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C"],
+        setup=[("setDirection", (["UP"],))],
+    )
+    out["bars"]["scale_down"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C"],
+        setup=[("setDirection", (["DOWN"],))],
+    )
+    out["bars"]["scale_both"] = run_bar_case(
+        "SCALE",
+        "1 8 90; 1+8 8 80; 2 8 80; 2+8 8 70; 3 8 80; 3+8 8 80; 4 8 80; 4+8 8 70",
+        6, ["C"], setup=[("setDirection", (["BOTH"],))],
+    )
+    out["bars"]["scale_random"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C"],
+        setup=[("setDirection", (["RANDOM"],))], seed=8,
+    )
+    out["bars"]["scale_range_2"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C"],
+        setup=[("setRange", (["2"],))],
+    )
+    out["bars"]["scale_range_fraction"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80", 6, ["C"],
+        setup=[("setRange", (["1.5"],))],
+    )
+    out["bars"]["scale_two_bars"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C", "F"]
+    )
+    out["bars"]["scale_slash"] = run_bar_case("SCALE", "1 4 90; 3 4 80", 6, ["C/G"])
+    out["bars"]["scale_octave_voice"] = run_bar_case(
+        "SCALE", "1 4 90; 3 4 80", 6, ["C"],
+        setup=[("setOctave", (["5"],)), ("setVoice", (["Flute"],))],
+    )
+    out["bars"]["scale_artic_rtime_volume"] = run_bar_case(
+        "SCALE", "1 4 90; 3 4 80", 6, ["C"],
+        setup=[("setArtic", (["50"],)), ("setRTime", (["-10,10"],)), ("setVolume", (["p"],))],
+        seed=9,
+    )
+    out["bars"]["scale_rskip"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C"],
+        setup=[("setRSkip", (["99", "BEATS=2"],))], seed=10,
+    )
+    out["bars"]["scale_restart"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C", "F"],
+        setup=[("setDirection", (["DOWN"],)), ("restart", ())],
+    )
+    out["bars"]["scale_two_chords"] = run_multi_chord_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6,
+        [[("C", 1, 3), ("G", 3, 5)]],
+    )
+    out["bars"]["scale_seqtypes"] = run_bar_case(
+        "SCALE", "1 4 90; 3 4 80", 6, ["C", "C"],
+        setup=[("setScaletype", (["CHROMATIC", "SCALE"],))],
+    )
+
+    # --------------------------------------------------------------- WALK
+    # WALK always draws from the RNG (beat-1 root preference and step
+    # choice), so every case is seeded.
+    out["bars"]["walk_basic"] = run_bar_case("WALK", "1 4 90", 7, ["C"], seed=11)
+    out["bars"]["walk_beats"] = run_bar_case(
+        "WALK", "1 4 90; 2 4 80; 3 4 80; 4 4 70", 7, ["Cmaj7"], seed=12
+    )
+    out["bars"]["walk_up"] = run_bar_case(
+        "WALK", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 7, ["C"],
+        setup=[("setDirection", (["UP"],))], seed=13,
+    )
+    out["bars"]["walk_down"] = run_bar_case(
+        "WALK", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 7, ["C"],
+        setup=[("setDirection", (["DOWN"],))], seed=14,
+    )
+    out["bars"]["walk_random"] = run_bar_case(
+        "WALK", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 7, ["C"],
+        setup=[("setDirection", (["RANDOM"],))], seed=15,
+    )
+    out["bars"]["walk_two_bars"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["C", "F"], seed=16
+    )
+    out["bars"]["walk_octave_volume"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["C"],
+        setup=[("setOctave", (["5"],)), ("setVolume", (["pp"],))], seed=17,
+    )
+    out["bars"]["walk_artic_rtime"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["C"],
+        setup=[("setArtic", (["50"],)), ("setRTime", (["-10,10"],))], seed=18,
+    )
+    out["bars"]["walk_rskip"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["C"],
+        setup=[("setRSkip", (["99", "BEATS=3"],))], seed=19,
+    )
+    out["bars"]["walk_restart"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["C", "F"],
+        setup=[("restart", ())], seed=20,
+    )
+    out["bars"]["walk_two_chords"] = run_multi_chord_case(
+        "WALK", "1 4 90; 3 4 80", 7, [[("C", 1, 3), ("F", 3, 5)]], seed=21
     )
 
     return out

@@ -19,6 +19,7 @@ import { buildSongModel, type SongModel } from './SongModel';
 import type { MIDIOptions, MMAOptions } from './Options';
 import type { MIDIResult, MMASource, ParseResult } from './Results';
 import type { MMAContext } from '../engine/Context';
+import type { GrooveDatabase } from '../groove/GrooveDatabase';
 import { writeMIDI } from '../midi/MIDIWriter';
 
 export interface MMAConstructorConfig extends MMAConfig {}
@@ -87,6 +88,15 @@ export class MMA {
   /** Model produced by the last run, if any. */
   getSongModel(): SongModel | null {
     return this.lastModel;
+  }
+
+  /**
+   * Attach (or replace/remove) the on-demand groove database used by
+   * subsequent runs.  Load it first with `GrooveDatabase.load(url)`.
+   */
+  setGrooveDatabase(database: GrooveDatabase | null): void {
+    if (database) this.config.grooveDatabase = database;
+    else delete this.config.grooveDatabase;
   }
 
   /** Version of this TypeScript port and of the upstream Python MMA. */

@@ -5,10 +5,10 @@
  * may be just a type (BASS) or type-name (BASS-FOO); the class is chosen
  * by the part before the first '-'.
  *
- * Only BASS, CHORD and DRUM are ported in M1.  The remaining base names
- * are registered with stub classes that raise a descriptive M2 error, so
- * a future milestone (or plugin) can replace them via
- * registerTrackClass() without touching this table.
+ * M1 ported BASS, CHORD and DRUM; M2 adds ARPEGGIO, SCALE and WALK.  The
+ * remaining base names are registered with stub classes that raise a
+ * descriptive M2 error, so a future milestone (or plugin) can replace
+ * them via registerTrackClass() without touching this table.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,12 @@
 import type { MMAContext } from '../../engine/Context';
 import { BaseTrack } from './BaseTrack';
 import { trackHooks } from './hooks';
+import { ArpeggioTrack } from './ArpeggioTrack';
 import { BassTrack } from './BassTrack';
 import { ChordTrack } from './ChordTrack';
 import { DrumTrack } from './DrumTrack';
+import { ScaleTrack } from './ScaleTrack';
+import { WalkTrack } from './WalkTrack';
 
 export type TrackCtor = new (ctx: MMAContext, name: string) => BaseTrack;
 
@@ -36,16 +39,16 @@ function unportedTrack(vtype: string, source: string): TrackCtor {
 }
 
 /**
- * Base name -> track class.  Mirrors MMA/alloc.py trkClasses; ARPEGGIO,
- * SCALE, WALK, MELODY, SOLO, ARIA and PLECTRUM are M2 stubs.
+ * Base name -> track class.  Mirrors MMA/alloc.py trkClasses; MELODY,
+ * SOLO, ARIA and PLECTRUM are still M2 stubs.
  */
 export const trackClasses: Record<string, TrackCtor> = {
   BASS: BassTrack,
   CHORD: ChordTrack,
   DRUM: DrumTrack,
-  ARPEGGIO: unportedTrack('ARPEGGIO', 'patArpeggio.py'),
-  SCALE: unportedTrack('SCALE', 'patScale.py'),
-  WALK: unportedTrack('WALK', 'patWalk.py'),
+  ARPEGGIO: ArpeggioTrack,
+  SCALE: ScaleTrack,
+  WALK: WalkTrack,
   MELODY: unportedTrack('MELODY', 'patSolo.py'),
   SOLO: unportedTrack('SOLO', 'patSolo.py'),
   ARIA: unportedTrack('ARIA', 'patAria.py'),
