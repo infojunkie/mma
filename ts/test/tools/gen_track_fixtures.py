@@ -29,6 +29,7 @@ __main__.platform = "Linux"
 # that only resolve when parse is imported before the track modules.
 import MMA.parse  # noqa: E402
 import MMA.swing  # noqa: E402
+import MMA.harmony  # noqa: E402
 
 from MMA import gbl, pat  # noqa: E402
 from MMA.chords import ChordNotes  # noqa: E402
@@ -39,6 +40,7 @@ from MMA.patDrum import Drum  # noqa: E402
 from MMA.patArpeggio import Arpeggio  # noqa: E402
 from MMA.patScale import Scale  # noqa: E402
 from MMA.patWalk import Walk  # noqa: E402
+from MMA.patPlectrum import Plectrum  # noqa: E402
 
 TRACKS = {
     "CHORD": Chord,
@@ -48,6 +50,29 @@ TRACKS = {
     "SCALE": Scale,
     "WALK": Walk,
 }
+
+# PLECTRUM is only needed for the harmony-setter warning cases; it must not
+# join TRACKS or the `defaults` section (and every existing fixture) would
+# grow a new entry.
+SETTER_TRACKS = dict(TRACKS)
+SETTER_TRACKS["PLECTRUM"] = Plectrum
+
+# The harmony setters live in MMA/harmony.py and take the track as self,
+# so they are not track methods in Python (parse.py calls them directly).
+HARMONY_SETTERS = {
+    "setHarmony": MMA.harmony.setHarmony,
+    "setHarmonyOnly": MMA.harmony.setHarmonyOnly,
+    "setHarmonyVolume": MMA.harmony.setHarmonyVolume,
+}
+
+
+def apply_setup(t, setup):
+    """Apply a fixture setup list; harmony setters need the module shim."""
+    for method, args in setup:
+        if method in HARMONY_SETTERS:
+            HARMONY_SETTERS[method](t, *args)
+        else:
+            getattr(t, method)(*args)
 
 
 def reset_gbl():
@@ -158,8 +183,7 @@ def run_bar_case(vtype, pattern, channel, chord_names, setup=(), seed=None, swin
     if seqrnd:
         t.seqRnd = True
 
-    for method, args in setup:
-        getattr(t, method)(*args)
+    apply_setup(t, setup)
 
     for bar, cname in enumerate(chord_names):
         gbl.seqCount = bar
@@ -200,8 +224,7 @@ def run_multi_chord_case(vtype, pattern, channel, bars, setup=(), seed=None):
 
     gbl.seqSize = len(bars)
     t.setSeqSize()
-    for method, args in setup:
-        getattr(t, method)(*args)
+    apply_setup(t, setup)
 
     for b, specs in enumerate(bars):
         gbl.seqCount = b
@@ -222,6 +245,37 @@ def run_multi_chord_case(vtype, pattern, channel, bars, setup=(), seed=None):
         "seed": seed,
         "swing": None,
         "events": dump_channel(t.channel),
+    }
+
+
+def run_harmony_setter_case(vtype, method, args, seqsize=1):
+    """Run a harmony setter and record the resulting state and warnings.
+
+    The warning() calls in harmony.py are captured by patching the module
+    global; the "list truncated" warning from common.lnExpand() is not
+    captured (it lives in common.py), so the cases avoid oversized lists.
+    """
+    reset_gbl()
+    gbl.seqSize = seqsize
+    t = SETTER_TRACKS[vtype](vtype)
+
+    captured = []
+    orig = MMA.harmony.warning
+    MMA.harmony.warning = lambda msg: captured.append(msg)
+    try:
+        HARMONY_SETTERS[method](t, args)
+    finally:
+        MMA.harmony.warning = orig
+
+    return {
+        "track": vtype,
+        "method": method,
+        "args": list(args),
+        "seqsize": seqsize,
+        "harmony": plain(t.harmony),
+        "harmonyOnly": plain(t.harmonyOnly),
+        "harmonyVolume": plain(t.harmonyVolume),
+        "warnings": captured,
     }
 
 
@@ -472,6 +526,149 @@ def generate():
     out["bars"]["walk_two_chords"] = run_multi_chord_case(
         "WALK", "1 4 90; 3 4 80", 7, [[("C", 1, 3), ("F", 3, 5)]], seed=21
     )
+
+    # ------------------------------------------------------------- HARMONY
+    # Chord-derived harmony notes (MMA/harmony.py).  Note that the setters
+    # upper-case their arguments, so modes are written lower/mixed case
+    # (e.g. 2:Per4 -> 2:PER4); '28Below' only works when passed to
+    # harmonize() directly (the Python comparison is case-sensitive).
+    out["bars"]["bass_harmony_2"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"], setup=[("setHarmony", (["2"],))]
+    )
+    out["bars"]["bass_harmony_2above"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 80", 4, ["C"], setup=[("setHarmony", (["2Above"],))]
+    )
+    out["bars"]["bass_harmony_3"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["Cmaj7"], setup=[("setHarmony", (["3"],))]
+    )
+    out["bars"]["bass_harmony_38below"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 80", 4, ["C"], setup=[("setHarmony", (["38Below"],))]
+    )
+    out["bars"]["bass_harmony_3above"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["Cmaj7"], setup=[("setHarmony", (["3Above"],))]
+    )
+    out["bars"]["bass_harmony_openbelow_openabove"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 80", 4, ["C"],
+        setup=[("setHarmony", (["OpenBelow+OpenAbove"],))],
+    )
+    out["bars"]["bass_harmony_open8below"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"], setup=[("setHarmony", (["Open8Below"],))]
+    )
+    out["bars"]["bass_harmony_root"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 80", 4, ["C"], setup=[("setHarmony", (["Root"],))]
+    )
+    out["bars"]["bass_harmony_top"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["Cmaj7"], setup=[("setHarmony", (["Top"],))]
+    )
+    out["bars"]["bass_harmony_topbelow"] = run_bar_case(
+        "BASS", "1 4 5 90", 4, ["C"], setup=[("setHarmony", (["TopBelow"],))]
+    )
+    out["bars"]["bass_harmony_8above"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"], setup=[("setHarmony", (["8Above"],))]
+    )
+    out["bars"]["bass_harmony_16below"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"], setup=[("setHarmony", (["16Below"],))]
+    )
+    out["bars"]["bass_harmony_24above"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"], setup=[("setHarmony", (["24Above"],))]
+    )
+    out["bars"]["bass_harmony_interval"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"], setup=[("setHarmony", (["2:Per4"],))]
+    )
+    out["bars"]["bass_harmony_interval_octave"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"], setup=[("setHarmony", (["-1:Per5"],))]
+    )
+    out["bars"]["bass_harmony_comma"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 80", 4, ["Cmaj7"],
+        setup=[("setHarmony", (["2,3,Open"],))], seed=30,
+    )
+    out["bars"]["bass_harmony_only"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"], setup=[("setHarmonyOnly", (["3"],))]
+    )
+    out["bars"]["bass_harmony_volume"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 80", 4, ["C"],
+        setup=[("setHarmony", (["3"],)), ("setHarmonyVolume", (["50"],))],
+    )
+    out["bars"]["walk_harmony_open"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["C"], setup=[("setHarmony", (["Open"],))], seed=40
+    )
+    out["bars"]["walk_harmony_3below"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["Cmaj7"],
+        setup=[("setHarmony", (["3Below"],))], seed=41,
+    )
+    out["bars"]["walk_harmony_rootabove"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["C"],
+        setup=[("setHarmony", (["RootAbove"],))], seed=42,
+    )
+    out["bars"]["arp_harmony_2"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 5, ["C"],
+        setup=[("setHarmony", (["2"],))],
+    )
+    out["bars"]["arp_harmony_open8above"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["Cmaj7"],
+        setup=[("setHarmony", (["Open8Above"],))],
+    )
+    out["bars"]["arp_harmony_16above"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["C"],
+        setup=[("setHarmony", (["16Above"],))],
+    )
+    out["bars"]["arp_harmony_comma"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 5, ["Cmaj7"],
+        setup=[("setHarmony", (["2,3,Root"],))], seed=43,
+    )
+    out["bars"]["arp_harmony_only_volume"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 80", 5, ["Cmaj7"],
+        setup=[("setHarmonyOnly", (["3"],)), ("setHarmonyVolume", (["50"],))],
+    )
+    out["bars"]["scale_harmony_3"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["C"],
+        setup=[("setHarmony", (["3"],))],
+    )
+    out["bars"]["scale_harmony_openabove"] = run_bar_case(
+        "SCALE", "1 4 90; 3 4 80", 6, ["C"], setup=[("setHarmony", (["OpenAbove"],))]
+    )
+    out["bars"]["scale_harmony_top8above"] = run_bar_case(
+        "SCALE", "1 4 90; 3 4 80", 6, ["Cmaj7"], setup=[("setHarmony", (["Top8Above"],))]
+    )
+    out["bars"]["scale_harmony_comma"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80; 4 4 80", 6, ["Cmaj7"],
+        setup=[("setHarmony", (["2,3,Open"],))], seed=44,
+    )
+    out["bars"]["scale_harmony_only_volume"] = run_bar_case(
+        "SCALE", "1 4 90; 2 4 80; 3 4 80", 6, ["C"],
+        setup=[("setHarmonyOnly", (["RootAbove"],)), ("setHarmonyVolume", (["50"],))],
+    )
+
+    # Harmony setters (state + warnings).  CHORD/DRUM ignore the setting
+    # with a warning; PLECTRUM ignores only HarmonyVolume.
+    out["harmonySetters"] = {
+        "bass_set": run_harmony_setter_case("BASS", "setHarmony", ["2"]),
+        "bass_set_lower": run_harmony_setter_case("BASS", "setHarmony", ["open8above"]),
+        "bass_set_none_dash": run_harmony_setter_case("BASS", "setHarmony", ["-"]),
+        "bass_set_none_word": run_harmony_setter_case("BASS", "setHarmony", ["None"]),
+        "bass_set_slash": run_harmony_setter_case(
+            "BASS", "setHarmony", ["2", "/", "3"], seqsize=4
+        ),
+        "bass_set_seqsize": run_harmony_setter_case(
+            "BASS", "setHarmony", ["2", "3"], seqsize=4
+        ),
+        "bass_only": run_harmony_setter_case("BASS", "setHarmonyOnly", ["3"]),
+        "bass_only_none": run_harmony_setter_case("BASS", "setHarmonyOnly", ["NONE"]),
+        "bass_volume": run_harmony_setter_case("BASS", "setHarmonyVolume", ["50"]),
+        "bass_volume_zero": run_harmony_setter_case("BASS", "setHarmonyVolume", ["0"]),
+        "bass_volume_seqsize": run_harmony_setter_case(
+            "BASS", "setHarmonyVolume", ["50", "75"], seqsize=2
+        ),
+        "chord_set_warn": run_harmony_setter_case("CHORD", "setHarmony", ["3"]),
+        "chord_only_warn": run_harmony_setter_case("CHORD", "setHarmonyOnly", ["3"]),
+        "drum_set_warn": run_harmony_setter_case("DRUM", "setHarmony", ["3"]),
+        "drum_only_warn": run_harmony_setter_case("DRUM", "setHarmonyOnly", ["3"]),
+        "drum_volume_warn": run_harmony_setter_case("DRUM", "setHarmonyVolume", ["50"]),
+        "plectrum_set": run_harmony_setter_case("PLECTRUM", "setHarmony", ["Open"]),
+        "plectrum_volume_warn": run_harmony_setter_case(
+            "PLECTRUM", "setHarmonyVolume", ["50"]
+        ),
+    }
 
     return out
 

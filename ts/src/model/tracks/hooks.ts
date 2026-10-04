@@ -19,6 +19,7 @@
 
 import type { MMAContext } from '../../engine/Context';
 import type { CTable } from '../CTable';
+import { harmonize } from '../features/Harmony';
 import type { BaseTrack } from './BaseTrack';
 
 /**
@@ -50,8 +51,8 @@ export interface TrackHooks {
   mdefGet(ctx: MMAContext, name: string): MidiSeqDef;
   /** Port of MMA/rpitch.doRpitch().  M2: rpitch.py not ported. */
   doRpitch(ctx: MMAContext, track: BaseTrack, offset: number, note: number): number;
-  /** Port of MMA/harmony.harmonize().  M2: harmony.py not ported. */
-  harmonize(ctx: MMAContext, interval: number, note: number, chord: number[]): number[];
+  /** Port of MMA/harmony.harmonize(): chord-derived harmony notes. */
+  harmonize(ctx: MMAContext, hmode: string, note: number, chord: number[]): number[];
   /** Port of MMA/truncate.py's module state. */
   truncate: TruncateState;
   /**
@@ -77,8 +78,7 @@ export const trackHooks: TrackHooks = {
     ),
   doRpitch: (ctx, _track, _offset, _note) =>
     ctx.rep.error('M2: RPitch is not ported to TypeScript yet (MMA/rpitch.py doRpitch).'),
-  harmonize: (ctx, _interval, _note, _chord) =>
-    ctx.rep.error('M2: HARMONY is not ported to TypeScript yet (MMA/harmony.py harmonize).'),
+  harmonize: (ctx, hmode, note, chord) => harmonize(ctx, hmode, note, chord),
   truncate: { length: 0, side: 0 },
   trackAlloc: (ctx) =>
     ctx.rep.error('Internal: the track allocator has not been wired (import model/tracks/alloc).'),

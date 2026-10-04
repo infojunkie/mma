@@ -42,6 +42,9 @@ import {
   trackDelay,
   trackDirection,
   trackDupRoot,
+  trackHarmony,
+  trackHarmonyOnly,
+  trackHarmonyVolume,
   trackInvert,
   trackMallet,
   trackMidiClear,
@@ -261,6 +264,9 @@ export class DirectiveRegistry {
     reg('DELAY', trackDelay);
     reg('DIRECTION', trackDirection);
     reg('DUPROOT', trackDupRoot);
+    reg('HARMONY', trackHarmony);
+    reg('HARMONYONLY', trackHarmonyOnly);
+    reg('HARMONYVOLUME', trackHarmonyVolume);
     reg('INVERT', trackInvert);
     reg('LIMIT', trackChordLimit);
     reg('MALLET', trackMallet);
@@ -327,9 +333,6 @@ export class DirectiveRegistry {
       'DRUMTYPE',
       'FORCEOUT',
       'FRETNOISE',
-      'HARMONY',
-      'HARMONYONLY',
-      'HARMONYVOLUME',
       'MIDICUE',
       'MIDIDEF',
       'MIDIGLIS',

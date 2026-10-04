@@ -21,9 +21,10 @@ import { ChordTrack } from '../../src/model/tracks/ChordTrack';
 import { DrumTrack } from '../../src/model/tracks/DrumTrack';
 import { ScaleTrack } from '../../src/model/tracks/ScaleTrack';
 import { WalkTrack } from '../../src/model/tracks/WalkTrack';
-import type { BaseTrack } from '../../src/model/tracks/BaseTrack';
+import { BaseTrack } from '../../src/model/tracks/BaseTrack';
 import { trackAlloc } from '../../src/model/tracks/alloc';
 import { SwingState } from '../../src/model/features/Swing';
+import { harmonize, intervalHarmony } from '../../src/model/features/Harmony';
 
 interface FixtureBar {
   track: 'CHORD' | 'BASS' | 'DRUM' | 'ARPEGGIO' | 'SCALE' | 'WALK';
@@ -45,9 +46,24 @@ interface FixtureBar {
   events: Array<[number, ...string[]]>;
 }
 
+/** One HARMONY/HARMONYONLY/HARMONYVOLUME setter run from the oracle. */
+interface HarmonySetterCase {
+  track: string;
+  method: 'setHarmony' | 'setHarmonyOnly' | 'setHarmonyVolume';
+  args: string[];
+  /** gbl.seqSize used by the Python run. */
+  seqsize: number;
+  harmony: Array<string | null>;
+  harmonyOnly: Array<string | null>;
+  harmonyVolume: number[];
+  /** warning() messages captured from MMA/harmony.py. */
+  warnings: string[];
+}
+
 interface Fixture {
   defaults: Record<string, Record<string, unknown>>;
   bars: Record<string, FixtureBar>;
+  harmonySetters: Record<string, HarmonySetterCase>;
 }
 
 const fixture: Fixture = JSON.parse(
@@ -95,6 +111,17 @@ function dumpEvents(ctx: MMAContext, channel: number): Array<[number, ...string[
   return ticks.map(
     (tick) => [tick, ...tr.miditrk.get(tick)!.map((e) => Buffer.from(e).toString('hex'))] as [number, ...string[]],
   );
+}
+
+/** Count note-on events on a channel (note-offs use 0x9n velocity 0). */
+function countNoteOns(ctx: MMAContext, channel: number): number {
+  const tr = ctx.mtrks.tracks.get(channel);
+  if (!tr) return 0;
+  let n = 0;
+  for (const events of tr.miditrk.values()) {
+    for (const e of events) if ((e[0]! & 0xf0) === 0x90 && e[2]! > 0) n++;
+  }
+  return n;
 }
 
 function newTrack(ctx: MMAContext, vtype: string): BaseTrack {
@@ -573,14 +600,17 @@ describe('ARPEGGIO / SCALE / WALK track state', () => {
     expect(track.walkChoice).toBe(0);
   });
 
-  it('HARMONY on the M2 tracks needs the unported harmony module', () => {
+  it('HARMONY adds chord-derived notes on the M2 tracks', () => {
     for (const vtype of ['ARPEGGIO', 'SCALE', 'WALK']) {
       const ctx = makeContext();
       const track = newTrack(ctx, vtype);
       track.definePattern('P1', '1 4 90');
       track.sequence = [ctx.pats.get(vtype, 'P1') as Pattern];
-      (track as unknown as { harmony: unknown[] }).harmony = [3];
-      expect(() => track.bar([makeCTable(ctx, 'C')])).toThrow(/M2.*harmony/);
+      track.setHarmony(['3']);
+      track.bar([makeCTable(ctx, 'C')]);
+      // The pattern note plus the two '3' harmony notes; the byte-exact
+      // event streams are covered by the fixture bars.
+      expect(countNoteOns(ctx, track.channel)).toBe(3);
     }
   });
 
@@ -604,15 +634,6 @@ describe('M2 stubs for unported features', () => {
     expect(() => track.bar([makeCTable(ctx, 'G')])).toThrow(/M2.*parseChordLine/);
   });
 
-  it('HARMONY needs the unported harmony module', () => {
-    const ctx = makeContext();
-    const track = new BassTrack(ctx, 'BASS');
-    track.definePattern('P1', '1 4 1 90');
-    track.sequence = [ctx.pats.get('BASS', 'P1') as Pattern];
-    (track as unknown as { harmony: unknown[] }).harmony = [3];
-    expect(() => track.bar([makeCTable(ctx, 'C')])).toThrow(/M2.*harmony/);
-  });
-
   it('ORNAMENT playback needs the unported ornament module', () => {
     const ctx = makeContext();
     const track = new ChordTrack(ctx, 'CHORD');
@@ -629,5 +650,233 @@ describe('M2 stubs for unported features', () => {
     track.sequence = [ctx.pats.get('BASS', 'P1') as Pattern];
     track.trigger.mode = 'BEATS';
     expect(() => track.bar([makeCTable(ctx, 'C')])).toThrow(/M2.*TRIGGER/);
+  });
+});
+
+/**
+ * Oracle values for the pure harmonize() function generated with the
+ * reference MMA/harmony.py (Python 3.10): [mode, note, chord, seed, notes].
+ * The seed is applied with ctx.rng.seed() for the comma-separated modes.
+ * Every mode string from harmony.py is covered at least twice.
+ */
+const HARMONY_ORACLE: Array<[string, number, number[], number | null, number[]]> = [
+  ['2', 60, [48, 52, 55], null, [55]],
+  ['2', 60, [72, 76, 79], null, [55]],
+  ['2BELOW', 60, [48, 52, 55], null, [55]],
+  ['2BELOW', 60, [72, 76, 79], null, [55]],
+  ['28Below', 60, [48, 52, 55], null, [43]],
+  ['28Below', 60, [72, 76, 79], null, [43]],
+  ['2ABOVE', 60, [48, 52, 55], null, [67]],
+  ['2ABOVE', 60, [72, 76, 79], null, [67]],
+  ['28ABOVE', 60, [48, 52, 55], null, [79]],
+  ['28ABOVE', 60, [72, 76, 79], null, [79]],
+  ['3', 60, [48, 52, 55], null, [52, 55]],
+  ['3', 60, [72, 76, 79], null, [52, 55]],
+  ['3BELOW', 60, [48, 52, 55], null, [52, 55]],
+  ['3BELOW', 60, [72, 76, 79], null, [52, 55]],
+  ['38BELOW', 60, [48, 52, 55], null, [40, 43]],
+  ['38BELOW', 60, [72, 76, 79], null, [40, 43]],
+  ['3ABOVE', 60, [48, 52, 55], null, [64, 67]],
+  ['3ABOVE', 60, [72, 76, 79], null, [64, 67]],
+  ['38ABOVE', 60, [48, 52, 55], null, [88, 91]],
+  ['38ABOVE', 60, [72, 76, 79], null, [88, 91]],
+  ['OPEN', 60, [48, 52, 55], null, [52]],
+  ['OPEN', 60, [72, 76, 79], null, [52]],
+  ['OPENBELOW', 60, [48, 52, 55], null, [52]],
+  ['OPENBELOW', 60, [72, 76, 79], null, [52]],
+  ['OPEN8BELOW', 60, [48, 52, 55], null, [52]],
+  ['OPEN8BELOW', 60, [72, 76, 79], null, [52]],
+  ['OPEN8ABOVE', 60, [48, 52, 55], null, [76]],
+  ['OPEN8ABOVE', 60, [72, 76, 79], null, [76]],
+  ['OPENABOVE', 60, [48, 52, 55], null, [64]],
+  ['OPENABOVE', 60, [72, 76, 79], null, [64]],
+  ['8', 60, [48, 52, 55], null, [48]],
+  ['8', 60, [72, 76, 79], null, [48]],
+  ['8BELOW', 60, [48, 52, 55], null, [48]],
+  ['8BELOW', 60, [72, 76, 79], null, [48]],
+  ['8ABOVE', 60, [48, 52, 55], null, [72]],
+  ['8ABOVE', 60, [72, 76, 79], null, [72]],
+  ['16', 60, [48, 52, 55], null, [36]],
+  ['16', 60, [72, 76, 79], null, [36]],
+  ['16BELOW', 60, [48, 52, 55], null, [36]],
+  ['16BELOW', 60, [72, 76, 79], null, [36]],
+  ['16ABOVE', 60, [48, 52, 55], null, [84]],
+  ['16ABOVE', 60, [72, 76, 79], null, [84]],
+  ['24', 60, [48, 52, 55], null, [24]],
+  ['24', 60, [72, 76, 79], null, [24]],
+  ['24BELOW', 60, [48, 52, 55], null, [24]],
+  ['24BELOW', 60, [72, 76, 79], null, [24]],
+  ['24ABOVE', 60, [48, 52, 55], null, [96]],
+  ['24ABOVE', 60, [72, 76, 79], null, [96]],
+  ['TOP', 60, [48, 52, 55], null, [55]],
+  ['TOP', 60, [72, 76, 79], null, [79]],
+  ['TOPABOVE', 60, [48, 52, 55], null, [67]],
+  ['TOPABOVE', 60, [72, 76, 79], null, [79]],
+  ['TOP8ABOVE', 60, [48, 52, 55], null, [79]],
+  ['TOP8ABOVE', 60, [72, 76, 79], null, [91]],
+  ['TOP16ABOVE', 60, [48, 52, 55], null, [91]],
+  ['TOP16ABOVE', 60, [72, 76, 79], null, [103]],
+  ['TOPBELOW', 60, [48, 52, 55], null, [55]],
+  ['TOPBELOW', 60, [72, 76, 79], null, [55]],
+  ['TOP8BELOW', 60, [48, 52, 55], null, [43]],
+  ['TOP8BELOW', 60, [72, 76, 79], null, [43]],
+  ['TOP16BELOW', 60, [48, 52, 55], null, [31]],
+  ['TOP16BELOW', 60, [72, 76, 79], null, [31]],
+  ['ROOT', 60, [48, 52, 55], null, [108]],
+  ['ROOT', 60, [72, 76, 79], null, [132]],
+  ['ROOTABOVE', 60, [48, 52, 55], null, [72]],
+  ['ROOTABOVE', 60, [72, 76, 79], null, [72]],
+  ['ROOT8ABOVE', 60, [48, 52, 55], null, [84]],
+  ['ROOT8ABOVE', 60, [72, 76, 79], null, [84]],
+  ['ROOT16ABOVE', 60, [48, 52, 55], null, [96]],
+  ['ROOT16ABOVE', 60, [72, 76, 79], null, [96]],
+  ['ROOTBELOW', 60, [48, 52, 55], null, [48]],
+  ['ROOTBELOW', 60, [72, 76, 79], null, [48]],
+  ['ROOT8BELOW', 60, [48, 52, 55], null, [36]],
+  ['ROOT8BELOW', 60, [72, 76, 79], null, [36]],
+  ['ROOT16BELOW', 60, [48, 52, 55], null, [24]],
+  ['ROOT16BELOW', 60, [72, 76, 79], null, [24]],
+  ['NONE', 60, [48, 52, 55], null, []],
+  ['NONE', 60, [72, 76, 79], null, []],
+  ['2:PER4', 60, [48, 52, 55], null, [89]],
+  ['2:PER4', 60, [72, 76, 79], null, [89]],
+  ['3:MAJ2', 60, [48, 52, 55], null, [98]],
+  ['3:MAJ2', 60, [72, 76, 79], null, [98]],
+  ['-1:PER5', 60, [48, 52, 55], null, [55]],
+  ['-1:PER5', 60, [72, 76, 79], null, [55]],
+  ['0:UNI', 60, [48, 52, 55], null, [60]],
+  ['0:UNI', 60, [72, 76, 79], null, [60]],
+  ['2:3', 60, [48, 52, 55], null, [87]],
+  ['2:3', 60, [72, 76, 79], null, [87]],
+  ['1:MINORTHIRD', 60, [48, 52, 55], null, [75]],
+  ['1:MINORTHIRD', 60, [72, 76, 79], null, [75]],
+  ['0:PERFECTFIFTH', 60, [48, 52, 55], null, [67]],
+  ['0:PERFECTFIFTH', 60, [72, 76, 79], null, [67]],
+  ['2:DIM7', 60, [48, 52, 55], null, [93]],
+  ['2:DIM7', 60, [72, 76, 79], null, [93]],
+  ['-4:OCT', 60, [48, 52, 55], null, [24]],
+  ['-4:OCT', 60, [72, 76, 79], null, [24]],
+  ['4:MAJ7', 60, [48, 52, 55], null, [119]],
+  ['4:MAJ7', 60, [72, 76, 79], null, [119]],
+  ['2:0', 60, [48, 52, 55], null, [84]],
+  ['2:0', 60, [72, 76, 79], null, [84]],
+  ['0:AUGMENTEDFOURTH', 60, [48, 52, 55], null, [66]],
+  ['0:AUGMENTEDFOURTH', 60, [72, 76, 79], null, [66]],
+  ['1:MINORSEVENTH', 60, [48, 52, 55], null, [82]],
+  ['1:MINORSEVENTH', 60, [72, 76, 79], null, [82]],
+  ['0:DIMINISHEDFIFTH', 60, [48, 52, 55], null, [66]],
+  ['0:DIMINISHEDFIFTH', 60, [72, 76, 79], null, [66]],
+  ['0:MAJORSIXTH', 60, [48, 52, 55], null, [69]],
+  ['0:MAJORSIXTH', 60, [72, 76, 79], null, [69]],
+  ['0:OCTAVE', 60, [48, 52, 55], null, [72]],
+  ['0:OCTAVE', 60, [72, 76, 79], null, [72]],
+  ['OPENBELOW+OPENABOVE', 60, [48, 52, 55], null, [64, 52]],
+  ['OPENBELOW+OPENABOVE', 60, [72, 76, 79], null, [64, 52]],
+  ['3+3ABOVE', 60, [48, 52, 55], null, [64, 67, 52, 55]],
+  ['3+3ABOVE', 60, [72, 76, 79], null, [64, 67, 52, 55]],
+  ['TOP+ROOT', 60, [48, 52, 55], null, [108, 55]],
+  ['TOP+ROOT', 60, [72, 76, 79], null, [132, 79]],
+  ['ROOTABOVE+ROOTBELOW+TOP', 60, [48, 52, 55], null, [72, 48, 55]],
+  ['ROOTABOVE+ROOTBELOW+TOP', 60, [72, 76, 79], null, [72, 48, 79]],
+  ['NONE+2', 60, [48, 52, 55], null, [55]],
+  ['NONE+2', 60, [72, 76, 79], null, [55]],
+  ['2+2', 60, [48, 52, 55], null, [55]],
+  ['2+2', 60, [72, 76, 79], null, [55]],
+  ['2,3,OPEN', 60, [48, 52, 55], 1, [55]],
+  ['2,3,OPEN', 60, [48, 52, 55], 2, [55]],
+  ['2,3,OPEN', 60, [48, 52, 55], 3, [55]],
+  ['2,3,OPEN', 60, [48, 52, 55], 7, [52, 55]],
+  ['2,3,OPEN', 60, [48, 52, 55], 11, [52, 55]],
+  ['ROOT,TOP,8ABOVE', 60, [48, 52, 55], 1, [108]],
+  ['ROOT,TOP,8ABOVE', 60, [48, 52, 55], 2, [108]],
+  ['ROOT,TOP,8ABOVE', 60, [48, 52, 55], 3, [108]],
+  ['ROOT,TOP,8ABOVE', 60, [48, 52, 55], 7, [55]],
+  ['ROOT,TOP,8ABOVE', 60, [48, 52, 55], 11, [55]],
+  ['3,3ABOVE', 60, [48, 52, 55], 1, [52, 55]],
+  ['3,3ABOVE', 60, [48, 52, 55], 2, [52, 55]],
+  ['3,3ABOVE', 60, [48, 52, 55], 3, [52, 55]],
+  ['3,3ABOVE', 60, [48, 52, 55], 7, [64, 67]],
+  ['3,3ABOVE', 60, [48, 52, 55], 11, [64, 67]],
+  ['2,3+TOP', 60, [48, 52, 55], 1, [55]],
+  ['2,3+TOP', 60, [48, 52, 55], 2, [55]],
+  ['2,3+TOP', 60, [48, 52, 55], 3, [55]],
+  ['2,3+TOP', 60, [48, 52, 55], 7, [52, 55]],
+  ['2,3+TOP', 60, [48, 52, 55], 11, [52, 55]],
+];
+
+describe('harmony (MMA/harmony.py)', () => {
+  it('harmonize() matches the Python oracle for every mode', () => {
+    const ctx = makeContext();
+    for (const [mode, note, chord, seed, want] of HARMONY_ORACLE) {
+      if (seed !== null) ctx.rng.seed(seed);
+      expect(harmonize(ctx, mode, note, chord), `${mode} note=${note} chord=${chord}`).toEqual(want);
+    }
+  });
+
+  it('harmonize() preserves Python set() ordering of the note list', () => {
+    const ctx = makeContext();
+    // Python's list(set([52, 64])) is [64, 52] (slot order, not sorted), so
+    // OPENBELOW+OPENABOVE emits 64 before 52; the note order is audible.
+    expect(harmonize(ctx, 'OPENBELOW+OPENABOVE', 60, [48, 52, 55])).toEqual([64, 52]);
+    expect(harmonize(ctx, '3+3ABOVE', 60, [48, 52, 55])).toEqual([64, 67, 52, 55]);
+    expect(harmonize(ctx, 'TOP+ROOT', 60, [48, 52, 55])).toEqual([108, 55]);
+  });
+
+  it('harmonize() rejects unknown modes and bad intervals', () => {
+    const ctx = makeContext();
+    expect(() => harmonize(ctx, 'BOGUS', 60, [48, 52, 55])).toThrow("Unknown harmony type 'BOGUS'");
+    // HARMONY settings are upper-cased, so Python's mixed-case '28Below'
+    // literal is unreachable and '28BELOW' is an error (reproduced).
+    expect(() => harmonize(ctx, '28BELOW', 60, [48, 52, 55])).toThrow(
+      "Unknown harmony type '28BELOW'",
+    );
+    expect(() => harmonize(ctx, '3:XYZ', 60, [48, 52, 55])).toThrow(
+      /Interval harmony 3:XYZ is unknown/,
+    );
+    expect(() => harmonize(ctx, '5:PER4', 60, [48, 52, 55])).toThrow(/Octave 5 is too large/);
+    expect(() => harmonize(ctx, '-5:PER4', 60, [48, 52, 55])).toThrow(/Octave -5 is too large/);
+  });
+
+  it('intervalHarmony() expands full interval names like Python', () => {
+    const ctx = makeContext();
+    expect(intervalHarmony(ctx, '0:PERFECTFIFTH')).toBe(7);
+    expect(intervalHarmony(ctx, '1:MINORTHIRD')).toBe(15);
+    expect(intervalHarmony(ctx, ':MAJ2')).toBe(2);
+    expect(intervalHarmony(ctx, '-1:OCT')).toBe(0);
+  });
+
+  it('Harmony setters match the Python oracle (state and warnings)', () => {
+    for (const [name, c] of Object.entries(fixture.harmonySetters)) {
+      const ctx = makeContext();
+      ctx.seqSize = c.seqsize;
+      // A plain BaseTrack reproduces the vtype-specific warning paths
+      // (CHORD/DRUM/PLECTRUM) without needing the unported PLECTRUM class.
+      const track = new BaseTrack(ctx, c.track, c.track);
+      const fn = (track as unknown as Record<string, (ln: string[]) => void>)[c.method];
+      if (!fn) throw new Error(`missing harmony setter ${c.method}`);
+      fn.call(track, c.args);
+      expect(track.harmony, `${name} harmony`).toEqual(c.harmony);
+      expect(track.harmonyOnly, `${name} harmonyOnly`).toEqual(c.harmonyOnly);
+      expect(track.harmonyVolume, `${name} harmonyVolume`).toEqual(c.harmonyVolume);
+      expect(ctx.rep.warnings.map((w) => w.message), `${name} warnings`).toEqual(c.warnings);
+    }
+  });
+
+  it('HarmonyVolume rejects negative and non-integer values', () => {
+    const ctx = makeContext();
+    const track = new BassTrack(ctx, 'BASS');
+    expect(() => track.setHarmonyVolume(['-1'])).toThrow(/must be positive integer/);
+    expect(() => track.setHarmonyVolume(['abc'])).toThrow(/Expecting integer/);
+  });
+
+  it('HARMONYONLY suppresses the pattern note', () => {
+    const ctx = makeContext();
+    const track = new BassTrack(ctx, 'BASS');
+    track.definePattern('P1', '1 4 1 90');
+    track.sequence = [ctx.pats.get('BASS', 'P1') as Pattern];
+    track.setHarmonyOnly(['3']);
+    track.bar([makeCTable(ctx, 'C')]);
+    // Only the two '3' harmony notes; the played pattern note is dropped.
+    expect(countNoteOns(ctx, track.channel)).toBe(2);
   });
 });

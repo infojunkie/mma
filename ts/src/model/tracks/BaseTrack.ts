@@ -45,7 +45,7 @@ export interface GrooveData {
   DELAY: number[];
   DIR: string[];
   DUPROOT: number[][];
-  HARMONY: [unknown[], unknown[], number[]];
+  HARMONY: [Array<string | null>, Array<string | null>, number[]];
   INVERT: number[][];
   LIMIT: [number, number, boolean];
   RANGE: number[];
@@ -166,8 +166,8 @@ export class BaseTrack {
   octave: number[] = [4 * 12];
   voice: number[] = [defaultVoice];
   chordRange: number[] = [1];
-  harmony: unknown[] = [null];
-  harmonyOnly: unknown[] = [null];
+  harmony: Array<string | null> = [null];
+  harmonyOnly: Array<string | null> = [null];
   harmonyVolume: number[] = [0.8];
   strum: Array<[number, number] | null> = [null];
   strumAdd: number[] = [0];
@@ -569,6 +569,57 @@ export class BaseTrack {
       tmp.push(stoi(this.ctx.rep, i, `Argument for ${this.name} StrumAdd must be an integer`));
     }
     this.strumAdd = this.ctx.seqBump(tmp);
+  }
+
+  /** Set the harmony mode(s); see MMA/harmony.py setHarmony. */
+  setHarmony(ln: string[]): void {
+    ln = lnExpand(this.ctx.rep, ln, `${this.name} Harmony`, this.ctx.seqSize, this.ctx.inAllGrooves);
+    const tmp: Array<string | null> = [];
+    for (let n of ln) {
+      n = n.toUpperCase();
+      if (['-', '0', 'NONE'].includes(n)) tmp.push(null);
+      else tmp.push(n);
+    }
+    this.harmony = this.ctx.seqBump(tmp);
+
+    if (['CHORD', 'DRUM'].includes(this.vtype)) {
+      this.ctx.rep.warning(`Harmony setting for ${this.vtype} track ignored`);
+    }
+  }
+
+  /** Set harmony-only mode; this also enables the harmony notes. */
+  setHarmonyOnly(ln: string[]): void {
+    ln = lnExpand(this.ctx.rep, ln, `${this.name} HarmonyOnly`, this.ctx.seqSize, this.ctx.inAllGrooves);
+    const tmp: Array<string | null> = [];
+    for (let n of ln) {
+      n = n.toUpperCase();
+      if (['-', '0', 'NONE'].includes(n)) tmp.push(null);
+      else tmp.push(n);
+    }
+    this.harmony = this.ctx.seqBump(tmp);
+    this.harmonyOnly = this.ctx.seqBump(tmp);
+
+    if (['CHORD', 'DRUM'].includes(this.vtype)) {
+      this.ctx.rep.warning(`HarmonyOnly setting for ${this.vtype} track ignored`);
+    }
+  }
+
+  /** Set the harmony volume adjustment (percentage of the note volume). */
+  setHarmonyVolume(ln: string[]): void {
+    // Python passes '%s HarmonyOnly' as the lnExpand message here (typo in
+    // MMA/harmony.py setHarmonyVolume); reproduced for identical warnings.
+    ln = lnExpand(this.ctx.rep, ln, `${this.name} HarmonyOnly`, this.ctx.seqSize, this.ctx.inAllGrooves);
+    const tmp: number[] = [];
+    for (const n of ln) {
+      const v = stoi(this.ctx.rep, n);
+      if (v < 0) this.ctx.rep.error('HarmonyVolume adjustment must be positive integer');
+      tmp.push(v / 100);
+    }
+    this.harmonyVolume = this.ctx.seqBump(tmp);
+
+    if (['PLECTRUM', 'DRUM'].includes(this.vtype)) {
+      this.ctx.rep.warning(`HarmonyVolume adjustment for ${this.vtype} track ignored`);
+    }
   }
 
   /** Returns the strum factor; 0 when strum is (0,0)/unset. */

@@ -2,9 +2,8 @@
  * MMA - Musical MIDI Accompaniment, TypeScript port.
  *
  * Port of MMA/patScale.py - the SCALE pattern track (runs up/down a
- * chord's scale, chord or chromatic notes).  Harmony requires the
- * unported MMA/harmony.py; a HARMONY setting therefore raises an explicit
- * M2 error rather than being ignored.
+ * chord's scale, chord or chromatic notes).  Harmony is provided by
+ * model/features/Harmony.ts (MMA/harmony.py).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -235,9 +234,8 @@ export class ScaleTrack extends BaseTrack {
 
       let harmlist: Array<[number, number]>;
       if (this.harmony[sc]) {
-        // M2 stub: harmony.harmonize() is not ported; raises here.
         const ch = this.getChordInPos(p.offset, ctable)!.chord!.noteList;
-        const h = trackHooks.harmonize(this.ctx, this.harmony[sc] as number, note, ch);
+        const h = trackHooks.harmonize(this.ctx, this.harmony[sc] as string, note, ch);
         const vol = p.vol * this.harmonyVolume[sc]!;
         harmlist = h.map((n) => [n, vol]);
       } else {

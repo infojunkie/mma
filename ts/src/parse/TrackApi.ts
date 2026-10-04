@@ -81,6 +81,9 @@ export interface TrackApi {
   setChordLimit(ln: string[]): void;
   setStrum(ln: string[]): void;
   setStrumAdd(ln: string[]): void;
+  setHarmony(ln: string[]): void;
+  setHarmonyOnly(ln: string[]): void;
+  setHarmonyVolume(ln: string[]): void;
   setUnify(ln: string[]): void;
   setAccent(ln: string[]): void;
   setArtic(ln: string[]): void;

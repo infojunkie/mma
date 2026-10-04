@@ -42,8 +42,11 @@ async function main(): Promise<void> {
     };
     const source = entry.prelude ? `${entry.prelude}\n${sourceRaw}` : sourceRaw;
 
+    const realLog = console.log;
+    console.log = () => {};
     try {
       const result = await new MMA({ resources }).toMIDI(source, { noCredit: true });
+      console.log = realLog;
       const actual = normalizeBasicMIDI(BasicMIDI.fromArrayBuffer(result.bytes));
       const diff = diffEvents(golden.midiEvents, actual);
       if (!diff) {
@@ -54,6 +57,7 @@ async function main(): Promise<void> {
         console.log(diff.split('\n').map((l) => '    ' + l).join('\n'));
       }
     } catch (e) {
+      console.log = realLog;
       console.log(`ERROR ${entry.name}: ${(e as Error).message}`);
     }
   }

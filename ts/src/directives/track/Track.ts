@@ -132,6 +132,21 @@ export function trackStrumAdd(ctx: MMAContext, track: TrackApi, ln: string[]): v
   track.setStrumAdd(ln);
 }
 
+export function trackHarmony(ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  if (!ln.length) ctx.error(`Use: ${track.name} Harmony N [...]`);
+  track.setHarmony(ln);
+}
+
+export function trackHarmonyOnly(ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  if (!ln.length) ctx.error(`Use: ${track.name} HarmonyOnly N [...]`);
+  track.setHarmonyOnly(ln);
+}
+
+export function trackHarmonyVolume(ctx: MMAContext, track: TrackApi, ln: string[]): void {
+  if (!ln.length) ctx.error(`Use: ${track.name} HarmonyVolume N [...]`);
+  track.setHarmonyVolume(ln);
+}
+
 export function trackSticky(ctx: MMAContext, track: TrackApi, ln: string[]): void {
   if (!ln.length) ctx.error(`Use: ${track.name} Sticky On/Off`);
   track.setSticky(ln);

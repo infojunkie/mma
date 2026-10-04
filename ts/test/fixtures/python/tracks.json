@@ -4136,6 +4136,1877 @@
           "963700"
         ]
       ]
+    },
+    "bass_harmony_2": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "2"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "932b48"
+        ],
+        [
+          172,
+          "933000",
+          "932b00"
+        ]
+      ]
+    },
+    "bass_harmony_2above": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "2Above"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "933748"
+        ],
+        [
+          172,
+          "933000",
+          "933700"
+        ],
+        [
+          384,
+          "933750",
+          "934040"
+        ],
+        [
+          556,
+          "933700",
+          "934000"
+        ]
+      ]
+    },
+    "bass_harmony_3": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "932b48",
+          "932f48"
+        ],
+        [
+          172,
+          "933000",
+          "932b00",
+          "932f00"
+        ]
+      ]
+    },
+    "bass_harmony_38below": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "38Below"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "931c48",
+          "931f48"
+        ],
+        [
+          172,
+          "933000",
+          "931c00",
+          "931f00"
+        ],
+        [
+          384,
+          "933750",
+          "932840",
+          "931f40"
+        ],
+        [
+          556,
+          "933700",
+          "932800",
+          "931f00"
+        ]
+      ]
+    },
+    "bass_harmony_3above": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "3Above"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "933b48",
+          "933748"
+        ],
+        [
+          172,
+          "933000",
+          "933b00",
+          "933700"
+        ]
+      ]
+    },
+    "bass_harmony_openbelow_openabove": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "OpenBelow+OpenAbove"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "932848",
+          "933448"
+        ],
+        [
+          172,
+          "933000",
+          "932800",
+          "933400"
+        ],
+        [
+          384,
+          "933750",
+          "932b40",
+          "933700",
+          "933740"
+        ],
+        [
+          556,
+          "932b00",
+          "933700"
+        ]
+      ]
+    },
+    "bass_harmony_open8below": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "Open8Below"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "932848"
+        ],
+        [
+          172,
+          "933000",
+          "932800"
+        ]
+      ]
+    },
+    "bass_harmony_root": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "Root"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "933000",
+          "933048"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          384,
+          "933750",
+          "933700",
+          "933740"
+        ],
+        [
+          556,
+          "933700"
+        ]
+      ]
+    },
+    "bass_harmony_top": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "Top"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "933b48"
+        ],
+        [
+          172,
+          "933000",
+          "933b00"
+        ]
+      ]
+    },
+    "bass_harmony_topbelow": {
+      "track": "BASS",
+      "pattern": "1 4 5 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "TopBelow"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93375a",
+          "932b48"
+        ],
+        [
+          172,
+          "933700",
+          "932b00"
+        ]
+      ]
+    },
+    "bass_harmony_8above": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "8Above"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "933c48"
+        ],
+        [
+          172,
+          "933000",
+          "933c00"
+        ]
+      ]
+    },
+    "bass_harmony_16below": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "16Below"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "931848"
+        ],
+        [
+          172,
+          "933000",
+          "931800"
+        ]
+      ]
+    },
+    "bass_harmony_24above": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "24Above"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "935448"
+        ],
+        [
+          172,
+          "933000",
+          "935400"
+        ]
+      ]
+    },
+    "bass_harmony_interval": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "2:Per4"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "934d48"
+        ],
+        [
+          172,
+          "933000",
+          "934d00"
+        ]
+      ]
+    },
+    "bass_harmony_interval_octave": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "-1:Per5"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "932b48"
+        ],
+        [
+          172,
+          "933000",
+          "932b00"
+        ]
+      ]
+    },
+    "bass_harmony_comma": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "2,3,Open"
+            ]
+          ]
+        ]
+      ],
+      "seed": 30,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "932b48"
+        ],
+        [
+          172,
+          "933000",
+          "932b00"
+        ],
+        [
+          384,
+          "933750",
+          "932b40"
+        ],
+        [
+          556,
+          "933700",
+          "932b00"
+        ]
+      ]
+    },
+    "bass_harmony_only": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmonyOnly",
+          [
+            [
+              "3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "932848",
+          "932b48"
+        ],
+        [
+          172,
+          "932800",
+          "932b00"
+        ]
+      ]
+    },
+    "bass_harmony_volume": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "3"
+            ]
+          ]
+        ],
+        [
+          "setHarmonyVolume",
+          [
+            [
+              "50"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a",
+          "93282d",
+          "932b2d"
+        ],
+        [
+          172,
+          "933000",
+          "932800",
+          "932b00"
+        ],
+        [
+          384,
+          "933750",
+          "932b28",
+          "933428"
+        ],
+        [
+          556,
+          "933700",
+          "932b00",
+          "933400"
+        ]
+      ]
+    },
+    "walk_harmony_open": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "Open"
+            ]
+          ]
+        ]
+      ],
+      "seed": 40,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a",
+          "962848"
+        ],
+        [
+          172,
+          "963000",
+          "962800"
+        ],
+        [
+          384,
+          "963250",
+          "962840"
+        ],
+        [
+          556,
+          "963200",
+          "962800"
+        ]
+      ]
+    },
+    "walk_harmony_3below": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "3Below"
+            ]
+          ]
+        ]
+      ],
+      "seed": 41,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a",
+          "962b48",
+          "962f48"
+        ],
+        [
+          172,
+          "963000",
+          "962b00",
+          "962f00"
+        ],
+        [
+          384,
+          "963250",
+          "962b40",
+          "962f40"
+        ],
+        [
+          556,
+          "963200",
+          "962b00",
+          "962f00"
+        ]
+      ]
+    },
+    "walk_harmony_rootabove": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "RootAbove"
+            ]
+          ]
+        ]
+      ],
+      "seed": 42,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "96305a",
+          "963c48"
+        ],
+        [
+          172,
+          "963000",
+          "963c00"
+        ],
+        [
+          384,
+          "963050",
+          "963c40"
+        ],
+        [
+          556,
+          "963000",
+          "963c00"
+        ]
+      ]
+    },
+    "arp_harmony_2": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "2"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a",
+          "942b48"
+        ],
+        [
+          172,
+          "943400",
+          "942b00"
+        ],
+        [
+          192,
+          "943750",
+          "943440"
+        ],
+        [
+          364,
+          "943700",
+          "943400"
+        ],
+        [
+          384,
+          "943450",
+          "942b40"
+        ],
+        [
+          556,
+          "943400",
+          "942b00"
+        ],
+        [
+          576,
+          "943050",
+          "942b40"
+        ],
+        [
+          748,
+          "943000",
+          "942b00"
+        ]
+      ]
+    },
+    "arp_harmony_open8above": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "Open8Above"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a",
+          "944348"
+        ],
+        [
+          172,
+          "943400",
+          "944300"
+        ],
+        [
+          384,
+          "943750",
+          "944340"
+        ],
+        [
+          556,
+          "943700",
+          "944300"
+        ]
+      ]
+    },
+    "arp_harmony_16above": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "16Above"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a",
+          "944c48"
+        ],
+        [
+          172,
+          "943400",
+          "944c00"
+        ],
+        [
+          384,
+          "943750",
+          "944f40"
+        ],
+        [
+          556,
+          "943700",
+          "944f00"
+        ]
+      ]
+    },
+    "arp_harmony_comma": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "2,3,Root"
+            ]
+          ]
+        ]
+      ],
+      "seed": 43,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "94345a",
+          "942f48"
+        ],
+        [
+          172,
+          "943400",
+          "942f00"
+        ],
+        [
+          192,
+          "943750",
+          "942b40",
+          "942f40"
+        ],
+        [
+          364,
+          "943700",
+          "942b00",
+          "942f00"
+        ],
+        [
+          384,
+          "943b50",
+          "943b00",
+          "943b40"
+        ],
+        [
+          556,
+          "943b00"
+        ],
+        [
+          576,
+          "943750",
+          "943700",
+          "943740"
+        ],
+        [
+          748,
+          "943700"
+        ]
+      ]
+    },
+    "arp_harmony_only_volume": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "setup": [
+        [
+          "setHarmonyOnly",
+          [
+            [
+              "3"
+            ]
+          ]
+        ],
+        [
+          "setHarmonyVolume",
+          [
+            [
+              "50"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "942b2d",
+          "942f2d"
+        ],
+        [
+          172,
+          "942b00",
+          "942f00"
+        ],
+        [
+          384,
+          "942b28",
+          "942f28"
+        ],
+        [
+          556,
+          "942b00",
+          "942f00"
+        ]
+      ]
+    },
+    "scale_harmony_3": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a",
+          "952848",
+          "952b48"
+        ],
+        [
+          172,
+          "953000",
+          "952800",
+          "952b00"
+        ],
+        [
+          192,
+          "953250",
+          "952840",
+          "952b40"
+        ],
+        [
+          364,
+          "953200",
+          "952800",
+          "952b00"
+        ],
+        [
+          384,
+          "953450",
+          "952840",
+          "952b40"
+        ],
+        [
+          556,
+          "953400",
+          "952800",
+          "952b00"
+        ],
+        [
+          576,
+          "953550",
+          "952840",
+          "952b40"
+        ],
+        [
+          748,
+          "953500",
+          "952800",
+          "952b00"
+        ]
+      ]
+    },
+    "scale_harmony_openabove": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "OpenAbove"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a",
+          "953448"
+        ],
+        [
+          172,
+          "953000",
+          "953400"
+        ],
+        [
+          384,
+          "953250",
+          "953440"
+        ],
+        [
+          556,
+          "953200",
+          "953400"
+        ]
+      ]
+    },
+    "scale_harmony_top8above": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "Top8Above"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a",
+          "954748"
+        ],
+        [
+          172,
+          "953000",
+          "954700"
+        ],
+        [
+          384,
+          "953250",
+          "954740"
+        ],
+        [
+          556,
+          "953200",
+          "954700"
+        ]
+      ]
+    },
+    "scale_harmony_comma": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80; 4 4 80",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "2,3,Open"
+            ]
+          ]
+        ]
+      ],
+      "seed": 44,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a",
+          "952b48",
+          "952f48"
+        ],
+        [
+          172,
+          "953000",
+          "952b00",
+          "952f00"
+        ],
+        [
+          192,
+          "953250",
+          "952f40"
+        ],
+        [
+          364,
+          "953200",
+          "952f00"
+        ],
+        [
+          384,
+          "953450",
+          "952f40"
+        ],
+        [
+          556,
+          "953400",
+          "952f00"
+        ],
+        [
+          576,
+          "953550",
+          "952f40"
+        ],
+        [
+          748,
+          "953500",
+          "952f00"
+        ]
+      ]
+    },
+    "scale_harmony_only_volume": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 2 4 80; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 6,
+      "setup": [
+        [
+          "setHarmonyOnly",
+          [
+            [
+              "RootAbove"
+            ]
+          ]
+        ],
+        [
+          "setHarmonyVolume",
+          [
+            [
+              "50"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "953c2d"
+        ],
+        [
+          172,
+          "953c00"
+        ],
+        [
+          192,
+          "953c28"
+        ],
+        [
+          364,
+          "953c00"
+        ],
+        [
+          384,
+          "953c28"
+        ],
+        [
+          556,
+          "953c00"
+        ]
+      ]
+    }
+  },
+  "harmonySetters": {
+    "bass_set": {
+      "track": "BASS",
+      "method": "setHarmony",
+      "args": [
+        "2"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        "2"
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": []
+    },
+    "bass_set_lower": {
+      "track": "BASS",
+      "method": "setHarmony",
+      "args": [
+        "open8above"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        "OPEN8ABOVE"
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": []
+    },
+    "bass_set_none_dash": {
+      "track": "BASS",
+      "method": "setHarmony",
+      "args": [
+        "-"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        null
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": []
+    },
+    "bass_set_none_word": {
+      "track": "BASS",
+      "method": "setHarmony",
+      "args": [
+        "None"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        null
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": []
+    },
+    "bass_set_slash": {
+      "track": "BASS",
+      "method": "setHarmony",
+      "args": [
+        "2",
+        "2",
+        "3"
+      ],
+      "seqsize": 4,
+      "harmony": [
+        "2",
+        "2",
+        "3",
+        "2"
+      ],
+      "harmonyOnly": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "harmonyVolume": [
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "warnings": []
+    },
+    "bass_set_seqsize": {
+      "track": "BASS",
+      "method": "setHarmony",
+      "args": [
+        "2",
+        "3"
+      ],
+      "seqsize": 4,
+      "harmony": [
+        "2",
+        "3",
+        "2",
+        "3"
+      ],
+      "harmonyOnly": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "harmonyVolume": [
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "warnings": []
+    },
+    "bass_only": {
+      "track": "BASS",
+      "method": "setHarmonyOnly",
+      "args": [
+        "3"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        "3"
+      ],
+      "harmonyOnly": [
+        "3"
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": []
+    },
+    "bass_only_none": {
+      "track": "BASS",
+      "method": "setHarmonyOnly",
+      "args": [
+        "NONE"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        null
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": []
+    },
+    "bass_volume": {
+      "track": "BASS",
+      "method": "setHarmonyVolume",
+      "args": [
+        "50"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        null
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.5
+      ],
+      "warnings": []
+    },
+    "bass_volume_zero": {
+      "track": "BASS",
+      "method": "setHarmonyVolume",
+      "args": [
+        "0"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        null
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.0
+      ],
+      "warnings": []
+    },
+    "bass_volume_seqsize": {
+      "track": "BASS",
+      "method": "setHarmonyVolume",
+      "args": [
+        "50",
+        "75"
+      ],
+      "seqsize": 2,
+      "harmony": [
+        null,
+        null
+      ],
+      "harmonyOnly": [
+        null,
+        null
+      ],
+      "harmonyVolume": [
+        0.5,
+        0.75
+      ],
+      "warnings": []
+    },
+    "chord_set_warn": {
+      "track": "CHORD",
+      "method": "setHarmony",
+      "args": [
+        "3"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        "3"
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": [
+        "Harmony setting for CHORD track ignored"
+      ]
+    },
+    "chord_only_warn": {
+      "track": "CHORD",
+      "method": "setHarmonyOnly",
+      "args": [
+        "3"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        "3"
+      ],
+      "harmonyOnly": [
+        "3"
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": [
+        "HarmonyOnly setting for CHORD track ignored"
+      ]
+    },
+    "drum_set_warn": {
+      "track": "DRUM",
+      "method": "setHarmony",
+      "args": [
+        "3"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        "3"
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": [
+        "Harmony setting for DRUM track ignored"
+      ]
+    },
+    "drum_only_warn": {
+      "track": "DRUM",
+      "method": "setHarmonyOnly",
+      "args": [
+        "3"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        "3"
+      ],
+      "harmonyOnly": [
+        "3"
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": [
+        "HarmonyOnly setting for DRUM track ignored"
+      ]
+    },
+    "drum_volume_warn": {
+      "track": "DRUM",
+      "method": "setHarmonyVolume",
+      "args": [
+        "50"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        null
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.5
+      ],
+      "warnings": [
+        "HarmonyVolume adjustment for DRUM track ignored"
+      ]
+    },
+    "plectrum_set": {
+      "track": "PLECTRUM",
+      "method": "setHarmony",
+      "args": [
+        "Open"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        "OPEN"
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "warnings": []
+    },
+    "plectrum_volume_warn": {
+      "track": "PLECTRUM",
+      "method": "setHarmonyVolume",
+      "args": [
+        "50"
+      ],
+      "seqsize": 1,
+      "harmony": [
+        null
+      ],
+      "harmonyOnly": [
+        null
+      ],
+      "harmonyVolume": [
+        0.5
+      ],
+      "warnings": [
+        "HarmonyVolume adjustment for PLECTRUM track ignored"
+      ]
     }
   }
 }

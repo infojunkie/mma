@@ -1,9 +1,8 @@
 /**
  * MMA - Musical MIDI Accompaniment, TypeScript port.
  *
- * Port of MMA/patBass.py - the BASS pattern track.  Harmony requires the
- * unported MMA/harmony.py; a HARMONY setting therefore raises an explicit
- * M2 error rather than being ignored.
+ * Port of MMA/patBass.py - the BASS pattern track.  Harmony is provided
+ * by model/features/Harmony.ts (MMA/harmony.py).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,10 +111,9 @@ export class BassTrack extends BaseTrack {
 
       let harmlist: Array<[number, number]>;
       if (this.harmony[sc]) {
-        // M2 stub: harmony.harmonize() is not ported; raises here.
         const h = trackHooks.harmonize(
           this.ctx,
-          this.harmony[sc] as number,
+          this.harmony[sc] as string,
           note,
           ct.chord!.noteList,
         );

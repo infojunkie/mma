@@ -4,7 +4,7 @@
  *
  * For each corpus entry:
  *   1. runs `mma.py -II -f out.mid <song>` to produce the reference MIDI;
- *   2. runs `test/tools/mma_dump.py -n --out state.json <song>` for the
+ *   2. runs `test/tools/mma_dump.py -n -xNOCREDIT --out state.json <song>` for the
  *      internal state (tracks, patterns, bar pointers, packed mtrks);
  *   3. parses the .mid with spessasynth_core and normalizes the events.
  *
@@ -61,7 +61,12 @@ export function generate(entry: CorpusEntry): GoldenFixture {
     );
 
     const statePath = join(tmp, 'state.json');
-    run(['python3', join(tsDir, 'test', 'tools', 'mma_dump.py'), '-n', '--out', statePath, songPath], runCwd);
+    // -xNOCREDIT here too: without it the dump's meta track embeds the
+    // temporary input filename, making pythonState drift between runs.
+    run(
+      ['python3', join(tsDir, 'test', 'tools', 'mma_dump.py'), '-n', '-xNOCREDIT', '--out', statePath, songPath],
+      runCwd,
+    );
     const pythonState = JSON.parse(readFileSync(statePath, 'utf-8'));
 
     const buf = readFileSync(midPath);

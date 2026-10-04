@@ -37,6 +37,11 @@ export const CORPUS: CorpusEntry[] = [
   { name: 'egs-delay-root', file: 'egs/delay/delay-root.mma', prelude: 'RndSeed 1' },
   { name: 'egs-simple-marine-hymn', file: 'egs/simple/marine-hymn.mma', prelude: 'RndSeed 1' },
   { name: 'egs-misc-voicing', file: 'egs/misc/voicing.mma' },
+  { name: 'egs-misc-cascade', file: 'egs/misc/cascade.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-misc-grooves', file: 'egs/misc/grooves.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-rndset-rndchords', file: 'egs/rndset/rndchords.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-scales', file: 'egs/scales/scales.mma', prelude: 'RndSeed 1' },
+
   { name: 'egs-voicing', file: 'egs/voicing/voicing.mma' },
 
   // --- M2 gate: stock grooves from the shipped libraries -----------------
@@ -74,6 +79,8 @@ export const CORPUS: CorpusEntry[] = [
        'MARCH2',
        'POLKA',
        'SKA',
+       '60SROCK',
+       'JAZZWALTZ',
      ] as const).map(
     (g): CorpusEntry => ({ name: `groove-${g.toLowerCase()}`, file: `ts/test/fixtures/grooves/${g}.mma` }),
   ),
