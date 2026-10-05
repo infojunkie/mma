@@ -10,7 +10,37 @@
  */
 
 import type { Reporter } from '../../engine/Errors';
-import { stof } from '../../util/Common';
+import { stof, stoi } from '../../util/Common';
+
+/**
+ * Port of volume.calcMidiVolume14: mnemonic volume to a 14-bit MIDI
+ * value (0..0x3fff), or the integer value itself when not a mnemonic.
+ */
+export function calcMidiVolume14(state: VolumeState, rep: Reporter, s: string): number {
+  const up = s.toUpperCase();
+  if (up in state.vols) {
+    let v = Math.trunc(0x1fff * state.vols[up]!);
+    if (v < 0) v = 0;
+    if (v > 0x3fff) v = 0x3fff;
+    return v;
+  }
+  return stoi(rep, up, `Expecting integer arg or volume mnemonic, not ${up}`);
+}
+
+/**
+ * Port of volume.calcMidiVolume: mnemonic volume to a 7-bit MIDI value
+ * (0..127), or the integer value itself when not a mnemonic.
+ */
+export function calcMidiVolume(state: VolumeState, rep: Reporter, s: string): number {
+  const up = s.toUpperCase();
+  if (up in state.vols) {
+    let v = Math.trunc(80 * state.vols[up]!);
+    if (v < 0) v = 0;
+    if (v > 127) v = 127;
+    return v;
+  }
+  return stoi(rep, up, `Expecting integer arg or volume mnemonic, not ${up}`);
+}
 
 export function createVols(): Record<string, number> {
   return {

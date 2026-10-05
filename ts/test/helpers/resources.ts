@@ -35,11 +35,14 @@ export function loadLibraryResources(): MemoryResources {
     ['lib', join(mmaRepo, 'lib')],
     ['grooves', join(mmaRepo, '..', 'grooves')],
     ['includes', join(mmaRepo, 'includes')],
+    ['egs', join(mmaRepo, 'egs')],
   ];
   for (const [prefix, root] of roots) {
     for (const file of walk(root)) {
       const id = [prefix, relative(root, file).split(sep).join('/')].join('/');
-      res.set(id, decodeMMAText(readFileSync(file)));
+      // .mid files are binary resources for MidiInc.
+      if (file.toLowerCase().endsWith('.mid')) res.setBinary(id, readFileSync(file));
+      else res.set(id, decodeMMAText(readFileSync(file)));
     }
   }
   return res;
@@ -80,7 +83,7 @@ function walk(dir: string): string[] {
     const p = join(dir, entry);
     const st = statSync(p);
     if (st.isDirectory()) out.push(...walk(p));
-    else if (entry.toLowerCase().endsWith('.mma')) out.push(p);
+    else if (/\.(mma|mid)$/i.test(entry)) out.push(p);
   }
   return out.sort();
 }

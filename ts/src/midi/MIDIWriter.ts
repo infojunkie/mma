@@ -12,9 +12,11 @@
  * (at your option) any later version.
  */
 
-import { BasicMIDI, MIDIMessage, MIDIMessageType, MIDITrack } from 'spessasynth_core';
+import { BasicMIDI, MIDIMessage, MIDIMessageType, MIDIMessageTypes, MIDITrack } from 'spessasynth_core';
 import { BperQ } from '../model/NoteLen';
-import { MIDIDocument } from './MIDIDocument';
+import { MIDIDocument, type MIDITrack as MMATrack } from './MIDIDocument';
+import { encodeText } from './ByteWriter';
+import { DRUM_TABLE } from './voices';
 
 export interface MIDIWriteOptions {
   format: 0 | 1;
@@ -27,9 +29,10 @@ export interface WrittenMIDI {
   basicMIDI: BasicMIDI;
 }
 
-/** Write one merged MIDI file (no split modes) from the document. */
+/** Write one MIDI file from the document; MIDISPLIT channels expand. */
 export function writeMIDI(doc: MIDIDocument, options: MIDIWriteOptions): WrittenMIDI {
   const format = options.format;
+  doc.onBeforeWrite?.(); // writeMid.createMIDI: flush pending per-track MIDI
 
   // Channels with at least one event, ascending; 0 (meta) first.
   let keys = [...doc.tracks.keys()].filter((ch) => (doc.tracks.get(ch)?.miditrk.size ?? 0) > 0).sort((a, b) => a - b);
@@ -52,22 +55,100 @@ export function writeMIDI(doc: MIDIDocument, options: MIDIWriteOptions): Written
   const midi = new BasicMIDI();
   midi.timeDivision = BperQ;
   midi.format = format as BasicMIDI['format'];
-  midi.tracks = keys.map((ch, index) => {
+
+  const basicTracks: MIDITrack[] = [];
+  for (const ch of keys) {
     const source = doc.tracks.get(ch)!;
-    const track = new MIDITrack();
-    track.name = ch === 0 ? (options.metaName ?? source.trackname) : source.trackname;
-    for (const tick of source.offsets()) {
-      for (const event of source.miditrk.get(tick)!) {
-        const { statusByte, data } = unpackEvent(event);
-        track.pushEvent(new MIDIMessage(tick, statusByte, data));
-      }
+    // Port of writeSplitTrack: a MIDISPLIT channel becomes one track per
+    // pitch (plus one for all non-note events) in a format-1 file.
+    if (format === 1 && doc.splitChannels.includes(ch)) {
+      basicTracks.push(...splitTrack(source));
+    } else {
+      basicTracks.push(
+        buildTrack(source, ch === 0 ? (options.metaName ?? source.trackname) : source.trackname),
+      );
     }
-    void index;
-    return track;
-  });
+  }
+  midi.tracks = basicTracks;
 
   midi.flush(false);
   return { bytes: midi.writeMIDI(), basicMIDI: midi };
+}
+
+/** Build a spessasynth track from a packed MMA track. */
+function buildTrack(source: MMATrack, name: string): MIDITrack {
+  const track = new MIDITrack();
+  track.name = name;
+  for (const tick of source.offsets()) {
+    for (const event of source.miditrk.get(tick)!) {
+      const { statusByte, data } = unpackEvent(event);
+      track.pushEvent(new MIDIMessage(tick, statusByte, data));
+    }
+  }
+  return track;
+}
+
+/**
+ * Port of midi.writeSplitTrack(): group one channel's events by note
+ * number (-1 for everything that is not a note-on/off) and build one
+ * track per group, named after the drum tone or "<trackname>-<note>".
+ */
+function splitTrack(source: MMATrack): MIDITrack[] {
+  const groups = new Map<number, Array<[number, Uint8Array]>>();
+  const onEvent = 0x90 | source.channel;
+  const offEvent = 0x80 | source.channel;
+
+  for (const [offset, evs] of source.miditrk) {
+    for (const ev of evs) {
+      const isNote = ev.length === 3 && (ev[0] === onEvent || ev[0] === offEvent);
+      const n = isNote ? ev[1]! : -1;
+
+      const list = groups.get(n);
+      if (list) list.push([offset, ev]);
+      else groups.set(n, [[offset, ev]]);
+    }
+  }
+
+  const out: MIDITrack[] = [];
+  for (const a of [...groups.keys()].sort((x, y) => x - y)) {
+    const name =
+      a === -1
+        ? ''
+        : source.channel === 9
+          ? (DRUM_TABLE[a] ?? String(a))
+          : `${source.trackname}-${a}`;
+    out.push(buildTrackFromEvents(groups.get(a)!, name));
+  }
+  return out;
+}
+
+function buildTrackFromEvents(events: Array<[number, Uint8Array]>, name: string): MIDITrack {
+  const track = new MIDITrack();
+  // The spessasynth writer emits deltas in array order (it does not sort
+  // by tick), so the events must be tick-sorted like Python's
+  // Mtrk.writeMidiTrack does.
+  const sorted = [...events].sort((a, b) => a[0] - b[0]);
+
+  // Port of Mtrk.addTrkName(): the name is a meta event at tick 0
+  // (BasicMIDI.flush() derives track.name from it, not from the property
+  // alone).  It goes after any tick-0 events, like the Python append.
+  let i = 0;
+  while (i < sorted.length && sorted[i]![0] === 0) {
+    const { statusByte, data } = unpackEvent(sorted[i]![1]);
+    track.pushEvent(new MIDIMessage(0, statusByte, data));
+    i++;
+  }
+  if (name) {
+    track.pushEvent(
+      new MIDIMessage(0, MIDIMessageTypes.trackName, new Uint8Array(encodeText(name))),
+    );
+    track.name = name;
+  }
+  for (; i < sorted.length; i++) {
+    const { statusByte, data } = unpackEvent(sorted[i]![1]);
+    track.pushEvent(new MIDIMessage(sorted[i]![0], statusByte, data));
+  }
+  return track;
 }
 
 /**

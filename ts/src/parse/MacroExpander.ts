@@ -52,6 +52,19 @@ export class MacroExpander {
   // ---------------------------------------------------------------------
   // SET/NSET/MSET/UNSET/INC/DEC/RNDSET/VEXPAND
 
+  /**
+   * Port of pluginUtils.getVar (macro.py's macros.vars lookup): raw
+   * variable access for plugins.  SET stores a plain string, MSET a list
+   * of token lists.  Python raises KeyError for a missing name; here it
+   * is reported as an MMA error.
+   */
+  getVar(name: string): string | string[][] {
+    const key = name.toUpperCase();
+    const value = this.vars.get(key);
+    if (value === undefined) this.ctx.error(`Variable '${key}' not defined`);
+    return value;
+  }
+
   /** Port of Macros.clear (VARCLEAR). */
   clear(ln: string[]): void {
     if (ln.length) this.ctx.error('VarClear does not take an argument.');

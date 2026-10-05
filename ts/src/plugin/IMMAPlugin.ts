@@ -53,6 +53,10 @@ export interface PluginContext {
   pushCommands(lines: string[]): void;
   /** Queue pre-tokenized lines (gbl.inpath.push equivalent). */
   pushTokens(tokens: string[][]): void;
+  /** Raw value of a user macro variable (pluginUtils.getVar). */
+  getVar(name: string): string | string[][];
+  /** Allocate a track if it does not exist (alloc.trackAlloc(name, 0)). */
+  ensureTrack(name: string): void;
   /** Access to the raw chord table. */
   readonly chordList: ReadonlyMap<string, ChordDef>;
 }

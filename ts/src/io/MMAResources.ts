@@ -12,8 +12,14 @@
  */
 
 export interface MMAResources {
-  /** Load a resource by id (path-like, e.g. "lib/stdlib/swing.mma"). */
+  /** Load a text resource by id (path-like, e.g. "lib/stdlib/swing.mma"). */
   load(id: string): Promise<string>;
+  /**
+   * Load a binary resource (e.g. a .mid file for MidiInc).  Optional:
+   * text-only loaders (such as a groove database) omit it, and commands
+   * that need binary data report a clear error.
+   */
+  loadBinary?(id: string): Promise<ArrayBuffer>;
   /** Resource ids under a prefix, for groove indexing/listing. */
   list(prefix?: string): Promise<string[]>;
   /** Cheap existence check; may return false if not known. */
@@ -29,6 +35,7 @@ export function normalizeResourceId(id: string): string {
 
 export class MemoryResources implements MMAResources {
   private files = new Map<string, string>();
+  private binaries = new Map<string, Uint8Array>();
 
   constructor(files: Record<string, string> = {}) {
     for (const [k, v] of Object.entries(files)) {
@@ -40,20 +47,41 @@ export class MemoryResources implements MMAResources {
     this.files.set(normalizeResourceId(id), text);
   }
 
+  /** Register a binary resource (e.g. a .mid file). */
+  setBinary(id: string, bytes: Uint8Array): void {
+    this.binaries.set(normalizeResourceId(id), bytes);
+  }
+
   async load(id: string): Promise<string> {
     const key = normalizeResourceId(id);
     const text = this.files.get(key);
-    if (text === undefined) throw new Error(`Resource not found: '${key}'`);
+    if (text === undefined) {
+      if (this.binaries.has(key)) throw new Error(`Resource '${key}' is binary; use loadBinary()`);
+      throw new Error(`Resource not found: '${key}'`);
+    }
     return text;
+  }
+
+  async loadBinary(id: string): Promise<ArrayBuffer> {
+    const key = normalizeResourceId(id);
+    const bytes = this.binaries.get(key) ?? this.binaries.get(key.toLowerCase());
+    if (!bytes) {
+      if (this.files.has(key)) throw new Error(`Resource '${key}' is text; use load()`);
+      throw new Error(`Resource not found: '${key}'`);
+    }
+    return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
   }
 
   async list(prefix = ''): Promise<string[]> {
     const p = normalizeResourceId(prefix);
-    return [...this.files.keys()].filter((k) => k.startsWith(p)).sort();
+    return [...new Set([...this.files.keys(), ...this.binaries.keys()])]
+      .filter((k) => k.startsWith(p))
+      .sort();
   }
 
   async exists(id: string): Promise<boolean> {
-    return this.files.has(normalizeResourceId(id));
+    const key = normalizeResourceId(id);
+    return this.files.has(key) || this.binaries.has(key);
   }
 }
 
@@ -73,6 +101,18 @@ export class CompositeResources implements MMAResources {
       }
     }
     throw new Error(`Resource not found in any source: '${id}'`);
+  }
+
+  async loadBinary(id: string): Promise<ArrayBuffer> {
+    for (const s of this.sources) {
+      if (!s.loadBinary) continue;
+      try {
+        return await s.loadBinary(id);
+      } catch {
+        // try next source
+      }
+    }
+    throw new Error(`Binary resource not found in any source: '${id}'`);
   }
 
   async list(prefix = ''): Promise<string[]> {
@@ -103,6 +143,11 @@ export class PrefixedResources implements MMAResources {
 
   async load(id: string): Promise<string> {
     return this.inner.load(this.prefixed(id));
+  }
+
+  async loadBinary(id: string): Promise<ArrayBuffer> {
+    if (!this.inner.loadBinary) throw new Error('The inner loader does not support binary resources');
+    return this.inner.loadBinary(this.prefixed(id));
   }
 
   async list(prefix = ''): Promise<string[]> {
@@ -138,6 +183,12 @@ export class HttpResources implements MMAResources {
     const text = await res.text();
     this.cache.set(key, text);
     return text;
+  }
+
+  async loadBinary(id: string): Promise<ArrayBuffer> {
+    const res = await this.fetchFn(this.url(normalizeResourceId(id)));
+    if (!res.ok) throw new Error(`Resource not found: '${id}' (${res.status})`);
+    return res.arrayBuffer();
   }
 
   async list(): Promise<string[]> {

@@ -1,0 +1,23 @@
+Time 4
+TimeSig 4 4
+Tempo 120
+KeySig C
+RndSeed 1
+Plugin rhythm
+
+@rhythm Groove=RhythmTest, Seq=Kick |8---||8---| Snare |--8-||--8-| ClosedHat |8888|, Bpm=4, Level=9, SeqSize=2
+
+Groove RhythmTest
+C
+C
+
+Begin Drum
+  @rhythm Seq=|8---|, Bpm=4
+End
+C
+
+Begin Drum
+  @rhythm Define=P1, Seq=|8---|, Bpm=4
+End
+Drum Sequence P1
+C

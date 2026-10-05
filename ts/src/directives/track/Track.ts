@@ -166,18 +166,6 @@ export function trackMallet(ctx: MMAContext, track: TrackApi, ln: string[]): voi
   track.setMallet(ln);
 }
 
-export function trackMidiClear(_ctx: MMAContext, track: TrackApi, ln: string[]): void {
-  track.setMidiClear(ln);
-}
-
-export function trackMidiSeq(_ctx: MMAContext, track: TrackApi, ln: string[]): void {
-  track.setMidiSeq(ln);
-}
-
-export function trackMidiVoice(_ctx: MMAContext, track: TrackApi, ln: string[]): void {
-  track.setMidiVoice(ln);
-}
-
 export function trackChords(_ctx: MMAContext, track: TrackApi, ln: string[]): void {
   track.setChords(ln);
 }

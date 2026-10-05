@@ -1,0 +1,12 @@
+// Conformance fixture for AFTER recursion with a *data* command: the
+// event fires between two repeats of the C * 3 line and inserts an
+// extra bar (the after.py temp-file/parseFile recursion path).
+Time 4
+TimeSig 4 4
+Tempo 120
+KeySig C
+RndSeed 1
+Groove SWING
+After Count=2 C
+C * 3
+z

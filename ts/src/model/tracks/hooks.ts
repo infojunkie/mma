@@ -20,6 +20,7 @@
 import type { MMAContext } from '../../engine/Context';
 import type { CTable } from '../CTable';
 import { harmonize } from '../features/Harmony';
+import { mdefGet } from '../features/MDefine';
 import type { BaseTrack } from './BaseTrack';
 
 /**
@@ -29,10 +30,14 @@ import type { BaseTrack } from './BaseTrack';
 export type MidiSeqItem = [number, number[]];
 export type MidiSeqDef = MidiSeqItem[];
 
-/** Runtime state of MMA/truncate.py; all-zero means "not active". */
+/**
+ * Runtime state of MMA/truncate.py; length 0 means "not active".
+ * Python's None values are represented by length 0 / count null.
+ */
 export interface TruncateState {
   length: number;
   side: number;
+  count: number | null;
 }
 
 export interface TrackHooks {
@@ -42,12 +47,13 @@ export interface TrackHooks {
    */
   parseChordLine(ctx: MMAContext, line: string[]): CTable[];
   /**
-   * Port of MMA/midifuncs.doChannelInit().  With no channel-init data
-   * queued (always the case until the MIDI directive port lands) this is
-   * a no-op, exactly like Python.
+   * Port of MMA/midifuncs.doChannelInit(): the Parser replaces this with
+   * a runner that replays ChannelInit-queued commands through its track
+   * table.  The default is a no-op (nothing can be queued without a
+   * parser).
    */
   doChannelInit(ctx: MMAContext, channel: number, name: string): void;
-  /** Port of MMA/mdefine.Mdefine.get().  M2: mdefine.py not ported. */
+  /** Port of MMA/mdefine.Mdefine.get(). */
   mdefGet(ctx: MMAContext, name: string): MidiSeqDef;
   /** Port of MMA/rpitch.doRpitch().  M2: rpitch.py not ported. */
   doRpitch(ctx: MMAContext, track: BaseTrack, offset: number, note: number): number;
@@ -71,15 +77,11 @@ export const trackHooks: TrackHooks = {
   doChannelInit: () => {
     /* no channel-init data can exist until the MIDI directive port lands */
   },
-  mdefGet: (ctx, name) =>
-    ctx.rep.error(
-      `M2: MIDIDEF patterns are not ported to TypeScript yet ` +
-        `(MMA/mdefine.py; requested '${name}').`,
-    ),
+  mdefGet: (ctx, name) => mdefGet(ctx, name),
   doRpitch: (ctx, _track, _offset, _note) =>
     ctx.rep.error('M2: RPitch is not ported to TypeScript yet (MMA/rpitch.py doRpitch).'),
   harmonize: (ctx, hmode, note, chord) => harmonize(ctx, hmode, note, chord),
-  truncate: { length: 0, side: 0 },
+  truncate: { length: 0, side: 0, count: null },
   trackAlloc: (ctx) =>
     ctx.rep.error('Internal: the track allocator has not been wired (import model/tracks/alloc).'),
 };

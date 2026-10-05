@@ -14,6 +14,8 @@
 
 import type { MMAContext } from '../engine/Context';
 import type { MacroExpander } from './MacroExpander';
+import type { AfterState } from '../model/features/After';
+import { setTruncate } from '../model/features/Truncate';
 import { getTrack, type TrackApi } from './TrackApi';
 import type { BaseTrack } from '../model/tracks/BaseTrack';
 import { trackCopy } from '../directives/track/Copy';
@@ -50,9 +52,6 @@ import {
   trackHarmonyVolume,
   trackInvert,
   trackMallet,
-  trackMidiClear,
-  trackMidiSeq,
-  trackMidiVoice,
   trackMOctave,
   trackOctave,
   trackOff,
@@ -77,16 +76,51 @@ import {
   trackScaletype,
 } from '../directives/track/Track';
 import { setAutoSolo } from '../model/tracks/SoloTrack';
+import { midiInc } from '../directives/simple/MidiInc';
 import { trackDefPattern, trackSeqClear, trackSeqRnd, trackSeqRndWeight, trackSequence } from '../directives/track/Patterns';
+import {
+  channelInit,
+  channelPref,
+  midiCopyright,
+  midiCresc,
+  midiCue,
+  midiDecresc,
+  midiMark,
+  midiSplit,
+  midiText,
+  midiTName,
+  midiVolume,
+  rawMidi,
+} from '../directives/simple/Midi';
+import { mdefine } from '../model/features/MDefine';
+import {
+  trackMidiClear,
+  trackMidiCresc,
+  trackMidiCue,
+  trackMidiDecresc,
+  trackMidiGlis,
+  trackMidiNote,
+  trackMidiPan,
+  trackMidiSeq,
+  trackMidiText,
+  trackMidiTName,
+  trackMidiVoice,
+  trackMidiVolume,
+  trackMidiWheel,
+} from '../directives/track/Midi';
 
 export type SimpleHandler = (ctx: MMAContext, args: string[]) => void | Promise<void>;
 export type TrackHandler = (ctx: MMAContext, track: TrackApi, args: string[]) => void | Promise<void>;
+/** A data plugin modifies the chord line and returns the replacement. */
+export type DataHandler = (ctx: MMAContext, args: string[]) => string[];
 
 /** Services the registry needs from the Parser (file loading). */
 export interface DirectiveHost {
   ctx: MMAContext;
   expander: MacroExpander;
   debugState: DebugState;
+  /** AFTER event stack (after.py port), owned by the Parser. */
+  after: AfterState;
   /** INCLUDE: resolve and parse a file. */
   includeFile(name: string): Promise<void>;
   /** USE: resolve, push a groove slot, parse and restore. */
@@ -96,6 +130,27 @@ export interface DirectiveHost {
 export class DirectiveRegistry {
   readonly simple = new Map<string, SimpleHandler>();
   readonly track = new Map<string, TrackHandler>();
+  readonly data = new Map<string, DataHandler>();
+
+  /** Wired by the Parser once the PluginRegistry exists. */
+  private pluginLoader: ((args: string[]) => void) | null = null;
+
+  /** Register (or replace) handlers; used by the plugin runtime. */
+  registerSimple(name: string, fn: SimpleHandler): void {
+    this.simple.set(name.toUpperCase(), fn);
+  }
+
+  registerTrack(name: string, fn: TrackHandler): void {
+    this.track.set(name.toUpperCase(), fn);
+  }
+
+  registerData(name: string, fn: DataHandler): void {
+    this.data.set(name.toUpperCase(), fn);
+  }
+
+  setPluginLoader(fn: (args: string[]) => void): void {
+    this.pluginLoader = fn;
+  }
 
   constructor(private readonly host: DirectiveHost) {
     const ctx = host.ctx;
@@ -178,10 +233,19 @@ export class DirectiveRegistry {
     });
 
     // --- misc -------------------------------------------------------------
+    register('PLUGIN', (c, a) => {
+      const loader = this.pluginLoader;
+      if (!loader) {
+        c.error('Plugin: plugin loading is not available in this context.');
+        return;
+      }
+      loader(a);
+    });
     register('RNDSEED', (c, a) => rndseed(c, a));
     register('PRINT', (c, a) => lnPrint(c, a));
     register('DEBUG', (c, a) => setDebug(c, host.debugState, a));
     register('MIDIFILE', (c, a) => midiFile(c, a));
+    register('MIDIINC', (c, a) => midiInc(c, exp, a));
     register('CHORDADJUST', (c, a) => chordAdjust(c, a));
     register('DEFCHORD', (c, a) => defChord(c, a));
     register('ERROR', (c, a) => forceError(c, a));
@@ -198,14 +262,31 @@ export class DirectiveRegistry {
     register('SWELL', (c, a) => setSwell(c, a));
     register('AUTOSOLOTRACKS', (c, a) => setAutoSolo(c, a));
 
+    // --- MIDI meta commands (midifuncs.py, mdefine.py, midi.py) -----------
+    register('MIDI', (c, a) => rawMidi(c, a));
+    register('MIDICOPYRIGHT', (c, a) => midiCopyright(c, a));
+    register('MIDICUE', (c, a) => midiCue(c, a));
+    register('MIDICRESC', (c, a) => midiCresc(c, a));
+    register('MIDIDECRESC', (c, a) => midiDecresc(c, a));
+    register('MIDIDEF', (c, a) => mdefine(c, a));
+    register('MIDIMARK', (c, a) => midiMark(c, a));
+    register('MIDISPLIT', (c, a) => midiSplit(c, a));
+    register('MIDITEXT', (c, a) => midiText(c, a));
+    register('MIDITNAME', (c, a) => midiTName(c, a));
+    register('MIDIVOLUME', (c, a) => midiVolume(c, a));
+    register('CHANNELPREF', (c, a) => channelPref(c, a));
+    register('CHANNELINIT', (c, a) => channelInit(c, a, (n) => this.track.has(n)));
+
+    // --- after / truncate (after.py, truncate.py) -------------------------
+    register('AFTER', (c, a) => host.after.create(c, a));
+    register('TRUNCATE', (c, a) => setTruncate(c, a));
+
     // --- simple commands not in this milestone ----------------------------
     for (const name of [
-      'AFTER',
       'ALLGROOVES',
       'AUTHOR',
       'AUTOSOLOTRACKS',
       'CALL',
-      'CHANNELPREF',
       'CMDLINE',
       'CUT',
       'DEFCALL',
@@ -215,23 +296,9 @@ export class DirectiveRegistry {
       'DRUMVOLTR',
       'FERMATA',
       'LYRIC',
-      'MIDIDEF',
-      'MIDI',
-      'MIDICOPYRIGHT',
-      'MIDICUE',
-      'MIDIINC',
-      'MIDIVOLUME',
-      'MIDICRESC',
-      'MIDIDECRESC',
-      'CHANNELINIT',
-      'MIDIMARK',
-      'MIDISPLIT',
-      'MIDITEXT',
-      'MIDITNAME',
       'MMAEND',
       'MMASTART',
       'PATCH',
-      'PLUGIN',
       'PRINTACTIVE',
       'PRINTCHORD',
       'RESTART',
@@ -243,7 +310,6 @@ export class DirectiveRegistry {
       'SETSYNCTONE',
       'SYNCHRONIZE',
       'TONETR',
-      'TRUNCATE',
       'TWEAKS',
       'VOICEVOLTR',
       'VOICETR',
@@ -282,8 +348,19 @@ export class DirectiveRegistry {
     reg('LIMIT', trackChordLimit);
     reg('MALLET', trackMallet);
     reg('MIDICLEAR', trackMidiClear);
+    reg('MIDICRESC', trackMidiCresc);
+    reg('MIDIDECRESC', trackMidiDecresc);
+    reg('MIDICUE', trackMidiCue);
+    reg('MIDIDEF', (c, t, a) => mdefine(c, a));
+    reg('MIDIGLIS', trackMidiGlis);
+    reg('MIDINOTE', trackMidiNote);
+    reg('MIDIPAN', trackMidiPan);
     reg('MIDISEQ', trackMidiSeq);
+    reg('MIDITEXT', trackMidiText);
+    reg('MIDITNAME', trackMidiTName);
     reg('MIDIVOICE', trackMidiVoice);
+    reg('MIDIVOLUME', trackMidiVolume);
+    reg('MIDIWHEEL', trackMidiWheel);
     reg('MOCTAVE', trackMOctave);
     reg('OCTAVE', trackOctave);
     reg('OFF', trackOff);
@@ -337,36 +414,25 @@ export class DirectiveRegistry {
       }
     });
 
+    reg('CHSHARE', (c, t, a) => (t as unknown as BaseTrack).setChShare(a.join(' ')));
+    reg('SWELL', (c, t, a) => (t as unknown as BaseTrack).setSwell(a));
     reg('COPY', (c, t, a) => trackCopy(c, t as unknown as BaseTrack, a));
     reg('VOICE', trackVoice);
     reg('VOICING', trackVoicing);
     reg('VOLUME', trackVolume);
 
     for (const name of [
-      'MIDIVOLUME',
-      'MIDICRESC',
-      'MIDIDECRESC',
-      'CHSHARE',
       'CRESC',
       'CUT',
       'DECRESC',
       'FORCEOUT',
       'FRETNOISE',
-      'MIDICUE',
-      'MIDIDEF',
-      'MIDIGLIS',
-      'MIDIPAN',
-      'MIDITEXT',
-      'MIDITNAME',
-      'MIDIWHEEL',
       'ORNAMENT',
       'TUNING',
       'CAPO',
       'SHAPE',
       'RPITCH',
-      'SWELL',
       'TRIGGER',
-      'MIDINOTE',
     ]) {
       reg(name, trackNotImpl(name));
     }

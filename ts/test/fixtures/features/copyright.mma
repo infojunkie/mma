@@ -1,0 +1,7 @@
+// Conformance fixture for the copyright plugin.  Year is explicit so
+// the golden fixture does not age.
+Time 4
+Plugin copyright
+@copyright Year=2024, Author=Jane
+Groove SWING
+C

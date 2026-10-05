@@ -14,6 +14,7 @@
 
 import type { MMAContext } from '../engine/Context';
 import type { CTable } from '../model/CTable';
+import type { MidiPending } from '../model/tracks/BaseTrack';
 
 /** View of a track used by the parser and directive handlers. */
 export interface TrackApi {
@@ -50,6 +51,8 @@ export interface TrackApi {
   cVolume: number;
   mallet: number;
   malletDecay: number;
+  /** Queued MIDI events applied by the track engine on the next bar. */
+  midiPending: MidiPending[];
 
   bar(ctable: CTable[]): void;
   setSeqSize(): void;

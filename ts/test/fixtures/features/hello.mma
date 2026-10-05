@@ -1,0 +1,7 @@
+// Conformance fixture for the hello plugin: a data line after the track
+// plugin has returned setting strings (octave/voice changes).
+Time 4
+Plugin hello
+Chord Sequence {1 1 90 * 4}
+Chord @Hello
+C

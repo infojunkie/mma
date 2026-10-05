@@ -1,0 +1,17 @@
+// MidiInc fixture: global transpose + riff, then a drum import.
+RndSeed 1
+Time 4
+Tempo 120
+Transpose 2
+Begin Solo
+    Voice TenorSax
+End
+MidiInc File=egs/midi-inc/rec2.mid Solo=1,Riff Volume=90
+Begin Drum
+End
+MidiInc File=egs/midi-inc/drum.mid Drum=1 Transpose=0 Volume=80 Start=1B End=24B
+C
+F
+G7
+C
+z

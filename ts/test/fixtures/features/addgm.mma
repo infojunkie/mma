@@ -1,0 +1,7 @@
+// Conformance fixture for the addgm data plugin: the plugin prepends
+// the chord "Gm" to the data line.
+Time 4
+Plugin addgm
+Chord Sequence {1 1 90 * 4}
+@Addgm A
+C

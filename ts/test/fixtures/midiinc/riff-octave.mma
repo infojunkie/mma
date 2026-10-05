@@ -1,0 +1,14 @@
+// MidiInc fixture: RIFF import with octave adjustment.
+RndSeed 1
+Time 4
+Tempo 120
+Begin Solo
+    Voice TenorSax
+    Octave 5
+End
+MidiInc File=egs/midi-inc/rec1.mid Solo=1,Riff Volume=70 Octave=-1
+C
+F * 2
+G7
+C
+z

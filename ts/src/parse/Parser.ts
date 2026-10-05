@@ -25,12 +25,17 @@ import { SourceReader } from '../io/SourceReader';
 import { normalizeResourceId, type MMAResources } from '../io/MMAResources';
 import { parseChordLine } from './ChordLineParser';
 import { DirectiveRegistry } from './Directives';
+import { PluginRegistry } from '../plugin/PluginRegistry';
+import type { BaseTrack } from '../model/tracks/BaseTrack';
 import { MacroExpander } from './MacroExpander';
 import { getTrack } from './TrackApi';
 import { trackAlloc } from './TrackAlloc';
+import { takeChannelInit } from '../directives/simple/Midi';
 import '../model/tracks/index'; // side effect: register track classes
 import { trackHooks } from '../model/tracks/hooks';
 import { extractSolo } from '../model/tracks/SoloTrack';
+import { AfterState } from '../model/features/After';
+import { countDown } from '../model/features/Truncate';
 import { DebugState } from '../directives/simple/Debug';
 import { initialiseSwing, swingSettingsString } from '../directives/simple/Swing';
 import { setTime } from '../directives/simple/Tempo';
@@ -53,6 +58,10 @@ export class Parser {
   readonly expander: MacroExpander;
   readonly debugState: DebugState;
   readonly registry: DirectiveRegistry;
+  /** Plugin catalog + activation (regplug.py port). */
+  readonly plugins: PluginRegistry;
+  /** AFTER event stack (after.py port), owned by this parser. */
+  readonly after: AfterState;
 
   private fileDepth = 0;
   private barLabel = '';
@@ -69,6 +78,7 @@ export class Parser {
 
     this.debugState = new DebugState(ctx);
     initialiseSwing(ctx);
+    this.after = new AfterState();
 
     // MMA/main.py sets the default TIME (and chord tabs) before parsing.
     setTime(ctx, ['4/4']);
@@ -82,9 +92,27 @@ export class Parser {
       ctx,
       expander: this.expander,
       debugState: this.debugState,
+      after: this.after,
       includeFile: (name) => this.includeFile(name),
       useFile: (name) => this.useFile(name),
     });
+
+    // Plugin runtime: plugins come from the run options instead of the
+    // filesystem; PLUGIN activates them and @NAME commands dispatch into
+    // the same directive tables Python registers into.
+    this.plugins = new PluginRegistry(ctx, {
+      registerSimple: (n, fn) => this.registry.registerSimple(n, fn),
+      registerTrack: (n, fn) =>
+        this.registry.registerTrack(n, (c, t, a) => fn(c, t as unknown as BaseTrack, a)),
+      registerData: (n, fn) => this.registry.registerData(n, fn),
+      pushTokens: (tokens, linenos) =>
+        ctx.inpath?.push(tokens, linenos ?? tokens.map(() => ctx.lineno)),
+      getVar: (name) => this.expander.getVar(name),
+      ensureTrack: (name) => {
+        trackAlloc(ctx, name, false); // port of alloc.trackAlloc(name, 0)
+      },
+    });
+    this.registry.setPluginLoader((a) => this.plugins.load(a));
 
     // Wire the groove auto-load hooks (grooves.py used MMA.auto + usefile).
     ctx.grooves.finder = (name) => this.findGroove(name);
@@ -93,6 +121,36 @@ export class Parser {
     // The track layer needs parseChordLine() for track-specific CHORDS
     // data (pat.py) and the truncate state; wire them here.
     trackHooks.parseChordLine = (c, line) => parseChordLine(c, line);
+
+    // Port of midifuncs.doChannelInit(): when a track gets its channel,
+    // replay the commands queued by CHANNELINIT through the track table.
+    // Handlers are module functions, but SEQUENCE closes over this
+    // parser's expander: chain to the previous hook for other contexts so
+    // concurrently live MMA instances keep their own parser.
+    const prevDoChannelInit = trackHooks.doChannelInit;
+    trackHooks.doChannelInit = (c, channel, name) => {
+      if (c !== ctx) {
+        prevDoChannelInit(c, channel, name);
+        return;
+      }
+      for (const line of takeChannelInit(c, channel)) {
+        const fn = this.registry.track.get(line[0]!.toUpperCase());
+        if (fn) void fn(c, getTrack(c, name), line.slice(1));
+      }
+    };
+
+    // Port of the pre-write flush in MMA/writeMid.py createMIDI(): pending
+    // track MIDI, MIDICLEAR and the channel reset are emitted just before
+    // the document is written, not at the end of parsing.
+    ctx.mtrks.onBeforeWrite = () => {
+      for (const trk of ctx.tnames.values()) {
+        if (!trk.channel) continue;
+        trk.clearPending();
+        trk.doMidiClear();
+        trk.doChannelReset();
+        if (trk.riff.length) ctx.rep.warning(`${trk.name} has pending Riff(s)`);
+      }
+    };
   }
 
   // ---------------------------------------------------------------------
@@ -218,6 +276,10 @@ export class Parser {
     ctx.inpath = inpath;
 
     for (;;) {
+      // Port of MMA/parse.py:113 - execute any AFTER events due now,
+      // before reading the next line.
+      await this.after.check(ctx);
+
       const curline = inpath.read();
       if (curline === null) break; // EOF, exit parser
 
@@ -291,12 +353,10 @@ export class Parser {
         l = l.slice(0, -2);
       }
 
-      // Data plugins all start with '@' (dataFuncs in parse.py is empty).
+      // Data plugins all start with '@': the handler modifies the line.
       if (l[0]!.startsWith('@')) {
-        const p = l[0]!.toUpperCase();
-        const plugin = ctx.plugins.find((pl) => pl.name.toUpperCase() === p.slice(1));
-        if (!plugin) ctx.error(`Unknown data plugin '${p}' called.`);
-        ctx.error(`Data plugin '${p}' is not implemented in this milestone (M4).`);
+        l = this.plugins.runData(l[0]!, l.slice(1));
+        if (!l.length) ctx.error('Data plugin returned an empty line.');
       }
 
       // Extract solo(s) from the line: anything in {}s.  The solo data is
@@ -340,7 +400,15 @@ export class Parser {
         }
 
         // Adjust the counters; barPtrs is used by the -B/-b options.
-        const nextOffset = trackHooks.truncate.length ? trackHooks.truncate.length : ctx.barLen;
+        // Port of parse.py:300: an active TRUNCATE shortens this bar and
+        // the countdown may clear the setting after use.
+        let nextOffset: number;
+        if (trackHooks.truncate.length) {
+          nextOffset = trackHooks.truncate.length;
+          countDown();
+        } else {
+          nextOffset = ctx.barLen;
+        }
 
         ctx.barPtrs.set(ctx.barNum + 1, [this.barLabel, ctx.tickOffset, ctx.tickOffset + nextOffset - 1]);
         ctx.totTime += nextOffset / ctx.BperQ / ctx.tempo;
@@ -362,8 +430,45 @@ export class Parser {
         if (ctx.debug.showrun) {
           ctx.dPrint(`${String(ctx.barNum).padStart(3, ' ')}: ${l.join(' ')}`);
         }
+
+        // The barNum and other pointers have been incremented and a bar
+        // of data has been processed.  If we are repeating due to a '*'
+        // we do an AGAIN test; without a rpt this is done at the start
+        // of a data line.  Port of parse.py:350-351.
+        if (rptcount > 1 && this.after.needed(ctx)) {
+          await this.after.check(ctx, {
+            recurse: true,
+            parseText: (text, fname) => this.parseText(text, fname),
+          });
+        }
       }
     }
+  }
+
+  /**
+   * Parse a block of raw MMA source as if it were a file.  This is the
+   * browser equivalent of the temporary scratch file that after.py
+   * writes for recursion in a repeat (*) section.
+   */
+  async parseText(text: string, fname: string): Promise<void> {
+    this.fileDepth += 1;
+    if (this.fileDepth > 50) {
+      this.ctx.error(
+        'USE/INCLUDE recursion error. Use and Include are limited to a depth of 50. ' +
+          'Check current file and rc files for error.',
+      );
+    }
+
+    const ctx = this.ctx;
+    const prev = ctx.inpath;
+    const reader = new SourceReader(ctx, fname, text);
+
+    await this.parse(reader);
+
+    ctx.inpath = prev;
+    ctx.infile = prev?.fname ?? '';
+    this.fileDepth -= 1;
+    ctx.dPrint(`File '${fname}' closed.`);
   }
 }
 

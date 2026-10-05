@@ -1,0 +1,42 @@
+// Conformance fixture for MMA/after.py (AFTER directive).
+// Exercises Bar=, Count=, Repeat=, Id=/Remove and Bar=EOF, plus the
+// recurse path (an event due in the middle of a '*' repeat).
+//
+// NOTE: in this Python version Bar=<n> never fires: after.py assigns
+// dat.bar only inside the `if opt < 1:` error branch, so the event is
+// stored with bar=None.  The Bar=3 line below is inert on both sides -
+// it is here to pin that behaviour.
+Time 4
+TimeSig 4 4
+Tempo 100
+KeySig C
+RndSeed 1
+Groove SWING
+
+// fixed bar trigger (inert in the reference implementation)
+After Bar=3 Groove ROCK1
+
+// relative triggers
+After Count=2 Volume FF
+After Repeat=2 Id=VOL Volume M
+
+// fires in the middle of the C * 4 line below (recurse path)
+After Count=9 Volume ppp
+
+// queued at end of file
+After Bar=EOF MidiText END
+
+C
+C
+C
+C
+C
+C
+C
+C
+
+// stop the repeating volume event, then repeat a bar
+After Remove=VOL
+
+C * 4
+z

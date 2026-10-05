@@ -1,0 +1,13 @@
+// MidiInc fixture: direct import, text/lyric events and PC handling.
+RndSeed 1
+Time 4
+Tempo 120
+Transpose 1
+Solo-Clr Voice Clarinet
+MidiInc File=ts/test/fixtures/midiinc/meta.mid Text=On Lyric=On Solo=1 Volume=90 Offset=1B IgnorePC=Off
+MidiInc File=egs/midi-inc/rec2.mid Solo-Clr=1 Volume=100 Stretch=100
+C
+F * 2
+G7
+C
+z

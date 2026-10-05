@@ -39,7 +39,10 @@ async function main(): Promise<void> {
     const realLog = console.log;
     console.log = () => {};
     try {
-      const result = await new MMA({ resources }).toMIDI(source, { noCredit: true });
+      const result = await new MMA({ resources, plugins: entry.plugins }).toMIDI(
+        { name: entry.file, text: source },
+        { noCredit: true },
+      );
       console.log = realLog;
       const actual = normalizeBasicMIDI(BasicMIDI.fromArrayBuffer(result.bytes));
       const diff = diffEvents(golden.midiEvents, actual);

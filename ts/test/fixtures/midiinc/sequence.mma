@@ -1,0 +1,11 @@
+// MidiInc fixture: sequence mode from a 384 tick/beat file.
+RndSeed 1
+Time 4
+Tempo 130
+SeqSize 4
+Solo-Drum DrumType
+MidiInc File=egs/midi-inc/mid2seq/countme.mid StripSilence=Off Solo-Drum=10,sequence Start=36 End=52 Volume=60
+1 C
+2 F
+3 G
+4 C

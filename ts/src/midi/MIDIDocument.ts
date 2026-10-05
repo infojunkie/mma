@@ -261,6 +261,14 @@ export class MIDIDocument {
   /** channel number -> track; 0 is the meta/conductor track. */
   readonly tracks = new Map<number, MIDITrack>();
   readonly tempoChanges: TempoChange[] = [];
+  /** Channels selected by MIDISPLIT; the writer expands each to per-pitch tracks. */
+  splitChannels: number[] = [];
+  /**
+   * Port of the pre-write flush in MMA/writeMid.py createMIDI(): the
+   * engine sets this to flush pending per-track MIDI events, MIDICLEAR
+   * and the channel reset before the document is written.
+   */
+  onBeforeWrite: (() => void) | null = null;
 
   constructor(
     private rep: Reporter,

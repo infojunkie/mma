@@ -145,9 +145,9 @@ describe('Parser error messages', () => {
   });
 
   it('reports unported M1 directives instead of silently ignoring them', async () => {
-    const ctx = makeCtx({ 'song.mma': 'After 5\n' });
+    const ctx = makeCtx({ 'song.mma': 'Call Foo\n' });
     await expect(new Parser(ctx).parseFile('song.mma')).rejects.toThrowError(
-      'AFTER is not implemented in this milestone (M1).',
+      'CALL is not implemented in this milestone (M1).',
     );
 
     const ctx2 = makeCtx({ 'song.mma': 'Chord Riff B1\n' });

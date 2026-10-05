@@ -1,0 +1,40 @@
+// Conformance fixture for MMA/truncate.py (TRUNCATE directive).
+// Exercises the default side, Side=Right, a numeric side, Count, and
+// fractional beat lengths.
+Time 4
+TimeSig 4 4
+Tempo 100
+KeySig C
+RndSeed 1
+Groove SWING
+
+// plain 4/4 reference bar
+C
+
+// 1 beat, pattern taken from the start (default side)
+Truncate 1
+C
+
+// 2 beats, pattern taken from the right side
+Truncate 2 Side=Right
+C
+
+// numeric side: start at beat 3 of the pattern
+Truncate 1 Side=3
+C
+
+// Count=2: the next two bars are 2 beats
+Truncate 2 Count=2
+C
+C
+
+// fractional beats
+Truncate 1.5
+G
+
+// fractional side: last 1.5 beats of the 4/4 pattern
+Truncate 1.5 Side=3.5
+G
+
+// back to normal
+C

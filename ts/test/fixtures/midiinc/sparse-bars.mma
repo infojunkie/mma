@@ -1,0 +1,15 @@
+// MidiInc fixture: sparse import forcing the riff bar filler and '~'
+// continuations, in Riff and Sequence mode.
+RndSeed 1
+Time 4
+Tempo 120
+SeqSize 8
+Solo-Riff Voice Flute
+MidiInc File=ts/test/fixtures/midiinc/sparse.mid Solo-Riff=1,Riff
+Solo-Seq Voice Trumpet
+MidiInc File=ts/test/fixtures/midiinc/sparse.mid Solo-Seq=1,Sequence
+C * 8
+F
+G7
+C
+z

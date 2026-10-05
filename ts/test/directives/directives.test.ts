@@ -70,8 +70,8 @@ describe('DirectiveRegistry tables', () => {
 
   it('throws a clear milestone error for unported commands', () => {
     const { ctx, parser } = setup();
-    expect(() => simple(parser, 'AFTER')(ctx, ['5'])).toThrowError(
-      'AFTER is not implemented in this milestone (M1).',
+    expect(() => simple(parser, 'CALL')(ctx, ['Foo'])).toThrowError(
+      'CALL is not implemented in this milestone (M1).',
     );
     const track = { name: 'CHORD' } as never;
     expect(() => parser.registry.track.get('ORNAMENT')!(ctx, track, ['X'])).toThrowError(
