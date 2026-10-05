@@ -22,7 +22,7 @@ import { trackCopy } from '../directives/track/Copy';
 import type { DebugState } from '../directives/simple/Debug';
 
 import { setDebug } from '../directives/simple/Debug';
-import { setTime, tempo, beatAdjust } from '../directives/simple/Tempo';
+import { setTime, tempo, beatAdjust, fermata } from '../directives/simple/Tempo';
 import {
   seq,
   seqClear,
@@ -76,6 +76,20 @@ import {
   trackScaletype,
 } from '../directives/track/Track';
 import { setAutoSolo } from '../model/tracks/SoloTrack';
+import { setOrnament } from '../model/features/Ornament';
+import { setRPitch } from '../model/features/Rpitch';
+import { setTrigger } from '../model/features/Trigger';
+import { lyricOption } from '../model/features/Lyric';
+import { callFunction, defCall } from '../directives/simple/Func';
+import { cut, trackCut } from '../directives/simple/Tempo';
+import { deleteTrks } from '../directives/simple/Misc';
+import { setTweak } from '../directives/simple/Tweaks';
+import {
+  trackPlectrumCapo,
+  trackPlectrumFretNoise,
+  trackPlectrumShape,
+  trackPlectrumTuning,
+} from '../directives/track/Plectrum';
 import { midiInc } from '../directives/simple/MidiInc';
 import { trackDefPattern, trackSeqClear, trackSeqRnd, trackSeqRndWeight, trackSequence } from '../directives/track/Patterns';
 import {
@@ -187,6 +201,17 @@ export class DirectiveRegistry {
     register('IF', (c, a) => exp.varIF(a));
     register('REPEAT', (c, a) => exp.repeat(a));
 
+    // --- subroutines (func.py) --------------------------------------------
+    register('DEFCALL', (c, a) => defCall(c, a));
+    register('CALL', (c, a) => callFunction(c, exp, a));
+
+    // --- lyrics (lyric.py) -------------------------------------------------
+    register('LYRIC', (c, a) => lyricOption(c, a));
+
+    // --- delete / cut (parse.py, tempo.py) ---------------------------------
+    register('DELETE', (c, a) => deleteTrks(c, a));
+    register('CUT', (c, a) => cut(c, a));
+
     // --- do-nothing / block terminators (parse.py) ------------------------
     register('COMMENT', () => {});
     register('LABEL', () => {});
@@ -203,6 +228,7 @@ export class DirectiveRegistry {
     register('TIME', (c, a) => setTime(c, a));
     register('TEMPO', (c, a) => tempo(c, a));
     register('BEATADJUST', (c, a) => beatAdjust(c, a));
+    register('FERMATA', (c, a) => fermata(c, a));
     register('TIMESIG', (c, a) => c.timeSig.setSig(a));
     register('KEYSIG', (c, a) => c.keySig.create(a));
     register('TRANSPOSE', (c, a) => transpose(c, a));
@@ -261,6 +287,7 @@ export class DirectiveRegistry {
     register('DECRESC', (c, a) => setCrescendo(c, -1, a));
     register('SWELL', (c, a) => setSwell(c, a));
     register('AUTOSOLOTRACKS', (c, a) => setAutoSolo(c, a));
+    register('TWEAKS', (c, a) => setTweak(c, a));
 
     // --- MIDI meta commands (midifuncs.py, mdefine.py, midi.py) -----------
     register('MIDI', (c, a) => rawMidi(c, a));
@@ -286,16 +313,10 @@ export class DirectiveRegistry {
       'ALLGROOVES',
       'AUTHOR',
       'AUTOSOLOTRACKS',
-      'CALL',
       'CMDLINE',
-      'CUT',
-      'DEFCALL',
-      'DELETE',
       'DOC',
       'DOCVAR',
       'DRUMVOLTR',
-      'FERMATA',
-      'LYRIC',
       'MMAEND',
       'MMASTART',
       'PATCH',
@@ -310,7 +331,6 @@ export class DirectiveRegistry {
       'SETSYNCTONE',
       'SYNCHRONIZE',
       'TONETR',
-      'TWEAKS',
       'VOICEVOLTR',
       'VOICETR',
     ]) {
@@ -414,6 +434,9 @@ export class DirectiveRegistry {
       }
     });
 
+    // parse.trackCresc/trackDeCresc: track-scoped (de)crescendo.
+    reg('CRESC', (c, t, a) => (t as unknown as BaseTrack).setCresc(1, a));
+    reg('DECRESC', (c, t, a) => (t as unknown as BaseTrack).setCresc(-1, a));
     reg('CHSHARE', (c, t, a) => (t as unknown as BaseTrack).setChShare(a.join(' ')));
     reg('SWELL', (c, t, a) => (t as unknown as BaseTrack).setSwell(a));
     reg('COPY', (c, t, a) => trackCopy(c, t as unknown as BaseTrack, a));
@@ -421,19 +444,19 @@ export class DirectiveRegistry {
     reg('VOICING', trackVoicing);
     reg('VOLUME', trackVolume);
 
-    for (const name of [
-      'CRESC',
-      'CUT',
-      'DECRESC',
-      'FORCEOUT',
-      'FRETNOISE',
-      'ORNAMENT',
-      'TUNING',
-      'CAPO',
-      'SHAPE',
-      'RPITCH',
-      'TRIGGER',
-    ]) {
+    // PLECTRUM-only commands (parse.py trackPlectrum*); the handlers warn
+    // and ignore the command for other track types.
+    reg('TUNING', trackPlectrumTuning);
+    reg('CAPO', trackPlectrumCapo);
+    reg('FRETNOISE', trackPlectrumFretNoise);
+    reg('SHAPE', trackPlectrumShape);
+
+    reg('ORNAMENT', (c, t, a) => setOrnament(c, t as unknown as BaseTrack, a));
+    reg('RPITCH', (c, t, a) => setRPitch(c, t as unknown as BaseTrack, a));
+    reg('TRIGGER', (c, t, a) => setTrigger(c, t as unknown as BaseTrack, a));
+    reg('CUT', (c, t, a) => trackCut(c, t.name, a));
+
+    for (const name of ['FORCEOUT']) {
       reg(name, trackNotImpl(name));
     }
   }

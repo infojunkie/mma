@@ -1,0 +1,51 @@
+// Conformance fixture for MMA/func.py (DEFCALL/CALL).
+// Based on egs/subroutines/subs.mma (which has no musical data, so the
+// Python CLI cannot produce an oracle for it) plus a few bars, and with
+// extra DefCall cases: positional, named and DEFAULT parameters, a
+// parameter used as a whole chord line, and a nested call.
+Time 4
+TimeSig 4 4
+Tempo 100
+KeySig C
+RndSeed 1
+Groove SWING
+
+// sets a copyright message; Name uses the default from the param list
+Defcall Copyright Date, Name=Bob van der Poel
+  print Adding copyright to song: $Name
+  MidiCopyright $Name
+  Print $Date
+EndDefCall
+
+Call Copyright Nov 2015
+
+// Same, but use the DEFAULT keyword
+Defcall Copyright Date, Name
+  Default Name Bob van der Poel
+  Default Date June 22, 1999
+  print Adding copyright to song: $Name
+  MidiCopyright $Name
+  Print $Date
+EndDefCall
+
+Call Copyright Today
+
+// Named parameters, skippable trailing params and a chord line parameter
+Defcall Play chord, count=1
+  $Chord
+  print played $Count
+EndDefCall
+
+Call Play C
+Call Play G, 2
+
+// A nested call: the body invokes another function.
+Defcall Twice name
+  Call Play $Name
+EndDefCall
+
+Call Twice Dm
+
+1 C
+2 G
+3 Dm

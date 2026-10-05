@@ -1,0 +1,28 @@
+// Conformance fixture for MMA/lyric.py (LYRIC command and [] extraction).
+// Covers: verse selection, <beat> markers, CHORDS=ON duplication with a
+// repeat (*) count (the re-extract path in parse.py), SPLIT=BAR and
+// EVENT=TEXT.  The stock egs/lyrics songs cover the KAR mode and SET.
+Time 4
+TimeSig 4 4
+Tempo 100
+KeySig C
+RndSeed 1
+Groove SWING
+
+// verse 2 of the chord line, with a beat marker on the first syllable
+Lyric Verse=2
+1 C [one <3>] [two <2>]
+2 G [three]
+
+// chord names as lyrics; only the first [...] group is used for one verse
+Lyric Chords=On Cnames=Sharp Transpose=-6
+3 C7
+4 Gm * 2
+
+// text events (not lyric events), split into one event per bar
+Lyric Chords=Off Event=Text Split=Bar Verse=1
+5 F [la la la]
+
+// and back to normal lyric events
+Lyric Event=Lyric Split=Normal
+6 C [done]

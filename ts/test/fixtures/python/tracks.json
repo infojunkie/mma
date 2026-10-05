@@ -725,6 +725,186 @@
       "volume": [
         1.0
       ]
+    },
+    "PLECTRUM": {
+      "artic": [
+        0
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "toneList": null,
+      "stretch": null,
+      "followChord": null,
+      "followKey": null,
+      "rootChord": null,
+      "drumType": null,
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
+    },
+    "ARIA": {
+      "artic": [
+        90
+      ],
+      "chord": [
+        []
+      ],
+      "chordLimit": [
+        0,
+        0
+      ],
+      "chordRange": [
+        1
+      ],
+      "compress": [
+        0
+      ],
+      "delay": [
+        0
+      ],
+      "direction": [
+        "BOTH"
+      ],
+      "dupRoot": [
+        []
+      ],
+      "harmonyVolume": [
+        0.8
+      ],
+      "invert": [
+        []
+      ],
+      "mallet": 0,
+      "malletDecay": 0,
+      "octave": [
+        48
+      ],
+      "rDuration": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rSkip": [
+        0
+      ],
+      "rSkipBeats": [],
+      "rTime": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rVolume": [
+        [
+          0,
+          0
+        ]
+      ],
+      "seqRnd": 0,
+      "seqRndWeight": [
+        1
+      ],
+      "toneList": null,
+      "stretch": null,
+      "followChord": null,
+      "followKey": null,
+      "rootChord": null,
+      "drumType": null,
+      "sequence": [
+        null
+      ],
+      "spanEnd": 127,
+      "spanStart": 0,
+      "strum": [
+        null
+      ],
+      "strumAdd": [
+        0
+      ],
+      "unify": [
+        0
+      ],
+      "voice": [
+        0
+      ],
+      "volume": [
+        1.0
+      ]
     }
   },
   "bars": {
@@ -6923,6 +7103,3903 @@
         [
           1526,
           "943000"
+        ]
+      ]
+    },
+    "plectrum_basic": {
+      "track": "PLECTRUM",
+      "pattern": "1 5 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a"
+        ],
+        [
+          5,
+          "97305a"
+        ],
+        [
+          10,
+          "97345a"
+        ],
+        [
+          15,
+          "97375a"
+        ],
+        [
+          20,
+          "973c5a"
+        ],
+        [
+          25,
+          "97405a"
+        ]
+      ]
+    },
+    "plectrum_all_strings": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 90 80 70 60 50 40",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a",
+          "973050",
+          "973446",
+          "97373c",
+          "973c32",
+          "974028"
+        ]
+      ]
+    },
+    "plectrum_subset": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 1-3:80 6:90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a",
+          "973750",
+          "973c50",
+          "974050"
+        ]
+      ]
+    },
+    "plectrum_volume_zero": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 90 90 90 0 90 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a",
+          "97305a",
+          "97345a",
+          "973c5a",
+          "97405a"
+        ]
+      ]
+    },
+    "plectrum_strum_center": {
+      "track": "PLECTRUM",
+      "pattern": "1 10 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setStrum",
+          [
+            [
+              "CENTER"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a",
+          "97305a",
+          "97345a",
+          "97375a"
+        ],
+        [
+          10,
+          "973c5a"
+        ],
+        [
+          20,
+          "97405a"
+        ]
+      ]
+    },
+    "plectrum_strum_end": {
+      "track": "PLECTRUM",
+      "pattern": "1 10 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setStrum",
+          [
+            [
+              "End"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97405a"
+        ],
+        [
+          10,
+          "973c5a"
+        ],
+        [
+          20,
+          "97375a"
+        ],
+        [
+          30,
+          "97345a"
+        ],
+        [
+          40,
+          "97305a"
+        ],
+        [
+          50,
+          "97285a"
+        ]
+      ]
+    },
+    "plectrum_strum_negative": {
+      "track": "PLECTRUM",
+      "pattern": "1 -5 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700"
+        ],
+        [
+          5,
+          "97405a"
+        ],
+        [
+          10,
+          "973c5a"
+        ],
+        [
+          15,
+          "97375a"
+        ],
+        [
+          20,
+          "97345a"
+        ],
+        [
+          25,
+          "97305a"
+        ],
+        [
+          30,
+          "97285a"
+        ]
+      ]
+    },
+    "plectrum_capo": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setPlectrumCapo",
+          [
+            "2"
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "972b5a",
+          "97305a",
+          "97345a",
+          "973c5a",
+          "97405a",
+          "97435a"
+        ]
+      ]
+    },
+    "plectrum_tuning": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setPlectrumTuning",
+          [
+            [
+              "d-",
+              "a-",
+              "d",
+              "g",
+              "b",
+              "e+"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a",
+          "97305a",
+          "97345a",
+          "97375a",
+          "973c5a",
+          "97405a"
+        ]
+      ]
+    },
+    "plectrum_shape": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setPlectrumShape",
+          [
+            [
+              "C",
+              "0",
+              "1",
+              "0",
+              "2",
+              "3",
+              "-"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a",
+          "972e5a",
+          "97325a",
+          "97395a",
+          "973e5a"
+        ]
+      ]
+    },
+    "plectrum_shape_muted": {
+      "track": "PLECTRUM",
+      "pattern": "1 5 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setPlectrumShape",
+          [
+            [
+              "C",
+              "0",
+              "1",
+              "0",
+              "2",
+              "-",
+              "-"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a"
+        ],
+        [
+          5,
+          "972e5a"
+        ],
+        [
+          10,
+          "97325a"
+        ],
+        [
+          15,
+          "97395a"
+        ]
+      ]
+    },
+    "plectrum_seventh": {
+      "track": "PLECTRUM",
+      "pattern": "1 5 :90",
+      "chords": [
+        "C7"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a"
+        ],
+        [
+          5,
+          "97305a"
+        ],
+        [
+          10,
+          "97345a"
+        ],
+        [
+          15,
+          "973a5a"
+        ],
+        [
+          20,
+          "973c5a"
+        ],
+        [
+          25,
+          "97405a"
+        ]
+      ]
+    },
+    "plectrum_ninth": {
+      "track": "PLECTRUM",
+      "pattern": "1 5 :90",
+      "chords": [
+        "C9"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a"
+        ],
+        [
+          5,
+          "972e5a"
+        ],
+        [
+          10,
+          "97325a"
+        ],
+        [
+          15,
+          "97375a"
+        ],
+        [
+          20,
+          "973c5a"
+        ],
+        [
+          25,
+          "97405a"
+        ]
+      ]
+    },
+    "plectrum_barre": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 :90",
+      "chords": [
+        "C:5"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97305a",
+          "97345a",
+          "97375a",
+          "973c5a",
+          "97405a",
+          "97485a"
+        ]
+      ]
+    },
+    "plectrum_octave_chord": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 :90",
+      "chords": [
+        "+C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97345a",
+          "973c5a",
+          "97405a",
+          "97435a",
+          "97485a",
+          "974c5a"
+        ]
+      ]
+    },
+    "plectrum_eight_strings": {
+      "track": "PLECTRUM",
+      "pattern": "1 0 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a",
+          "97305a",
+          "97345a",
+          "97375a",
+          "973c5a",
+          "97405a",
+          "973c5a",
+          "97405a"
+        ]
+      ],
+      "preSetup": [
+        [
+          "setPlectrumTuning",
+          [
+            [
+              "e-",
+              "a-",
+              "d",
+              "g",
+              "b",
+              "e+",
+              "a",
+              "d+"
+            ]
+          ]
+        ]
+      ]
+    },
+    "plectrum_two_events": {
+      "track": "PLECTRUM",
+      "pattern": "1 2 :90; 3 4 6:90 1:50",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a"
+        ],
+        [
+          2,
+          "97305a"
+        ],
+        [
+          4,
+          "97345a"
+        ],
+        [
+          6,
+          "97375a"
+        ],
+        [
+          8,
+          "973c5a"
+        ],
+        [
+          10,
+          "97405a"
+        ],
+        [
+          384,
+          "972800",
+          "97285a"
+        ],
+        [
+          388,
+          "974000",
+          "974032"
+        ]
+      ]
+    },
+    "plectrum_two_bars": {
+      "track": "PLECTRUM",
+      "pattern": "1 5 :80; 3 5 :60",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "972850"
+        ],
+        [
+          5,
+          "973050"
+        ],
+        [
+          10,
+          "973450"
+        ],
+        [
+          15,
+          "973750"
+        ],
+        [
+          20,
+          "973c50"
+        ],
+        [
+          25,
+          "974050"
+        ],
+        [
+          384,
+          "972800",
+          "97283c"
+        ],
+        [
+          389,
+          "973000",
+          "97303c"
+        ],
+        [
+          394,
+          "973400",
+          "97343c"
+        ],
+        [
+          399,
+          "973700",
+          "97373c"
+        ],
+        [
+          404,
+          "973c00",
+          "973c3c"
+        ],
+        [
+          409,
+          "974000",
+          "97403c"
+        ],
+        [
+          768,
+          "972800",
+          "972950"
+        ],
+        [
+          773,
+          "973000",
+          "972d50"
+        ],
+        [
+          778,
+          "973400",
+          "973550"
+        ],
+        [
+          783,
+          "973700",
+          "973950"
+        ],
+        [
+          788,
+          "973c00",
+          "973c50"
+        ],
+        [
+          793,
+          "974000",
+          "974150"
+        ],
+        [
+          1152,
+          "972900",
+          "97293c"
+        ],
+        [
+          1157,
+          "972d00",
+          "972d3c"
+        ],
+        [
+          1162,
+          "973500",
+          "97353c"
+        ],
+        [
+          1167,
+          "973900",
+          "97393c"
+        ],
+        [
+          1172,
+          "973c00",
+          "973c3c"
+        ],
+        [
+          1177,
+          "974100",
+          "97413c"
+        ]
+      ]
+    },
+    "plectrum_groove": {
+      "track": "PLECTRUM",
+      "pattern": "1 8 :90",
+      "chords": [
+        "C"
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [
+        [
+          "saveGroove",
+          [
+            "G1"
+          ]
+        ],
+        [
+          "setPlectrumTuning",
+          [
+            [
+              "d-",
+              "a-",
+              "d",
+              "g",
+              "b",
+              "e+"
+            ]
+          ]
+        ],
+        [
+          "setPlectrumCapo",
+          [
+            "5"
+          ]
+        ],
+        [
+          "setStrum",
+          [
+            [
+              "Center"
+            ]
+          ]
+        ],
+        [
+          "restoreGroove",
+          [
+            "G1"
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a"
+        ],
+        [
+          8,
+          "97305a"
+        ],
+        [
+          16,
+          "97345a"
+        ],
+        [
+          24,
+          "97375a"
+        ],
+        [
+          32,
+          "973c5a"
+        ],
+        [
+          40,
+          "97405a"
+        ]
+      ]
+    },
+    "plectrum_two_chords": {
+      "track": "PLECTRUM",
+      "pattern": "1 2 :90; 2+2 2 :80",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            2.5
+          ],
+          [
+            "F",
+            2.5,
+            5
+          ]
+        ]
+      ],
+      "channel": 8,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff0308506c65637472756d",
+          "b72000",
+          "b70000",
+          "c700",
+          "97285a"
+        ],
+        [
+          2,
+          "97305a"
+        ],
+        [
+          4,
+          "97345a"
+        ],
+        [
+          6,
+          "97375a"
+        ],
+        [
+          8,
+          "973c5a"
+        ],
+        [
+          10,
+          "97405a"
+        ],
+        [
+          576,
+          "972800",
+          "972950"
+        ],
+        [
+          578,
+          "973000",
+          "972d50"
+        ],
+        [
+          580,
+          "973400",
+          "973550"
+        ],
+        [
+          582,
+          "973700",
+          "973950"
+        ],
+        [
+          584,
+          "973c00",
+          "973c50"
+        ],
+        [
+          586,
+          "974000",
+          "974150"
+        ]
+      ]
+    },
+    "aria_basic": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92325a"
+        ],
+        [
+          172,
+          "923200"
+        ],
+        [
+          192,
+          "92345a"
+        ],
+        [
+          364,
+          "923400"
+        ],
+        [
+          384,
+          "92355a"
+        ],
+        [
+          556,
+          "923500"
+        ],
+        [
+          576,
+          "92375a"
+        ],
+        [
+          748,
+          "923700"
+        ]
+      ]
+    },
+    "aria_scale": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "SCALE"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92325a"
+        ],
+        [
+          172,
+          "923200"
+        ],
+        [
+          192,
+          "92345a"
+        ],
+        [
+          364,
+          "923400"
+        ],
+        [
+          384,
+          "92355a"
+        ],
+        [
+          556,
+          "923500"
+        ],
+        [
+          576,
+          "92375a"
+        ],
+        [
+          748,
+          "923700"
+        ]
+      ]
+    },
+    "aria_chromatic": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "CHROMATIC"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92315a"
+        ],
+        [
+          172,
+          "923100"
+        ],
+        [
+          192,
+          "92325a"
+        ],
+        [
+          364,
+          "923200"
+        ],
+        [
+          384,
+          "92335a"
+        ],
+        [
+          556,
+          "923300"
+        ],
+        [
+          576,
+          "92345a"
+        ],
+        [
+          748,
+          "923400"
+        ]
+      ]
+    },
+    "aria_chord": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "CHORD"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92345a"
+        ],
+        [
+          172,
+          "923400"
+        ],
+        [
+          192,
+          "92375a"
+        ],
+        [
+          364,
+          "923700"
+        ],
+        [
+          384,
+          "923b5a"
+        ],
+        [
+          556,
+          "923b00"
+        ],
+        [
+          576,
+          "92305a"
+        ],
+        [
+          748,
+          "923000"
+        ]
+      ]
+    },
+    "aria_key": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "KEY"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92325a"
+        ],
+        [
+          172,
+          "923200"
+        ],
+        [
+          192,
+          "92345a"
+        ],
+        [
+          364,
+          "923400"
+        ],
+        [
+          384,
+          "92355a"
+        ],
+        [
+          556,
+          "923500"
+        ],
+        [
+          576,
+          "92375a"
+        ],
+        [
+          748,
+          "923700"
+        ]
+      ]
+    },
+    "aria_direction_int": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "1",
+              "2",
+              "-3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92325a"
+        ],
+        [
+          172,
+          "923200"
+        ],
+        [
+          192,
+          "92355a"
+        ],
+        [
+          364,
+          "923500"
+        ],
+        [
+          384,
+          "92305a"
+        ],
+        [
+          556,
+          "923000"
+        ],
+        [
+          576,
+          "92325a"
+        ],
+        [
+          748,
+          "923200"
+        ]
+      ]
+    },
+    "aria_direction_random": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "r",
+              "rr"
+            ]
+          ]
+        ]
+      ],
+      "seed": 50,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a"
+        ],
+        [
+          172,
+          "923000"
+        ],
+        [
+          192,
+          "92305a"
+        ],
+        [
+          364,
+          "923000"
+        ],
+        [
+          384,
+          "92325a"
+        ],
+        [
+          556,
+          "923200"
+        ],
+        [
+          576,
+          "92325a"
+        ],
+        [
+          748,
+          "923200"
+        ]
+      ]
+    },
+    "aria_deplete": {
+      "track": "ARIA",
+      "pattern": "1 8 90; 1+8 8 90; 2 8 90; 2+8 8 90; 3 8 90; 3+8 8 90; 4 8 90; 4+8 8 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setScaletype",
+          [
+            [
+              "CHROMATIC-"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92315a"
+        ],
+        [
+          86,
+          "923100"
+        ],
+        [
+          96,
+          "92335a"
+        ],
+        [
+          182,
+          "923300"
+        ],
+        [
+          192,
+          "92355a"
+        ],
+        [
+          278,
+          "923500"
+        ],
+        [
+          288,
+          "92375a"
+        ],
+        [
+          374,
+          "923700"
+        ],
+        [
+          384,
+          "92395a"
+        ],
+        [
+          470,
+          "923900"
+        ],
+        [
+          480,
+          "923b5a"
+        ],
+        [
+          566,
+          "923b00"
+        ],
+        [
+          576,
+          "92305a"
+        ],
+        [
+          662,
+          "923000"
+        ],
+        [
+          672,
+          "92345a"
+        ],
+        [
+          758,
+          "923400"
+        ]
+      ]
+    },
+    "aria_range_fraction": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setRange",
+          [
+            [
+              "1.5"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92325a"
+        ],
+        [
+          172,
+          "923200"
+        ],
+        [
+          192,
+          "92345a"
+        ],
+        [
+          364,
+          "923400"
+        ],
+        [
+          384,
+          "92355a"
+        ],
+        [
+          556,
+          "923500"
+        ],
+        [
+          576,
+          "92375a"
+        ],
+        [
+          748,
+          "923700"
+        ]
+      ]
+    },
+    "aria_harmony": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setHarmony",
+          [
+            [
+              "3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92325a",
+          "922848",
+          "922b48"
+        ],
+        [
+          172,
+          "923200",
+          "922800",
+          "922b00"
+        ],
+        [
+          192,
+          "92345a",
+          "922848",
+          "922b48"
+        ],
+        [
+          364,
+          "923400",
+          "922800",
+          "922b00"
+        ],
+        [
+          384,
+          "92355a",
+          "922848",
+          "922b48"
+        ],
+        [
+          556,
+          "923500",
+          "922800",
+          "922b00"
+        ],
+        [
+          576,
+          "92375a",
+          "922b48",
+          "923448"
+        ],
+        [
+          748,
+          "923700",
+          "922b00",
+          "923400"
+        ]
+      ]
+    },
+    "aria_two_bars": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "C",
+        "F"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92325a"
+        ],
+        [
+          172,
+          "923200"
+        ],
+        [
+          192,
+          "92345a"
+        ],
+        [
+          364,
+          "923400"
+        ],
+        [
+          384,
+          "92355a"
+        ],
+        [
+          556,
+          "923500"
+        ],
+        [
+          576,
+          "92375a"
+        ],
+        [
+          748,
+          "923700"
+        ],
+        [
+          768,
+          "923e5a"
+        ],
+        [
+          940,
+          "923e00"
+        ],
+        [
+          960,
+          "92405a"
+        ],
+        [
+          1132,
+          "924000"
+        ],
+        [
+          1152,
+          "92355a"
+        ],
+        [
+          1324,
+          "923500"
+        ],
+        [
+          1344,
+          "92375a"
+        ],
+        [
+          1516,
+          "923700"
+        ]
+      ]
+    },
+    "aria_two_chords": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            3
+          ],
+          [
+            "G",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92325a"
+        ],
+        [
+          172,
+          "923200"
+        ],
+        [
+          192,
+          "92345a"
+        ],
+        [
+          364,
+          "923400"
+        ],
+        [
+          384,
+          "92305a"
+        ],
+        [
+          556,
+          "923000"
+        ],
+        [
+          576,
+          "92325a"
+        ],
+        [
+          748,
+          "923200"
+        ]
+      ]
+    },
+    "aria_restart": {
+      "track": "ARIA",
+      "pattern": "1 4 90; 2 4 90; 3 4 90; 4 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setDirection",
+          [
+            [
+              "2"
+            ]
+          ]
+        ],
+        [
+          "restart",
+          []
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030441726961",
+          "b22000",
+          "b20000",
+          "c200",
+          "92345a"
+        ],
+        [
+          172,
+          "923400"
+        ],
+        [
+          192,
+          "92375a"
+        ],
+        [
+          364,
+          "923700"
+        ],
+        [
+          384,
+          "923b5a"
+        ],
+        [
+          556,
+          "923b00"
+        ],
+        [
+          576,
+          "92305a"
+        ],
+        [
+          748,
+          "923000"
+        ]
+      ]
+    },
+    "orn_grace_bass": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "Duration=30",
+              "Volume=80",
+              "Place=Above"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "933248"
+        ],
+        [
+          55,
+          "933200"
+        ],
+        [
+          57,
+          "93305a"
+        ],
+        [
+          190,
+          "933000"
+        ],
+        [
+          384,
+          "933948"
+        ],
+        [
+          439,
+          "933900"
+        ],
+        [
+          441,
+          "93375a"
+        ],
+        [
+          574,
+          "933700"
+        ]
+      ]
+    },
+    "orn_grace_below_chromatic": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "Place=Below",
+              "Chromatic=On"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "932f43"
+        ],
+        [
+          36,
+          "932f00"
+        ],
+        [
+          38,
+          "93305a"
+        ],
+        [
+          190,
+          "933000"
+        ],
+        [
+          384,
+          "933643"
+        ],
+        [
+          420,
+          "933600"
+        ],
+        [
+          422,
+          "93375a"
+        ],
+        [
+          574,
+          "933700"
+        ]
+      ]
+    },
+    "orn_fall_bass": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Fall"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          36,
+          "933000"
+        ],
+        [
+          154,
+          "933243"
+        ],
+        [
+          306,
+          "933200"
+        ],
+        [
+          384,
+          "93375a"
+        ],
+        [
+          420,
+          "933700"
+        ],
+        [
+          538,
+          "933943"
+        ],
+        [
+          690,
+          "933900"
+        ]
+      ]
+    },
+    "orn_trill_scale": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 3 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 6,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Trill",
+              "Duration=20"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "953043"
+        ],
+        [
+          36,
+          "953000"
+        ],
+        [
+          38,
+          "953243"
+        ],
+        [
+          74,
+          "953200"
+        ],
+        [
+          76,
+          "953043"
+        ],
+        [
+          112,
+          "953000"
+        ],
+        [
+          114,
+          "953243"
+        ],
+        [
+          150,
+          "953200"
+        ],
+        [
+          384,
+          "953243"
+        ],
+        [
+          420,
+          "953200"
+        ],
+        [
+          422,
+          "953443"
+        ],
+        [
+          458,
+          "953400"
+        ],
+        [
+          460,
+          "953243"
+        ],
+        [
+          496,
+          "953200"
+        ],
+        [
+          498,
+          "953443"
+        ],
+        [
+          534,
+          "953400"
+        ]
+      ]
+    },
+    "orn_mordent_chord": {
+      "track": "CHORD",
+      "pattern": "1 4 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Mordent"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "923743"
+        ],
+        [
+          18,
+          "923700"
+        ],
+        [
+          19,
+          "923943"
+        ],
+        [
+          37,
+          "923900"
+        ],
+        [
+          38,
+          "92375a",
+          "92305a",
+          "92345a"
+        ],
+        [
+          190,
+          "923700"
+        ],
+        [
+          210,
+          "923000",
+          "923400"
+        ]
+      ]
+    },
+    "orn_turn_arpeggio": {
+      "track": "ARPEGGIO",
+      "pattern": "1 4 90; 3 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 5,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Turn"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff0308417270656767696f",
+          "b42000",
+          "b40000",
+          "c400",
+          "943543"
+        ],
+        [
+          11,
+          "943500"
+        ],
+        [
+          12,
+          "943443"
+        ],
+        [
+          23,
+          "943400"
+        ],
+        [
+          24,
+          "943243"
+        ],
+        [
+          35,
+          "943200"
+        ],
+        [
+          36,
+          "94345a"
+        ],
+        [
+          189,
+          "943400"
+        ],
+        [
+          384,
+          "943943"
+        ],
+        [
+          395,
+          "943900"
+        ],
+        [
+          396,
+          "943743"
+        ],
+        [
+          407,
+          "943700"
+        ],
+        [
+          408,
+          "943543"
+        ],
+        [
+          419,
+          "943500"
+        ],
+        [
+          420,
+          "94375a"
+        ],
+        [
+          573,
+          "943700"
+        ]
+      ]
+    },
+    "orn_3after_scale": {
+      "track": "SCALE",
+      "pattern": "1 4 90; 3 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 6,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=3After",
+              "Duration=75",
+              "Volume=90"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff03055363616c65",
+          "b52000",
+          "b50000",
+          "c500",
+          "95305a"
+        ],
+        [
+          46,
+          "953000"
+        ],
+        [
+          48,
+          "953451"
+        ],
+        [
+          94,
+          "953400"
+        ],
+        [
+          96,
+          "953251"
+        ],
+        [
+          142,
+          "953200"
+        ],
+        [
+          144,
+          "953451"
+        ],
+        [
+          190,
+          "953400"
+        ],
+        [
+          384,
+          "95325a"
+        ],
+        [
+          430,
+          "953200"
+        ],
+        [
+          432,
+          "953551"
+        ],
+        [
+          478,
+          "953500"
+        ],
+        [
+          480,
+          "953451"
+        ],
+        [
+          526,
+          "953400"
+        ],
+        [
+          528,
+          "953551"
+        ],
+        [
+          574,
+          "953500"
+        ]
+      ]
+    },
+    "orn_gliss_bass": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Gliss",
+              "Count=4",
+              "Duration=50"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "933743"
+        ],
+        [
+          23,
+          "933700"
+        ],
+        [
+          24,
+          "933543"
+        ],
+        [
+          47,
+          "933500"
+        ],
+        [
+          48,
+          "933443"
+        ],
+        [
+          71,
+          "933400"
+        ],
+        [
+          72,
+          "933243"
+        ],
+        [
+          95,
+          "933200"
+        ],
+        [
+          96,
+          "93305a"
+        ],
+        [
+          190,
+          "933000"
+        ]
+      ]
+    },
+    "orn_glissafter_bass": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=GlissAfter",
+              "Count=3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          153,
+          "933000"
+        ],
+        [
+          156,
+          "933543"
+        ],
+        [
+          167,
+          "933500"
+        ],
+        [
+          168,
+          "933443"
+        ],
+        [
+          179,
+          "933400"
+        ],
+        [
+          180,
+          "933243"
+        ],
+        [
+          191,
+          "933200"
+        ]
+      ]
+    },
+    "orn_random_place": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "Place=Random"
+            ]
+          ]
+        ]
+      ],
+      "seed": 51,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "933243"
+        ],
+        [
+          36,
+          "933200"
+        ],
+        [
+          38,
+          "93305a"
+        ],
+        [
+          190,
+          "933000"
+        ]
+      ]
+    },
+    "orn_rvolume": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "RVolume=20"
+            ]
+          ]
+        ]
+      ],
+      "seed": 52,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93323e"
+        ],
+        [
+          36,
+          "933200"
+        ],
+        [
+          38,
+          "93305a"
+        ],
+        [
+          190,
+          "933000"
+        ]
+      ]
+    },
+    "orn_beats_skip": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "Beats=3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          384,
+          "933943"
+        ],
+        [
+          420,
+          "933900"
+        ],
+        [
+          422,
+          "93375a"
+        ],
+        [
+          574,
+          "933700"
+        ]
+      ]
+    },
+    "orn_bars_skip": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C",
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "Bars=2"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          768,
+          "933243"
+        ],
+        [
+          804,
+          "933200"
+        ],
+        [
+          806,
+          "93305a"
+        ],
+        [
+          958,
+          "933000"
+        ]
+      ]
+    },
+    "orn_rskip": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "Rskip=99"
+            ]
+          ]
+        ]
+      ],
+      "seed": 53,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ]
+      ]
+    },
+    "orn_pad": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "Pad=50,20"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "933243"
+        ],
+        [
+          38,
+          "93305a"
+        ],
+        [
+          40,
+          "933200"
+        ],
+        [
+          245,
+          "933000"
+        ]
+      ]
+    },
+    "orn_offset": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Grace",
+              "Offset=10"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300"
+        ],
+        [
+          10,
+          "933243"
+        ],
+        [
+          38,
+          "93305a"
+        ],
+        [
+          46,
+          "933200"
+        ],
+        [
+          190,
+          "933000"
+        ]
+      ]
+    },
+    "orn_walk": {
+      "track": "WALK",
+      "pattern": "1 4 90; 3 4 80",
+      "chords": [
+        "C"
+      ],
+      "channel": 7,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Mordent"
+            ]
+          ]
+        ]
+      ],
+      "seed": 54,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030457616c6b",
+          "b62000",
+          "b60000",
+          "c600",
+          "963043"
+        ],
+        [
+          18,
+          "963000"
+        ],
+        [
+          19,
+          "963243"
+        ],
+        [
+          37,
+          "963200"
+        ],
+        [
+          38,
+          "96305a"
+        ],
+        [
+          190,
+          "963000"
+        ],
+        [
+          384,
+          "96323c"
+        ],
+        [
+          402,
+          "963200"
+        ],
+        [
+          403,
+          "96343c"
+        ],
+        [
+          421,
+          "963400"
+        ],
+        [
+          422,
+          "963250"
+        ],
+        [
+          574,
+          "963200"
+        ]
+      ]
+    },
+    "orn_count_clamp": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setOrnament",
+          [
+            [
+              "Type=Gliss",
+              "Count=100",
+              "Duration=5"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "934043"
+        ],
+        [
+          1,
+          "934000",
+          "933e43"
+        ],
+        [
+          2,
+          "933e00",
+          "933c43"
+        ],
+        [
+          3,
+          "933c00",
+          "933b43"
+        ],
+        [
+          4,
+          "933b00",
+          "933943"
+        ],
+        [
+          5,
+          "933900",
+          "933743"
+        ],
+        [
+          6,
+          "933700",
+          "933543"
+        ],
+        [
+          7,
+          "933500",
+          "933443"
+        ],
+        [
+          8,
+          "933400",
+          "933243"
+        ],
+        [
+          9,
+          "933200",
+          "93305a"
+        ],
+        [
+          189,
+          "933000"
+        ]
+      ]
+    },
+    "trg_beats_bass": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Beats=1,3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          384,
+          "93305a"
+        ],
+        [
+          556,
+          "933000"
+        ]
+      ]
+    },
+    "trg_beats_count": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Beats=1,2",
+              "Count=1"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          192,
+          "93305a"
+        ],
+        [
+          364,
+          "933000"
+        ]
+      ]
+    },
+    "trg_sequence": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Sequence={1 8 1 90; 2 8 1 80}",
+              "Beats=1,3"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          86,
+          "933000"
+        ],
+        [
+          384,
+          "93305a"
+        ],
+        [
+          470,
+          "933000"
+        ]
+      ]
+    },
+    "trg_truncate": {
+      "track": "BASS",
+      "pattern": "1 2 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Beats=1,2,3,4",
+              "Truncate=True"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          192,
+          "93305a"
+        ],
+        [
+          364,
+          "933000"
+        ],
+        [
+          384,
+          "93305a"
+        ],
+        [
+          556,
+          "933000"
+        ],
+        [
+          576,
+          "93305a"
+        ],
+        [
+          748,
+          "933000"
+        ]
+      ]
+    },
+    "trg_auto": {
+      "track": "BASS",
+      "pattern": "1 2 1 90",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            3
+          ],
+          [
+            "F",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Auto"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          345,
+          "933000"
+        ],
+        [
+          384,
+          "93355a"
+        ],
+        [
+          729,
+          "933500"
+        ]
+      ]
+    },
+    "trg_cnames": {
+      "track": "CHORD",
+      "pattern": "1 2 90",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            2
+          ],
+          [
+            "G",
+            2,
+            3
+          ],
+          [
+            "F",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Beats=1,2,3,4",
+              "CNames=C,F"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a",
+          "92345a",
+          "92375a"
+        ],
+        [
+          345,
+          "923000",
+          "923400",
+          "923700"
+        ],
+        [
+          384,
+          "92355a",
+          "92395a",
+          "923c5a"
+        ],
+        [
+          576,
+          "923500",
+          "92355a",
+          "923900",
+          "92395a",
+          "923c00",
+          "923c5a"
+        ],
+        [
+          729
+        ],
+        [
+          921,
+          "923500",
+          "923900",
+          "923c00"
+        ]
+      ]
+    },
+    "trg_ctonics": {
+      "track": "CHORD",
+      "pattern": "1 2 90",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            2
+          ],
+          [
+            "G",
+            2,
+            3
+          ],
+          [
+            "F",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Beats=1,2,3,4",
+              "CTonics=C,G"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92305a",
+          "92345a",
+          "92375a"
+        ],
+        [
+          192,
+          "922b5a",
+          "922f5a",
+          "92325a"
+        ],
+        [
+          345,
+          "923000",
+          "923400",
+          "923700"
+        ],
+        [
+          537,
+          "922b00",
+          "922f00",
+          "923200"
+        ]
+      ]
+    },
+    "trg_ctypes": {
+      "track": "CHORD",
+      "pattern": "1 2 90",
+      "chords": [],
+      "chordTabs": [
+        [
+          [
+            "C",
+            1,
+            2
+          ],
+          [
+            "G7",
+            2,
+            3
+          ],
+          [
+            "F",
+            3,
+            5
+          ]
+        ]
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Beats=1,2,3,4",
+              "CTypes=7"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200"
+        ],
+        [
+          192,
+          "922b5a",
+          "922f5a",
+          "92325a",
+          "92355a"
+        ],
+        [
+          537,
+          "922b00",
+          "922f00",
+          "923200",
+          "923500"
+        ]
+      ]
+    },
+    "trg_bars": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C",
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Beats=1",
+              "Bars=2"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373"
+        ],
+        [
+          768,
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          940,
+          "933000"
+        ]
+      ]
+    },
+    "trg_override": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C",
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setTrigger",
+          [
+            [
+              "Beats=1",
+              "Bars=2",
+              "Override=True"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          768,
+          "93305a"
+        ],
+        [
+          940,
+          "933000"
+        ]
+      ]
+    },
+    "rp_chromatic": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setRPitch",
+          [
+            [
+              "Scale=Chromatic",
+              "Offsets=-2,2",
+              "Rate=100"
+            ]
+          ]
+        ]
+      ],
+      "seed": 55,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "932e5a"
+        ],
+        [
+          172,
+          "932e00"
+        ],
+        [
+          384,
+          "93325a"
+        ],
+        [
+          556,
+          "933200"
+        ]
+      ]
+    },
+    "rp_scale": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 5 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setRPitch",
+          [
+            [
+              "Scale=Scale",
+              "Offsets=-2,3",
+              "Rate=100"
+            ]
+          ]
+        ]
+      ],
+      "seed": 56,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "932c5a"
+        ],
+        [
+          172,
+          "932c00"
+        ],
+        [
+          384,
+          "933c5a"
+        ],
+        [
+          556,
+          "933c00"
+        ]
+      ]
+    },
+    "rp_chord": {
+      "track": "CHORD",
+      "pattern": "1 4 90; 3 4 90",
+      "chords": [
+        "Cmaj7"
+      ],
+      "channel": 3,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setRPitch",
+          [
+            [
+              "Scale=Chord",
+              "Offsets=1,2",
+              "Rate=100"
+            ]
+          ]
+        ]
+      ],
+      "seed": 57,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030543686f7264",
+          "b22000",
+          "b20000",
+          "c200",
+          "92345a",
+          "923b5a",
+          "923e5a",
+          "923f5a"
+        ],
+        [
+          172,
+          "923400",
+          "923b00",
+          "923e00",
+          "923f00"
+        ],
+        [
+          384,
+          "92345a",
+          "92385a",
+          "923b5a",
+          "923f5a"
+        ],
+        [
+          556,
+          "923400",
+          "923800",
+          "923b00",
+          "923f00"
+        ]
+      ]
+    },
+    "rp_rate_zero": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setRPitch",
+          [
+            [
+              "Offsets=5",
+              "Rate=0"
+            ]
+          ]
+        ]
+      ],
+      "seed": 58,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ]
+      ]
+    },
+    "rp_bars": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C",
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setRPitch",
+          [
+            [
+              "Offsets=5",
+              "Rate=100",
+              "Bars=2"
+            ]
+          ]
+        ]
+      ],
+      "seed": 59,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
+        ],
+        [
+          768,
+          "93355a"
+        ],
+        [
+          940,
+          "933500"
+        ]
+      ]
+    },
+    "rp_range_offsets": {
+      "track": "BASS",
+      "pattern": "1 4 1 90; 3 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setRPitch",
+          [
+            [
+              "Scale=Chromatic",
+              "Offsets=-2-2",
+              "Rate=100"
+            ]
+          ]
+        ]
+      ],
+      "seed": 60,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93325a"
+        ],
+        [
+          172,
+          "933200"
+        ],
+        [
+          384,
+          "93315a"
+        ],
+        [
+          556,
+          "933100"
+        ]
+      ]
+    },
+    "rp_off": {
+      "track": "BASS",
+      "pattern": "1 4 1 90",
+      "chords": [
+        "C"
+      ],
+      "channel": 4,
+      "presetChannel": true,
+      "setup": [
+        [
+          "setRPitch",
+          [
+            [
+              "Off"
+            ]
+          ]
+        ]
+      ],
+      "seed": null,
+      "swing": null,
+      "patterns": null,
+      "seqrnd": false,
+      "events": [
+        [
+          0,
+          "ff030442617373",
+          "b32000",
+          "b30000",
+          "c300",
+          "93305a"
+        ],
+        [
+          172,
+          "933000"
         ]
       ]
     }

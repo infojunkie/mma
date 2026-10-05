@@ -13,7 +13,8 @@
  */
 
 import { MMAError } from '../engine/Errors';
-import { MMA_VERSION, MMA_UPSTREAM_VERSION } from '../version';
+import packageJson from '../../package.json';
+import { MMA_UPSTREAM_VERSION } from '../version';
 import { createRun, runSource, applySyncOptions, type MMAConfig } from '../engine/RunPipeline';
 import { buildSongModel, type SongModel } from './SongModel';
 import type { MIDIOptions, MMAOptions } from './Options';
@@ -101,7 +102,7 @@ export class MMA {
 
   /** Version of this TypeScript port and of the upstream Python MMA. */
   version(): { port: string; upstream: string } {
-    return { port: MMA_VERSION, upstream: MMA_UPSTREAM_VERSION };
+    return { port: packageJson.version, upstream: MMA_UPSTREAM_VERSION };
   }
 
   private rejectUnsupported(options: MIDIOptions): void {

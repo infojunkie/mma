@@ -45,6 +45,17 @@ export class ChordEvent extends PatternEvent {
   override vol: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
 }
 
+/**
+ * PLECTRUM pattern event: one volume per string (-1 means "not plucked")
+ * plus the strum value (patPlectrum.Pgroup.pluckVol/strum).  Python also
+ * copies pluckVol into a.vol for the benefit of the docs/format code, so
+ * `vol` and `pluckVol` point at the same list.
+ */
+export class PlectrumEvent extends PatternEvent {
+  override vol: number[] = [];
+  pluckVol: number[] = [];
+}
+
 /** BASS pattern event: start, length, note, volume. */
 export class BassEvent extends PatternEvent {
   /** 0-based index into the chord scale list. */

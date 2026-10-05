@@ -302,6 +302,34 @@ describe('MacroExpander track and function system variables', () => {
     expect(exp.expand(['$_NOTELEN(8)'])).toEqual(['96T']);
   });
 
+  it('formats $_<track>_VOICING for CHORD tracks only', () => {
+    const { ctx, exp } = makeExpander();
+    trackAlloc(ctx, 'CHORD', true);
+    trackAlloc(ctx, 'BASS', true);
+
+    // Unset mode prints like Python's "%s" % None (expand splits on spaces).
+    expect(exp.expand(['$_CHORD_VOICING'])).toEqual([
+      'Mode=None',
+      'Range=12',
+      'Center=4',
+      'RMove=0',
+      'Move=0',
+      'Dir=0',
+    ]);
+
+    getTrack(ctx, 'CHORD').setVoicing(['MODE=DROP2', 'RANGE=6', 'CENTER=2', 'MOVE=3', 'DIR=1']);
+    expect(exp.expand(['$_CHORD_VOICING'])).toEqual([
+      'Mode=DROP2',
+      'Range=6',
+      'Center=2',
+      'RMove=0',
+      'Move=3',
+      'Dir=1',
+    ]);
+
+    expect(() => exp.expand(['$_BASS_VOICING'])).toThrowError('Only CHORD tracks have VOICING');
+  });
+
   it('supports StackValue to the push/pull stack', () => {
     const { ctx, exp } = makeExpander();
     exp.stackValue(['one', 'two']);

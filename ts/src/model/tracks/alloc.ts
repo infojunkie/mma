@@ -5,10 +5,8 @@
  * may be just a type (BASS) or type-name (BASS-FOO); the class is chosen
  * by the part before the first '-'.
  *
- * M1 ported BASS, CHORD and DRUM; M2 adds ARPEGGIO, SCALE, WALK, MELODY
- * and SOLO.  The remaining base names are registered with stub classes
- * that raise a descriptive M2 error, so a future milestone (or plugin)
- * can replace them via registerTrackClass() without touching this table.
+ * M1 ported BASS, CHORD and DRUM; M2 adds ARPEGGIO, SCALE, WALK, MELODY,
+ * SOLO and PLECTRUM; ARIA (patAria.py) completes the table.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,31 +17,20 @@
 import type { MMAContext } from '../../engine/Context';
 import { BaseTrack } from './BaseTrack';
 import { trackHooks } from './hooks';
+import { AriaTrack } from './AriaTrack';
 import { ArpeggioTrack } from './ArpeggioTrack';
 import { BassTrack } from './BassTrack';
 import { ChordTrack } from './ChordTrack';
 import { DrumTrack } from './DrumTrack';
 import { Melody } from './MelodyTrack';
+import { PlectrumTrack } from './PlectrumTrack';
 import { ScaleTrack } from './ScaleTrack';
 import { Solo } from './SoloTrack';
 import { WalkTrack } from './WalkTrack';
 
 export type TrackCtor = new (ctx: MMAContext, name: string) => BaseTrack;
 
-/** M2 stub track: constructs enough to fail with a clear message. */
-function unportedTrack(vtype: string, source: string): TrackCtor {
-  return class extends BaseTrack {
-    constructor(ctx: MMAContext, name: string) {
-      super(ctx, name, vtype);
-      ctx.rep.error(`M2: the ${vtype} track class is not ported to TypeScript yet (MMA/${source}).`);
-    }
-  };
-}
-
-/**
- * Base name -> track class.  Mirrors MMA/alloc.py trkClasses; MELODY,
- * SOLO, ARIA and PLECTRUM are still M2 stubs.
- */
+/** Base name -> track class.  Mirrors MMA/alloc.py trkClasses. */
 export const trackClasses: Record<string, TrackCtor> = {
   BASS: BassTrack,
   CHORD: ChordTrack,
@@ -53,8 +40,8 @@ export const trackClasses: Record<string, TrackCtor> = {
   WALK: WalkTrack,
   MELODY: Melody,
   SOLO: Solo,
-  ARIA: unportedTrack('ARIA', 'patAria.py'),
-  PLECTRUM: unportedTrack('PLECTRUM', 'patPlectrum.py'),
+  PLECTRUM: PlectrumTrack,
+  ARIA: AriaTrack,
 };
 
 /** Register (or replace) the class used for a track base name. */

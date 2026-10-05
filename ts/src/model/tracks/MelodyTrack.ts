@@ -20,7 +20,8 @@ import type { Pattern } from '../PatternEvent';
 import { getNoteLen as baseNoteLen } from '../NoteLen';
 import { opt2pair, pextract, stof, stoi } from '../../util/Common';
 import { getSwing, swingSolo } from '../features/Swing';
-import { BaseTrack, defaultDrum, type GrooveData } from './BaseTrack';
+import { BaseTrack, type GrooveData } from './BaseTrack';
+import { trackDefaults } from './Defaults';
 import { trackHooks } from './hooks';
 import { dtableGet } from './Translate';
 
@@ -92,7 +93,7 @@ export class Melody extends BaseTrack {
 
     this.drumType = true;
     this.setChannel('10'); // MMA assumes all drums are on channel 10
-    this.voice = this.ctx.seqBump([defaultDrum]);
+    this.voice = this.ctx.seqBump([trackDefaults(this.ctx).defaultDrum]);
   }
 
   /**

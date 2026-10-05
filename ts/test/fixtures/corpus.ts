@@ -16,6 +16,7 @@ import { extendPlugin } from '../../plugins/extend';
 import { helloPlugin } from '../../plugins/hello';
 import { qriffPlugin } from '../../plugins/qriff';
 import { rhythmPlugin } from '../../plugins/rhythm';
+import { strumpatternPlugin } from '../../plugins/strumpattern';
 
 export interface CorpusEntry {
   name: string;
@@ -74,10 +75,12 @@ export const CORPUS: CorpusEntry[] = [
 
   { name: 'egs-voicing', file: 'egs/voicing/voicing.mma' },
 
-  // --- M4: core features (Truncate/After) and shipped plugins ------------
-  // egs/misc/truncate.mma also needs the (unported) PLECTRUM track via
-  // Groove JazzGuitar, so these purpose-built fixtures cover the feature.
+  // --- M4: core features (Truncate/After/Tweaks) and shipped plugins -----
+  // These purpose-built fixtures cover the features directly; the stock
+  // egs/misc/truncate.mma is also in the corpus (see the PLECTRUM section).
   { name: 'feature-truncate', file: 'ts/test/fixtures/features/truncate.mma', prelude: 'RndSeed 1' },
+  { name: 'feature-lyrics', file: 'ts/test/fixtures/features/lyrics.mma', prelude: 'RndSeed 1' },
+  { name: 'feature-tweaks', file: 'ts/test/fixtures/features/tweaks.mma', prelude: 'RndSeed 1' },
   { name: 'feature-after', file: 'ts/test/fixtures/features/after.mma', prelude: 'RndSeed 1' },
   { name: 'feature-after-recurse', file: 'ts/test/fixtures/features/after-recurse.mma', prelude: 'RndSeed 1' },
   // The plugin test.mma songs: Python finds plugins/<name>/plugin.py from
@@ -93,6 +96,12 @@ export const CORPUS: CorpusEntry[] = [
     file: 'plugins/qriff/test.mma',
     prelude: 'RndSeed 1',
     plugins: [qriffPlugin],
+  },
+  {
+    name: 'plugin-strumpattern',
+    file: 'plugins/strumpattern/test.mma',
+    prelude: 'RndSeed 1',
+    plugins: [strumpatternPlugin],
   },
   // addgm/hello/copyright/rhythm ship no playable test.mma (or none at
   // all), so these fixtures add data lines to make a MIDI oracle possible.
@@ -156,11 +165,68 @@ export const CORPUS: CorpusEntry[] = [
     plugins: [slashPlugin],
   },
 
+  // --- PLECTRUM track and its example songs ------------------------------
+  { name: 'egs-plectrum-example', file: 'egs/plectrum/PlectrumExample.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-plectrum-pldemo', file: 'egs/plectrum/pldemo.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-plectrum-lullaby2', file: 'egs/plectrum/lullaby2.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-plectrum-mandala', file: 'egs/plectrum/mandala.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-misc-fretnoise', file: 'egs/misc/fretnoise.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-misc-truncate', file: 'egs/misc/truncate.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-after-after', file: 'egs/after/after.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-midiinc-frankie', file: 'egs/midi-inc/frankie.mma', cwd: 'egs/midi-inc', prelude: 'RndSeed 1' },
+  // More songs whose grooves hold a Plectrum track.
+  { name: 'egs-misc-midinote', file: 'egs/misc/midinote.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-simple-bill-bailey', file: 'egs/simple/bill-bailey.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-solo-solo', file: 'egs/solo/solo.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-tests-volume', file: 'egs/tests/volume.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-tutorial-fella1', file: 'egs/tutorial/fella1.mma', prelude: 'RndSeed 1' },
+
+  // --- ARIA / ORNAMENT / TRIGGER / LYRIC / RPITCH / DefCall --------------
+  { name: 'egs-aria-barb', file: 'egs/aria/barb.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-aria-bossa', file: 'egs/aria/bossa.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-aria-girl', file: 'egs/aria/girl.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-aria-when-or-where', file: 'egs/aria/when-or-where.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-ornament-bass', file: 'egs/ornament/bass.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-ornament-chord', file: 'egs/ornament/chord.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-ornament-scale', file: 'egs/ornament/scale.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-arpeggio-ar-delay', file: 'egs/arpeggio/ar-delay.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-triggers-auto', file: 'egs/triggers/auto.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-triggers-chords', file: 'egs/triggers/chords.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-triggers-hits', file: 'egs/triggers/hits.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-triggers-trunc', file: 'egs/triggers/trunc.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-lyrics-twinkle', file: 'egs/lyrics/twinkle.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-lyrics-twinkle1', file: 'egs/lyrics/twinkle1.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-lyrics-twinkle2', file: 'egs/lyrics/twinkle2.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-lyrics-twinkle3', file: 'egs/lyrics/twinkle3.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-lyrics-twinkle-kar', file: 'egs/lyrics/twinkle-kar.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-rpitch-bass', file: 'egs/rpitch/bass.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-riffs-riffs', file: 'egs/riffs/riffs.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-after-cresc', file: 'egs/after/cresc.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-misc-convert4to5', file: 'egs/misc/convert4to5.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-subroutines-convert4to5', file: 'egs/subroutines/convert4to5.mma', prelude: 'RndSeed 1' },
+  // egs/subroutines/subs.mma has no musical data, so the Python CLI has no
+  // oracle for it; feature-subroutines repeats its DefCall constructs with
+  // a couple of bars attached (see ts/test/fixtures/features/subroutines.mma).
+  { name: 'feature-subroutines', file: 'ts/test/fixtures/features/subroutines.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-tutorial-fella2', file: 'egs/tutorial/fella2.mma', prelude: 'RndSeed 1' },
+  {
+    name: 'asa-branca',
+    file: '../test/data/asa-branca.mma',
+    cwd: '..',
+    prelude: 'RndSeed 1',
+    plugins: [slashPlugin],
+  },
+
   { name: 'delay-solo', file: 'egs/delay/solo.mma', prelude: 'RndSeed 1' },
   { name: 'misc-extended-voice', file: 'egs/misc/extended-voice.mma', prelude: 'RndSeed 1' },
   { name: 'volume-midivolume', file: 'egs/volume/midivolume.mma', prelude: 'RndSeed 1' },
   { name: 'wheel-pianos', file: 'egs/wheel/pianos.mma', prelude: 'RndSeed 1' },
   { name: 'harmony-smile', file: 'egs/harmony/smile.mma', prelude: 'RndSeed 1' },
+
+  { name: 'egs-tutorial-deep-river', file: 'egs/tutorial/deep-river.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-volume-volumes', file: 'egs/volume/volumes.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-misc-macros', file: 'egs/misc/macros.mma', prelude: 'RndSeed 1' },
+  { name: 'egs-rndset-tempo', file: 'egs/rndset/tempo.mma', prelude: 'RndSeed 1' },
 
   // --- M2 gate: stock grooves from the shipped libraries -----------------
   // Songs under test/fixtures/grooves/ render one lib groove each; this is

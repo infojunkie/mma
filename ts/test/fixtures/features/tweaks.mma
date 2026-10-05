@@ -1,0 +1,48 @@
+// Conformance fixture for MMA/tweaks.py (TWEAKS directive).
+// egs/misc/tweaks.mma carries no musical data (the Python CLI refuses to
+// write a meta-only MIDI), so this fixture repeats its tweaks and adds
+// tracks that exercise the resulting defaults.
+Time 4
+Tempo 120
+KeySig C
+RndSeed 1
+
+// A drum track created without a Voice uses the default drum kit; here an
+// extended (Prog.MSB.LSB) value.
+Tweaks DefaultDrum=8.9.22
+Begin Drum-Ext
+    Sequence {1 4 90; 2 4 60; 3 4 90; 4 4 60}
+End
+
+// The by-name and numeric drum-kit forms both feed defaultDrum.
+Tweaks DrumKit=JazzKit
+Begin Drum-Kit
+    Sequence {1 4 90; 2 4 70; 3 4 90; 4 4 70}
+End
+Tweaks DrumKit=25
+Begin Drum-Num
+    Sequence {1 4 80; 3 2 90; 4 2 70}
+End
+
+// New non-drum tracks default to this voice.
+Tweaks DefaultVoice=99
+
+Begin Bass-B
+    Sequence {1 2 1 90; 3 2 5 80}
+End
+
+Begin Plectrum-P
+    Voice NylonGuitar
+    Sequence {1 8 :90; 2 8 :80; 3 8 :90; 4 8 :80}
+End
+
+// Tweaks Dim=3 makes "dim" a diminished triad...
+Tweaks Dim=3
+Cdim
+
+// ...and Tweaks Dim=7 makes it a diminished seventh.
+Tweaks Dim=7
+Cdim
+
+C
+F

@@ -35,6 +35,9 @@ export interface TrackApi {
   invert: Array<number[]>;
   chordLimit: [number, number, boolean];
   chordRange: number[];
+  harmony: Array<string | null>;
+  harmonyOnly: Array<string | null>;
+  harmonyVolume: number[];
   rSkip: number[];
   rSkipBeats: number[];
   rDuration: Array<[number, number]>;

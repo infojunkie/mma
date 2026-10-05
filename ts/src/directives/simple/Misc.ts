@@ -165,6 +165,32 @@ export function goto(ctx: MMAContext, ln: string[]): void {
   ctx.inpath!.goto(ln[0]!.toUpperCase());
 }
 
+/** Port of parse.deleteTrks (DELETE): delete a track and free its MIDI. */
+export function deleteTrks(ctx: MMAContext, ln: string[]): void {
+  if (!ln.length) ctx.error('Use Delete Track [...]');
+
+  for (const n of ln) {
+    const name = n.toUpperCase();
+    const tr = ctx.tnames.get(name);
+    if (!tr) ctx.error(`Track '${name}' does not exist`);
+
+    if (tr.channel) {
+      tr.doMidiClear();
+      tr.clearPending();
+
+      if (tr.riff.length) ctx.warning(`${name} has pending RIFF(s)`);
+      ctx.midiAvail[tr.channel]! -= 1;
+
+      // NOTE: Don't try deleting 'tr' since it's just a copy!!
+      ctx.tnames.delete(name);
+    }
+
+    if (!ctx.deletedTracks.includes(name)) ctx.deletedTracks.push(name);
+
+    ctx.dPrint(`Track '${name}' deleted`);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Documentation directives (docs.py)
 //

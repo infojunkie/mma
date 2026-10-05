@@ -21,16 +21,14 @@ import { decodeVoice, extVocStr, voice2tup } from '../../midi/VoiceValue';
 import { CONTROLLER_TABLE, DRUM_KITS_BY_NAME, DRUM_TABLE, NONETONE, VOICE_TABLE } from '../../midi/voices';
 import { getTF, lnExpand, opt2pair, pextract, stoi, stof, type OptPair } from '../../util/Common';
 import { defaultOrnaments, type Ornaments } from '../features/Ornament';
+import type { Rpitch } from '../features/Rpitch';
 import { makeTriggerSequence, Trigger } from '../features/Trigger';
 import { getRndSeq } from '../features/SeqRnd';
 import { getSwing, swingPattern } from '../features/Swing';
 import { trackHooks, type MidiSeqDef, type MidiSeqItem } from './hooks';
 import { drumVolTable, voiceVolTable } from './VolTables';
 import type { Voicing } from './Voicing';
-
-/** Default voice/tone values (MMA/pat.py defaultVoice/defaultDrum). */
-export const defaultVoice = 0;
-export const defaultDrum = 0;
+import { trackDefaults } from './Defaults';
 
 export type SequenceItem = Pattern | null;
 export type MidiPendingCmd = 'TNAME' | 'GLIS' | 'PAN' | 'CVOLUME' | 'MIDITEXT' | 'MIDICUE' | 'WHEEL';
@@ -55,7 +53,7 @@ export interface GrooveData {
   RTIME: Array<[number, number]>;
   RDURATION: Array<[number, number]>;
   RVOLUME: Array<[number, number]>;
-  RPITCH: unknown;
+  RPITCH: Rpitch | null;
   SCALE: string[];
   SEQ: SequenceItem[];
   SEQRND: boolean;
@@ -158,13 +156,15 @@ export class BaseTrack {
   seqRndWeight: number[] = [1];
   scaleType: string[] = ['AUTO'];
   rVolume: Array<[number, number]> = [[0, 0]];
-  rPitch: unknown = null;
+  rPitch: Rpitch | null = null;
   rSkip: number[] = [0];
   rSkipBeats: number[] = [];
   rTime: Array<[number, number]> = [[0, 0]];
   rDuration: Array<[number, number]> = [[0, 0]];
   octave: number[] = [4 * 12];
-  voice: number[] = [defaultVoice];
+  /** In Python [defaultVoice] - set by clearSequence() from the per-run
+   *  TWEAKS state; the initializer here only provides the field's type. */
+  voice: number[] = [0];
   chordRange: number[] = [1];
   harmony: Array<string | null> = [null];
   harmonyOnly: Array<string | null> = [null];
@@ -1198,7 +1198,9 @@ export class BaseTrack {
 
   /** Restore a defined groove. */
   restoreGroove(gname: string): void {
-    if (this.vtype !== 'PLECTRUM') this.doMidiClear();
+    // By default notes are NOT stopped with a groove change for plectrum
+    // tracks (see patPlectrum.plectrumReset / Tweaks PlectrumReset).
+    if (this.vtype !== 'PLECTRUM' || trackDefaults(this.ctx).plectrumReset) this.doMidiClear();
 
     const g = this.grooves.get(gname);
     if (!g) this.ctx.rep.error(`${this.name}: no groove data for '${gname}' - call Bob.`);
@@ -1267,7 +1269,8 @@ export class BaseTrack {
       this.rTime = [[0, 0]];
       this.rDuration = [[0, 0]];
       this.octave = [4 * 12];
-      this.voice = [this.vtype === 'DRUM' ? defaultDrum : defaultVoice];
+      const defaults = trackDefaults(this.ctx);
+      this.voice = [this.vtype === 'DRUM' ? defaults.defaultDrum : defaults.defaultVoice];
       this.chordRange = [1];
       this.harmony = [null];
       this.harmonyOnly = [null];

@@ -15,11 +15,14 @@ import { MMAContext } from '../../src/engine/Context';
 import { CTable } from '../../src/model/CTable';
 import { ChordNotes, type ChordEnv } from '../../src/model/ChordNotes';
 import type { Pattern } from '../../src/model/PatternEvent';
+import { AriaTrack } from '../../src/model/tracks/AriaTrack';
 import { ArpeggioTrack } from '../../src/model/tracks/ArpeggioTrack';
 import { BassTrack } from '../../src/model/tracks/BassTrack';
 import { ChordTrack } from '../../src/model/tracks/ChordTrack';
 import { DrumTrack } from '../../src/model/tracks/DrumTrack';
 import { Melody } from '../../src/model/tracks/MelodyTrack';
+import { noteNameToMidiPitch, PlectrumTrack } from '../../src/model/tracks/PlectrumTrack';
+import { trackDefaults as getTrackDefaults } from '../../src/model/tracks/Defaults';
 import { Solo } from '../../src/model/tracks/SoloTrack';
 import { ScaleTrack } from '../../src/model/tracks/ScaleTrack';
 import { WalkTrack } from '../../src/model/tracks/WalkTrack';
@@ -27,9 +30,12 @@ import { BaseTrack } from '../../src/model/tracks/BaseTrack';
 import { trackAlloc } from '../../src/model/tracks/alloc';
 import { SwingState } from '../../src/model/features/Swing';
 import { harmonize, intervalHarmony } from '../../src/model/features/Harmony';
+import { setOrnament } from '../../src/model/features/Ornament';
+import { setRPitch } from '../../src/model/features/Rpitch';
+import { setTrigger } from '../../src/model/features/Trigger';
 
 interface FixtureBar {
-  track: 'CHORD' | 'BASS' | 'DRUM' | 'ARPEGGIO' | 'SCALE' | 'WALK' | 'MELODY' | 'SOLO';
+  track: 'CHORD' | 'BASS' | 'DRUM' | 'ARPEGGIO' | 'SCALE' | 'WALK' | 'MELODY' | 'SOLO' | 'PLECTRUM' | 'ARIA';
   pattern: string;
   chords: string[];
   /** Multiple chords per bar: [chord, start beat, end beat] per bar. */
@@ -39,6 +45,8 @@ interface FixtureBar {
   presetChannel?: boolean;
   /** Track setup calls (Python method name + arguments) run before the bars. */
   setup: Array<[string, unknown[]]>;
+  /** Setup calls run before the pattern is compiled (e.g. a retuning). */
+  preSetup?: Array<[string, unknown[]]>;
   /** Optional multiple patterns (TEST1..TESTn) used for the sequence. */
   patterns?: string[] | null;
   /** Set per-track SeqRnd before the bars. */
@@ -137,6 +145,8 @@ function newTrack(ctx: MMAContext, vtype: string): BaseTrack {
   if (vtype === 'WALK') return new WalkTrack(ctx, vtype);
   if (vtype === 'MELODY') return new Melody(ctx, vtype);
   if (vtype === 'SOLO') return new Solo(ctx, vtype);
+  if (vtype === 'PLECTRUM') return new PlectrumTrack(ctx, vtype);
+  if (vtype === 'ARIA') return new AriaTrack(ctx, vtype);
   throw new Error(`unknown fixture track ${vtype}`);
 }
 
@@ -158,6 +168,30 @@ function applySwing(ctx: MMAContext, ln: string[]): void {
   ctx.swingMode = sw;
 }
 
+/**
+ * Setters that Python keeps in modules taking the track as self; the
+ * oracle arms them with a shim too (see gen_track_fixtures.py).
+ */
+const MODULE_SETTERS: Record<string, (track: BaseTrack, ln: string[]) => void> = {
+  setOrnament: (track, ln) => setOrnament(track.ctx, track, ln),
+  setRPitch: (track, ln) => setRPitch(track.ctx, track, ln),
+  setTrigger: (track, ln) => setTrigger(track.ctx, track, ln),
+};
+
+/** Apply a fixture setup list to a track (Python method name + args). */
+function applySetup(track: BaseTrack, setup: Array<[string, unknown[]]>): void {
+  for (const [method, args] of setup) {
+    const mod = MODULE_SETTERS[method];
+    if (mod) {
+      mod(track, args[0] as string[]);
+      continue;
+    }
+    const fn = (track as unknown as Record<string, (...a: unknown[]) => unknown>)[method];
+    if (typeof fn !== 'function') throw new Error(`fixture setup method '${method}' missing on track`);
+    fn.apply(track, args);
+  }
+}
+
 /** Run one bar fixture; mirrors gen_track_fixtures.py run_bar_case(). */
 function runBarCase(c: FixtureBar): Array<[number, ...string[]]> {
   const ctx = makeContext();
@@ -167,6 +201,7 @@ function runBarCase(c: FixtureBar): Array<[number, ...string[]]> {
   const track = newTrack(ctx, c.track);
   // The drum-type case lets setDrumType() assign the channel itself.
   if (c.presetChannel !== false) track.setChannel([String(c.channel)]);
+  if (c.preSetup) applySetup(track, c.preSetup);
   if (c.patterns) {
     c.patterns.forEach((p, i) => track.definePattern(`TEST${i + 1}`, p));
     track.sequence = c.patterns.map(
@@ -179,11 +214,7 @@ function runBarCase(c: FixtureBar): Array<[number, ...string[]]> {
   track.setSeqSize();
   if (c.seqrnd) track.seqRnd = true;
 
-  for (const [method, args] of c.setup) {
-    const fn = (track as unknown as Record<string, (...a: unknown[]) => unknown>)[method];
-    if (typeof fn !== 'function') throw new Error(`fixture setup method '${method}' missing on track`);
-    fn.apply(track, args);
-  }
+  applySetup(track, c.setup);
 
   if (c.chordTabs) {
     for (let bar = 0; bar < c.chordTabs.length; bar++) {
@@ -250,7 +281,7 @@ function trackDefaults(t: BaseTrack): Record<string, unknown> {
 }
 
 describe('track defaults after clearSequence', () => {
-  for (const vtype of ['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK', 'MELODY', 'SOLO']) {
+  for (const vtype of ['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK', 'MELODY', 'SOLO', 'PLECTRUM', 'ARIA']) {
     it(`${vtype} matches the Python defaults`, () => {
       const ctx = makeContext();
       const track = newTrack(ctx, vtype);
@@ -266,10 +297,10 @@ describe('bar() output vs Python fixtures', () => {
     });
   }
 
-  it('covers all eight ported track types', () => {
+  it('covers all ten ported track types', () => {
     const types = new Set(Object.values(fixture.bars).map((b) => b.track));
     expect(types).toEqual(
-      new Set(['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK', 'MELODY', 'SOLO']),
+      new Set(['CHORD', 'BASS', 'DRUM', 'ARPEGGIO', 'SCALE', 'WALK', 'MELODY', 'SOLO', 'PLECTRUM', 'ARIA']),
     );
   });
 });
@@ -461,12 +492,12 @@ describe('track allocation', () => {
     expect(trackAlloc(ctx, 'SCALE', true)).toBeInstanceOf(ScaleTrack);
   });
 
-  it('allocates the ported SOLO/MELODY tracks and stubs the rest', () => {
+  it('allocates the ported SOLO/MELODY/PLECTRUM/ARIA tracks', () => {
     const ctx = makeContext();
     expect(trackAlloc(ctx, 'SOLO', true)).toBeDefined();
     expect(trackAlloc(ctx, 'MELODY', true)).toBeDefined();
-    expect(() => trackAlloc(ctx, 'PLECTRUM', true)).toThrow(/M2/);
-    expect(() => trackAlloc(ctx, 'ARIA', true)).toThrow(/M2/);
+    expect(trackAlloc(ctx, 'PLECTRUM', true)).toBeInstanceOf(PlectrumTrack);
+    expect(trackAlloc(ctx, 'ARIA', true)).toBeInstanceOf(AriaTrack);
   });
 
   it('ChShare copies the channel and voice from the shared track', () => {
@@ -534,6 +565,13 @@ describe('pattern definition', () => {
     chord.definePattern('C1', '1 4 90');
     expect(chord.formatPattern(ctx.pats.get('CHORD', 'C1') as Pattern)).toBe(
       '1 192t 90 90 90 90 90 90 90 90',
+    );
+
+    // Plectrum patterns print the strum value and per-string volumes.
+    const plec = new PlectrumTrack(ctx, 'PLECTRUM');
+    plec.definePattern('P1', '1 5 90 90 90 90 90 50');
+    expect(plec.formatPattern(ctx.pats.get('PLECTRUM', 'P1') as Pattern)).toBe(
+      '1 5 90 90 90 90 90 50',
     );
   });
 
@@ -630,13 +668,15 @@ describe('ARPEGGIO / SCALE / WALK track state', () => {
     }
   });
 
-  it('ORNAMENT playback on SCALE needs the unported ornament module', () => {
+  it('ORNAMENT playback on SCALE produces the grace note', () => {
     const ctx = makeContext();
     const track = new ScaleTrack(ctx, 'SCALE');
     track.definePattern('P1', '1 4 90');
     track.sequence = [ctx.pats.get('SCALE', 'P1') as Pattern];
-    track.ornaments.type = 'GRACE';
-    expect(() => track.bar([makeCTable(ctx, 'C')])).toThrow(/M2.*ornament/);
+    setOrnament(ctx, track, ['Type=GRACE']);
+    track.bar([makeCTable(ctx, 'C')]);
+    // The main scale note plus the grace note.
+    expect(countNoteOns(ctx, track.channel)).toBe(2);
   });
 });
 
@@ -650,22 +690,205 @@ describe('M2 stubs for unported features', () => {
     expect(() => track.bar([makeCTable(ctx, 'G')])).toThrow(/M2.*parseChordLine/);
   });
 
-  it('ORNAMENT playback needs the unported ornament module', () => {
+  it('ORNAMENT playback ornaments the top chord note', () => {
     const ctx = makeContext();
     const track = new ChordTrack(ctx, 'CHORD');
     track.definePattern('P1', '1 4 90');
     track.sequence = [ctx.pats.get('CHORD', 'P1') as Pattern];
-    track.ornaments.type = 'GRACE';
-    expect(() => track.bar([makeCTable(ctx, 'C')])).toThrow(/M2.*ornament/);
+    setOrnament(ctx, track, ['Type=GRACE']);
+    track.bar([makeCTable(ctx, 'C')]);
+    // Three chord notes plus the grace note on top.
+    expect(countNoteOns(ctx, track.channel)).toBe(4);
   });
 
-  it('TRIGGER sequences need the unported trigger module', () => {
+  it('TRIGGER sequences replace the bar pattern', () => {
     const ctx = makeContext();
     const track = new BassTrack(ctx, 'BASS');
     track.definePattern('P1', '1 4 1 90');
     track.sequence = [ctx.pats.get('BASS', 'P1') as Pattern];
     track.trigger.mode = 'BEATS';
-    expect(() => track.bar([makeCTable(ctx, 'C')])).toThrow(/M2.*TRIGGER/);
+    track.trigger.beats = [0, ctx.BperQ * 2];
+    track.bar([makeCTable(ctx, 'C')]);
+    expect(countNoteOns(ctx, track.channel)).toBe(2);
+  });
+});
+
+describe('PLECTRUM track specifics', () => {
+  it('converts string names to MIDI pitches', () => {
+    expect(noteNameToMidiPitch('e-')).toBe(-8);
+    expect(noteNameToMidiPitch('a-')).toBe(-3);
+    expect(noteNameToMidiPitch('d')).toBe(2);
+    expect(noteNameToMidiPitch('g#')).toBe(8);
+    expect(noteNameToMidiPitch('b&')).toBe(10);
+    expect(noteNameToMidiPitch('e+')).toBe(16);
+    expect(noteNameToMidiPitch('nope')).toBeNull();
+    expect(noteNameToMidiPitch('e-+')).toBeNull();
+  });
+
+  it('starts with standard guitar tuning and can retune', () => {
+    const ctx = makeContext();
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+    expect(track.tuning).toEqual([-8, -3, 2, 7, 11, 16]);
+    expect(track.vibrating).toHaveLength(6);
+    expect(track.capoFretNo).toBe(0);
+    expect(track.strumCenter).toBe(0);
+
+    track.setPlectrumTuning(['d-', 'a-', 'd', 'g', 'b', 'e+']);
+    expect(track.tuning).toEqual([-10, -3, 2, 7, 11, 16]);
+    expect(() => track.setPlectrumTuning(['e-', 'zork'])).toThrowError(
+      "PLECTRUM TUNING: Illegal/unknown string name 'zork'.",
+    );
+  });
+
+  it('setStrum takes Start/Center/End instead of a tick value', () => {
+    const ctx = makeContext();
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+    track.setStrum(['Center']);
+    expect(track.strumCenter).toBe(1);
+    track.setStrum(['END']);
+    expect(track.strumCenter).toBe(2);
+    track.setStrum(['start']);
+    expect(track.strumCenter).toBe(0);
+    expect(() => track.setStrum(['up'])).toThrowError(
+      "Strum: PLECTRUM options are 'Start', 'Center' or 'End'. 'Up' is illegal",
+    );
+    expect(() => track.setStrum(['a', 'b'])).toThrowError(
+      'Strum: PLECTRUM permits exactly one strum setting',
+    );
+  });
+
+  it('defines and removes chord shapes', () => {
+    const ctx = makeContext();
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+    track.setPlectrumShape(['C', '0', '1', '0', '2', '3', 'x']);
+    expect(track.chordShapes.get('C')).toEqual([0, 1, 0, 2, 3, null]);
+    track.setPlectrumShape(['C', '-', '1', '0', '2', '-', '-']);
+    expect(track.chordShapes.get('C')).toEqual([null, 1, 0, 2, null, null]);
+
+    expect(() => track.setPlectrumShape(['G', '1', '2'])).toThrowError(
+      'PLECTRUM: Shape requires values for 6 strings (2 provided)',
+    );
+    expect(() => track.setPlectrumShape(['G', '1', '2', '3', '4', '5', 'N'])).toThrowError(
+      /Shape requires values between -127 and 127/,
+    );
+
+    // A lone chord name removes the shape; the second call warns.
+    track.setPlectrumShape(['C']);
+    expect(track.chordShapes.has('C')).toBe(false);
+    track.setPlectrumShape(['C']);
+    expect(ctx.rep.warnings.map((w) => w.message)).toContain('PLECTRUM: Chord C was not shaped');
+
+    // No arguments forgets everything.
+    track.setPlectrumShape(['C', '0', '1', '0', '2', '3', '4']);
+    track.setPlectrumShape([]);
+    expect(track.chordShapes.size).toBe(0);
+  });
+
+  it('decodes plectrum patterns (all strings, lists, ranges and mutes)', () => {
+    const ctx = makeContext();
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+
+    const dp = (s: string): number[] => {
+      track.definePattern('P', s);
+      const p = ctx.pats.get('PLECTRUM', 'P') as Pattern;
+      return (p[0] as unknown as { pluckVol: number[] }).pluckVol;
+    };
+
+    expect(dp('1 5 :90')).toEqual([90, 90, 90, 90, 90, 90]);
+    expect(dp('1 0 90 80 70 60 50 -')).toEqual([90, 80, 70, 60, 50, -1]);
+    expect(dp('1 0 1-3:80 6:90')).toEqual([90, -1, -1, 80, 80, 80]);
+    expect(dp('1 0 :0')).toEqual([0, 0, 0, 0, 0, 0]);
+
+    expect(() => dp('1 0 :90 1:50')).toThrowError('PLECTRUM: Duplicate string 6 definition');
+    expect(() => dp('1 5 :abc')).toThrowError('PLECTRUM: Note volume not int');
+    expect(() => dp('1 6 abc def')).toThrowError(/There must be 6 strings listed definition/);
+    expect(() => dp('1 5')).toThrowError(/groups of 3 or more/);
+  });
+
+  it('errors when the pattern length no longer matches the tuning', () => {
+    const ctx = makeContext();
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+    track.setChannel(['8']);
+    track.definePattern('P', '1 5 :90');
+    track.sequence = [ctx.pats.get('PLECTRUM', 'P') as Pattern];
+    track.setPlectrumTuning(['e-', 'a-', 'd', 'g', 'b', 'e+', 'a']);
+    expect(() => track.bar([makeCTable(ctx, 'C')])).toThrowError(
+      /Pattern and tuning lengths \(6, 7\) do not match/,
+    );
+  });
+
+  it('saves and restores capo/tuning/strum with the groove', () => {
+    const ctx = makeContext();
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+    track.setChannel(['8']);
+    track.setPlectrumTuning(['d-', 'a-', 'd', 'g', 'b', 'e+']);
+    track.setPlectrumCapo('3');
+    track.setStrum(['Center']);
+    track.saveGroove('G1');
+
+    track.setPlectrumTuning(['e-', 'a-', 'd', 'g', 'b', 'e+']);
+    track.setPlectrumCapo('7');
+    track.setStrum(['End']);
+    track.restoreGroove('G1');
+
+    expect(track.tuning).toEqual([-10, -3, 2, 7, 11, 16]);
+    expect(track.capoFretNo).toBe(3);
+    expect(track.strumCenter).toBe(1);
+  });
+
+  it('only clears midi data on groove restore when PlectrumReset is set', () => {
+    const ctx = makeContext();
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+    track.saveGroove('G1');
+
+    track.midiSent = 1;
+    track.restoreGroove('G1');
+    expect(track.midiSent).toBe(1); // default: strings keep sounding
+
+    getTrackDefaults(ctx).plectrumReset = true;
+    track.midiSent = 1;
+    track.restoreGroove('G1');
+    expect(track.midiSent).toBe(0); // reset: MIDI clear runs
+  });
+
+  it('runs the debug chord-shape printing (plecShow) without errors', () => {
+    const ctx = makeContext();
+    (ctx.debug as { plecShow?: boolean }).plecShow = true;
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+    track.setChannel(['8']);
+    track.setPlectrumCapo('2');
+    track.setPlectrumShape(['C', '0', '1', '0', '2', '3', '-']);
+    track.definePattern('P', '1 5 :90');
+    track.sequence = [ctx.pats.get('PLECTRUM', 'P') as Pattern];
+    expect(() => track.bar([makeCTable(ctx, 'C')])).not.toThrow();
+    // The second identical bar hits printChordShape()'s early return.
+    expect(() => track.bar([makeCTable(ctx, 'C')])).not.toThrow();
+  });
+
+  it('formats fret noise options and requires a BASS track', () => {
+    const ctx = makeContext();
+    const bass = new BassTrack(ctx, 'BASS-N');
+    ctx.tnames.set('BASS-N', bass);
+    const track = new PlectrumTrack(ctx, 'PLECTRUM');
+    track.setChannel(['8']);
+
+    track.setPlectrumFretNoise(['Track=BASS-N', 'Octave=-2', 'Duration=16', 'Strings=1,2', 'Max=1']);
+    expect(track.getFretNoiseOptions()).toBe(
+      'PLECTRUM FretNoise Track=BASS-N Duration=48T Octave=-2.0 Strings=1,2 Max=1 Beats=All Bars=ALL',
+    );
+
+    track.setPlectrumFretNoise(['Off']);
+    expect(track.fretNoise).toBeNull();
+
+    const chord = new ChordTrack(ctx, 'CHORD');
+    ctx.tnames.set('CHORD', chord);
+    expect(() => track.setPlectrumFretNoise(['Track=CHORD'])).toThrowError(
+      'PLECTRUM FretNoise Track must be a BASS track, not CHORD.',
+    );
+    expect(() => track.setPlectrumFretNoise(['Octave=9'])).toThrowError(
+      "PLECTRUM FretNoise Octave: adjustment must be -8 to 8, not '9'.",
+    );
+    expect(() => track.setPlectrumFretNoise(['Track=BASS-N'])).not.toThrow();
   });
 });
 

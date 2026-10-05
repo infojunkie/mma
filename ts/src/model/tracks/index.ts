@@ -2,8 +2,8 @@
  * MMA - Musical MIDI Accompaniment, TypeScript port.
  *
  * Track engine public surface: the PC base class (BaseTrack), the ported
- * pattern tracks (BASS, CHORD, DRUM, ARPEGGIO, SCALE, WALK, MELODY, SOLO)
- * and the allocator (MMA/alloc.py).
+ * pattern tracks (BASS, CHORD, DRUM, ARPEGGIO, SCALE, WALK, MELODY, SOLO,
+ * PLECTRUM, ARIA) and the allocator (MMA/alloc.py).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,6 @@
 
 export {
   BaseTrack,
-  defaultDrum,
-  defaultVoice,
   getIncDec,
   getIncDecValue,
   getRndPair,
@@ -24,10 +22,13 @@ export {
   type MidiPendingCmd,
   type SequenceItem,
 } from './BaseTrack';
+export { trackDefaults, type TrackDefaults } from './Defaults';
+export { AriaTrack } from './AriaTrack';
 export { ChordTrack } from './ChordTrack';
 export { BassTrack } from './BassTrack';
 export { DrumTrack } from './DrumTrack';
 export { ArpeggioTrack } from './ArpeggioTrack';
+export { PlectrumTrack, Fnoise, noteNameToMidiPitch } from './PlectrumTrack';
 export { ScaleTrack } from './ScaleTrack';
 export { WalkTrack } from './WalkTrack';
 export { Melody, NoteEvent, accValues, defaultVelocity, type NoteMap } from './MelodyTrack';
@@ -43,7 +44,7 @@ export {
   type TruncateState,
 } from './hooks';
 export { drumVolTable, voiceVolTable } from './VolTables';
-export { ChordEvent, SingleVolEvent, BassEvent, PatternEvent, clonePattern, type Pattern } from '../PatternEvent';
+export { ChordEvent, SingleVolEvent, BassEvent, PlectrumEvent, PatternEvent, clonePattern, type Pattern } from '../PatternEvent';
 
 // Register the concrete classes with the parse layer's track registry
 // (see parse/TrackAlloc.ts: the track modules register themselves at

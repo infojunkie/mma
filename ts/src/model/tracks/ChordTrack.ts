@@ -352,8 +352,7 @@ export class ChordTrack extends BaseTrack {
       }
 
       // Ornamentation applies to the top note only; step through the notes
-      // to find a sounding note (M2: the ornament code is not ported, so
-      // doOrnament() raises when an ornament type has been set).
+      // to find a sounding note.
       let offset = ce.offset;
       if (this.ornaments.type) {
         for (;;) {

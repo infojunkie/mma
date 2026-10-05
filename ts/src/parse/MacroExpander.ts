@@ -22,6 +22,12 @@ import { pyStr, formatFloat, PyValue } from '../engine/PyValue';
 import { getNoteLen } from '../model/NoteLen';
 import { VOICE_TABLE, DRUM_TABLE } from '../midi/voices';
 import { voice2tup } from '../midi/VoiceValue';
+import { getOrnOpts } from '../model/features/Ornament';
+import { rpitchGetOpts } from '../model/features/Rpitch';
+import { getTriggerOptions } from '../model/features/Trigger';
+import { lyricSetting } from '../model/features/Lyric';
+import type { Voicing } from '../model/tracks/Voicing';
+import type { BaseTrack } from '../model/tracks/BaseTrack';
 import type { TrackApi } from './TrackApi';
 
 /** A user variable is either a simple string (SET) or a list of lines (MSET). */
@@ -63,6 +69,11 @@ export class MacroExpander {
     const value = this.vars.get(key);
     if (value === undefined) this.ctx.error(`Variable '${key}' not defined`);
     return value;
+  }
+
+  /** True if the user variable exists (Python's `name in macros.vars`). */
+  hasVar(name: string): boolean {
+    return this.vars.has(name.toUpperCase());
   }
 
   /** Port of Macros.clear (VARCLEAR). */
@@ -695,6 +706,9 @@ export class MacroExpander {
       case 'KEYSIG':
         return ctx.keySig.getKeysig();
 
+      case 'LYRIC':
+        return lyricSetting(ctx);
+
       case 'TIME':
         return String(ctx.QperBar);
 
@@ -872,8 +886,30 @@ export class MacroExpander {
         return t.delay.join(' ');
       case 'DIRECTION':
         return t.direction.join(' ');
+      case 'HARMONY':
+        return t.harmony.map((x) => (x === null ? 'None' : x)).join(' ');
+      case 'HARMONYONLY':
+        return t.harmonyOnly.map((x) => (x === null ? 'None' : x)).join(' ');
+      case 'HARMONYVOLUME':
+        return t.harmonyVolume.map((i) => String(Math.trunc(i * 100))).join(' ');
+      case 'DUPROOT': {
+        // macro.py: only CHORD tracks have a DUPROOT setting.
+        if (t.vtype !== 'CHORD') this.ctx.error('Only CHORD tracks have DUPROOT');
+        return (t as unknown as { getDupRootSetting(): string }).getDupRootSetting();
+      }
       case 'INVERT':
         return t.invert.join(' ');
+      case 'MALLET':
+        if (!['SOLO', 'MELODY'].includes(t.vtype)) {
+          this.ctx.error('Mallet only valid in SOLO and MELODY tracks');
+        }
+        return `Mallet Rate=${Math.trunc(t.mallet)} Decay=${Math.trunc(t.malletDecay * 100)}`;
+      case 'ORNAMENT':
+        return getOrnOpts(t as unknown as BaseTrack);
+      case 'RPITCH':
+        return rpitchGetOpts(t as unknown as BaseTrack);
+      case 'TRIGGER':
+        return getTriggerOptions(t as unknown as BaseTrack);
       case 'LIMIT':
         return `${t.chordLimit[0]} mode=${t.chordLimit[1]}`;
       case 'MIDIVOLUME':
@@ -948,6 +984,13 @@ export class MacroExpander {
         return t.unify.join(' ');
       case 'VOICE':
         return t.voice.map((a) => voiceValueToName(a)).join(' ');
+      case 'VOICING': {
+        if (t.vtype !== 'CHORD') this.ctx.error('Only CHORD tracks have VOICING');
+        const v = (t as unknown as { voicing: Voicing | null }).voicing!;
+        // Python's "%s" of None is "None".
+        const mode = v.mode === null ? 'None' : v.mode;
+        return `Mode=${mode} Range=${v.range} Center=${v.center} RMove=${v.random} Move=${v.bcount} Dir=${v.dir}`;
+      }
       case 'VOLUME':
         return t.volume.map((a) => String(Math.trunc(a * 100))).join(' ');
       default:

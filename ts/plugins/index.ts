@@ -23,5 +23,11 @@ export { copyrightPlugin } from './copyright';
 export { extendPlugin } from './extend';
 export { qriffPlugin, createQriffPlugin, QriffPlugin } from './qriff';
 export { rhythmPlugin, createRhythmPlugin, RhythmPlugin, processSequence, zoomNames, zoomTones } from './rhythm';
+export {
+  strumpatternPlugin,
+  createStrumpatternPlugin,
+  StrumpatternPlugin,
+  pyFormat04,
+} from './strumpattern';
 
 export { slashPlugin as default } from './slash';

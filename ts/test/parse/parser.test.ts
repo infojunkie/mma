@@ -139,15 +139,21 @@ describe('Parser error messages', () => {
     );
   });
 
-  it('defers lyrics with a clear message', async () => {
-    const ctx = makeCtx({ 'song.mma': 'C [hello]\n' });
-    await expect(new Parser(ctx).parseFile('song.mma')).rejects.toThrowError(/Lyrics .* not implemented/);
+  it('extracts inline lyrics into the meta track', async () => {
+    // Each [...] is a verse; Verse=1 (the default) selects the first.
+    const ctx = makeCtx({ 'song.mma': 'Lyric Verse=2\nC [hello] [world]\n' });
+    await new Parser(ctx).parseFile('song.mma');
+    const lyrics: string[] = [];
+    for (const evs of ctx.mtrks.meta().miditrk.values()) {
+      for (const e of evs) if (e[1] === 0x05) lyrics.push(String.fromCharCode(...e.slice(3)));
+    }
+    expect(lyrics).toEqual(['world ']);
   });
 
-  it('reports unported M1 directives instead of silently ignoring them', async () => {
+  it('reports unknown function calls instead of silently ignoring them', async () => {
     const ctx = makeCtx({ 'song.mma': 'Call Foo\n' });
     await expect(new Parser(ctx).parseFile('song.mma')).rejects.toThrowError(
-      'CALL is not implemented in this milestone (M1).',
+      "Call: 'FOO' has not been defined.",
     );
 
     const ctx2 = makeCtx({ 'song.mma': 'Chord Riff B1\n' });

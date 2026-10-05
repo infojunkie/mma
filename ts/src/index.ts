@@ -37,7 +37,7 @@ export type {
 } from './api/SongModel';
 
 export { MMAError, type WarningRecord } from './engine/Errors';
-export { MMA_VERSION, MMA_UPSTREAM_VERSION } from './version';
+export { MMA_UPSTREAM_VERSION } from './version';
 
 export {
   MemoryResources,

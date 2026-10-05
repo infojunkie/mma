@@ -21,6 +21,7 @@ import type { MMAContext } from '../../engine/Context';
 import type { CTable } from '../CTable';
 import { harmonize } from '../features/Harmony';
 import { mdefGet } from '../features/MDefine';
+import { doRpitch } from '../features/Rpitch';
 import type { BaseTrack } from './BaseTrack';
 
 /**
@@ -55,7 +56,7 @@ export interface TrackHooks {
   doChannelInit(ctx: MMAContext, channel: number, name: string): void;
   /** Port of MMA/mdefine.Mdefine.get(). */
   mdefGet(ctx: MMAContext, name: string): MidiSeqDef;
-  /** Port of MMA/rpitch.doRpitch().  M2: rpitch.py not ported. */
+  /** Port of MMA/rpitch.doRpitch(). */
   doRpitch(ctx: MMAContext, track: BaseTrack, offset: number, note: number): number;
   /** Port of MMA/harmony.harmonize(): chord-derived harmony notes. */
   harmonize(ctx: MMAContext, hmode: string, note: number, chord: number[]): number[];
@@ -78,8 +79,7 @@ export const trackHooks: TrackHooks = {
     /* no channel-init data can exist until the MIDI directive port lands */
   },
   mdefGet: (ctx, name) => mdefGet(ctx, name),
-  doRpitch: (ctx, _track, _offset, _note) =>
-    ctx.rep.error('M2: RPitch is not ported to TypeScript yet (MMA/rpitch.py doRpitch).'),
+  doRpitch: (ctx, track, offset, note) => doRpitch(ctx, track, offset, note),
   harmonize: (ctx, hmode, note, chord) => harmonize(ctx, hmode, note, chord),
   truncate: { length: 0, side: 0, count: null },
   trackAlloc: (ctx) =>

@@ -34,6 +34,8 @@ import { takeChannelInit } from '../directives/simple/Midi';
 import '../model/tracks/index'; // side effect: register track classes
 import { trackHooks } from '../model/tracks/hooks';
 import { extractSolo } from '../model/tracks/SoloTrack';
+import { getLyric, lyricExtract, lyricLeftovers } from '../model/features/Lyric';
+import { setCurrentBarLabel } from '../model/features/Trigger';
 import { AfterState } from '../model/features/After';
 import { countDown } from '../model/features/Truncate';
 import { DebugState } from '../directives/simple/Debug';
@@ -143,6 +145,8 @@ export class Parser {
     // track MIDI, MIDICLEAR and the channel reset are emitted just before
     // the document is written, not at the end of parsing.
     ctx.mtrks.onBeforeWrite = () => {
+      // writeMid.py reports unresolved lyric sets before writing.
+      lyricLeftovers(ctx);
       for (const trk of ctx.tnames.values()) {
         if (!trk.channel) continue;
         trk.clearPending();
@@ -345,6 +349,8 @@ export class Parser {
       } else {
         this.barLabel = '';
       }
+      // Publish the label for the TRIGGER MEASURES option (gbl.barLabel).
+      setCurrentBarLabel(ctx, this.barLabel);
 
       // Optional repeat count: '* xx' at the end of the bar.
       let rptcount = 1;
@@ -364,11 +370,12 @@ export class Parser {
       const joined = l.join(' ');
       const noSolo = extractSolo(ctx, joined, rptcount);
 
-      // Set lyrics from [stuff] in the current line.
-      if (/\[/.test(noSolo)) {
-        ctx.error('Lyrics ([...]) are not implemented in this milestone (M3).');
-      }
-      l = noSolo.split(/\s+/).filter((w) => w !== '');
+      // Set lyrics from [stuff] in the current line.  lyric.extract()
+      // inserts previously created data from LYRIC SET and inserts the
+      // chord names if that flag is active.
+      const extracted = lyricExtract(ctx, noSolo, rptcount);
+      let lyrics = extracted[1];
+      l = extracted[0].split(/\s+/).filter((w) => w !== '');
 
       if (!l.length) {
         ctx.error(
@@ -428,7 +435,16 @@ export class Parser {
         ctx.grooves.next(ctx); // using a groove list? advance
 
         if (ctx.debug.showrun) {
-          ctx.dPrint(`${String(ctx.barNum).padStart(3, ' ')}: ${l.join(' ')}`);
+          const ly = lyrics.length ? ` [${lyrics.join(' ')}]` : '';
+          ctx.dPrint(`${String(ctx.barNum).padStart(3, ' ')}: ${l.join(' ')}${ly}`);
+        }
+
+        // If repeat count is set with dupchord we push the chord back and
+        // get lyric.extract to add the chord to the midi file again.  A
+        // real lyric is just ignored ... 2 reasons: the lyric is mangled
+        // and it makes sense to only have it once!
+        if (rptcount > 1 && getLyric(ctx).dupchords) {
+          lyrics = lyricExtract(ctx, l.join(' '), 0)[1];
         }
 
         // The barNum and other pointers have been incremented and a bar

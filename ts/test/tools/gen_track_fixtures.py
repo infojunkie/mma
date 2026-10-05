@@ -2,15 +2,16 @@
 """Generate golden fixtures for the TypeScript track/pattern engine.
 
 Uses the original Python MMA track classes (MMA/pat.py, patChord.py,
-patBass.py, patDrum.py) as the oracle.  The parser is bypassed: we set up
-gbl state exactly as parse.py does around a bar, build CTable entries by
-hand, and call track.bar(ctable) directly.
+patBass.py, patDrum.py, patPlectrum.py, ...) as the oracle.  The parser is
+bypassed: we set up gbl state exactly as parse.py does around a bar, build
+CTable entries by hand, and call track.bar(ctable) directly.
 
 Run:
     python3 ts/test/tools/gen_track_fixtures.py > ts/test/fixtures/python/tracks.json
 """
 
 import contextlib
+import copy
 import json
 import os
 import random
@@ -30,6 +31,9 @@ __main__.platform = "Linux"
 import MMA.parse  # noqa: E402
 import MMA.swing  # noqa: E402
 import MMA.harmony  # noqa: E402
+import MMA.ornament  # noqa: E402
+import MMA.rpitch  # noqa: E402
+import MMA.trigger  # noqa: E402
 
 from MMA import gbl, pat  # noqa: E402
 from MMA.chords import ChordNotes  # noqa: E402
@@ -42,6 +46,7 @@ from MMA.patScale import Scale  # noqa: E402
 from MMA.patWalk import Walk  # noqa: E402
 from MMA.patPlectrum import Plectrum  # noqa: E402
 from MMA.patSolo import Melody, Solo  # noqa: E402
+from MMA.patAria import Aria  # noqa: E402
 
 TRACKS = {
     "CHORD": Chord,
@@ -52,28 +57,44 @@ TRACKS = {
     "WALK": Walk,
     "MELODY": Melody,
     "SOLO": Solo,
+    "PLECTRUM": Plectrum,
+    "ARIA": Aria,
 }
 
-# PLECTRUM is only needed for the harmony-setter warning cases; it must not
-# join TRACKS or the `defaults` section (and every existing fixture) would
-# grow a new entry.
 SETTER_TRACKS = dict(TRACKS)
-SETTER_TRACKS["PLECTRUM"] = Plectrum
 
-# The harmony setters live in MMA/harmony.py and take the track as self,
-# so they are not track methods in Python (parse.py calls them directly).
-HARMONY_SETTERS = {
+# Some setters live in modules and take the track as self (parse.py calls
+# them directly); rpitch/trigger look the track up by name in gbl.tnames.
+# These need a shim so the fixtures can drive them by method name.
+def _shim_ornament(t, ln):
+    MMA.ornament.setOrnament(t, ln)
+
+
+def _shim_rpitch(t, ln):
+    gbl.tnames[t.name] = t
+    MMA.rpitch.setRPitch(t.name, ln)
+
+
+def _shim_trigger(t, ln):
+    gbl.tnames[t.name] = t
+    MMA.trigger.setTrigger(t.name, ln)
+
+
+MODULE_SETTERS = {
     "setHarmony": MMA.harmony.setHarmony,
     "setHarmonyOnly": MMA.harmony.setHarmonyOnly,
     "setHarmonyVolume": MMA.harmony.setHarmonyVolume,
+    "setOrnament": _shim_ornament,
+    "setRPitch": _shim_rpitch,
+    "setTrigger": _shim_trigger,
 }
 
 
 def apply_setup(t, setup):
-    """Apply a fixture setup list; harmony setters need the module shim."""
+    """Apply a fixture setup list; module setters need the shim."""
     for method, args in setup:
-        if method in HARMONY_SETTERS:
-            HARMONY_SETTERS[method](t, *args)
+        if method in MODULE_SETTERS:
+            MODULE_SETTERS[method](t, *args)
         else:
             getattr(t, method)(*args)
 
@@ -167,7 +188,7 @@ def dump_defaults(vtype):
 
 
 def run_bar_case(vtype, pattern, channel, chord_names, setup=(), seed=None, swing=None,
-                 patterns=None, seqrnd=False):
+                 patterns=None, seqrnd=False, pre_setup=()):
     reset_gbl()
     if seed is not None:
         # Same MT19937 stream as the TypeScript MMARandom (CPython seed()).
@@ -178,6 +199,11 @@ def run_bar_case(vtype, pattern, channel, chord_names, setup=(), seed=None, swin
     t = TRACKS[vtype](vtype)
     if channel is not None:
         t.setChannel(str(channel))
+
+    # pre_setup runs before the pattern is compiled (e.g. a plectrum
+    # tuning change, which fixes the number of strings in the pattern).
+    pre_setup_record = [[m, copy.deepcopy(list(a))] for m, a in pre_setup]
+    apply_setup(t, pre_setup)
 
     if patterns:
         for i, p in enumerate(patterns):
@@ -193,6 +219,9 @@ def run_bar_case(vtype, pattern, channel, chord_names, setup=(), seed=None, swin
     if seqrnd:
         t.seqRnd = True
 
+    # Record the setup args before running them: setPlectrumShape() pops
+    # its first argument (the chord name), which would otherwise be lost.
+    setup_record = [[m, copy.deepcopy(list(a))] for m, a in setup]
     apply_setup(t, setup)
 
     for bar, cname in enumerate(chord_names):
@@ -204,19 +233,23 @@ def run_bar_case(vtype, pattern, channel, chord_names, setup=(), seed=None, swin
     # Swing settings are module-global; do not leak into later cases.
     MMA.swing.grestore(saved_swing)
 
-    return {
+    out = {
         "track": vtype,
         "pattern": pattern,
         "chords": chord_names,
         "channel": t.channel,
         "presetChannel": channel is not None,
-        "setup": [[m, list(a)] for m, a in setup],
+        "setup": setup_record,
         "seed": seed,
         "swing": swing,
         "patterns": patterns,
         "seqrnd": seqrnd,
         "events": dump_channel(t.channel),
     }
+    # Only present when used, so cases without a pre-setup are unchanged.
+    if pre_setup_record:
+        out["preSetup"] = pre_setup_record
+    return out
 
 
 def run_multi_chord_case(vtype, pattern, channel, bars, setup=(), seed=None):
@@ -236,6 +269,7 @@ def run_multi_chord_case(vtype, pattern, channel, bars, setup=(), seed=None):
 
     gbl.seqSize = len(bars)
     t.setSeqSize()
+    setup_record = [[m, copy.deepcopy(list(a))] for m, a in setup]
     apply_setup(t, setup)
 
     for b, specs in enumerate(bars):
@@ -254,7 +288,7 @@ def run_multi_chord_case(vtype, pattern, channel, bars, setup=(), seed=None):
         "chordTabs": [[list(c) for c in bar] for bar in bars],
         "channel": t.channel,
         "presetChannel": channel is not None,
-        "setup": [[m, list(a)] for m, a in setup],
+        "setup": setup_record,
         "seed": seed,
         "swing": None,
         "events": dump_channel(t.channel),
@@ -276,7 +310,7 @@ def run_harmony_setter_case(vtype, method, args, seqsize=1):
     orig = MMA.harmony.warning
     MMA.harmony.warning = lambda msg: captured.append(msg)
     try:
-        HARMONY_SETTERS[method](t, args)
+        MODULE_SETTERS[method](t, args)
     finally:
         MMA.harmony.warning = orig
 
@@ -702,6 +736,271 @@ def generate():
     out["bars"]["solo_basic"] = run_bar_case("SOLO", "4c; 4d; 4e;", 5, ["C"])
     out["bars"]["solo_multi_bar"] = run_bar_case(
         "SOLO", "8c; 8d; 8e; 8f; 8g; 8a; 8b; 8c;", 5, ["C", "G"]
+    )
+
+    # ---------------------------------------------------------- PLECTRUM
+    # Patterns are "offset strum patterns..."; ':90' plucks all strings.
+    out["bars"]["plectrum_basic"] = run_bar_case("PLECTRUM", "1 5 :90", 8, ["C"])
+    out["bars"]["plectrum_all_strings"] = run_bar_case(
+        "PLECTRUM", "1 0 90 80 70 60 50 40", 8, ["C"]
+    )
+    out["bars"]["plectrum_subset"] = run_bar_case(
+        "PLECTRUM", "1 0 1-3:80 6:90", 8, ["C"]
+    )
+    out["bars"]["plectrum_volume_zero"] = run_bar_case(
+        "PLECTRUM", "1 0 90 90 90 0 90 90", 8, ["C"]
+    )
+    out["bars"]["plectrum_strum_center"] = run_bar_case(
+        "PLECTRUM", "1 10 :90", 8, ["C"], setup=[("setStrum", (["CENTER"],))]
+    )
+    out["bars"]["plectrum_strum_end"] = run_bar_case(
+        "PLECTRUM", "1 10 :90", 8, ["C"], setup=[("setStrum", (["End"],))]
+    )
+    out["bars"]["plectrum_strum_negative"] = run_bar_case(
+        "PLECTRUM", "1 -5 :90", 8, ["C"]
+    )
+    out["bars"]["plectrum_capo"] = run_bar_case(
+        "PLECTRUM", "1 0 :90", 8, ["C"], setup=[("setPlectrumCapo", ("2",))]
+    )
+    out["bars"]["plectrum_tuning"] = run_bar_case(
+        "PLECTRUM", "1 0 :90", 8, ["C"],
+        setup=[("setPlectrumTuning", (["d-", "a-", "d", "g", "b", "e+"],))],
+    )
+    out["bars"]["plectrum_shape"] = run_bar_case(
+        "PLECTRUM", "1 0 :90", 8, ["C"],
+        setup=[("setPlectrumShape", (["C", "0", "1", "0", "2", "3", "-"],))],
+    )
+    out["bars"]["plectrum_shape_muted"] = run_bar_case(
+        "PLECTRUM", "1 5 :90", 8, ["C"],
+        setup=[("setPlectrumShape", (["C", "0", "1", "0", "2", "-", "-"],))],
+    )
+    out["bars"]["plectrum_seventh"] = run_bar_case("PLECTRUM", "1 5 :90", 8, ["C7"])
+    out["bars"]["plectrum_ninth"] = run_bar_case("PLECTRUM", "1 5 :90", 8, ["C9"])
+    out["bars"]["plectrum_barre"] = run_bar_case("PLECTRUM", "1 0 :90", 8, ["C:5"])
+    out["bars"]["plectrum_octave_chord"] = run_bar_case("PLECTRUM", "1 0 :90", 8, ["+C"])
+    out["bars"]["plectrum_eight_strings"] = run_bar_case(
+        "PLECTRUM", "1 0 :90", 8, ["C"],
+        pre_setup=[("setPlectrumTuning", (["e-", "a-", "d", "g", "b", "e+", "a", "d+"],))],
+    )
+    out["bars"]["plectrum_two_events"] = run_bar_case(
+        "PLECTRUM", "1 2 :90; 3 4 6:90 1:50", 8, ["C"]
+    )
+    out["bars"]["plectrum_two_bars"] = run_bar_case(
+        "PLECTRUM", "1 5 :80; 3 5 :60", 8, ["C", "F"]
+    )
+    out["bars"]["plectrum_groove"] = run_bar_case(
+        "PLECTRUM", "1 8 :90", 8, ["C"],
+        setup=[
+            ("saveGroove", ("G1",)),
+            ("setPlectrumTuning", (["d-", "a-", "d", "g", "b", "e+"],)),
+            ("setPlectrumCapo", ("5",)),
+            ("setStrum", (["Center"],)),
+            ("restoreGroove", ("G1",)),
+        ],
+    )
+    out["bars"]["plectrum_two_chords"] = run_multi_chord_case(
+        "PLECTRUM", "1 2 :90; 2+2 2 :80", 8, [[("C", 1, 2.5), ("F", 2.5, 5)]]
+    )
+
+    # -------------------------------------------------------------- ARIA
+    out["bars"]["aria_basic"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["C"]
+    )
+    out["bars"]["aria_scale"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["Cmaj7"],
+        setup=[("setScaletype", (["SCALE"],))],
+    )
+    out["bars"]["aria_chromatic"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["C"],
+        setup=[("setScaletype", (["CHROMATIC"],))],
+    )
+    out["bars"]["aria_chord"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["Cmaj7"],
+        setup=[("setScaletype", (["CHORD"],))],
+    )
+    out["bars"]["aria_key"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["Cmaj7"],
+        setup=[("setScaletype", (["KEY"],))],
+    )
+    out["bars"]["aria_direction_int"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["C"],
+        setup=[("setDirection", (["1", "2", "-3"],))],
+    )
+    out["bars"]["aria_direction_random"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["C"],
+        setup=[("setDirection", (["r", "rr"],))], seed=50,
+    )
+    out["bars"]["aria_deplete"] = run_bar_case(
+        "ARIA", "1 8 90; 1+8 8 90; 2 8 90; 2+8 8 90; 3 8 90; 3+8 8 90; 4 8 90; 4+8 8 90",
+        3, ["C"], setup=[("setScaletype", (["CHROMATIC-"],))],
+    )
+    out["bars"]["aria_range_fraction"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["C"],
+        setup=[("setRange", (["1.5"],))],
+    )
+    out["bars"]["aria_harmony"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["C"],
+        setup=[("setHarmony", (["3"],))],
+    )
+    out["bars"]["aria_two_bars"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["C", "F"]
+    )
+    out["bars"]["aria_two_chords"] = run_multi_chord_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3,
+        [[("C", 1, 3), ("G", 3, 5)]],
+    )
+    out["bars"]["aria_restart"] = run_bar_case(
+        "ARIA", "1 4 90; 2 4 90; 3 4 90; 4 4 90", 3, ["Cmaj7"],
+        setup=[("setDirection", (["2"],)), ("restart", ())],
+    )
+
+    # ---------------------------------------------------------- ORNAMENT
+    out["bars"]["orn_grace_bass"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Grace", "Duration=30", "Volume=80", "Place=Above"],))],
+    )
+    out["bars"]["orn_grace_below_chromatic"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Grace", "Place=Below", "Chromatic=On"],))],
+    )
+    out["bars"]["orn_fall_bass"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Fall"],))],
+    )
+    out["bars"]["orn_trill_scale"] = run_bar_case(
+        "SCALE", "1 4 90; 3 4 90", 6, ["Cmaj7"],
+        setup=[("setOrnament", (["Type=Trill", "Duration=20"],))],
+    )
+    out["bars"]["orn_mordent_chord"] = run_bar_case(
+        "CHORD", "1 4 90", 3, ["C"],
+        setup=[("setOrnament", (["Type=Mordent"],))],
+    )
+    out["bars"]["orn_turn_arpeggio"] = run_bar_case(
+        "ARPEGGIO", "1 4 90; 3 4 90", 5, ["Cmaj7"],
+        setup=[("setOrnament", (["Type=Turn"],))],
+    )
+    out["bars"]["orn_3after_scale"] = run_bar_case(
+        "SCALE", "1 4 90; 3 4 90", 6, ["Cmaj7"],
+        setup=[("setOrnament", (["Type=3After", "Duration=75", "Volume=90"],))],
+    )
+    out["bars"]["orn_gliss_bass"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Gliss", "Count=4", "Duration=50"],))],
+    )
+    out["bars"]["orn_glissafter_bass"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=GlissAfter", "Count=3"],))],
+    )
+    out["bars"]["orn_random_place"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Grace", "Place=Random"],))], seed=51,
+    )
+    out["bars"]["orn_rvolume"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Grace", "RVolume=20"],))], seed=52,
+    )
+    out["bars"]["orn_beats_skip"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Grace", "Beats=3"],))],
+    )
+    out["bars"]["orn_bars_skip"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C", "C"],
+        setup=[("setOrnament", (["Type=Grace", "Bars=2"],))],
+    )
+    out["bars"]["orn_rskip"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Grace", "Rskip=99"],))], seed=53,
+    )
+    out["bars"]["orn_pad"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Grace", "Pad=50,20"],))],
+    )
+    out["bars"]["orn_offset"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Grace", "Offset=10"],))],
+    )
+    out["bars"]["orn_walk"] = run_bar_case(
+        "WALK", "1 4 90; 3 4 80", 7, ["C"],
+        setup=[("setOrnament", (["Type=Mordent"],))], seed=54,
+    )
+    out["bars"]["orn_count_clamp"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setOrnament", (["Type=Gliss", "Count=100", "Duration=5"],))],
+    )
+
+    # ----------------------------------------------------------- TRIGGER
+    out["bars"]["trg_beats_bass"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setTrigger", (["Beats=1,3"],))],
+    )
+    out["bars"]["trg_beats_count"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 90", 4, ["C"],
+        setup=[("setTrigger", (["Beats=1,2","Count=1"],))],
+    )
+    out["bars"]["trg_sequence"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setTrigger", (["Sequence={1 8 1 90; 2 8 1 80}", "Beats=1,3"],))],
+    )
+    out["bars"]["trg_truncate"] = run_bar_case(
+        "BASS", "1 2 1 90", 4, ["C"],
+        setup=[("setTrigger", (["Beats=1,2,3,4", "Truncate=True"],))],
+    )
+    out["bars"]["trg_auto"] = run_multi_chord_case(
+        "BASS", "1 2 1 90", 4, [[("C", 1, 3), ("F", 3, 5)]],
+        setup=[("setTrigger", (["Auto"],))],
+    )
+    # NOTE: Trigger mode REST ('z' chords) is covered by the TypeScript
+    # unit tests: Python's ChordNotes('z') has no noteList/scaleList, so a
+    # hand-built z ctable cannot drive a track in the oracle harness.
+    out["bars"]["trg_cnames"] = run_multi_chord_case(
+        "CHORD", "1 2 90", 3, [[("C", 1, 2), ("G", 2, 3), ("F", 3, 5)]],
+        setup=[("setTrigger", (["Beats=1,2,3,4", "CNames=C,F"],))],
+    )
+    out["bars"]["trg_ctonics"] = run_multi_chord_case(
+        "CHORD", "1 2 90", 3, [[("C", 1, 2), ("G", 2, 3), ("F", 3, 5)]],
+        setup=[("setTrigger", (["Beats=1,2,3,4", "CTonics=C,G"],))],
+    )
+    out["bars"]["trg_ctypes"] = run_multi_chord_case(
+        "CHORD", "1 2 90", 3, [[("C", 1, 2), ("G7", 2, 3), ("F", 3, 5)]],
+        setup=[("setTrigger", (["Beats=1,2,3,4", "CTypes=7"],))],
+    )
+    out["bars"]["trg_bars"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C", "C"],
+        setup=[("setTrigger", (["Beats=1", "Bars=2"],))],
+    )
+    out["bars"]["trg_override"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C", "C"],
+        setup=[("setTrigger", (["Beats=1", "Bars=2", "Override=True"],))],
+    )
+
+    # ------------------------------------------------------------ RPITCH
+    out["bars"]["rp_chromatic"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 1 90", 4, ["C"],
+        setup=[("setRPitch", (["Scale=Chromatic", "Offsets=-2,2", "Rate=100"],))], seed=55,
+    )
+    out["bars"]["rp_scale"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 5 90", 4, ["C"],
+        setup=[("setRPitch", (["Scale=Scale", "Offsets=-2,3", "Rate=100"],))], seed=56,
+    )
+    out["bars"]["rp_chord"] = run_bar_case(
+        "CHORD", "1 4 90; 3 4 90", 3, ["Cmaj7"],
+        setup=[("setRPitch", (["Scale=Chord", "Offsets=1,2", "Rate=100"],))], seed=57,
+    )
+    out["bars"]["rp_rate_zero"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setRPitch", (["Offsets=5", "Rate=0"],))], seed=58,
+    )
+    out["bars"]["rp_bars"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C", "C"],
+        setup=[("setRPitch", (["Offsets=5", "Rate=100", "Bars=2"],))], seed=59,
+    )
+    out["bars"]["rp_range_offsets"] = run_bar_case(
+        "BASS", "1 4 1 90; 3 4 1 90", 4, ["C"],
+        setup=[("setRPitch", (["Scale=Chromatic", "Offsets=-2-2", "Rate=100"],))], seed=60,
+    )
+    out["bars"]["rp_off"] = run_bar_case(
+        "BASS", "1 4 1 90", 4, ["C"],
+        setup=[("setRPitch", (["Off"],))],
     )
 
     # Harmony setters (state + warnings).  CHORD/DRUM ignore the setting
