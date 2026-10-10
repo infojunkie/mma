@@ -71,7 +71,7 @@
   <body>
     <h1>MMA — Musical MIDI Accompaniment, in the browser</h1>
     <p class="muted">
-      The library (<code>../dist/index.js</code>) parses the MMA source below and produces a MIDI file;
+      The library parses the MMA source below and produces a MIDI file;
       playback uses <a href="https://www.npmjs.com/package/spessasynth_lib">spessasynth_lib</a> loaded from a CDN.
     </p>
 
@@ -86,15 +86,9 @@
     <textarea id="source" spellcheck="false"></textarea>
 
     <div class="row">
-      <input
-        id="db-url"
-        type="url"
-        value="./assets/mma-grooves.db.gz"
-        aria-label="Groove database URL"
-      />
       <button id="load-db">Load groove database</button>
       <label class="muted">
-        Add an .mma file:
+        Add an .mma groove file:
         <input id="add-file" type="file" accept=".mma" />
       </label>
     </div>

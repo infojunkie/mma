@@ -10,6 +10,7 @@ const SPESSA_VERSION = '4.3.14';
 const SPESSA_LIB_URL = `https://cdn.jsdelivr.net/npm/spessasynth_lib@${SPESSA_VERSION}/+esm`;
 const SPESSA_PROCESSOR_URL = `https://cdn.jsdelivr.net/npm/spessasynth_lib@${SPESSA_VERSION}/dist/spessasynth_processor.min.js`;
 const SOUNDFONT_URL = 'https://spessasus.github.io/SpessaSynth/soundfonts/GeneralUserGS.sf3';
+const ASSETS_URL = './assets/mma-grooves.db.gz';
 
 const $ = (id) => document.getElementById(id);
 const statusEl = $('status');
@@ -172,22 +173,27 @@ $('preset-groove').addEventListener('click', () => {
   log('Loaded the groove preset — press Play (load the database first if you have not).');
 });
 $('load-db').addEventListener('click', () => {
-  void loadDatabase($('db-url').value).catch((e) => log(`Error: ${e.message}`));
+  void loadDatabase(ASSETS_URL).catch((e) => log(`Error: ${e.message}`));
 });
 $('add-file').addEventListener('change', (event) => {
   void (async () => {
     const file = event.target.files?.[0];
     if (!file) return;
-    if (!database) {
-      database = GrooveDatabase.empty();
-      mma.setGrooveDatabase(database);
+    if (file.size > 200000) {
+      log(`${file.name} too big: Aborting.`);
     }
-    const names = database.addGrooveFile(file.name, await file.text());
-    log(
-      names.length
-        ? `Added ${file.name}: ${names.join(', ')} (${database.grooveCount} grooves in database).`
-        : `Added ${file.name}: no DefGroove found in it.`,
-    );
+    else {
+      if (!database) {
+        database = GrooveDatabase.empty();
+        mma.setGrooveDatabase(database);
+      }
+      const names = database.addGrooveFile(file.name, await file.text());
+      log(
+        names.length
+          ? `Added ${file.name}: ${names.join(', ')} (${database.grooveCount} grooves in database).`
+          : `Added ${file.name}: no DefGroove found in it.`,
+      );
+    }
     event.target.value = '';
   })();
 });
@@ -196,7 +202,7 @@ $('add-file').addEventListener('change', (event) => {
 sourceEl.value = await (await fetch(SAMPLE_URL)).text();
 log('Ready. Press Play.');
 try {
-  await loadDatabase($('db-url').value);
+  await loadDatabase(ASSETS_URL);
 } catch {
   log('Ready (groove database not available — the self-contained sample still plays).');
 }
