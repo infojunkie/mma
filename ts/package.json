@@ -23,7 +23,7 @@
     "build": "tsup",
     "prepublishOnly": "npm run typecheck && npm test && npm run build",
     "grooves": "node scripts/build-grooves.mjs",
-    "demo": "npm run build && npm run grooves && node scripts/serve.mjs",
+    "demo": "npm run build && npm run grooves && ws -d demo -p ${PORT:-8087} -z --log.format combined",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
+    "local-web-server": "^5.4.0",
     "tsup": "^8.3.5",
     "tsx": "^4.23.15",
     "typescript": "^5.7.2",

@@ -28,10 +28,10 @@ const log = (msg) => {
 let MMA;
 let GrooveDatabase;
 try {
-  ({ MMA, GrooveDatabase } = await import('../dist/index.js'));
+  ({ MMA, GrooveDatabase } = await import('./dist/index.js'));
 } catch (e) {
   log(
-    `Could not import ../dist/index.js (${e.message}).\n` +
+    `Could not import dist/index.js (${e.message}).\n` +
       'Build it with "npm run build", or just use "npm run demo" which builds everything and serves it.',
   );
   throw e;
